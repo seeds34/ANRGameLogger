@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    app:cardBackgroundColor="@android:color/white"
+    app:cardElevation="3dp"
+    app:cardCornerRadius="5dp"
+    app:cardUseCompatPadding="true"
+    >
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <!--android:elevation="2dp"-->
+        <!--android:background="@drawable/myrect"-->
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="180dp"/>
+
+        <TextView
+            android:id="@+id/vs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="VS"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintHorizontal_bias="0.504"
+            app:layout_constraintLeft_toRightOf="@+id/playerIneIDImage"
+            app:layout_constraintRight_toLeftOf="@+id/playerTwoIDImage"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+        <ImageView
+            android:id="@+id/playerTwoIDImage"
+            android:layout_width="58dp"
+            android:layout_height="87dp"
+            android:layout_marginLeft="64dp"
+            android:layout_marginTop="6dp"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/location"
+            app:srcCompat="@drawable/cardback"/>
+
+        <ImageView
+            android:id="@+id/playerIneIDImage"
+            android:layout_width="58dp"
+            android:layout_height="87dp"
+            android:layout_marginRight="64dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintRight_toLeftOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/playeddate"
+            app:srcCompat="@drawable/cardback"
+            />
+        <!--android:tint="#C0C0C0"-->
+        <!--android:tintMode="screen"-->
+        <TextView
+            android:id="@+id/playerTwoName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="0dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/name_filler"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.487"
+            app:layout_constraintLeft_toLeftOf="@+id/playerTwoIDImage"
+            app:layout_constraintRight_toRightOf="@+id/playerTwoIDImage"
+            app:layout_constraintTop_toBottomOf="@+id/playerTwoIDImage"/>
+
+
+        <TextView
+            android:id="@+id/playerOneName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="0dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/name_filler"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.487"
+            app:layout_constraintLeft_toLeftOf="@+id/playerIneIDImage"
+            app:layout_constraintRight_toRightOf="@+id/playerIneIDImage"
+            app:layout_constraintTop_toBottomOf="@+id/playerIneIDImage"/>
+
+        <TextView
+            android:id="@+id/playeddate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:text="21/08/2017"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:text="TextView"
+            android:textSize="14sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/playeddate"
+            app:layout_constraintLeft_toRightOf="@+id/playeddate"/>
+
+        <TextView
+            android:id="@+id/gameNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No. "
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/playerTwoIDImage"/>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+
+
+</android.support.v7.widget.CardView>

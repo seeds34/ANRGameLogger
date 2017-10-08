@@ -1,0 +1,43 @@
+ //Obsalete
+    public void extractIdentitiesFromFile(Context contextIn){
+
+        String data = GetRawData.GetRawDataFromFile(contextIn, R.raw.id);
+
+      //  HashSet<String> players = new HashSet<String>();
+
+        contentResolver = contextIn.getContentResolver();
+
+        Log.v(LOG_TAG,"JSON Data: " + data);
+
+        try{
+            //Get top level object, then into "LocalLoggedGame Tracker" Object
+            JSONObject jsonData = new JSONObject(data);
+            JSONArray objArray = jsonData.names();
+
+            ContentValues values;
+
+            //Cycle through each object
+            for(int i = 0 ; i < objArray.length() ; i++){
+                JSONObject temp = jsonData.getJSONObject(objArray.getString(i));
+                String name = temp.getString("Name");
+                String side = temp.getString("Side");
+                String faction = temp.getString("Faction");
+                //players.add(temp);
+
+            values = new ContentValues();
+            values.put(IdentitiesContract.IdentitiesColumns.IDENTITY_NAME, name);
+                values.put(IdentitiesContract.IdentitiesColumns.IDENTITY_SIDE, side);
+                values.put(IdentitiesContract.IdentitiesColumns.IDENTITY_FACATION, faction);
+                values.put(IdentitiesContract.IdentitiesColumns.ROTATED_FLAG, "N");
+            contentResolver.insert(IdentitiesContract.URI_TABLE, values);
+
+                Log.d(LOG_TAG, "Identity: Name: " + name + " | Side: " + side +" | Faction: " + faction);
+            }
+
+
+        }catch (JSONException e){
+            e.printStackTrace();
+            Log.e(LOG_TAG,"Error Proccessing JSON" + e.toString());
+        }
+
+    }

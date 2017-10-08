@@ -1,0 +1,6 @@
+INSERT INTO Location values ('Jinteki',1);
+INSERT INTO Location values ('Home',2);
+INSERT INTO Location values ('Brewhouse & Kitchen',3);
+INSERT INTO Location values ('Cheep Thrills ',4);
+INSERT INTO Location values ('IoW Car Ferry ',5);
+INSERT INTO Location values ('Fist Full Dice',6);

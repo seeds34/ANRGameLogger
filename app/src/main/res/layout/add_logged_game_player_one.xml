@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+                                             <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+                                             <!--xmlns:tools="http://schemas.android.com/tools"-->
+
+                                             <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+                                             <!--tools:context="org.seeds.anrgamelogger.creategamelog.CreateLoggedGameActivity"-->
+
+                                             <!--android:layout_width="match_parent"-->
+                                             <!--android:layout_height="match_parent"-->
+                                             <!--android:orientation="horizontal"-->
+                                             <!--tools:layout_editor_absoluteY="25dp"-->
+                                             <!--tools:layout_editor_absoluteX="0dp">-->
+
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    app:layout_collapseParallaxMultiplier="1.0"
+    tools:context="org.seeds.anrgamelogger.addgame.CreateLoggedGameActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="50dp"
+            tools:layout_editor_absoluteY="22dp">
+
+            <TextView
+                android:id="@+id/playerOneLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:contentDescription="Test"
+                android:text="Player 1"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/linearLayout"
+                android:layout_width="123dp"
+                android:layout_height="176dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/cardback"
+                tools:layout_constraintLeft_creator="1"
+                tools:layout_constraintTop_creator="1"/>
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintLeft_toRightOf="@+id/linearLayout"
+                app:layout_constraintTop_toTopOf="@+id/linearLayout"
+                tools:layout_constraintLeft_creator="1"
+                tools:layout_constraintTop_creator="1"/>
+
+            <EditText
+                android:id="@+id/palyerOneName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="Name"
+                android:maxLines="1"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                tools:layout_conversion_absoluteHeight="16dp"
+                tools:layout_conversion_absoluteWidth="123dp"
+                tools:layout_conversion_absoluteX="0dp"
+                tools:layout_conversion_absoluteY="200dp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="200dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/playerOneDeckName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Deck Name"
+                    android:maxLines="1"
+                    android:textAlignment="center"
+                    android:textSize="14sp"
+                    tools:layout_conversion_absoluteHeight="16dp"
+                    tools:layout_conversion_absoluteWidth="123dp"
+                    tools:layout_conversion_absoluteX="0dp"
+                    tools:layout_conversion_absoluteY="248dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="248dp"/>
+
+                <EditText
+                    android:id="@+id/playerOneDeckVersion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Version"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/playerOneScore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="Score"
+                android:maxLines="1"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                tools:layout_conversion_absoluteHeight="16dp"
+                tools:layout_conversion_absoluteWidth="123dp"
+                tools:layout_conversion_absoluteX="0dp"
+                tools:layout_conversion_absoluteY="265dp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="265dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp">
+
+            <TextView
+                android:id="@+id/playerTwoLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Player 2"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="123dp"
+                android:layout_height="176dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="8dp"
+                app:srcCompat="@drawable/cardback"
+                tools:layout_conversion_absoluteHeight="176dp"
+                tools:layout_conversion_absoluteWidth="123dp"
+                tools:layout_conversion_absoluteX="123dp"
+                tools:layout_conversion_absoluteY="0dp"
+                tools:layout_editor_absoluteX="56dp"
+                tools:layout_editor_absoluteY="0dp"/>
+
+            <Spinner
+                android:id="@+id/spinner2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                tools:layout_conversion_absoluteHeight="24dp"
+                tools:layout_conversion_absoluteWidth="123dp"
+                tools:layout_conversion_absoluteX="123dp"
+                tools:layout_conversion_absoluteY="176dp"
+                tools:layout_editor_absoluteX="123dp"
+                tools:layout_editor_absoluteY="176dp"/>
+
+            <EditText
+                android:id="@+id/playerTwoName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="Name"
+                android:maxLines="1"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                tools:layout_conversion_absoluteHeight="16dp"
+                tools:layout_conversion_absoluteWidth="123dp"
+                tools:layout_conversion_absoluteX="123dp"
+                tools:layout_conversion_absoluteY="200dp"
+                tools:layout_editor_absoluteX="123dp"
+                tools:layout_editor_absoluteY="200dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/playerTwoDeckName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Deck Name"
+                    android:maxLines="1"
+                    android:textAlignment="center"
+                    android:textSize="14sp"
+                    tools:layout_conversion_absoluteHeight="16dp"
+                    tools:layout_conversion_absoluteWidth="123dp"
+                    tools:layout_conversion_absoluteX="123dp"
+                    tools:layout_conversion_absoluteY="265dp"
+                    tools:layout_editor_absoluteX="123dp"
+                    tools:layout_editor_absoluteY="265dp"/>
+
+                <EditText
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Version"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/palyerTwoScore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="Score"
+                android:maxLines="1"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                tools:layout_conversion_absoluteHeight="16dp"
+                tools:layout_conversion_absoluteWidth="123dp"
+                tools:layout_conversion_absoluteX="123dp"
+                tools:layout_conversion_absoluteY="248dp"
+                tools:layout_editor_absoluteX="123dp"
+                tools:layout_editor_absoluteY="248dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Player One Won"/>
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Draw"/>
+
+            <RadioButton
+                android:id="@+id/radioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Player Two Won"/>
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Exit"/>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Next"/>
+    </LinearLayout>
+
+</LinearLayout>
+
+
+<!--</android.support.constraint.ConstraintLayout>-->
