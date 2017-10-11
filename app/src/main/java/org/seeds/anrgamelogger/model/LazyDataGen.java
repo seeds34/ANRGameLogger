@@ -21,7 +21,8 @@ public class LazyDataGen {
     private String resultOrder;
 
     public LazyDataGen(Context contextIn) {
-        contentResolver = contextIn.getContentResolver();
+        //contentResolver = contextIn.getContentResolver();
+        contentResolver = this.getContentResovler
         playedGamesList = new ArrayList<LocalLoggedGame>();
         returnLimit = -1;
         resultOrder = "DESC";

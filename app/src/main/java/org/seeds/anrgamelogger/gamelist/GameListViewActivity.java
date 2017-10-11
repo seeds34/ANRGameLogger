@@ -27,7 +27,7 @@ import org.seeds.anrgamelogger.model.LocalLoggedGame;
 
 import java.util.ArrayList;
 
-public class GameListViewActivity extends MvpActivity<GameListView, GameListPresenter> implements GameListView{
+public class GameListViewActivity extends MvpActivity<GameListView, GameListPresenter> implements GameListView {
 
     public static final String GAME_TRNASFER = "GAME_TRNASFER";
     private static final String LOG_TAG = GameListViewActivity.class.getSimpleName();
@@ -41,7 +41,7 @@ public class GameListViewActivity extends MvpActivity<GameListView, GameListPres
 
 
     @Override // Called internally by Mosby
-    public GameListPresenter createPresenter(){
+    public GameListPresenter createPresenter() {
         return new GameListPresenter();
     }
 
@@ -54,7 +54,7 @@ public class GameListViewActivity extends MvpActivity<GameListView, GameListPres
 
         testData = new ArrayList<>();
 
-       SetUpData setUpData = new SetUpData();
+        GameListPresenter.SetUpData setUpData = new SetUpData();
         setUpData.execute();
 
         gameList = (RecyclerView) findViewById(R.id.listofgmaesview);
@@ -136,37 +136,5 @@ public class GameListViewActivity extends MvpActivity<GameListView, GameListPres
         return super.onOptionsItemSelected(item);
     }
 
-    public class SetUpData extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... strings) {
-            Log.v(LOG_TAG, "Started Proccessing Data");
-            Context context = getApplicationContext();
-            PopulateIdentitiesData c = new PopulateIdentitiesData(context);
-            if(c.isIdentitiesTableEmpty()){
-                c.extractIdentitiesFromNRDB();
-            }
-
-            InportedLoggedGame e = new InportedLoggedGame(context);
-            if(e.isLoggedGamesTableEmpty()) {
-                e.inportLoggedGames();
-            }
-
-            LazyDataGen dataGen = new LazyDataGen(context);
-            dataGen.setFilters(25);
-            dataGen.genarateAllGames();
-            testData = dataGen.getPlayedGamesList();
-            Log.v(LOG_TAG, "Finished Proccessing Data");
-
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            mGameListAdaptor.loadNewData(testData);
-        }
-    }
 
 }
