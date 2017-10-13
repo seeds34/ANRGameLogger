@@ -18,6 +18,8 @@ public class LocalLoggedGame implements Serializable {
     private String playedDate;
     private static final long SERAILVERSIONUID = 1L;
 
+    private final String WINNER_FLAG = "Y";
+
     public LocalLoggedGame(Player playerOne, Player playerTwo, String locationName,  String playedDate, String gameID, String winType) {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
@@ -49,7 +51,7 @@ public class LocalLoggedGame implements Serializable {
 
     public String getWinnerName() {
         String ret;
-        if(playerOne.getwinner() == "Y" || playerOne.getwinner() == "y" ){
+        if(playerOne.isWinner().toUpperCase() == WINNER_FLAG || playerOne.isWinner().toUpperCase() == WINNER_FLAG ){
             ret = playerOne.getName();
         }else{
             ret = playerTwo.getName();

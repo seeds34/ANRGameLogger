@@ -42,7 +42,7 @@ public class Player implements Serializable{
         return score;
     }
 
-    public String getwinner() {
+    public String isWinner() {
         return winnerFlag;
     }
 

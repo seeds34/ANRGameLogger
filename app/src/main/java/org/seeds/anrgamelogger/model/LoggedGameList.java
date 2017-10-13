@@ -12,40 +12,47 @@ import java.util.ArrayList;
  * Created by Tomas Seymour-Turner on 23/05/2017.
  */
 
-public class LazyDataGen {
+public class LoggedGameList {
 
-    private static final String LOG_TAG = LazyDataGen.class.getSimpleName();
+    private static final String LOG_TAG = LoggedGameList.class.getSimpleName();
     private ArrayList<LocalLoggedGame> playedGamesList;
     private ContentResolver contentResolver;
-    private int returnLimit;
+    private int listLengthLimit;
     private String resultOrder;
 
-    public LazyDataGen(Context contextIn) {
-        //contentResolver = contextIn.getContentResolver();
-        contentResolver = this.getContentResovler
+    public LoggedGameList(Context contextIn) {
+        contentResolver = contextIn.getContentResolver();
         playedGamesList = new ArrayList<LocalLoggedGame>();
-        returnLimit = -1;
+        //TODO: This seems wrong
+        listLengthLimit = -1;
         resultOrder = "DESC";
     }
 
-    public ArrayList<LocalLoggedGame> getPlayedGamesList(){
+    public ArrayList<LocalLoggedGame> getLoggedGameList(int listLengthLimitIn){
+        listLengthLimit = listLengthLimitIn;
+        genarateAllGames();
         return playedGamesList;
     }
 
-    //TODO: Better filitering, inlcuding order by chossen coloumn
-    public void setFilters(int returnLimitIn){
-        returnLimit = returnLimitIn;
+    public ArrayList<LocalLoggedGame> getLoggedGameListAll(){
+        return playedGamesList;
     }
+
+//    //TODO: Better filitering, inlcuding order by chossen coloumn
+//    public void setFilters(int returnLimitIn){
+//        listLengthLimit = returnLimitIn;
+//    }
 
     public void setResultOrder(String resultOrderIn){
         resultOrder = resultOrderIn;
     }
 
-    public void genarateAllGames(){
+    private void genarateAllGames(){
 
-        String orderBy = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID + " " + resultOrder;
-        if(returnLimit > -1){
-            orderBy = orderBy + " LIMIT " + returnLimit;
+        //TODO: Should it be GAME NO or PLAYED DATE??
+        String orderBy = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYED_DATE + " " + resultOrder;
+        if(listLengthLimit > -1){
+            orderBy = orderBy + " LIMIT " + listLengthLimit;
         }
 
 

@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.gamelist;
+package org.seeds.anrgamelogger.gamelistview;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

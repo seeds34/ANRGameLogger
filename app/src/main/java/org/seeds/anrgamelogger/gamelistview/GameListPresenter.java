@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.gamelist;
+package org.seeds.anrgamelogger.gamelistview;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -8,7 +8,7 @@ import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 
 import org.seeds.anrgamelogger.database.datacreater.InportedLoggedGame;
 import org.seeds.anrgamelogger.database.datacreater.PopulateIdentitiesData;
-import org.seeds.anrgamelogger.model.LazyDataGen;
+import org.seeds.anrgamelogger.model.LoggedGameList;
 
 /**
  * Created by Tomas Seymour-Turner on 31/07/2017.
@@ -20,10 +20,10 @@ public class GameListPresenter extends MvpBasePresenter<GameListView> {
 
 private void getGameData(){
 
-    LazyDataGen dataGen = new LazyDataGen(context);
-    dataGen.setFilters(25);
-    dataGen.genarateAllGames();
-    testData = dataGen.getPlayedGamesList();
+    LoggedGameList dataGen = new LoggedGameList(context);
+    //dataGen.setFilters(25);
+    //dataGen.genarateAllGames();
+    testData = dataGen.getLoggedGameList(25);
 
 }
 

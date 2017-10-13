@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.gamelist;
+package org.seeds.anrgamelogger.gamelistview;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
