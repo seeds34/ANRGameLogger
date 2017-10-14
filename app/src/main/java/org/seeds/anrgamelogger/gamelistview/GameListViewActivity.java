@@ -16,10 +16,13 @@ import com.hannesdorfmann.mosby.mvp.MvpActivity;
 
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.addgame.CreateLoggedGameActivity;
+import org.seeds.anrgamelogger.dagger.DBComponent;
 import org.seeds.anrgamelogger.gamedetail.GameDetailActivity;
 import org.seeds.anrgamelogger.model.LocalLoggedGame;
 
 import java.util.ArrayList;
+
+import dagger.android.DaggerActivity;
 
 public class GameListViewActivity extends MvpActivity<GameListView, GameListPresenter> implements GameListView {
 
@@ -29,6 +32,8 @@ public class GameListViewActivity extends MvpActivity<GameListView, GameListPres
     private GameListAdaptor mGameListAdaptor;
     private ArrayList<LocalLoggedGame> testData;
     private ContentResolver contentResolver;
+
+    private DBComponent mDBComponent;
 
 //    @BindView(R.id.addGameLog)
 //    FloatingActionButton fab;
@@ -41,6 +46,9 @@ public class GameListViewActivity extends MvpActivity<GameListView, GameListPres
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        mDBComponent = this.bui
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

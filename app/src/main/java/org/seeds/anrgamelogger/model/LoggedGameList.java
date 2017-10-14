@@ -8,6 +8,8 @@ import org.seeds.anrgamelogger.database.contracts.LoggedGamesFlatViewContract;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 /**
  * Created by Tomas Seymour-Turner on 23/05/2017.
  */
@@ -16,12 +18,13 @@ public class LoggedGameList {
 
     private static final String LOG_TAG = LoggedGameList.class.getSimpleName();
     private ArrayList<LocalLoggedGame> playedGamesList;
-    private ContentResolver contentResolver;
+    @Inject private ContentResolver contentResolver;
     private int listLengthLimit;
     private String resultOrder;
 
     public LoggedGameList(Context contextIn) {
-        contentResolver = contextIn.getContentResolver();
+
+        //contentResolver = contextIn.getContentResolver();
         playedGamesList = new ArrayList<LocalLoggedGame>();
         //TODO: This seems wrong
         listLengthLimit = -1;
