@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
 public class GameListViewHolder extends RecyclerView.ViewHolder {
 
 
-    //@BindView(R.id.playerOneName)
+   // @BindView(R.id.playerOneName)
     protected TextView playerOneName;
    // @BindView(R.id.playerTwoName)
     protected TextView playerTwoName;

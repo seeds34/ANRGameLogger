@@ -20,10 +20,10 @@ public class GameListPresenter extends MvpBasePresenter<GameListView> {
 
 private void getGameData(){
 
-    LoggedGameList dataGen = new LoggedGameList(context);
+   // LoggedGameList dataGen = new LoggedGameList(context);
     //dataGen.setFilters(25);
     //dataGen.genarateAllGames();
-    testData = dataGen.getLoggedGameList(25);
+    //testData = dataGen.getLoggedGameList(25);
 
 }
 
@@ -35,7 +35,7 @@ private void getGame(int gameID){
     @Override
     protected String doInBackground(String... strings) {
         Log.v(LOG_TAG, "Started Proccessing Data");
-        Context context = getApplicationContext();
+        //Context context = getApplicationContext();
         PopulateIdentitiesData c = new PopulateIdentitiesData(context);
         if(c.isIdentitiesTableEmpty()){
             c.extractIdentitiesFromNRDB();

@@ -3,22 +3,21 @@ package org.seeds.anrgamelogger.dagger;
 import android.app.Application;
 import android.content.ContentResolver;
 
-import javax.inject.Singleton;
-
+import dagger.Module;
 import dagger.Provides;
 
 /**
  * Created by Tomas Seymour-Turner on 14/10/2017.
  */
-
-public class CRModule {
+@Module
+public class ContentResolverModule {
     ContentResolver mContentResolver;
 
-    public CRModule(){}
+    public ContentResolverModule(){}
 
     @Provides
-    @Singleton
-    ContentResolver provideCR(Application application){
-        return mContentResolver;
+    @ANRLoggerActivityScope
+    public ContentResolver provideContentResolver(Application application){
+        return application.getContentResolver();
     }
 }

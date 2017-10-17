@@ -1,7 +1,6 @@
 package org.seeds.anrgamelogger.model;
 
 import android.content.ContentResolver;
-import android.content.Context;
 import android.database.Cursor;
 
 import org.seeds.anrgamelogger.database.contracts.LoggedGamesFlatViewContract;
@@ -18,13 +17,14 @@ public class LoggedGameList {
 
     private static final String LOG_TAG = LoggedGameList.class.getSimpleName();
     private ArrayList<LocalLoggedGame> playedGamesList;
-    @Inject private ContentResolver contentResolver;
+    private ContentResolver contentResolver;
     private int listLengthLimit;
     private String resultOrder;
 
-    public LoggedGameList(Context contextIn) {
-
-        //contentResolver = contextIn.getContentResolver();
+    @Inject
+    //public LoggedGameList(Context contextIn) {
+    public LoggedGameList(ContentResolver contentResolverIn) {
+        contentResolver = contentResolverIn;
         playedGamesList = new ArrayList<LocalLoggedGame>();
         //TODO: This seems wrong
         listLengthLimit = -1;
