@@ -16,6 +16,6 @@ public class ANRLoggerApplication extends Application{
     public void onCreate(){
        super.onCreate();
 
-        mDataBaseComponent
+     //   mDataBaseComponent = Dagger.
     }
 }

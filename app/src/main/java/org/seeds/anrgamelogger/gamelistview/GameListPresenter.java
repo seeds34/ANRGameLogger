@@ -8,7 +8,8 @@ import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 
 import org.seeds.anrgamelogger.database.datacreater.InportedLoggedGame;
 import org.seeds.anrgamelogger.database.datacreater.PopulateIdentitiesData;
-import org.seeds.anrgamelogger.model.LoggedGameList;
+
+import javax.inject.Inject;
 
 /**
  * Created by Tomas Seymour-Turner on 31/07/2017.
@@ -17,6 +18,8 @@ import org.seeds.anrgamelogger.model.LoggedGameList;
 public class GameListPresenter extends MvpBasePresenter<GameListView> {
 
     private static final String LOG_TAG = GameListPresenter.class.getSimpleName();
+    @Inject
+    public Context context;
 
 private void getGameData(){
 
@@ -53,11 +56,11 @@ private void getGame(int gameID){
         return null;
     }
 
-    @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-        mGameListAdaptor.loadNewData(testData);
-    }
+//    @Override
+//    protected void onPostExecute(String s) {
+//        super.onPostExecute(s);
+//        mGameListAdaptor.loadNewData(testData);
+//    }
 }
 
 

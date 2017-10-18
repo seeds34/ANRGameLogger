@@ -1,8 +1,6 @@
 package org.seeds.anrgamelogger.dagger;
 
-import org.seeds.anrgamelogger.database.GameLoggerDatabase;
-import org.seeds.anrgamelogger.gamelistview.GameListViewActivity;
-import org.seeds.anrgamelogger.model.LoggedGameList;
+import android.content.ContentResolver;
 
 import dagger.Component;
 
@@ -11,13 +9,14 @@ import dagger.Component;
  */
 
 
-@Component(modules={AnrLoggerApplicationModule.class, ContentResolverModule.class})
-@ANRLoggerActivityScope
+@Component(modules={ContentResolverModule.class})
+@AppScope
 public interface DataBaseComponent {
 
-        void inject(GameListViewActivity activity);
-        void inject (LoggedGameList loggedGameList);
-        void inject (GameLoggerDatabase gameLoggerDatabase);
+        void inject(ContentResolver contentResolver);
+
+      //  ContentResolver getContentRes();
+
         // void inject(MyFragment fragment);
         // void inject(MyService service);
 

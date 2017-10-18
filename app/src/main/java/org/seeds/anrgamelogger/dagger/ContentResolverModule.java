@@ -1,7 +1,8 @@
 package org.seeds.anrgamelogger.dagger;
 
-import android.app.Application;
 import android.content.ContentResolver;
+
+import org.seeds.anrgamelogger.ANRLoggerApplication;
 
 import dagger.Module;
 import dagger.Provides;
@@ -11,13 +12,10 @@ import dagger.Provides;
  */
 @Module
 public class ContentResolverModule {
-    ContentResolver mContentResolver;
-
-    public ContentResolverModule(){}
 
     @Provides
-    @ANRLoggerActivityScope
-    public ContentResolver provideContentResolver(Application application){
+    @AppScope
+    ContentResolver provideContentResolver(ANRLoggerApplication application){
         return application.getContentResolver();
     }
 }

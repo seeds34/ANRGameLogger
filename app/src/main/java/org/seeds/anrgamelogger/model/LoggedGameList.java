@@ -17,14 +17,24 @@ public class LoggedGameList {
 
     private static final String LOG_TAG = LoggedGameList.class.getSimpleName();
     private ArrayList<LocalLoggedGame> playedGamesList;
-    private ContentResolver contentResolver;
     private int listLengthLimit;
     private String resultOrder;
 
     @Inject
+    public ContentResolver contentResolver;
+
+
     //public LoggedGameList(Context contextIn) {
     public LoggedGameList(ContentResolver contentResolverIn) {
         contentResolver = contentResolverIn;
+        playedGamesList = new ArrayList<LocalLoggedGame>();
+        //TODO: This seems wrong
+        listLengthLimit = -1;
+        resultOrder = "DESC";
+    }
+
+    public LoggedGameList() {
+
         playedGamesList = new ArrayList<LocalLoggedGame>();
         //TODO: This seems wrong
         listLengthLimit = -1;
