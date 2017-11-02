@@ -16,7 +16,7 @@ import org.seeds.anrgamelogger.R;
 
 import java.io.ByteArrayInputStream;
 
-import static org.seeds.anrgamelogger.gamelistview.GameListViewActivity.GAME_TRNASFER;
+import static org.seeds.anrgamelogger.gamelistview.GameListView.GAME_TRNASFER;
 
 /**
  * Created by Tomas Seymour-Turner on 29/03/2017.

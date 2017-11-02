@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import org.seeds.anrgamelogger.R;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -16,19 +17,19 @@ import butterknife.ButterKnife;
 public class GameListViewHolder extends RecyclerView.ViewHolder {
 
 
-   // @BindView(R.id.playerOneName)
+    @BindView(R.id.playerOneName)
     protected TextView playerOneName;
-   // @BindView(R.id.playerTwoName)
+    @BindView(R.id.playerTwoName)
     protected TextView playerTwoName;
-    //@BindView(R.id.playeddate)
+    @BindView(R.id.playeddate)
     protected TextView playedDate;
-    //@BindView(R.id.location)
+    @BindView(R.id.location)
     protected TextView location;
-    //@BindView(R.id.playerIneIDImage)
+    @BindView(R.id.playerIneIDImage)
     protected ImageView playerOneIDImage;
-    //@BindView(R.id.playerTwoIDImage)
+    @BindView(R.id.playerTwoIDImage)
     protected ImageView playerTwoIDImage;
-    //@BindView(R.id.gameNumber)
+    @BindView(R.id.gameNumber)
     protected  TextView gameNo;
 
     public GameListViewHolder(View view) {
@@ -36,13 +37,14 @@ public class GameListViewHolder extends RecyclerView.ViewHolder {
 
         ButterKnife.bind(this, view);
 
-        playerOneName = (TextView) view.findViewById(R.id.playerOneName);
-        playerTwoName = (TextView) view.findViewById(R.id.playerTwoName);
-        playedDate = (TextView) view.findViewById(R.id.playeddate);
-        location = (TextView) view.findViewById(R.id.location);
-        playerOneIDImage = (ImageView) view.findViewById(R.id.playerIneIDImage);
-        playerTwoIDImage = (ImageView) view.findViewById(R.id.playerTwoIDImage);
-        gameNo = (TextView) view.findViewById(R.id.gameNumber);
+
+//        playerOneName = (TextView) view.findViewById(R.id.playerOneName);
+//        playerTwoName = (TextView) view.findViewById(R.id.playerTwoName);
+//        playedDate = (TextView) view.findViewById(R.id.playeddate);
+//        location = (TextView) view.findViewById(R.id.location);
+//        playerOneIDImage = (ImageView) view.findViewById(R.id.playerIneIDImage);
+//        playerTwoIDImage = (ImageView) view.findViewById(R.id.playerTwoIDImage);
+//        gameNo = (TextView) view.findViewById(R.id.gameNumber);
     }
 
 }

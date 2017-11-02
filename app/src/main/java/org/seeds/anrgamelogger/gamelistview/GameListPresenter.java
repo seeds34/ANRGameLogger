@@ -4,8 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
-
 import org.seeds.anrgamelogger.database.datacreater.InportedLoggedGame;
 import org.seeds.anrgamelogger.database.datacreater.PopulateIdentitiesData;
 
@@ -15,11 +13,14 @@ import javax.inject.Inject;
  * Created by Tomas Seymour-Turner on 31/07/2017.
  */
 
-public class GameListPresenter extends MvpBasePresenter<GameListView> {
+public class GameListPresenter{
 
     private static final String LOG_TAG = GameListPresenter.class.getSimpleName();
     @Inject
-    public Context context;
+    public GameListView glView;
+
+
+    public GameListPresenter(GameListView a){}
 
 private void getGameData(){
 
