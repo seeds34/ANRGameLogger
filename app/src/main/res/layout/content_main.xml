@@ -4,10 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-
-    >
-
+    android:layout_height="match_parent" >
 
 <LinearLayout
 
@@ -15,20 +12,16 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:orientation="vertical"
-    tools:context="org.seeds.anrgamelogger.gamelistview.GameListViewActivity"
+    tools:context="org.seeds.anrgamelogger.gamelist.GameListViewActivity"
     tools:showIn="@layout/activity_main">
 
     <view
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/listofgmaesview"
+        android:id="@+id/listofgmaesrecyclerview"
         class="android.support.v7.widget.RecyclerView"/>
 
-
-
-
 </LinearLayout>
-
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addGameLog"

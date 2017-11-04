@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.gamelistview;
+package org.seeds.anrgamelogger.gamelist;
 
 import android.content.Context;
 import android.util.Log;

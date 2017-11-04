@@ -1,11 +1,12 @@
-package org.seeds.anrgamelogger.gamelistview;
+package org.seeds.anrgamelogger.gamelist;
 
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.model.LocalLoggedGame;
@@ -14,33 +15,55 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Observable;
+
 
 public class GameListView extends FrameLayout{
 
     public static final String GAME_TRNASFER = "GAME_TRNASFER";
     private static final String LOG_TAG = GameListView.class.getSimpleName();
-    public RecyclerView gameList;
-    private GameListAdaptor mGameListAdaptor;
-    private ArrayList<LocalLoggedGame> testData;
-    private ContentResolver contentResolver;
+    private GameListRecyclerViewAdaptor gameListRecyclerViewAdaptor;
 
     @BindView(R.id.toolbar)
     private  Toolbar toolbar;
 
-//    @BindView(R.id.addGameLog)
-//    FloatingActionButton fab;
+    @BindView(R.id.listofgmaesrecyclerview)
+    private RecyclerView gameRecyclerList;
 
-    //protected void onCreate(Bundle savedInstanceState) {
-    public GameListView(Activity activity){
+    @BindView(R.id.addGameLog)
+    private FloatingActionButton fab;
+
+    public GameListView(Activity activity) {
         super(activity);
 
-        inflate(getContext(),R.layout.activity_main,this);
+        inflate(getContext(), R.layout.activity_main, this);
 
         ButterKnife.bind(this);
 
+        gameRecyclerList = (RecyclerView) findViewById(R.id.listofgmaesrecyclerview);
+        gameRecyclerList.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
+        gameListRecyclerViewAdaptor = new GameListRecyclerViewAdaptor();
+        gameRecyclerList.setAdapter(gameListRecyclerViewAdaptor);
+
+    }
+
+    public Observable<Void> observeList() {
+        return
+    }
+
+    public void setData(ArrayList<LocalLoggedGame> gameListIn) {
+        gameListRecyclerViewAdaptor.loadNewData(gameListIn);
+        gameRecyclerList.refreshDrawableState();
+    }
+
+    public void showMessage(String messageIn){
+        Toast.makeText(this.getContext(), messageIn, Toast.LENGTH_LONG).show();
+    }
+
+
 
         //testData = new ArrayList<>();
-        //GameListPresenter.SetUpData setUpData = new SetUpData();
         //setUpData.execute();
 
 //        gameList = (RecyclerView) findViewById(R.id.listofgmaesview);
@@ -48,7 +71,7 @@ public class GameListView extends FrameLayout{
 
 //        contentResolver = this.getContentResolver();
 //
-//        mGameListAdaptor = new GameListAdaptor(new ArrayList<LocalLoggedGame>());
+//        mGameListAdaptor = new GameListRecyclerViewAdaptor(new ArrayList<LocalLoggedGame>());
 //        gameList.setAdapter(mGameListAdaptor);
 //
 //
@@ -72,7 +95,6 @@ public class GameListView extends FrameLayout{
 //            }
 //        }));
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addGameLog);
 
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -83,8 +105,6 @@ public class GameListView extends FrameLayout{
 //                startActivity(intent);
 //            }
 //        });
-
-    }
 
 //    @Override
 //    protected void onResume() {
@@ -121,6 +141,7 @@ public class GameListView extends FrameLayout{
 //
 //        return super.onOptionsItemSelected(item);
 //    }
+
 
 
 }

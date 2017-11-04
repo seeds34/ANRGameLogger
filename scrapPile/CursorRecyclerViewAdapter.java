@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.gamelistview;
+package org.seeds.anrgamelogger.gamelist;
 /*
  * Copyright (C) 2014 skyfish.jy@gmail.com
  *

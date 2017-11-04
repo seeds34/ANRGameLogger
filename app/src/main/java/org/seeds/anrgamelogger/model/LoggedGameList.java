@@ -7,8 +7,6 @@ import org.seeds.anrgamelogger.database.contracts.LoggedGamesFlatViewContract;
 
 import java.util.ArrayList;
 
-import javax.inject.Inject;
-
 /**
  * Created by Tomas Seymour-Turner on 23/05/2017.
  */
@@ -20,7 +18,6 @@ public class LoggedGameList {
     private int listLengthLimit;
     private String resultOrder;
 
-    @Inject
     public ContentResolver contentResolver;
 
 

@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.gamelistview;
+package org.seeds.anrgamelogger.gamelist;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
  * Created by Tomas Seymour-Turner on 19/03/2017.
  */
 
-public class GameListViewHolder extends RecyclerView.ViewHolder {
+public class GameOverviewViewHolder extends RecyclerView.ViewHolder {
 
 
     @BindView(R.id.playerOneName)
@@ -32,7 +32,7 @@ public class GameListViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.gameNumber)
     protected  TextView gameNo;
 
-    public GameListViewHolder(View view) {
+    public GameOverviewViewHolder(View view) {
         super(view);
 
         ButterKnife.bind(this, view);

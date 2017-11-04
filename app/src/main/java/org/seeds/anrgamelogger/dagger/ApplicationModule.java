@@ -2,8 +2,9 @@ package org.seeds.anrgamelogger.dagger;
 
 import android.app.Activity;
 
-import org.seeds.anrgamelogger.gamelistview.GameListPresenter;
-import org.seeds.anrgamelogger.gamelistview.GameListView;
+import org.seeds.anrgamelogger.gamelist.GameListModel;
+import org.seeds.anrgamelogger.gamelist.GameListPresenter;
+import org.seeds.anrgamelogger.gamelist.GameListView;
 
 import dagger.Module;
 import dagger.Provides;
@@ -26,11 +27,17 @@ public class ApplicationModule{
         return new GameListView(activity);
     }
 
+    @Provides
+    @AppScope
+    public GameListModel GetGameGameListModel(){
+        return new GameListModel(activity.getContentResolver());
+    }
 
     @Provides
     @AppScope
-    public GameListPresenter GetGameListPresenter(GameListView view){
-        return new GameListPresenter(view);
+    public GameListPresenter GetGameListPresenter(GameListView view, GameListModel model){
+        return new GameListPresenter(view, model);
     }
+
 
 }
