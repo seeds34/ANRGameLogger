@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.Observable;
 
 
 public class GameListView extends FrameLayout{
@@ -48,10 +47,6 @@ public class GameListView extends FrameLayout{
 
     }
 
-    public Observable<Void> observeList() {
-        return
-    }
-
     public void setData(ArrayList<LocalLoggedGame> gameListIn) {
         gameListRecyclerViewAdaptor.loadNewData(gameListIn);
         gameRecyclerList.refreshDrawableState();
@@ -59,6 +54,15 @@ public class GameListView extends FrameLayout{
 
     public void showMessage(String messageIn){
         Toast.makeText(this.getContext(), messageIn, Toast.LENGTH_LONG).show();
+    }
+
+    public void showLoading(boolean loading){
+        if(loading){
+
+        }else{
+
+        }
+
     }
 
 

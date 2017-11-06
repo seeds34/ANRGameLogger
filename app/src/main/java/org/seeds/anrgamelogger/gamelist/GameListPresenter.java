@@ -1,7 +1,8 @@
 package org.seeds.anrgamelogger.gamelist;
 
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.subscriptions.CompositeSubscription;
-import rx.subscriptions.Subscriptions;
 
 /**
  * Created by Tomas Seymour-Turner on 31/07/2017.
@@ -23,16 +24,22 @@ public class GameListPresenter{
 
     public void onCreate() {
 
-  //      view.setData(model.createList());
-
+        //view.setData(model.createList(25));
     }
 
     public void onDestroy() {
-        compositeSubscription.clear();
+        //compositeSubscription.clear();
     }
 
-    private Subscriptions loadData(){
-        view.
+    private Subscription datastuff(){
+        return model.createList(25)
+                .observeOn(AndroidSchedulers.mainThread())
+                .retry()
+                .subscribe(list->{
+            view.setData(list);
+        });
+
+
     }
 
 //private void getGameData(){
