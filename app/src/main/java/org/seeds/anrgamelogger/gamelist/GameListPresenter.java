@@ -2,6 +2,7 @@ package org.seeds.anrgamelogger.gamelist;
 
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -23,20 +24,26 @@ public class GameListPresenter{
     }
 
     public void onCreate() {
-
+        compositeSubscription.add(datastuff());
         //view.setData(model.createList(25));
     }
 
     public void onDestroy() {
-        //compositeSubscription.clear();
+        compositeSubscription.clear();
     }
 
     private Subscription datastuff(){
-        return model.createList(25)
+
+      //  ArrayList<LocalLoggedGame> list = new ArrayList();
+
+        return view.observeRV()
+                .doOnNext(__ -> view.showMessage("HELP"))
+                .observeOn(Schedulers.io())
+                .switchMap(__ -> model.createList(25))
                 .observeOn(AndroidSchedulers.mainThread())
+                //.doOnNext(list -> view.setData(list))
                 .retry()
-                .subscribe(list->{
-            view.setData(list);
+                .subscribe(list->{ view.setData(list);
         });
 
 

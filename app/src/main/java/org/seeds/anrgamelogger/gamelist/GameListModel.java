@@ -1,6 +1,7 @@
 package org.seeds.anrgamelogger.gamelist;
 
 import android.content.ContentResolver;
+import android.content.Context;
 
 import org.seeds.anrgamelogger.model.LocalLoggedGame;
 
@@ -16,13 +17,15 @@ import rx.Observable;
 public class GameListModel {
 
     private ContentResolver contentResolver;
+    private Context context;
 
-    public GameListModel(ContentResolver CR){
-        contentResolver = CR;
+    public GameListModel(ContentResolver cr, Context c){
+        contentResolver = cr;
+        context = c;
     }
 
     public Observable<ArrayList<LocalLoggedGame>> createList(int lengthLimit){
-        return ModelObservable.test(contentResolver, lengthLimit);
+        return ModelObservable.test(contentResolver, context, lengthLimit);
     }
 
 }

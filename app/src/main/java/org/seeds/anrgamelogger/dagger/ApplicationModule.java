@@ -30,7 +30,7 @@ public class ApplicationModule{
     @Provides
     @AppScope
     public GameListModel GetGameGameListModel(){
-        return new GameListModel(activity.getContentResolver());
+        return new GameListModel(activity.getContentResolver(), activity.getApplicationContext());
     }
 
     @Provides

@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.jakewharton.rxbinding.view.RxView;
+
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.model.LocalLoggedGame;
 
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Observable;
 
 
 public class GameListView extends FrameLayout{
@@ -50,6 +53,11 @@ public class GameListView extends FrameLayout{
     public void setData(ArrayList<LocalLoggedGame> gameListIn) {
         gameListRecyclerViewAdaptor.loadNewData(gameListIn);
         gameRecyclerList.refreshDrawableState();
+    }
+
+    public Observable<Void> observeRV() {
+        return RxView.clicks(fab);
+
     }
 
     public void showMessage(String messageIn){

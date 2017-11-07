@@ -38,23 +38,37 @@ dependencies {
     compile 'com.android.support:cardview-v7:25.3.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:support-v4:25.3.0'
+
     //Testing
     testCompile 'junit:junit:4.12'
+
     //Butterknife
     compile 'com.jakewharton:butterknife:8.7.0'
     compile 'com.jakewharton:butterknife-annotations:8.7.0'
+
     //Dagger
     compile 'com.google.dagger:dagger:2.12'
     compile 'com.google.dagger:dagger-android:2.12'
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.12'
     annotationProcessor "com.google.dagger:dagger-compiler:2.12"
-    //RXJava
-    compile 'io.reactivex.rxjava2:rxjava:2.1.6'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
-    compile 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
-    compile 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:1.0.1'
-    compile 'com.twistedequations.rx2:rx2-savestate:2.0.0'
-    compile 'com.google.code.gson:gson:2.8.2'
-    compile 'com.jakewharton.timber:timber:4.6.0'
+
+    //RXjava1
+    compile 'io.reactivex:rxjava:1.2.5'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile "com.twistedequations.rx:rx-savestate:2.0.2"
+    compile 'com.jakewharton.rxbinding:rxbinding:1.0.0'
+    compile 'com.jakewharton.rxbinding:rxbinding-support-v4:1.0.0'
+    compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:1.0.0'
+
+    //RXJava2
+//    compile 'io.reactivex.rxjava2:rxjava:2.1.6'
+//    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+//    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+//    compile 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
+//    compile 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:2.0.0'
+
+    //compile 'com.twistedequations.rx2:rx2-savestate:2.0.0'
+
+    //compile 'com.google.code.gson:gson:2.8.2'
+    //compile 'com.jakewharton.timber:timber:4.6.0'
 }
