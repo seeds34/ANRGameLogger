@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -27,19 +28,20 @@ public class GameListView extends FrameLayout{
     private GameListRecyclerViewAdaptor gameListRecyclerViewAdaptor;
 
     @BindView(R.id.toolbar)
-    private  Toolbar toolbar;
+      Toolbar toolbar;
 
     @BindView(R.id.listofgmaesrecyclerview)
-    private RecyclerView gameRecyclerList;
+     RecyclerView gameRecyclerList;
 
     @BindView(R.id.addGameLog)
-    private FloatingActionButton fab;
+     FloatingActionButton fab;
 
     public GameListView(Activity activity) {
         super(activity);
 
         inflate(getContext(), R.layout.activity_main, this);
 
+        ButterKnife.setDebug(true);
         ButterKnife.bind(this);
 
         gameRecyclerList = (RecyclerView) findViewById(R.id.listofgmaesrecyclerview);
@@ -48,6 +50,7 @@ public class GameListView extends FrameLayout{
         gameListRecyclerViewAdaptor = new GameListRecyclerViewAdaptor();
         gameRecyclerList.setAdapter(gameListRecyclerViewAdaptor);
 
+        Log.d(LOG_TAG,"fab is " + ((fab == null)?"Null":"Not Null"));
     }
 
     public void setData(ArrayList<LocalLoggedGame> gameListIn) {
@@ -57,6 +60,7 @@ public class GameListView extends FrameLayout{
 
     public Observable<Void> observeRV() {
         return RxView.clicks(fab);
+       // return RxView.clicks(gameRecyclerList);
 
     }
 

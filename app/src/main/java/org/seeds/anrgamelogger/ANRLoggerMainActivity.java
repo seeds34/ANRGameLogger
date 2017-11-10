@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import org.seeds.anrgamelogger.dagger.ApplicationModule;
 import org.seeds.anrgamelogger.dagger.DaggerApplicationComponent;
+import org.seeds.anrgamelogger.gamelist.GameListModel;
 import org.seeds.anrgamelogger.gamelist.GameListPresenter;
 import org.seeds.anrgamelogger.gamelist.GameListView;
 
@@ -21,6 +22,9 @@ public class ANRLoggerMainActivity extends AppCompatActivity{
 
     @Inject
     GameListPresenter presenter;
+
+    @Inject
+    GameListModel model;
 
     @Override
     public void onCreate(Bundle savedInstanceState){

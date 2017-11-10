@@ -1,5 +1,8 @@
 package org.seeds.anrgamelogger.gamelist;
 
+import android.util.Log;
+
+import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -21,11 +24,22 @@ public class GameListPresenter{
     public GameListPresenter(GameListView v, GameListModel m){
         view = v;
         model = m;
+        Log.d(LOG_TAG,"View is " + ((view == null)?"Null":"Not Null"));
     }
 
     public void onCreate() {
-        compositeSubscription.add(datastuff());
+
+        Observable.just(null).doOnNext(__ -> view.showMessage("HELP"))
+                .observeOn(Schedulers.io())
+                .switchMap(__ -> model.createList(25))
+                .observeOn(AndroidSchedulers.mainThread())
+                //.doOnNext(list -> view.setData(list))
+                .retry()
+                .subscribe(list->{ view.setData(list);
+                });
+       //compositeSubscription.add(datastuff());
         //view.setData(model.createList(25));
+
     }
 
     public void onDestroy() {
@@ -35,7 +49,7 @@ public class GameListPresenter{
     private Subscription datastuff(){
 
       //  ArrayList<LocalLoggedGame> list = new ArrayList();
-
+        Log.d(LOG_TAG,"View is " + ((view == null)?"Null":"Not Null"));
         return view.observeRV()
                 .doOnNext(__ -> view.showMessage("HELP"))
                 .observeOn(Schedulers.io())
