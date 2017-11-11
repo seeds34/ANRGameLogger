@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.dagger;
+package org.seeds.anrgamelogger.gamelist.dagger;
 
 import javax.inject.Scope;
 
@@ -7,5 +7,5 @@ import javax.inject.Scope;
  */
 @Scope
 //@Retention(RetentionPolicy.RUNTIME)
-public @interface AppScope {
+public @interface GameListScope {
 }

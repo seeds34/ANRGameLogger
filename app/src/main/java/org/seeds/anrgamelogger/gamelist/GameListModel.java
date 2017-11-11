@@ -3,12 +3,13 @@ package org.seeds.anrgamelogger.gamelist;
 import android.content.ContentResolver;
 import android.content.Context;
 
-import org.seeds.anrgamelogger.gamedetail.GameDetailActivity;
 import org.seeds.anrgamelogger.model.LocalLoggedGame;
+import org.seeds.anrgamelogger.model.LoggedGameList;
 
 import java.util.ArrayList;
 
 import rx.Observable;
+import rx.schedulers.Schedulers;
 
 
 /**
@@ -26,11 +27,20 @@ public class GameListModel {
     }
 
     public Observable<ArrayList<LocalLoggedGame>> createList(int lengthLimit){
-        return ModelObservable.test(contentResolver, context, lengthLimit);
+
+        LoggedGameList lgl = new LoggedGameList(contentResolver, context);
+
+        return Observable.<ArrayList<LocalLoggedGame>>create(subscriber -> {
+            subscriber.onNext(lgl.getLoggedGameList(lengthLimit));
+            subscriber.onCompleted();
+        }).subscribeOn(Schedulers.io());
+
+
+        //return ModelObservable.test(contentResolver, context, lengthLimit);
     }
 
     public void startGameDetailActivity(LocalLoggedGame selectedGame){
-        GameDetailActivity.start(context, selectedGame);
+        //GameDetailActivity.start(context, selectedGame);
     }
 
 }

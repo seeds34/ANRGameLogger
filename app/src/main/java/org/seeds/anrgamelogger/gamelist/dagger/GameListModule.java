@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.dagger;
+package org.seeds.anrgamelogger.gamelist.dagger;
 
 import android.app.Activity;
 
@@ -13,28 +13,28 @@ import dagger.Provides;
  * Created by Tomas Seymour-Turner on 14/10/2017.
  */
 @Module
-public class ApplicationModule{
+public class GameListModule {
 
     private final Activity activity;
 
-    public ApplicationModule(Activity activityIn){
+    public GameListModule(Activity activityIn){
         this.activity = activityIn;
     }
 
     @Provides
-    @AppScope
+    @GameListScope
     public GameListView GetGameListView(){
         return new GameListView(activity);
     }
 
     @Provides
-    @AppScope
+    @GameListScope
     public GameListModel GetGameGameListModel(){
         return new GameListModel(activity.getContentResolver(), activity.getApplicationContext());
     }
 
     @Provides
-    @AppScope
+    @GameListScope
     public GameListPresenter GetGameListPresenter(GameListView view, GameListModel model){
         return new GameListPresenter(view, model);
     }

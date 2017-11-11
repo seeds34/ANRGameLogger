@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.dagger;
+package org.seeds.anrgamelogger.gamelist.dagger;
 
 import org.seeds.anrgamelogger.ANRLoggerMainActivity;
 
@@ -9,9 +9,9 @@ import dagger.Component;
  */
 
 
-@Component(modules={ApplicationModule.class})
-@AppScope
-public interface ApplicationComponent {
+@Component(modules={GameListModule.class})
+@GameListScope
+public interface GameListComponent {
 
         void inject(ANRLoggerMainActivity anrLoggerMainActivity);
 

@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -58,10 +59,19 @@ public class GameListView extends FrameLayout{
         gameRecyclerList.refreshDrawableState();
     }
 
+
+
     public Observable<Void> observeRV() {
-        return RxView.clicks(fab);
+        return RxView.longClicks(gameRecyclerList);
        // return RxView.clicks(gameRecyclerList);
 
+    }
+
+    private void childSelect(){
+        View childView = gameRecyclerList.findChildViewUnder(e.getX(),e.getY());
+        if(childView != null && mListener != null){
+            mListener.onItemLongClick(childView, gameRecyclerList.getChildAdapterPosition(childView));
+        }
     }
 
     public void showMessage(String messageIn){
