@@ -1,7 +1,5 @@
 package org.seeds.anrgamelogger.gamelist;
 
-import android.util.Log;
-
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -24,22 +22,19 @@ public class GameListPresenter{
     public GameListPresenter(GameListView v, GameListModel m){
         view = v;
         model = m;
-        Log.d(LOG_TAG,"View is " + ((view == null)?"Null":"Not Null"));
     }
 
     public void onCreate() {
 
-        Observable.just(null).doOnNext(__ -> view.showMessage("HELP"))
+        Observable.just(null).doOnNext(__ -> view.showLoading(true))
                 .observeOn(Schedulers.io())
                 .switchMap(__ -> model.createList(25))
                 .observeOn(AndroidSchedulers.mainThread())
-                //.doOnNext(list -> view.setData(list))
+                .doOnNext(__ -> view.showLoading(false))
                 .retry()
                 .subscribe(list->{ view.setData(list);
                 });
-       //compositeSubscription.add(datastuff());
-        //view.setData(model.createList(25));
-
+//       compositeSubscription.add(datastuff());
     }
 
     public void onDestroy() {
@@ -48,14 +43,12 @@ public class GameListPresenter{
 
     private Subscription datastuff(){
 
-      //  ArrayList<LocalLoggedGame> list = new ArrayList();
-        Log.d(LOG_TAG,"View is " + ((view == null)?"Null":"Not Null"));
         return view.observeRV()
-                .doOnNext(__ -> view.showMessage("HELP"))
+                .doOnNext(__ -> view.showLoading(true))
                 .observeOn(Schedulers.io())
                 .switchMap(__ -> model.createList(25))
                 .observeOn(AndroidSchedulers.mainThread())
-                //.doOnNext(list -> view.setData(list))
+                .doOnNext(__ -> view.showLoading(false))
                 .retry()
                 .subscribe(list->{ view.setData(list);
         });

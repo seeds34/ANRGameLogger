@@ -70,9 +70,9 @@ public class GameListView extends FrameLayout{
 
     public void showLoading(boolean loading){
         if(loading){
-
+            showMessage("Loading Data");
         }else{
-
+            showMessage("Data Loaded");
         }
 
     }

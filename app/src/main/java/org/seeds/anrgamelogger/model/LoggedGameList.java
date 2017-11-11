@@ -5,8 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 
 import org.seeds.anrgamelogger.database.contracts.LoggedGamesFlatViewContract;
-import org.seeds.anrgamelogger.database.datacreater.InportedLoggedGame;
-import org.seeds.anrgamelogger.database.datacreater.PopulateIdentitiesData;
+import org.seeds.anrgamelogger.database.datacreater.SetUpTestData;
 
 import java.util.ArrayList;
 
@@ -31,10 +30,9 @@ public class LoggedGameList {
         //TODO: This seems wrong
         listLengthLimit = -1;
         resultOrder = "DESC";
-        insertTestData();
+        SetUpTestData.setUpTestData(contextIn);
     }
 
-    //public LoggedGameList(Context contextIn) {
     public LoggedGameList(ContentResolver contentResolverIn) {
         contentResolver = contentResolverIn;
         playedGamesList = new ArrayList<LocalLoggedGame>();
@@ -55,18 +53,6 @@ public class LoggedGameList {
         listLengthLimit = listLengthLimitIn;
         genarateAllGames();
         return playedGamesList;
-    }
-
-    public void insertTestData(){
-                PopulateIdentitiesData c = new PopulateIdentitiesData(context);
-        if(c.isIdentitiesTableEmpty()){
-            c.extractIdentitiesFromNRDB();
-        }
-
-                InportedLoggedGame e = new InportedLoggedGame(context);
-        if(e.isLoggedGamesTableEmpty()) {
-            e.inportLoggedGames();
-        }
     }
 
     public ArrayList<LocalLoggedGame> getLoggedGameListAll(){
