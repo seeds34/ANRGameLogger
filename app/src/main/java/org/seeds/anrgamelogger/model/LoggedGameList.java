@@ -3,6 +3,7 @@ package org.seeds.anrgamelogger.model;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import org.seeds.anrgamelogger.database.contracts.LoggedGamesFlatViewContract;
 import org.seeds.anrgamelogger.database.datacreater.SetUpTestData;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 public class LoggedGameList {
 
     private static final String LOG_TAG = LoggedGameList.class.getSimpleName();
-    private ArrayList<LocalLoggedGame> playedGamesList;
+    private ArrayList<LocalLoggedGame> loggedGamesList;
     private int listLengthLimit;
     private String resultOrder;
 
@@ -26,37 +27,22 @@ public class LoggedGameList {
     public LoggedGameList(ContentResolver contentResolverIn, Context contextIn) {
         contentResolver = contentResolverIn;
         context = contextIn;
-        playedGamesList = new ArrayList<LocalLoggedGame>();
+        loggedGamesList = new ArrayList<LocalLoggedGame>();
         //TODO: This seems wrong
         listLengthLimit = -1;
         resultOrder = "DESC";
         SetUpTestData.setUpTestData(contextIn);
     }
 
-    public LoggedGameList(ContentResolver contentResolverIn) {
-        contentResolver = contentResolverIn;
-        playedGamesList = new ArrayList<LocalLoggedGame>();
-        //TODO: This seems wrong
-        listLengthLimit = -1;
-        resultOrder = "DESC";
-    }
-
-    public LoggedGameList() {
-
-        playedGamesList = new ArrayList<LocalLoggedGame>();
-        //TODO: This seems wrong
-        listLengthLimit = -1;
-        resultOrder = "DESC";
-    }
 
     public ArrayList<LocalLoggedGame> getLoggedGameList(int listLengthLimitIn){
         listLengthLimit = listLengthLimitIn;
         genarateAllGames();
-        return playedGamesList;
+        return loggedGamesList;
     }
 
     public ArrayList<LocalLoggedGame> getLoggedGameListAll(){
-        return playedGamesList;
+        return loggedGamesList;
     }
 
 //    //TODO: Better filitering, inlcuding order by chossen coloumn
@@ -66,6 +52,18 @@ public class LoggedGameList {
 
     public void setResultOrder(String resultOrderIn){
         resultOrder = resultOrderIn;
+    }
+
+    public LocalLoggedGame getGame(String gameIdIn){
+        LocalLoggedGame ret = null;
+        for(LocalLoggedGame l: loggedGamesList){
+            Log.d(LOG_TAG, "LLG ID = "+l.getGameID() + " LLG Requested = " +gameIdIn+ "  " + l.getGameID().equals(gameIdIn) + "  " + l.getGameID().compareTo(gameIdIn));
+            if(l.getGameID().equals(gameIdIn)) {
+                ret = l;
+            }
+        }
+        Log.d(LOG_TAG, "Ret = " + ret);
+        return ret;
     }
 
     private void genarateAllGames(){
@@ -108,7 +106,7 @@ public class LoggedGameList {
                     playerOne = new Player(playerOneName,playerOneDeckName, playerOnceScore, playerOneIDImage, playerOneWinFlag, playerOneIDName);
                     playerTwo = new Player(playerTwoName,playerTwoDeckName, playerTwoeScore, playerTwoIDImage, playerTwoWinFlag, playerTwoIDName);
 
-                    playedGamesList.add(new LocalLoggedGame(playerOne, playerTwo, location, playedDate, gameID, winType));
+                    loggedGamesList.add(new LocalLoggedGame(playerOne, playerTwo, location, playedDate, gameID, winType));
 
 
                 }while (queryResult.moveToNext());

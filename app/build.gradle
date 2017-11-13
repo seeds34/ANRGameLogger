@@ -61,6 +61,7 @@ dependencies {
     compile 'com.jakewharton.rxbinding:rxbinding:1.0.0'
     compile 'com.jakewharton.rxbinding:rxbinding-support-v4:1.0.0'
     compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:1.0.0'
+    compile 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:1.0.0'
 
     //RXJava2
 //    compile 'io.reactivex.rxjava2:rxjava:2.1.6'

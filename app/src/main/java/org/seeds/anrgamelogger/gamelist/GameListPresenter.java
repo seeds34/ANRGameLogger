@@ -32,29 +32,25 @@ public class GameListPresenter{
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(__ -> view.showLoading(false))
                 .retry()
-                .subscribe(list->{ view.setData(list);
+                .subscribe(
+                        list->{ view.setData(list);
                 });
-//       compositeSubscription.add(datastuff());
+
+       compositeSubscription.add(onItemClick());
     }
 
     public void onDestroy() {
         compositeSubscription.clear();
     }
 
-    private Subscription datastuff(){
+    private Subscription onItemClick(){
 
-        return view.observeRV()
-                .doOnNext(__ -> view.showLoading(true))
-                .observeOn(Schedulers.io())
-                .switchMap(__ -> model.createList(25))
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(__ -> view.showLoading(false))
-                .retry()
-                .subscribe(list->{ view.setData(list);
+        return view.observeRecyckerView()
+                .subscribe(pos ->{ model.startGameDetailActivity(pos.toString());
+                //.subscribe(pos ->{ view.showMessage("I have been Clicked " + pos.toString());
         });
-
-
     }
+
 
 //private void getGameData(){
 //

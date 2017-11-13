@@ -47,4 +47,9 @@ public class GameOverviewViewHolder extends RecyclerView.ViewHolder {
 //        gameNo = (TextView) view.findViewById(R.id.gameNumber);
     }
 
+    public String getGameNo(){
+        return (String)gameNo.getText();
+    }
+
+
 }

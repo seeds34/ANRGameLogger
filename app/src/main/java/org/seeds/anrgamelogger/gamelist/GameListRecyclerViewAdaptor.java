@@ -6,33 +6,46 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.seeds.anrgamelogger.model.LocalLoggedGame;
+import com.jakewharton.rxbinding.view.RxView;
+
 import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.model.LocalLoggedGame;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
+
+import rx.Observable;
+import rx.subjects.PublishSubject;
 
 /**
  * Created by Tomas Seymour-Turner on 19/03/2017.
  */
 
-//public class GameListRecyclerViewAdaptor extends CursorRecyclerViewAdapter<GameOverviewViewHolder>{
 public class GameListRecyclerViewAdaptor extends android.support.v7.widget.RecyclerView.Adapter<GameOverviewViewHolder> {
 
     private String LOG_TAG = GameListRecyclerViewAdaptor.class.getSimpleName();
     private ArrayList<LocalLoggedGame> gameList = new ArrayList<>();
     private final String GAME_NO_TEXT = "No. ";
 
+    private PublishSubject<String> mViewClickSubject = PublishSubject.create();
+
+    public Observable<String> getViewClickedObservable() {
+        return mViewClickSubject.asObservable();
+    }
 
 
-//    public GameListRecyclerViewAdaptor(ArrayList<LocalLoggedGame> gameList) {
-//        this.gameList = gameList;
-//    }
 
     @Override
     public GameOverviewViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.game_overview_view, parent, false);
         GameOverviewViewHolder gameListImageViewHolder = new GameOverviewViewHolder(view);
+
+        RxView.clicks(view)
+                .takeUntil(RxView.detaches(parent))
+                .map(aVoid -> gameListImageViewHolder.getGameNo())
+                .subscribe(mViewClickSubject);
+
+
         return gameListImageViewHolder;
     }
 
@@ -43,8 +56,8 @@ public class GameListRecyclerViewAdaptor extends android.support.v7.widget.Recyc
         holder.playerTwoName.setText(gameList.get(position).getPlayerTwo().getName());
         holder.playedDate.setText(gameList.get(position).getPlayedDate());
         holder.location.setText(gameList.get(position).getLocationName());
-        holder.gameNo.setText(GAME_NO_TEXT + gameList.get(position).getGameID());
-
+        holder.gameNo.setText(gameList.get(position).getGameID());
+//GAME_NO_TEXT +
         byte[] imageByteArray = gameList.get(position).getPlayerOne().getImageByteArray();
         ByteArrayInputStream imageStream = new ByteArrayInputStream(imageByteArray);
         Bitmap theImage = BitmapFactory.decodeStream(imageStream);
@@ -67,10 +80,6 @@ public class GameListRecyclerViewAdaptor extends android.support.v7.widget.Recyc
     @Override
     public int getItemCount() {
         return (null != gameList ? gameList.size() : 0);
-    }
-
-    public LocalLoggedGame getGame(int position){
-        return (null != gameList ? gameList.get(position):null);
     }
 
     public void loadNewData(ArrayList<LocalLoggedGame> gameListIn){

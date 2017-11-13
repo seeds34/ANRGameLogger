@@ -6,11 +6,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
-
-import com.jakewharton.rxbinding.view.RxView;
 
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.model.LocalLoggedGame;
@@ -24,7 +21,6 @@ import rx.Observable;
 
 public class GameListView extends FrameLayout{
 
-    public static final String GAME_TRNASFER = "GAME_TRNASFER";
     private static final String LOG_TAG = GameListView.class.getSimpleName();
     private GameListRecyclerViewAdaptor gameListRecyclerViewAdaptor;
 
@@ -45,7 +41,7 @@ public class GameListView extends FrameLayout{
         ButterKnife.setDebug(true);
         ButterKnife.bind(this);
 
-        gameRecyclerList = (RecyclerView) findViewById(R.id.listofgmaesrecyclerview);
+        //gameRecyclerList = (RecyclerView) findViewById(R.id.listofgmaesrecyclerview);
         gameRecyclerList.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         gameListRecyclerViewAdaptor = new GameListRecyclerViewAdaptor();
@@ -61,21 +57,21 @@ public class GameListView extends FrameLayout{
 
 
 
-    public Observable<Void> observeRV() {
-        return RxView.longClicks(gameRecyclerList);
+    public Observable<String> observeRecyckerView() {
+        return gameListRecyclerViewAdaptor.getViewClickedObservable();
        // return RxView.clicks(gameRecyclerList);
 
     }
-
-    private void childSelect(){
-        View childView = gameRecyclerList.findChildViewUnder(e.getX(),e.getY());
-        if(childView != null && mListener != null){
-            mListener.onItemLongClick(childView, gameRecyclerList.getChildAdapterPosition(childView));
-        }
-    }
+//    @OnClick(R.id.listofgmaesrecyclerview)
+//    private void childSelect(){
+//        View childView = gameRecyclerList.findChildViewUnder(e.getX(),e.getY());
+//        if(childView != null && mListener != null){
+//            mListener.onItemLongClick(childView, gameRecyclerList.getChildAdapterPosition(childView));
+//        }
+//    }
 
     public void showMessage(String messageIn){
-        Toast.makeText(this.getContext(), messageIn, Toast.LENGTH_LONG).show();
+        Toast.makeText(this.getContext(), messageIn, Toast.LENGTH_SHORT).show();
     }
 
     public void showLoading(boolean loading){
@@ -87,7 +83,13 @@ public class GameListView extends FrameLayout{
 
     }
 
-
+//
+//    public Observable<RecyclerViewChildAttachStateChangeEvent> test(){
+//        //return RxView.clicks(gameRecyclerList);
+//        RxRecyclerViewAdapter.
+//        RxRecyclerVie
+//        return RxRecyclerView.childAttachStateChangeEvents(gameRecyclerList);
+//    }
 
         //testData = new ArrayList<>();
         //setUpData.execute();

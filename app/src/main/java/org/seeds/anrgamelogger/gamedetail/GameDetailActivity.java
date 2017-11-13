@@ -1,5 +1,6 @@
 package org.seeds.anrgamelogger.gamedetail;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -9,17 +10,32 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.model.LocalLoggedGame;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameDetailActivity extends AppCompatActivity {
 
+    private static final String LOG_TAG = GameDetailActivity.class.getSimpleName();
+
     private GameDetailPagerAdapter mGameDetailPagerAdapter;
     private ViewPager gameDetailViewPager;
     private TabLayout tabLayout;
+    public static final String GAME_TRNASFER = "GAME_TRNASFER";
+
+
+    public static void start(Context contextIn, LocalLoggedGame localLoggedGameIn){
+
+        Intent intent = new Intent(contextIn, GameDetailActivity.class);
+        intent.putExtra(GAME_TRNASFER, localLoggedGameIn);
+        Log.d(LOG_TAG,"Local Logged Game is " + localLoggedGameIn.getGameID());
+        contextIn.startActivity(intent);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

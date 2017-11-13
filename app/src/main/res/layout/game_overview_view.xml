@@ -131,6 +131,14 @@
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/playerTwoIDImage"/>
 
+        <TextView
+            android:id="@+id/gameNumberLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No. "
+            app:layout_constraintBaseline_toBaselineOf="@+id/gameNumber"
+            app:layout_constraintEnd_toStartOf="@+id/gameNumber"/>
+
 
     </android.support.constraint.ConstraintLayout>
 

@@ -3,6 +3,7 @@ package org.seeds.anrgamelogger.gamelist;
 import android.content.ContentResolver;
 import android.content.Context;
 
+import org.seeds.anrgamelogger.gamedetail.GameDetailActivity;
 import org.seeds.anrgamelogger.model.LocalLoggedGame;
 import org.seeds.anrgamelogger.model.LoggedGameList;
 
@@ -20,6 +21,7 @@ public class GameListModel {
 
     private ContentResolver contentResolver;
     private Context context;
+    LoggedGameList lgl;
 
     public GameListModel(ContentResolver cr, Context c){
         contentResolver = cr;
@@ -28,7 +30,7 @@ public class GameListModel {
 
     public Observable<ArrayList<LocalLoggedGame>> createList(int lengthLimit){
 
-        LoggedGameList lgl = new LoggedGameList(contentResolver, context);
+        lgl = new LoggedGameList(contentResolver, context);
 
         return Observable.<ArrayList<LocalLoggedGame>>create(subscriber -> {
             subscriber.onNext(lgl.getLoggedGameList(lengthLimit));
@@ -39,8 +41,9 @@ public class GameListModel {
         //return ModelObservable.test(contentResolver, context, lengthLimit);
     }
 
-    public void startGameDetailActivity(LocalLoggedGame selectedGame){
-        //GameDetailActivity.start(context, selectedGame);
+
+    public void startGameDetailActivity(String selectedGame){
+        GameDetailActivity.start(context, lgl.getGame(selectedGame));
     }
 
 }
