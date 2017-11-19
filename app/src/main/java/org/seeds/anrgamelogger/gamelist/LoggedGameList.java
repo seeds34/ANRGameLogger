@@ -1,12 +1,11 @@
-package org.seeds.anrgamelogger.model;
+package org.seeds.anrgamelogger.gamelist;
 
 import android.content.ContentResolver;
-import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 import org.seeds.anrgamelogger.database.contracts.LoggedGamesFlatViewContract;
-import org.seeds.anrgamelogger.database.datacreater.SetUpTestData;
+import org.seeds.anrgamelogger.model.LocalLoggedGame;
+import org.seeds.anrgamelogger.model.Player;
 
 import java.util.ArrayList;
 
@@ -17,56 +16,13 @@ import java.util.ArrayList;
 public class LoggedGameList {
 
     private static final String LOG_TAG = LoggedGameList.class.getSimpleName();
-    private ArrayList<LocalLoggedGame> loggedGamesList;
-    private int listLengthLimit;
-    private String resultOrder;
 
-    private ContentResolver contentResolver;
-    private Context context;
+    public static ArrayList<LocalLoggedGame> genarateGameList(int listLengthLimit, ContentResolver contentResolver){
 
-    public LoggedGameList(ContentResolver contentResolverIn, Context contextIn) {
-        contentResolver = contentResolverIn;
-        context = contextIn;
-        loggedGamesList = new ArrayList<LocalLoggedGame>();
-        //TODO: This seems wrong
-        listLengthLimit = -1;
-        resultOrder = "DESC";
-        SetUpTestData.setUpTestData(contextIn);
-    }
+        //TODO: Add fitler capability
+        String resultOrder = "DESC";
 
-
-    public ArrayList<LocalLoggedGame> getLoggedGameList(int listLengthLimitIn){
-        listLengthLimit = listLengthLimitIn;
-        genarateAllGames();
-        return loggedGamesList;
-    }
-
-    public ArrayList<LocalLoggedGame> getLoggedGameListAll(){
-        return loggedGamesList;
-    }
-
-//    //TODO: Better filitering, inlcuding order by chossen coloumn
-//    public void setFilters(int returnLimitIn){
-//        listLengthLimit = returnLimitIn;
-//    }
-
-    public void setResultOrder(String resultOrderIn){
-        resultOrder = resultOrderIn;
-    }
-
-    public LocalLoggedGame getGame(String gameIdIn){
-        LocalLoggedGame ret = null;
-        for(LocalLoggedGame l: loggedGamesList){
-            Log.d(LOG_TAG, "LLG ID = "+l.getGameID() + " LLG Requested = " +gameIdIn+ "  " + l.getGameID().equals(gameIdIn) + "  " + l.getGameID().compareTo(gameIdIn));
-            if(l.getGameID().equals(gameIdIn)) {
-                ret = l;
-            }
-        }
-        Log.d(LOG_TAG, "Ret = " + ret);
-        return ret;
-    }
-
-    private void genarateAllGames(){
+        ArrayList<LocalLoggedGame> loggedGamesList = new ArrayList<>();
 
         //TODO: Should it be GAME NO or PLAYED DATE??
         String orderBy = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYED_DATE + " " + resultOrder;
@@ -111,9 +67,42 @@ public class LoggedGameList {
 
                 }while (queryResult.moveToNext());
                 queryResult.close();
-    }
+            }
         }
 
+    return loggedGamesList;
+    }
+}
 
-}
-}
+
+
+//    private int listLengthLimit;
+//    private String resultOrder;
+//    ArrayList<LocalLoggedGame> loggedGamesList;
+//    private ContentResolver contentResolver;
+//    private Context context;
+
+//    public LoggedGameList(ContentResolver contentResolverIn, Context contextIn) {
+//        contentResolver = contentResolverIn;
+//        context = contextIn;
+//        loggedGamesList = new ArrayList<>();
+//        //TODO: This seems wrong
+//        listLengthLimit = -1;
+//        resultOrder = "DESC";
+//        SetUpTestData.setUpTestData(contextIn);
+//    }
+
+//    public ArrayList<LocalLoggedGame>  getGameList(int listLengthLimitIn){
+//        return loggedGamesList;
+//    }
+//
+//    public LocalLoggedGame getGame(String gameIdIn){
+//        LocalLoggedGame ret = null;
+//
+//        for(LocalLoggedGame llg: loggedGamesList){
+//            if(llg.getGameID().equals(gameIdIn)) {
+//                ret = llg;
+//            }
+//        }
+//        return ret;
+//    }

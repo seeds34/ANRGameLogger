@@ -2,13 +2,11 @@ package org.seeds.anrgamelogger.model;
 
 import android.database.Cursor;
 
-import java.io.Serializable;
-
 /**
  * Created by Tomas Seymour-Turner on 19/03/2017.
  */
 
-public class LocalLoggedGame implements Serializable {
+public class LocalLoggedGame {
 
     private String gameID;
     private Player playerOne;
@@ -20,6 +18,17 @@ public class LocalLoggedGame implements Serializable {
 
     private final String WINNER_FLAG = "Y";
 
+
+//    public  static final Parcelable.Creator CREATOR = new Parcelable.Creator(){
+//      public LocalLoggedGame createFromParcel(Parcel in){
+//          return new LocalLoggedGame(in);
+//      }
+//
+//      public LocalLoggedGame[] newArray(int size){
+//          return new LocalLoggedGame[size];
+//      }
+//    };
+
     public LocalLoggedGame(Player playerOne, Player playerTwo, String locationName,  String playedDate, String gameID, String winType) {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
@@ -28,6 +37,8 @@ public class LocalLoggedGame implements Serializable {
         this.gameID = gameID;
         this.winType = winType;
     }
+
+
 
     public LocalLoggedGame(Cursor loggedGamesCursor){
         //TODO: Load game data directly from cursor

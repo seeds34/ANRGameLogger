@@ -31,7 +31,7 @@ public class GameDetailActivity extends AppCompatActivity {
     public static void start(Context contextIn, LocalLoggedGame localLoggedGameIn){
 
         Intent intent = new Intent(contextIn, GameDetailActivity.class);
-        intent.putExtra(GAME_TRNASFER, localLoggedGameIn);
+        //intent.putExtra(GAME_TRNASFER, localLoggedGameIn);
         Log.d(LOG_TAG,"Local Logged Game is " + localLoggedGameIn.getGameID());
         contextIn.startActivity(intent);
 

@@ -1,7 +1,5 @@
 package org.seeds.anrgamelogger.gamelist;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +9,6 @@ import com.jakewharton.rxbinding.view.RxView;
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.model.LocalLoggedGame;
 
-import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 
 import rx.Observable;
@@ -51,24 +48,7 @@ public class GameListRecyclerViewAdaptor extends android.support.v7.widget.Recyc
 
     @Override
     public void onBindViewHolder(GameOverviewViewHolder holder, int position) {
-
-        holder.playerOneName.setText(gameList.get(position).getPlayerOne().getName());
-        holder.playerTwoName.setText(gameList.get(position).getPlayerTwo().getName());
-        holder.playedDate.setText(gameList.get(position).getPlayedDate());
-        holder.location.setText(gameList.get(position).getLocationName());
-        holder.gameNo.setText(gameList.get(position).getGameID());
-//GAME_NO_TEXT +
-        byte[] imageByteArray = gameList.get(position).getPlayerOne().getImageByteArray();
-        ByteArrayInputStream imageStream = new ByteArrayInputStream(imageByteArray);
-        Bitmap theImage = BitmapFactory.decodeStream(imageStream);
-
-        holder.playerOneIDImage.setImageBitmap(theImage);
-
-        imageByteArray = gameList.get(position).getPlayerTwo().getImageByteArray();
-        imageStream = new ByteArrayInputStream(imageByteArray);
-        theImage = BitmapFactory.decodeStream(imageStream);
-
-        holder.playerTwoIDImage.setImageBitmap(theImage);
+        holder.setUpData(gameList.get(position));
     }
 
 

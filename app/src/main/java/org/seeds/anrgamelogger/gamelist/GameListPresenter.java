@@ -1,6 +1,5 @@
 package org.seeds.anrgamelogger.gamelist;
 
-import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -26,15 +25,26 @@ public class GameListPresenter{
 
     public void onCreate() {
 
-        Observable.just(null).doOnNext(__ -> view.showLoading(true))
-                .observeOn(Schedulers.io())
-                .switchMap(__ -> model.createList(25))
+
+        //view.setData(model.getloggedGameList());
+
+        model.getGameList(25)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(__ -> view.showLoading(false))
-                .retry()
+                .doOnNext(list -> model.saveGameList(list))
+                //.map(list -> list)
                 .subscribe(
-                        list->{ view.setData(list);
-                });
+                        list->{view.setData(list);});
+
+//        Observable.just(null).doOnNext(__ -> view.showLoading(true))
+//                .subscribeOn(Schedulers.io())
+//                .doOnNext(__ -> model.createList(25))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .doOnNext(__ -> view.showLoading(false))
+//                .retry()
+//                .subscribe(
+//                        list->{ view.setData(list);
+//                });
 
        compositeSubscription.add(onItemClick());
     }
@@ -57,7 +67,7 @@ public class GameListPresenter{
 //   // LoggedGameList dataGen = new LoggedGameList(context);
 //    //dataGen.setFilters(25);
 //    //dataGen.genarateAllGames();
-//    //testData = dataGen.getLoggedGameList(25);
+//    //testData = dataGen.createLoggedGameList(25);
 //
 //}
 
