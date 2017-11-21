@@ -11,12 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.seeds.anrgamelogger.model.LocalLoggedGame;
 import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.model.LocalLoggedGame;
 
 import java.io.ByteArrayInputStream;
-
-import static org.seeds.anrgamelogger.gamedetail.GameDetailActivity.GAME_TRNASFER;
 
 /**
  * Created by Tomas Seymour-Turner on 29/03/2017.
@@ -39,6 +37,8 @@ public class GameDetailFragment extends Fragment {
     protected TextView winnerLabel;
 
 
+    private LocalLoggedGame llg;
+
     public GameDetailFragment() {
         super();
     }
@@ -48,6 +48,10 @@ public class GameDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    public void setData(LocalLoggedGame llg){
+        this.llg = llg;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(this.getClass().getName(),"Inflatting");
@@ -55,9 +59,10 @@ public class GameDetailFragment extends Fragment {
         LocalLoggedGame data;
         View v = inflater.inflate(R.layout.fragment_game_detail,container,false);
         Log.v(this.getClass().getName(),"Checking savedInstanceState");
-        if(getArguments() != null){
+        //if(getArguments() != null){
 
-            data = (LocalLoggedGame) getArguments().get(GAME_TRNASFER);
+            //data = (LocalLoggedGame) getArguments().get(GAME_TRNASFER);
+            data = llg;
 
             location = (TextView) v.findViewById(R.id.playedLocation);
             playerOneName = (TextView) v.findViewById(R.id.playerOneName);
@@ -108,11 +113,7 @@ public class GameDetailFragment extends Fragment {
 
 
 
-        }
-
-
-
-
+        //}
         return v;
     }
 }

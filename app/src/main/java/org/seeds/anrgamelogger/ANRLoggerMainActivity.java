@@ -3,11 +3,10 @@ package org.seeds.anrgamelogger;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import org.seeds.anrgamelogger.gamelist.dagger.GameListModule;
-import org.seeds.anrgamelogger.gamelist.dagger.DaggerGameListComponent;
-import org.seeds.anrgamelogger.gamelist.GameListModel;
 import org.seeds.anrgamelogger.gamelist.GameListPresenter;
 import org.seeds.anrgamelogger.gamelist.GameListView;
+import org.seeds.anrgamelogger.gamelist.dagger.DaggerGameListComponent;
+import org.seeds.anrgamelogger.gamelist.dagger.GameListModule;
 
 import javax.inject.Inject;
 
@@ -22,9 +21,6 @@ public class ANRLoggerMainActivity extends AppCompatActivity{
 
     @Inject
     GameListPresenter presenter;
-
-    @Inject
-    GameListModel model;
 
     @Override
     public void onCreate(Bundle savedInstanceState){

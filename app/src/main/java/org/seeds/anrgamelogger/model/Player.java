@@ -1,5 +1,8 @@
 package org.seeds.anrgamelogger.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 /**
@@ -49,4 +52,40 @@ public class Player implements Serializable{
     public  byte[]  getImageByteArray(){
         return imageByteArray;
     }
+
+    /*Genrated at: http://www.parcelabler.com/ */
+    protected Player(Parcel in) {
+        name = in.readString();
+        deck = in.readString();
+        score = in.readInt();
+        winnerFlag = in.readString();
+        identityName = in.readString();
+    }
+
+    public int describeContents() {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(deck);
+        dest.writeInt(score);
+        dest.writeString(winnerFlag);
+        dest.writeString(identityName);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Player> CREATOR = new Parcelable.Creator<Player>() {
+        @Override
+        public Player createFromParcel(Parcel in) {
+            return new Player(in);
+        }
+
+        @Override
+        public Player[] newArray(int size) {
+            return new Player[size];
+        }
+    };
+
+
 }

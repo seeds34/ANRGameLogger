@@ -1,11 +1,9 @@
-package org.seeds.anrgamelogger.gamelist;
+package org.seeds.anrgamelogger.model;
 
 import android.content.ContentResolver;
 import android.database.Cursor;
 
 import org.seeds.anrgamelogger.database.contracts.LoggedGamesFlatViewContract;
-import org.seeds.anrgamelogger.model.LocalLoggedGame;
-import org.seeds.anrgamelogger.model.Player;
 
 import java.util.ArrayList;
 
@@ -13,16 +11,23 @@ import java.util.ArrayList;
  * Created by Tomas Seymour-Turner on 23/05/2017.
  */
 
-public class LoggedGameList {
+public class GameListManager {
 
-    private static final String LOG_TAG = LoggedGameList.class.getSimpleName();
+    private static final String LOG_TAG = GameListManager.class.getSimpleName();
+    private ArrayList<LocalLoggedGame> loggedGamesList;
 
-    public static ArrayList<LocalLoggedGame> genarateGameList(int listLengthLimit, ContentResolver contentResolver){
+    public GameListManager(){
+        loggedGamesList = new ArrayList<>();
+    }
+
+    public ArrayList<LocalLoggedGame>  getGameList(){
+        return loggedGamesList;
+    }
+
+    public void genarateGameList(int listLengthLimit, ContentResolver contentResolver){
 
         //TODO: Add fitler capability
         String resultOrder = "DESC";
-
-        ArrayList<LocalLoggedGame> loggedGamesList = new ArrayList<>();
 
         //TODO: Should it be GAME NO or PLAYED DATE??
         String orderBy = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYED_DATE + " " + resultOrder;
@@ -70,7 +75,18 @@ public class LoggedGameList {
             }
         }
 
-    return loggedGamesList;
+       // return loggedGamesList;
+    }
+
+    public LocalLoggedGame getGame(String gameIdIn){
+        LocalLoggedGame ret = null;
+
+        for(LocalLoggedGame llg: loggedGamesList){
+            if(llg.getGameID().equals(gameIdIn)) {
+                ret = llg;
+            }
+        }
+        return ret;
     }
 }
 
@@ -82,7 +98,7 @@ public class LoggedGameList {
 //    private ContentResolver contentResolver;
 //    private Context context;
 
-//    public LoggedGameList(ContentResolver contentResolverIn, Context contextIn) {
+//    public GameListManager(ContentResolver contentResolverIn, Context contextIn) {
 //        contentResolver = contentResolverIn;
 //        context = contextIn;
 //        loggedGamesList = new ArrayList<>();
@@ -96,13 +112,4 @@ public class LoggedGameList {
 //        return loggedGamesList;
 //    }
 //
-//    public LocalLoggedGame getGame(String gameIdIn){
-//        LocalLoggedGame ret = null;
-//
-//        for(LocalLoggedGame llg: loggedGamesList){
-//            if(llg.getGameID().equals(gameIdIn)) {
-//                ret = llg;
-//            }
-//        }
-//        return ret;
-//    }
+
