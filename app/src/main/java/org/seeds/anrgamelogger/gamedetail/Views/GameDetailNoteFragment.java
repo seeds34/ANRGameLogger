@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.gamedetail;
+package org.seeds.anrgamelogger.gamedetail.Views;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

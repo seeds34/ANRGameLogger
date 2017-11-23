@@ -28,7 +28,6 @@ public class GameDetailActivity extends AppCompatActivity {
 
         Intent intent = new Intent(contextIn, GameDetailActivity.class);
         intent.putExtra(GAME_TRNASFER, loggedGame);
-        //  Log.d(LOG_TAG,"Local Logged Game is " + localLoggedGameIn.getGameID());
         contextIn.startActivity(intent);
 
     }

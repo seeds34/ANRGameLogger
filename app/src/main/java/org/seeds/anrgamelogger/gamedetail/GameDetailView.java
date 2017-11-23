@@ -10,6 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 
 import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.gamedetail.Views.GameDetailFragment;
+import org.seeds.anrgamelogger.gamedetail.Views.GameDetailNoteFragment;
+import org.seeds.anrgamelogger.gamedetail.Views.GameDetailStatsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,11 +44,14 @@ public class GameDetailView extends FrameLayout {
     // Set up the ViewPager with the sections adapter.
     gameDetailViewPager = (ViewPager) findViewById(R.id.container);
 
-  //  mGameDetailPagerAdapter = new GameDetailPagerAdapter(getSupportFragmentManager());
+    mGameDetailPagerAdapter = new GameDetailPagerAdapter(getSupportFragmentManager());
 
     Fragment gdf = new GameDetailFragment();
     Fragment gdnf = new GameDetailNoteFragment();
     Fragment gdsf = new GameDetailStatsFragment();
+
+
+
 
 //    Intent intent = getIntent();
 //

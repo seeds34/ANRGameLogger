@@ -15,7 +15,7 @@ public class GameDetailPresenter {
     }
 
     public void onCreate(){
-        view.setLLGData(model.getLoggedGame());
+       // view.setLLGData(model.getLoggedGame());
     }
 
     public void onDestroy(){

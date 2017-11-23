@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.gamedetail;
+package org.seeds.anrgamelogger.gamedetail.Views;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -115,5 +115,9 @@ public class GameDetailFragment extends Fragment {
 
         //}
         return v;
+    }
+
+    public String getSomthing(){
+        return playerOneName.getText().toString();
     }
 }
