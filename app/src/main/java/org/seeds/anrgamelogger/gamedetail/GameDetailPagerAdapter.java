@@ -3,14 +3,13 @@ package org.seeds.anrgamelogger.gamedetail;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.gamedetail.Views.DetailViewsEnum;
-import org.seeds.anrgamelogger.gamedetail.Views.GameDetailNoteView;
-import org.seeds.anrgamelogger.gamedetail.Views.GameDetailOverview;
+import org.seeds.anrgamelogger.gamedetail.views.DetailViewsEnum;
+import org.seeds.anrgamelogger.gamedetail.views.GameDetailNoteView;
+import org.seeds.anrgamelogger.gamedetail.views.GameDetailOverview;
 import org.seeds.anrgamelogger.model.LocalLoggedGame;
 
 import java.util.ArrayList;

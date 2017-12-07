@@ -1,8 +1,7 @@
-package org.seeds.anrgamelogger.gamedetail.Views;
+package org.seeds.anrgamelogger.gamedetail.views;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +27,6 @@ public class GameDetailNoteView extends FrameLayout {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(this.getClass().getName(),"Inflatting");
         //return super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_game_detail_notes,container,false);
+        return inflater.inflate(R.layout.view_gamedetail_notes,container,false);
     }
 }

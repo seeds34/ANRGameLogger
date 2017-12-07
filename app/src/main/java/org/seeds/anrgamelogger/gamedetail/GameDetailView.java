@@ -8,10 +8,8 @@ import android.util.Log;
 import android.widget.FrameLayout;
 
 import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.gamedetail.Views.*;
+import org.seeds.anrgamelogger.gamedetail.views.*;
 import org.seeds.anrgamelogger.model.LocalLoggedGame;
-
-import butterknife.ButterKnife;
 
 /**
  * Created by Tomas Seymour-Turner on 19/11/2017.
@@ -35,7 +33,7 @@ public class GameDetailView extends FrameLayout {
 
         this.activity = activity;
 
-        inflate(getContext(), R.layout.activity_game_detail, this);
+        inflate(getContext(), R.layout.view_gamedetail_base, this);
 
         //  ButterKnife.setDebug(true);
         //  ButterKnife.bind(this);
@@ -49,9 +47,7 @@ public class GameDetailView extends FrameLayout {
     gameDetailViewPager = (ViewPager) this.findViewById(R.id.container);
 
     Log.i(LOG_TAG, "gameDetailViewPager is " + gameDetailViewPager);
-    gameDetailPagerAdapter = new GameDetailPagerAdapter(data, activity);
 
-    gameDetailViewPager.setAdapter(gameDetailPagerAdapter);
 
     }
 
@@ -94,6 +90,10 @@ public void setUpPages(){
 
     tabLayout = (TabLayout) findViewById(R.id.tabs);
     tabLayout.setupWithViewPager(gameDetailViewPager);
+
+    gameDetailPagerAdapter = new GameDetailPagerAdapter(data, activity);
+
+    gameDetailViewPager.setAdapter(gameDetailPagerAdapter);
 
 
 }

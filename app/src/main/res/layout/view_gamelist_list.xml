@@ -13,7 +13,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:orientation="vertical"
     tools:context="org.seeds.anrgamelogger.gamelist.GameListViewActivity"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/view_gamelist_base">
 
     <view
         android:layout_width="match_parent"

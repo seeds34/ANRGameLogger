@@ -34,7 +34,7 @@ public class GameListRecyclerViewAdaptor extends android.support.v7.widget.Recyc
 
     @Override
     public GameOverviewViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.game_overview_view, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_gamelist_item, parent, false);
         GameOverviewViewHolder gameListImageViewHolder = new GameOverviewViewHolder(view);
 
         RxView.clicks(view)

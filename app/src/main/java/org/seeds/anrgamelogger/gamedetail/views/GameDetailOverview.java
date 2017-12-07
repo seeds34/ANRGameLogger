@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.gamedetail.Views;
+package org.seeds.anrgamelogger.gamedetail.views;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -14,8 +14,6 @@ import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.model.LocalLoggedGame;
 
 import java.io.ByteArrayInputStream;
-
-import javax.inject.Inject;
 
 /**
  * Created by user on 21/11/2017.
@@ -45,7 +43,7 @@ public class GameDetailOverview extends FrameLayout {
 
     public GameDetailOverview(Activity activity, LocalLoggedGame gameIn){
         super(activity);
-        inflate(getContext(), R.layout.fragment_game_detail, this);
+        inflate(getContext(), R.layout.view_gamedetail_overview, this);
         data = gameIn;
         Log.d("OVERVIEW","Data = " + data);
         onCreate();
@@ -53,7 +51,7 @@ public class GameDetailOverview extends FrameLayout {
 
     public void onCreate(){
 
-//        View v = activity.getLayoutInflater().inflate(R.layout.fragment_game_detail,container,false);
+//        View v = activity.getLayoutInflater().inflate(R.layout.view_gamedetail_overview,container,false);
 
         Log.v(this.getClass().getName(),"Checking savedInstanceState");
         //if(getArguments() != null){

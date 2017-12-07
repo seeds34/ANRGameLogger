@@ -36,7 +36,7 @@ public class GameListView extends FrameLayout{
     public GameListView(Activity activity) {
         super(activity);
 
-        inflate(getContext(), R.layout.activity_main, this);
+        inflate(getContext(), R.layout.view_gamelist_base, this);
 
         ButterKnife.setDebug(true);
         ButterKnife.bind(this);
