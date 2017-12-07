@@ -1,8 +1,17 @@
 package org.seeds.anrgamelogger.gamedetail;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.app.Activity;
+import android.content.Context;
+import android.support.v4.view.PagerAdapter;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.gamedetail.Views.DetailViewsEnum;
+import org.seeds.anrgamelogger.gamedetail.Views.GameDetailNoteView;
+import org.seeds.anrgamelogger.gamedetail.Views.GameDetailOverview;
+import org.seeds.anrgamelogger.model.LocalLoggedGame;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,32 +20,59 @@ import java.util.List;
  * Created by user on 21/11/2017.
  */
 
-public class GameDetailPagerAdapter extends FragmentPagerAdapter {
-    private final List<Fragment> mFragmentList = new ArrayList<>();
-    private final List<String> mFragmentTitleList = new ArrayList<>();
+public class GameDetailPagerAdapter extends PagerAdapter {
 
-    public GameDetailPagerAdapter(FragmentManager fm) {
-        super(fm);
+
+    private  List<View> viewList = new ArrayList<>();
+    private  List<String> viewTitleList = new ArrayList<>();
+    private  LocalLoggedGame game;
+    private Context context;
+
+    public GameDetailPagerAdapter(LocalLoggedGame data, Activity activity) {
+        game = data;
+        this.context = activity.getApplicationContext();
+
+        viewList.add(new GameDetailOverview(activity,data));
+        viewList.add(new GameDetailNoteView(activity));
+        viewTitleList.add(activity.getString(R.string.gameoverview_title));
+        viewTitleList.add(activity.getString(R.string.gamenotes_title));
     }
 
     @Override
-    public Fragment getItem(int position) {
-        return mFragmentList.get(position);
+    public Object instantiateItem(ViewGroup container, int position) {
+
+//        DetailViewsEnum customPagerEnum = DetailViewsEnum.values()[position];
+//        LayoutInflater inflater = LayoutInflater.from(context);
+//        ViewGroup layout = (ViewGroup) inflater.inflate(customPagerEnum.getLayoutID(), container, false);
+        ViewGroup layout = (ViewGroup)viewList.get(position);
+        container.addView(layout);
+        return layout;
+
     }
 
-    public void addFragment(Fragment fragment, String title) {
-        mFragmentList.add(fragment);
-        mFragmentTitleList.add(title);
+    public View getItem(int position) {
+        return viewList.get(position);
+    }
+
+    public void addView(View view, String title) {
+        viewList.add(view);
+        notifyDataSetChanged();
+        viewTitleList.add(title);
     }
 
     @Override
     public int getCount() {
-        // Show 3 total pages.
-        return mFragmentList.size();
+        return DetailViewsEnum.values().length;
+        //return viewList.size();
+    }
+
+    @Override
+    public boolean isViewFromObject(View view, Object object) {
+        return view == ((View)object);
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return mFragmentTitleList.get(position);
+        return viewTitleList.get(position);
     }
 }

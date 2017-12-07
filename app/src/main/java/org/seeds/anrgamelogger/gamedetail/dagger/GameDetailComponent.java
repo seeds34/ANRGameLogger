@@ -1,6 +1,7 @@
 package org.seeds.anrgamelogger.gamedetail.dagger;
 
 import org.seeds.anrgamelogger.gamedetail.GameDetailActivity;
+import org.seeds.anrgamelogger.gamedetail.GameDetailPagerAdapter;
 
 import dagger.Component;
 
@@ -13,6 +14,5 @@ import dagger.Component;
 @GameDetailScope
 public interface GameDetailComponent {
 
-        void inject(GameDetailActivity gameDetailActivity);
-
+        void inject(GameDetailActivity activity);
 }

@@ -2,20 +2,14 @@ package org.seeds.anrgamelogger.gamedetail;
 
 import android.app.Activity;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.FrameLayout;
 
 import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.gamedetail.Views.GameDetailFragment;
-import org.seeds.anrgamelogger.gamedetail.Views.GameDetailNoteFragment;
-import org.seeds.anrgamelogger.gamedetail.Views.GameDetailStatsFragment;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.seeds.anrgamelogger.gamedetail.Views.*;
+import org.seeds.anrgamelogger.model.LocalLoggedGame;
 
 import butterknife.ButterKnife;
 
@@ -25,52 +19,84 @@ import butterknife.ButterKnife;
 
 public class GameDetailView extends FrameLayout {
 
-    private GameDetailPagerAdapter mGameDetailPagerAdapter;
+    private String LOG_TAG = GameDetailView.class.getSimpleName();
+
+    private GameDetailPagerAdapter gameDetailPagerAdapter;
     private ViewPager gameDetailViewPager;
     private TabLayout tabLayout;
+    private LocalLoggedGame data;
+    private GameDetailNoteView gameDetailNoteView;
+    private GameDetailStatsView gameDetailStatView;
+    private GameDetailOverview gameDetailView;
+    private Activity activity;
 
     public GameDetailView(Activity activity){
         super(activity);
 
-        ButterKnife.setDebug(true);
-        ButterKnife.bind(this);
+        this.activity = activity;
+
+        inflate(getContext(), R.layout.activity_game_detail, this);
+
+        //  ButterKnife.setDebug(true);
+        //  ButterKnife.bind(this);
 
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
- //   setSupportActionBar(toolbar);
+    // setSupportActionBar(toolbar);
     // Create the adapter that will return a fragment for each of the three
     // primary sections of the activity.
 
-
     // Set up the ViewPager with the sections adapter.
-    gameDetailViewPager = (ViewPager) findViewById(R.id.container);
+    gameDetailViewPager = (ViewPager) this.findViewById(R.id.container);
 
-    mGameDetailPagerAdapter = new GameDetailPagerAdapter(getSupportFragmentManager());
+    Log.i(LOG_TAG, "gameDetailViewPager is " + gameDetailViewPager);
+    gameDetailPagerAdapter = new GameDetailPagerAdapter(data, activity);
 
-    Fragment gdf = new GameDetailFragment();
-    Fragment gdnf = new GameDetailNoteFragment();
-    Fragment gdsf = new GameDetailStatsFragment();
+    gameDetailViewPager.setAdapter(gameDetailPagerAdapter);
 
+    }
 
-
-
-//    Intent intent = getIntent();
+//    Fragment gdf = new GameDetailFragment();
+//    Fragment gdnf = new GameDetailNoteFragment();
+//    Fragment gdsf = new GameDetailStatsFragment();
 //
-//        gdf.setArguments(intent.getExtras());
 //
-        mGameDetailPagerAdapter.addFragment(gdf,"Game Details");
-        mGameDetailPagerAdapter.addFragment(gdnf,"Game Notes");
-        mGameDetailPagerAdapter.addFragment(gdsf,"Game Stats");
-//        mGameDetailPagerAdapter.addFragment(new GameDetailFragment(),"LocalLoggedGame Details");
-//        mGameDetailPagerAdapter.addFragment(new GameDetailNoteFragment(),"LocalLoggedGame Notes");
-//        mGameDetailPagerAdapter.addFragment(new GameDetailStatsFragment(),"LocalLoggedGame Stats");
-        gameDetailViewPager.setAdapter(mGameDetailPagerAdapter);
 //
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(gameDetailViewPager);
+//
+////    Intent intent = getIntent();
+////
+////        gdf.setArguments(intent.getExtras());
+////
+//        mGameDetailPagerAdapter.addFragment(gdf,"Game Details");
+//        mGameDetailPagerAdapter.addFragment(gdnf,"Game Notes");
+//        mGameDetailPagerAdapter.addFragment(gdsf,"Game Stats");
+////        mGameDetailPagerAdapter.addFragment(new GameDetailFragment(),"LocalLoggedGame Details");
+////        mGameDetailPagerAdapter.addFragment(new GameDetailNoteFragment(),"LocalLoggedGame Notes");
+////        mGameDetailPagerAdapter.addFragment(new GameDetailStatsFragment(),"LocalLoggedGame Stats");
+//        gameDetailViewPager.setAdapter(mGameDetailPagerAdapter);
+////
+
+public void setData(LocalLoggedGame gameIn){
+        data = gameIn;
+}
+
+public void setUpPages(){
+
+//    gameDetailView = new GameDetailOverview(activity,data);
+//    gameDetailNoteView = new GameDetailNoteView(activity);
+//      gameDetailStatView = new GameDetailStatsView(activity);
+
+
+
+    //gameDetailPagerAdapter.addView(gameDetailView ,"Game Details");
+    //gameDetailPagerAdapter.addView(gameDetailNoteView ,"Game Notes");
+
+    //gameDetailPagerAdapter.addView(gameDetailStatView ,"Game Stats");
+
+    tabLayout = (TabLayout) findViewById(R.id.tabs);
+    tabLayout.setupWithViewPager(gameDetailViewPager);
 
 
 }
-
 
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
@@ -94,41 +120,41 @@ public class GameDetailView extends FrameLayout {
 //        return super.onOptionsItemSelected(item);
 //    }
 
-
-
-/**
- * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
- * one of the sections/tabs/pages.
- */
-public class GameDetailPagerAdapter extends FragmentPagerAdapter {
-    private final List<Fragment> mFragmentList = new ArrayList<>();
-    private final List<String> mFragmentTitleList = new ArrayList<>();
-
-    public GameDetailPagerAdapter(FragmentManager fm) {
-        super(fm);
-    }
-
-    @Override
-    public Fragment getItem(int position) {
-        return mFragmentList.get(position);
-    }
-
-    public void addFragment(Fragment fragment, String title) {
-        mFragmentList.add(fragment);
-        mFragmentTitleList.add(title);
-    }
-
-    @Override
-    public int getCount() {
-        // Show 3 total pages.
-        return mFragmentList.size();
-    }
-
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return mFragmentTitleList.get(position);
-    }
-}
+//
+//
+///**
+// * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+// * one of the sections/tabs/pages.
+// */
+//public class GameDetailPagerAdapter extends FragmentPagerAdapter {
+//    private final List<Fragment> mFragmentList = new ArrayList<>();
+//    private final List<String> mFragmentTitleList = new ArrayList<>();
+//
+//    public GameDetailPagerAdapter(FragmentManager fm) {
+//        super(fm);
+//    }
+//
+//    @Override
+//    public Fragment getItem(int position) {
+//        return mFragmentList.get(position);
+//    }
+//
+//    public void addFragment(Fragment fragment, String title) {
+//        mFragmentList.add(fragment);
+//        mFragmentTitleList.add(title);
+//    }
+//
+//    @Override
+//    public int getCount() {
+//        // Show 3 total pages.
+//        return mFragmentList.size();
+//    }
+//
+//    @Override
+//    public CharSequence getPageTitle(int position) {
+//        return mFragmentTitleList.get(position);
+//    }
+//}
 
 
 }

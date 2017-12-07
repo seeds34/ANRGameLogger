@@ -5,7 +5,12 @@
     <string name="title_activity_test">test</string>
     <string name="title_activity_view_game_detail">Game Detail</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="gameoverview_title">Game Overview</string>
+    <string name="gamestats_title">Game Stats</string>
+    <string name="gamenotes_title">Game Notes</string>
     <string name="title_activity_game_detail_view">Game Detail</string>
+
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

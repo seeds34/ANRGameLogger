@@ -15,6 +15,9 @@ public class GameDetailPresenter {
     }
 
     public void onCreate(){
+
+        view.setData(model.getLoggedGame());
+        view.setUpPages();
        // view.setLLGData(model.getLoggedGame());
     }
 
