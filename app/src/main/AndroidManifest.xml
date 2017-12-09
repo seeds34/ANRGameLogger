@@ -43,7 +43,7 @@
             android:writePermission="org.seeds.anrgl.procider.READ_WRITE"/>
 
         <activity
-            android:name=".addgame.CreateLoggedGameActivity"
+            android:name=".addgame.AddGameActivity"
             android:label="@string/title_activity_create_logged_game"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>

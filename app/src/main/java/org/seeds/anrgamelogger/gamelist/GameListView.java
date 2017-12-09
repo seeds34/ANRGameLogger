@@ -9,6 +9,8 @@ import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.jakewharton.rxbinding.view.RxView;
+
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.model.LocalLoggedGame;
 
@@ -55,13 +57,16 @@ public class GameListView extends FrameLayout{
         gameRecyclerList.refreshDrawableState();
     }
 
-
-
     public Observable<String> observeRecyckerView() {
         return gameListRecyclerViewAdaptor.getViewClickedObservable();
        // return RxView.clicks(gameRecyclerList);
 
     }
+
+    public Observable<Void> observeFab(){
+        return RxView.clicks(fab);
+    }
+
 //    @OnClick(R.id.listofgmaesrecyclerview)
 //    private void childSelect(){
 //        View childView = gameRecyclerList.findChildViewUnder(e.getX(),e.getY());
@@ -129,7 +134,7 @@ public class GameListView extends FrameLayout{
 //            public void onClick(View view) {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-//                Intent intent = new Intent(view.getContext(), CreateLoggedGameActivity.class);
+//                Intent intent = new Intent(view.getContext(), AddGameActivity.class);
 //                startActivity(intent);
 //            }
 //        });
@@ -143,7 +148,7 @@ public class GameListView extends FrameLayout{
 //    public void onClickFAB(View view) {
 //        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-//                Intent intent = new Intent(view.getContext(), CreateLoggedGameActivity.class);
+//                Intent intent = new Intent(view.getContext(), AddGameActivity.class);
 //                startActivity(intent);
 //            }
 

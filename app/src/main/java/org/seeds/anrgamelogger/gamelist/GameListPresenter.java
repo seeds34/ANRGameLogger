@@ -32,6 +32,7 @@ public class GameListPresenter{
                         list->{view.setData(list);});
 
        compositeSubscription.add(onItemClick());
+        compositeSubscription.add(observeLookupButton());
     }
 
     public void onDestroy() {
@@ -39,9 +40,23 @@ public class GameListPresenter{
     }
 
     private Subscription onItemClick(){
-
         return view.observeRecyckerView()
                 .subscribe(pos ->{ model.startGameDetailActivity(pos.toString());
         });
+    }
+
+    private Subscription observeLookupButton() {
+        return view.observeFab()
+                //.doOnNext(__ -> view.showLoading(true))
+                //.map(__ -> view.getUsernameEdit())
+                //.observeOn(Schedulers.io())
+                //.switchMap(username -> model.getUserReops(username))
+                //.observeOn(AndroidSchedulers.mainThread())
+                //.doOnNext(() -> model.startAddGameActivity())
+                //.doOnEach(__ -> view.showLoading(false))
+                //.retry()
+                .subscribe(__ -> {
+                    model.startAddGameActivity();
+                });
     }
 }
