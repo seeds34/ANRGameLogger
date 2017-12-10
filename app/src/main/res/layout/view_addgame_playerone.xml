@@ -1,118 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     tools:layout_editor_absoluteY="81dp">
 
+    <!--<android.support.design.widget.AppBarLayout-->
+    <!--android:id="@+id/appbar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingTop="@dimen/appbar_padding_top"-->
+    <!--android:theme="@style/AppTheme.AppBarOverlay">-->
+    <!--</android.support.design.widget.AppBarLayout>-->
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
+
     <android.support.design.widget.TabLayout
-    android:id="@+id/tabs"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:tabMode="fixed"
-    app:tabGravity="fill"/>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/identities_image_view_pager"
-        android:layout_width="240dp"
-        android:layout_height="317dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabs" />
-
-    <Spinner
-        android:id="@+id/identitiesSpinner"
-        android:layout_width="wrap_content"
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_weight="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/identities_image_view_pager" />
+        app:tabGravity="fill"
+        app:tabMode="fixed" />
 
 
-    <EditText
-        android:id="@+id/playerOneDeckName"
-        android:layout_width="245dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_weight="1"
-        android:hint="Deck Name"
-        android:maxLines="1"
-        android:textAlignment="center"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/palyerOneName" />
-
-    <EditText
-        android:id="@+id/playerOneDeckVersion"
-        android:layout_width="115dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="12dp"
-        android:hint="Version"
-        android:textSize="14sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/playerOneDeckName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/playerOneDeckName" />
-
-    <EditText
-        android:id="@+id/palyerOneName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_weight="1"
-        android:hint="Name"
-        android:maxLines="1"
-        android:textAlignment="center"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/identitiesSpinner" />
-
-    <!--<EditText-->
-    <!--android:id="@+id/playerOneScore"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginBottom="8dp"-->
-    <!--android:layout_weight="1"-->
-    <!--android:hint="Score"-->
-    <!--android:maxLines="1"-->
-    <!--android:textAlignment="center"-->
-    <!--android:textSize="14sp"/>-->
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
-    <!--<TextView-->
-    <!--android:id="@+id/playerOneLabel"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginBottom="8dp"-->
-    <!--android:layout_weight="1"-->
-    <!--android:contentDescription="Test"-->
-    <!--android:text="Player 1"-->
-    <!--android:textAlignment="center"-->
-    <!--android:textSize="18sp"-->
-    <!--android:textStyle="bold"/>-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/tabs" -->
+        />#
+
+        <Spinner
+            android:id="@+id/identitiesSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/identities_image_view_pager" />
 
 
-    <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_marginBottom="8dp"-->
-    <!--android:layout_weight="1"-->
-    <!--android:orientation="horizontal">-->
+        <EditText
+            android:id="@+id/playerOneDeckName"
+            android:layout_width="245dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:hint="Deck Name"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/identitiesSpinner" />
 
-    <!--</LinearLayout>-->
+        <EditText
+            android:id="@+id/playerOneDeckVersion"
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:hint="Version"
+            android:textSize="14sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/playerOneDeckName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/playerOneDeckName" />
 
-</android.support.constraint.ConstraintLayout>
+        <EditText
+            android:id="@+id/palyerOneName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:hint="Name"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/identities_image_view_pager"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/identities_image_view_pager"
+            android:layout_width="183dp"
+            android:layout_height="235dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--<EditText-->
+        <!--android:id="@+id/playerOneScore"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:hint="Score"-->
+        <!--android:maxLines="1"-->
+        <!--android:textAlignment="center"-->
+        <!--android:textSize="14sp"/>-->
+
+
+        <!--<TextView-->
+        <!--android:id="@+id/playerOneLabel"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:contentDescription="Test"-->
+        <!--android:text="Player 1"-->
+        <!--android:textAlignment="center"-->
+        <!--android:textSize="18sp"-->
+        <!--android:textStyle="bold"/>-->
+
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--</LinearLayout>-->
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>
