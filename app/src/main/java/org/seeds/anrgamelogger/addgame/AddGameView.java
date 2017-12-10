@@ -1,6 +1,8 @@
 package org.seeds.anrgamelogger.addgame;
 
 import android.app.Activity;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.Spinner;
@@ -10,24 +12,42 @@ import org.seeds.anrgamelogger.R;
 import java.util.ArrayList;
 import java.util.Observable;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by user on 09/12/2017.
  */
 
 public class AddGameView extends FrameLayout {
 
+    @BindView(R.id.identitiesSpinner)
+    Spinner identitiesSpinner;
+
+    @BindView(R.id.identities_image_view_pager)
+    ViewPager identitiesImageViewPager;
+
+    private TabLayout tabLayout;
+
     public AddGameView(Activity activity){
         super(activity);
         inflate(getContext(), R.layout.view_addgame_playerone, this);
+        ButterKnife.setDebug(true);
+        ButterKnife.bind(this);
 
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.addTab(tabLayout.newTab().setText("Corp"));
+        tabLayout.addTab(tabLayout.newTab().setText("Runner"));
+        tabLayout.addTab(tabLayout.newTab().setText("Overview#"));
     }
 
-    private void setSpiinerAdaptor(ArrayList<String> identitiesList){
+    public void setIdentitiesImageViewPager(ArrayList<byte[]> imageListIn){
+        identitiesImageViewPager.setAdapter(new AddGameIdentitesPageAdapter(getContext(), imageListIn));
+    }
 
-        ArrayAdapter<String> idListAdaptor = new ArrayAdapter<String>(this.getContext(), R.layout.view_addgame_playerone, identitiesList);
-        Spinner spin = (Spinner) findViewById(R.id.idSpinner);
-
-        spin.setAdapter(idListAdaptor);
+    public void setSpiinerAdaptor(ArrayList<String> identitiesList){
+        ArrayAdapter<String> idListAdaptor = new ArrayAdapter<String>(this.getContext(), R.layout.support_simple_spinner_dropdown_item, identitiesList);
+        identitiesSpinner.setAdapter(idListAdaptor);
     }
 
 //    public class GetIdentityData extends AsyncTask<String, Void, String> {

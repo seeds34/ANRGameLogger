@@ -23,21 +23,18 @@ public class AddGameModel {
         activity = activityIn;
     }
 
-    public Observable<ArrayList<String>> getListOfIdentites(){
+    public Observable<ArrayList<String>> getListOfIdentitesNames(){
 
         return Observable.defer(new Func0<Observable<ArrayList<String>>>() {
             @Override
             public Observable<ArrayList<String>> call() {
-                return Observable.fromCallable(()->genarateIdentiesList());
+                return Observable.fromCallable(()->genarateIdentiesListNames());
             }
         });}
 
-    private ArrayList<String> genarateIdentiesList(){
-
+    private ArrayList<String> genarateIdentiesListNames(){
         ArrayList<String> ret = new ArrayList<String>();
-
-        Cursor queryResult = activity.getContentResolver().query(IdentitiesContract.URI_TABLE,null, null ,null, null);
-
+        Cursor queryResult = activity.getContentResolver().query(IdentitiesContract.URI_TABLE,null, null ,null, IdentitiesContract.IdentitiesColumns.IDENTITY_FACATION + " asc");
         if (queryResult != null) {
             if (queryResult.moveToFirst()) {
                 do {
@@ -47,7 +44,34 @@ public class AddGameModel {
                 queryResult.close();
             }
         }
-
         return ret;
     }
+
+    public Observable<ArrayList<byte[]>> getListOfIdentitesImages(){
+
+        return Observable.defer(new Func0<Observable<ArrayList<byte[]>>>() {
+            @Override
+            public Observable<ArrayList<byte[]>> call() {
+                return Observable.fromCallable(()->genarateIdentiesListImages());
+            }
+        });}
+
+    private ArrayList<byte[]> genarateIdentiesListImages(){
+        ArrayList<byte[]> ret = new ArrayList<byte[]>();
+        Cursor queryResult = activity.getContentResolver().query(IdentitiesContract.URI_TABLE,null, null ,null, IdentitiesContract.IdentitiesColumns.IDENTITY_FACATION + " asc");
+        if (queryResult != null) {
+            if (queryResult.moveToFirst()) {
+                do {
+                    ret.add(queryResult.getBlob(
+                            queryResult.getColumnIndex(IdentitiesContract.IdentitiesColumns.IMAGE_BIT_ARRAY)));
+                }while (queryResult.moveToNext());
+                queryResult.close();
+            }
+        }
+        return ret;
+    }
+
+
+
+
 }

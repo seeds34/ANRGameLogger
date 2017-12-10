@@ -1,5 +1,8 @@
 package org.seeds.anrgamelogger.addgame;
 
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
 /**
  * Created by user on 08/12/2017.
  */
@@ -14,9 +17,19 @@ public class AddGamePresenter {
         this.model = model;
     }
 
-    public void onCreate(){
-      //  view.setSpiinerAdaptor(model.getListOfIdentites());
+    public void onCreate() {
+        model.getListOfIdentitesNames()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(a -> view.setSpiinerAdaptor(a));
+
+        model.getListOfIdentitesImages()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(a -> view.setIdentitiesImageViewPager(a));
     }
+
+
 
     public void onDestroy(){}
 

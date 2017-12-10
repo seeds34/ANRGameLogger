@@ -28,6 +28,7 @@ public class GameDetailView extends FrameLayout {
     private GameDetailOverview gameDetailView;
     private Activity activity;
 
+    //TODO: Add ButterKnife Injection
     public GameDetailView(Activity activity){
         super(activity);
 
