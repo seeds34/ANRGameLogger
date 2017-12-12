@@ -18,6 +18,7 @@ public class GameDetailPresenter {
 
         view.setData(model.getLoggedGame());
         view.setUpPages();
+        view.setTitle();
        // view.setLLGData(model.getLoggedGame());
     }
 

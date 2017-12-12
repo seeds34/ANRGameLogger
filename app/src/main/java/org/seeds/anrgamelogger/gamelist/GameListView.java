@@ -43,7 +43,8 @@ public class GameListView extends FrameLayout{
         ButterKnife.setDebug(true);
         ButterKnife.bind(this);
 
-        //gameRecyclerList = (RecyclerView) findViewById(R.id.listofgmaesrecyclerview);
+        toolbar.setTitle(R.string.app_name);
+
         gameRecyclerList.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         gameListRecyclerViewAdaptor = new GameListRecyclerViewAdaptor();

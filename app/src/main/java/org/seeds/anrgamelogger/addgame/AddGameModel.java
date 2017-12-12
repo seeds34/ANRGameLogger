@@ -2,9 +2,11 @@ package org.seeds.anrgamelogger.addgame;
 
 import android.app.Activity;
 import android.database.Cursor;
+import android.util.Log;
 
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.LoggedGamesFlatViewContract;
+import org.seeds.anrgamelogger.database.datacreater.InportedLoggedGame;
 import org.seeds.anrgamelogger.model.LocalLoggedGame;
 
 import java.util.ArrayList;
@@ -17,24 +19,25 @@ import rx.functions.Func0;
 
 public class AddGameModel {
 
+    private static final String LOG_TAG = AddGameModel.class.getSimpleName();
     private Activity activity;
 
     public AddGameModel(Activity activityIn){
         activity = activityIn;
     }
 
-    public Observable<ArrayList<String>> getListOfIdentitesNames(){
+    public Observable<ArrayList<String>> getListOfIdentitesNames(String side){
 
         return Observable.defer(new Func0<Observable<ArrayList<String>>>() {
             @Override
             public Observable<ArrayList<String>> call() {
-                return Observable.fromCallable(()->genarateIdentiesListNames());
+                return Observable.fromCallable(()->genarateIdentiesListNames(side));
             }
         });}
 
-    private ArrayList<String> genarateIdentiesListNames(){
+    private ArrayList<String> genarateIdentiesListNames(String side){
         ArrayList<String> ret = new ArrayList<String>();
-        Cursor queryResult = activity.getContentResolver().query(IdentitiesContract.URI_TABLE,null, null ,null, IdentitiesContract.IdentitiesColumns.IDENTITY_FACATION + " asc");
+        Cursor queryResult = activity.getContentResolver().query(IdentitiesContract.URI_TABLE,null, IdentitiesContract.IdentitiesColumns.IDENTITY_SIDE + " = '" + side + "'" ,null, IdentitiesContract.IdentitiesColumns.IDENTITY_FACATION + " asc");
         if (queryResult != null) {
             if (queryResult.moveToFirst()) {
                 do {
@@ -47,18 +50,22 @@ public class AddGameModel {
         return ret;
     }
 
-    public Observable<ArrayList<byte[]>> getListOfIdentitesImages(){
+    public Observable<ArrayList<byte[]>> getListOfIdentitesImages(String side){
 
         return Observable.defer(new Func0<Observable<ArrayList<byte[]>>>() {
             @Override
             public Observable<ArrayList<byte[]>> call() {
-                return Observable.fromCallable(()->genarateIdentiesListImages());
+                return Observable.fromCallable(()->genarateIdentiesListImages(side));
             }
         });}
 
-    private ArrayList<byte[]> genarateIdentiesListImages(){
+    private ArrayList<byte[]> genarateIdentiesListImages(String side){
         ArrayList<byte[]> ret = new ArrayList<byte[]>();
-        Cursor queryResult = activity.getContentResolver().query(IdentitiesContract.URI_TABLE,null, null ,null, IdentitiesContract.IdentitiesColumns.IDENTITY_FACATION + " asc");
+
+        Log.d(LOG_TAG, IdentitiesContract.IdentitiesColumns.IDENTITY_SIDE + " = " + side);
+
+        Cursor queryResult = activity.getContentResolver().query(IdentitiesContract.URI_TABLE,null, IdentitiesContract.IdentitiesColumns.IDENTITY_SIDE + " = '" + side + "'", null , IdentitiesContract.IdentitiesColumns.IDENTITY_FACATION + " asc");
+
         if (queryResult != null) {
             if (queryResult.moveToFirst()) {
                 do {

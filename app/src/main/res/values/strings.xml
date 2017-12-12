@@ -2,7 +2,6 @@
     <string name="app_name">ANR Game Logger</string>
     <string name="action_settings">Settings</string>
     <string name="name_filler">Name Temp</string>
-    <string name="title_activity_test">test</string>
     <string name="title_activity_view_game_detail">Game Detail</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="gameoverview_title">Game Overview</string>
@@ -13,6 +12,7 @@
 
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_create_logged_game">CreateLoggedGameActivity</string>
+    <string name="runner">Runner</string>
+    <string name="corp">Corp</string>
 </resources>

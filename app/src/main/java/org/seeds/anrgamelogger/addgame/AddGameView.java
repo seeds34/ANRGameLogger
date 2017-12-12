@@ -24,14 +24,14 @@ public class AddGameView extends FrameLayout {
     @BindView(R.id.identitiesSpinner)
     Spinner identitiesSpinner;
 
-    @BindView(R.id.identities_image_view_pager)
+    @BindView(R.id.identitiesImageViewPager)
     ViewPager identitiesImageViewPager;
 
     private TabLayout tabLayout;
 
     public AddGameView(Activity activity){
         super(activity);
-        inflate(getContext(), R.layout.view_addgame_playerone, this);
+        inflate(getContext(), R.layout.view_addgame_playerone_v2, this);
         ButterKnife.setDebug(true);
         ButterKnife.bind(this);
 

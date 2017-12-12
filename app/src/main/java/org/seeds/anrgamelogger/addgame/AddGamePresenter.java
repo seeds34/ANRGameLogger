@@ -18,12 +18,12 @@ public class AddGamePresenter {
     }
 
     public void onCreate() {
-        model.getListOfIdentitesNames()
+        model.getListOfIdentitesNames("Runner")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(a -> view.setSpiinerAdaptor(a));
 
-        model.getListOfIdentitesImages()
+        model.getListOfIdentitesImages("Runner")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(a -> view.setIdentitiesImageViewPager(a));

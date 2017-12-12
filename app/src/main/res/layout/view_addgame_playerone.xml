@@ -51,7 +51,7 @@
             android:layout_weight="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/identities_image_view_pager" />
+            app:layout_constraintTop_toBottomOf="@+id/identitiesImageViewPager" />
 
 
         <EditText
@@ -92,11 +92,11 @@
             android:textAlignment="center"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/identities_image_view_pager"
+            app:layout_constraintStart_toEndOf="@+id/identitiesImageViewPager"
             app:layout_constraintTop_toTopOf="parent" />
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/identities_image_view_pager"
+            android:id="@+id/identitiesImageViewPager"
             android:layout_width="183dp"
             android:layout_height="235dp"
             android:layout_gravity="center_horizontal"
