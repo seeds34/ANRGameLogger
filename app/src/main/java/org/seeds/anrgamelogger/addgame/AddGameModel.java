@@ -3,14 +3,12 @@ package org.seeds.anrgamelogger.addgame;
 import android.app.Activity;
 import android.database.Cursor;
 import android.util.Log;
-
-import com.pushtorefresh.storio2.sqlite.queries.Query;
-
-import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
-
+import com.pushtorefresh.storio2.contentresolver.StorIOContentResolver;
+import com.pushtorefresh.storio2.contentresolver.impl.DefaultStorIOContentResolver;
+import com.pushtorefresh.storio2.contentresolver.queries.Query;
 import java.util.ArrayList;
-import java.util.List;
-
+import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
+import org.seeds.anrgamelogger.database.contracts.IdentitiesContract.IdentitiesColumns;
 import rx.Observable;
 import rx.functions.Func0;
 
@@ -80,19 +78,35 @@ public class AddGameModel {
         return ret;
     }
 
-private void test(){
+public ArrayList<String>  test(String side){
 
-    List<String> tweets = storIOSQLite
-            .get()
-            .listOfObjects(String.class) // Type safety
-            .withQuery(Query.builder() // Query builder
-                    .table("identities")
-                    .where("author = ?")
-                    .whereArgs("artem_zin") // Varargs Object..., no more new String[] {"I", "am", "tired", "of", "this", "shit"}
-                    .build()) // Query is immutable — you can save it and share without worries
-            .prepare() // Operation builder
-            .executeAsBlocking(); // Control flow is readable from top to bottom, just like with RxJava
+    ArrayList<String> ret = new ArrayList<String>();
 
+    StorIOContentResolver storIOContentResolver = DefaultStorIOContentResolver.builder()
+        .contentResolver(activity.getContentResolver())
+//        .addTypeMapping(SomeType.class, typeMapping) // required for object mapping
+        .build();
+
+    Cursor queryResult = storIOContentResolver
+        .get()
+        .cursor()
+        .withQuery(Query.builder()
+            .uri(IdentitiesContract.URI_TABLE)
+            .where(IdentitiesContract.IdentitiesColumns.IDENTITY_SIDE + " = '" + side + "'")
+          //  .whereArgs("@artem_zin")
+            .build())
+        .prepare()
+        .executeAsBlocking();
+
+    if (queryResult != null) {
+        if (queryResult.moveToFirst()) {
+            do {
+                ret.add(queryResult.getString(queryResult.getColumnIndex(IdentitiesColumns.IDENTITY_NAME)));
+            }while (queryResult.moveToNext());
+            queryResult.close();
+        }
+    }
+    return  ret;
 }
 
 
