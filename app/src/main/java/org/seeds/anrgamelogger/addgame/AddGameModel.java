@@ -4,14 +4,16 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.util.Log;
 
+import com.pushtorefresh.storio2.sqlite.queries.Query;
+
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
-import org.seeds.anrgamelogger.database.contracts.LoggedGamesFlatViewContract;
-import org.seeds.anrgamelogger.database.datacreater.InportedLoggedGame;
-import org.seeds.anrgamelogger.model.LocalLoggedGame;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import rx.Observable;
 import rx.functions.Func0;
+
 
 /**
  * Created by user on 08/12/2017.
@@ -78,7 +80,20 @@ public class AddGameModel {
         return ret;
     }
 
+private void test(){
 
+    List<String> tweets = storIOSQLite
+            .get()
+            .listOfObjects(String.class) // Type safety
+            .withQuery(Query.builder() // Query builder
+                    .table("identities")
+                    .where("author = ?")
+                    .whereArgs("artem_zin") // Varargs Object..., no more new String[] {"I", "am", "tired", "of", "this", "shit"}
+                    .build()) // Query is immutable — you can save it and share without worries
+            .prepare() // Operation builder
+            .executeAsBlocking(); // Control flow is readable from top to bottom, just like with RxJava
+
+}
 
 
 }
