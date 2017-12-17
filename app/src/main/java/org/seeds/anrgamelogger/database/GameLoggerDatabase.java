@@ -40,7 +40,7 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
 
     private final String IDENTITIES_DDL = "CREATE TABLE IF NOT EXISTS " + Tables.IDENTITIES + " ( " + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + IdentitiesContract.IdentitiesColumns.IDENTITY_NAME + " TEXT NOT NULL COLLATE NOCASE ,"
-            + IdentitiesContract.IdentitiesColumns.IDENTITY_FACATION + " TEXT NOT NULL COLLATE NOCASE,"
+            + IdentitiesContract.IdentitiesColumns.IDENTITY_FACTION + " TEXT NOT NULL COLLATE NOCASE,"
             + IdentitiesContract.IdentitiesColumns.IDENTITY_SIDE + " TEXT NOT NULL COLLATE NOCASE, "
             + IdentitiesContract.IdentitiesColumns.ROTATED_FLAG + " TEXT NOT NULL, "
             + IdentitiesContract.IdentitiesColumns.NRDB_CODE + " TEXT NOT NULL, "

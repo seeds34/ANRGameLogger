@@ -21,6 +21,7 @@ android {
     configurations.all {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -28,57 +29,55 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
     //Android
-    compile 'com.android.support:appcompat-v7:25.3.0'
-    compile 'com.android.support:design:25.3.0'
-    compile 'com.android.support:cardview-v7:25.3.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:support-v4:25.3.0'
+    implementation 'com.android.support:appcompat-v7:25.3.0'
+    implementation 'com.android.support:design:25.3.0'
+    implementation 'com.android.support:cardview-v7:25.3.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:support-v4:25.3.0'
 
     //Testing
     testCompile 'junit:junit:4.12'
 
     //Butterknife
-    compile 'com.jakewharton:butterknife:8.8.1'
+    implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     //Dagger
-    compile 'com.google.dagger:dagger:2.12'
-    compile 'com.google.dagger:dagger-android:2.12'
+    implementation 'com.google.dagger:dagger:2.12'
+    implementation 'com.google.dagger:dagger-android:2.12'
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.12'
     annotationProcessor "com.google.dagger:dagger-compiler:2.12"
 
     //RXjava1
-    compile 'io.reactivex:rxjava:1.2.5'
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile "com.twistedequations.rx:rx-savestate:2.0.2"
-    compile 'com.jakewharton.rxbinding:rxbinding:1.0.0'
-    compile 'com.jakewharton.rxbinding:rxbinding-support-v4:1.0.0'
-    compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:1.0.0'
-    compile 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:1.0.0'
+    implementation 'io.reactivex:rxjava:1.2.5'
+    implementation 'io.reactivex:rxandroid:1.2.1'
+    implementation 'com.twistedequations.rx:rx-savestate:2.0.2'
+    implementation 'com.jakewharton.rxbinding:rxbinding:1.0.0'
+    implementation 'com.jakewharton.rxbinding:rxbinding-support-v4:1.0.0'
+    implementation 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:1.0.0'
+    implementation 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:1.0.0'
 
     //RXJava2
-//    compile 'io.reactivex.rxjava2:rxjava:2.1.6'
-//    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-//    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
-//    compile 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
-//    compile 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:2.0.0'
-
+    //compile 'io.reactivex.rxjava2:rxjava:2.1.6'
+    //compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    //compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    //compile 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
+    //compile 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:2.0.0'
     //compile 'com.twistedequations.rx2:rx2-savestate:2.0.0'
-
     //compile 'com.google.code.gson:gson:2.8.2'
     //compile 'com.jakewharton.timber:timber:4.6.0'
 
-    annotationProcessor 'com.google.auto.value:auto-value:1.5'
-    annotationProcessor 'com.ryanharter.auto.value:auto-value-parcel:0.2.5'
-    provided 'com.jakewharton.auto.value:auto-value-annotations:1.5'
+    //annotationProcessor 'com.google.auto.value:auto-value:1.5'
+    //annotationProcessor 'com.ryanharter.auto.value:auto-value-parcel:0.2.5'
+    //provided 'com.jakewharton.auto.value:auto-value-annotations:1.5'
 
     //StorIO
-    compile 'com.pushtorefresh.storio2:sqlite:2.1.0'
-    compile 'com.pushtorefresh.storio2:content-resolver:2.1.0'
-
+    implementation 'com.pushtorefresh.storio2:content-resolver:2.1.0'
 }

@@ -11,7 +11,7 @@ public class IdentitiesContract {
 
     public interface IdentitiesColumns {
         String IDENTITY_NAME = "name";
-        String IDENTITY_FACATION = "faction";
+        String IDENTITY_FACTION = "faction";
         String IDENTITY_SIDE = "side";
         String ROTATED_FLAG = "rotated";
         String NRDB_CODE = "nrdbcode";
