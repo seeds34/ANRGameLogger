@@ -24,25 +24,23 @@
 
     <ImageView
         android:id="@+id/playerOneIDImage"
-        android:layout_width="123dp"
-        android:layout_height="176dp"
-        app:srcCompat="@drawable/cardback"
-        android:layout_marginLeft="24dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="143dp"
+        android:layout_height="196dp"
         android:layout_marginBottom="31dp"
+        android:layout_marginLeft="24dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        android:layout_marginStart="16dp"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:srcCompat="@drawable/cardback" />
 
     <ImageView
         android:id="@+id/playerTwoIDImage"
-        android:layout_width="123dp"
-        android:layout_height="176dp"
-        app:srcCompat="@drawable/cardback"
+        android:layout_width="143dp"
+        android:layout_height="196dp"
         android:layout_marginRight="24dp"
+        android:layout_marginTop="31dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline3"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="16dp"/>
+        app:srcCompat="@drawable/cardback" />
 
     <TextView
         android:id="@+id/playedDate"
@@ -110,84 +108,81 @@
 
         <TextView
             android:id="@+id/playerOneNameLabel"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="7dp"
             android:layout_weight="1"
             android:gravity="left"
             android:text="Player Name"
-            android:textAlignment="center"
-            android:textSize="12sp"
-            android:textStyle="bold"
+            android:textAlignment="textStart"
+            android:textSize="10sp"
             tools:layout_editor_absoluteX="179dp"
-            tools:layout_editor_absoluteY="93dp"/>
+            tools:layout_editor_absoluteY="93dp" />
 
         <TextView
             android:id="@+id/playerOneName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="start"
             android:layout_marginBottom="8dp"
             android:layout_weight="1"
             android:text="Player One Name"
-            android:layout_gravity="start"
             android:textAlignment="textStart"
-            android:textSize="12sp"
+            android:textSize="18sp"
             tools:layout_editor_absoluteX="214dp"
-            tools:layout_editor_absoluteY="93dp"/>
+            tools:layout_editor_absoluteY="93dp" />
 
         <TextView
             android:id="@+id/playerOneDeckNameLabel"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="7dp"
             android:layout_weight="1"
             android:gravity="left"
             android:text="Deck Name/Version"
-            android:textAlignment="center"
-            android:textSize="12sp"
-            android:textStyle="bold"
+            android:textAlignment="textStart"
+            android:textSize="10sp"
             tools:layout_editor_absoluteX="172dp"
-            tools:layout_editor_absoluteY="125dp"/>
+            tools:layout_editor_absoluteY="125dp" />
 
         <TextView
             android:id="@+id/playerOneDeckName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="start"
             android:layout_marginBottom="8dp"
             android:layout_weight="1"
             android:text="Player One Deck:"
-            android:layout_gravity="start"
             android:textAlignment="textStart"
-            android:textSize="12sp"
+            android:textSize="18sp"
             tools:layout_editor_absoluteX="278dp"
-            tools:layout_editor_absoluteY="125dp"/>
+            tools:layout_editor_absoluteY="125dp" />
 
         <TextView
             android:id="@+id/playerOneScoreLabel"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="7dp"
             android:layout_weight="1"
             android:gravity="left"
             android:text="Score"
-            android:textAlignment="center"
-            android:textSize="12sp"
-            android:textStyle="bold"
+            android:textAlignment="textStart"
+            android:textSize="10sp"
             tools:layout_editor_absoluteX="166dp"
-            tools:layout_editor_absoluteY="169dp"/>
+            tools:layout_editor_absoluteY="169dp" />
 
         <TextView
             android:id="@+id/playerOneScore"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="start"
             android:layout_marginBottom="8dp"
             android:layout_weight="1"
             android:text="Player One Score"
-            android:layout_gravity="start"
             android:textAlignment="textStart"
-            android:textSize="12sp"
+            android:textSize="18sp"
             tools:layout_editor_absoluteX="264dp"
-            tools:layout_editor_absoluteY="173dp"/>
+            tools:layout_editor_absoluteY="173dp" />
 
     </LinearLayout>
 
@@ -205,78 +200,75 @@
 
         <TextView
             android:id="@+id/playerTwoNameLabel"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Player Name"
-            android:textAlignment="center"
-            android:textSize="12sp"
-            android:textStyle="bold"
+            android:textAlignment="textEnd"
+            android:textSize="10sp"
             tools:layout_editor_absoluteX="121dp"
-            tools:layout_editor_absoluteY="359dp"/>
+            tools:layout_editor_absoluteY="359dp" />
 
         <TextView
             android:id="@+id/playerTwoName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="right|start"
             android:layout_marginBottom="8dp"
             android:layout_weight="1"
             android:text="Player Two Name"
-            android:layout_gravity="start"
             android:textAlignment="textEnd"
-            android:textSize="12sp"
+            android:textSize="18sp"
             tools:layout_editor_absoluteX="42dp"
-            tools:layout_editor_absoluteY="359dp"/>
+            tools:layout_editor_absoluteY="359dp" />
 
         <TextView
             android:id="@+id/playerTwoDeckNameLabel"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Deck Name/Version"
-            android:textAlignment="center"
-            android:textSize="12sp"
-            android:textStyle="bold"
+            android:textAlignment="textEnd"
+            android:textSize="10sp"
             tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="385dp"/>
+            tools:layout_editor_absoluteY="385dp" />
 
         <TextView
             android:id="@+id/playerTwoDeckName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="right|start"
             android:layout_marginBottom="8dp"
             android:layout_weight="1"
             android:text="Player Two Deck Name"
-            android:layout_gravity="start"
             android:textAlignment="textEnd"
-            android:textSize="12sp"
+            android:textSize="18sp"
             tools:layout_editor_absoluteX="121dp"
-            tools:layout_editor_absoluteY="385dp"/>
+            tools:layout_editor_absoluteY="385dp" />
 
         <TextView
             android:id="@+id/playerTwoScoreLabel"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Score"
-            android:textAlignment="center"
-            android:textSize="12sp"
-            android:textStyle="bold"
+            android:textAlignment="textEnd"
+            android:textSize="10sp"
             tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="432dp"/>
+            tools:layout_editor_absoluteY="432dp" />
 
         <TextView
             android:id="@+id/playerTwoScore"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="right|start"
             android:layout_marginBottom="8dp"
             android:layout_weight="1"
             android:text="Player Two Score"
-            android:layout_gravity="start"
             android:textAlignment="textEnd"
-            android:textSize="12sp"
+            android:textSize="18sp"
             tools:layout_editor_absoluteX="134dp"
-            tools:layout_editor_absoluteY="432dp"/>
+            tools:layout_editor_absoluteY="432dp" />
 
     </LinearLayout>
 
@@ -288,11 +280,11 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:text="Winner!"
-        android:textSize="18sp"
+        android:textSize="7sp"
         android:visibility="invisible"
         app:layout_constraintLeft_toLeftOf="@+id/playerOneInfo"
         app:layout_constraintRight_toRightOf="@+id/playerOneInfo"
-        app:layout_constraintTop_toBottomOf="@+id/playerOneInfo"/>
+        app:layout_constraintTop_toBottomOf="@+id/playerOneInfo" />
 
     <TextView
         android:id="@+id/playerTwoWinnerLable"

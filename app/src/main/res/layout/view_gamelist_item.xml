@@ -23,7 +23,7 @@
 
         <LinearLayout
             android:id="@+id/linearLayout4"
-            android:layout_width="wrap_content"
+            android:layout_width="81dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
@@ -34,25 +34,23 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/locationLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textSize="5sp" />
+                android:text="Location"
+                android:textSize="7sp" />
 
             <TextView
                 android:id="@+id/location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                android:textSize="14sp"
-                tools:layout_editor_absoluteX="278dp"
-                tools:layout_editor_absoluteY="165dp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout3"
-            android:layout_width="wrap_content"
+            android:layout_width="81dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
@@ -64,35 +62,36 @@
 
             <TextView
                 android:id="@+id/playedDateLabel"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:text="Played Date:"
-                android:textSize="5sp"
-                app:layout_constraintStart_toStartOf="@+id/playeddate"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="7sp" />
 
             <TextView
                 android:id="@+id/playeddate"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="21/08/2017"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="@+id/playerIneIDImage"
-                app:layout_constraintTop_toBottomOf="@+id/playedDateLabel" />
+                android:textSize="14sp" />
         </LinearLayout>
 
-        <!--<TextView-->
-            <!--android:id="@+id/vs"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="21dp"-->
-            <!--android:gravity="center_vertical|center_horizontal"-->
-            <!--android:text="VS"-->
-            <!--android:textAlignment="center"-->
-            <!--android:textSize="16sp"-->
-            <!--android:textStyle="bold"-->
-            <!--tools:layout_editor_absoluteX="177dp"-->
-            <!--tools:layout_editor_absoluteY="75dp" />-->
+        <TextView
+            android:id="@+id/vs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="VS"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/playerTwoIDImage"
+            app:layout_constraintEnd_toStartOf="@+id/playerTwoIDImage"
+            app:layout_constraintStart_toEndOf="@+id/playerIneIDImage"
+            app:layout_constraintTop_toTopOf="@+id/playerIneIDImage" />-->
 
         <ImageView
             android:id="@+id/playerTwoIDImage"
@@ -154,14 +153,13 @@
             android:orientation="vertical"
             app:layout_constraintGuide_begin="187dp" />
 
-        <!--<TextView-->
-        <!--android:id="@+id/gameNumber"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="No. "-->
-        <!--android:textSize="14sp"-->
-        <!--app:layout_constraintBaseline_toBaselineOf="@+id/gameNumberLabel"-->
-        <!--app:layout_constraintStart_toEndOf="@+id/gameNumberLabel" />-->
+        <TextView
+        android:id="@+id/gameNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No. "
+        android:textSize="14sp"
+        android:visibility="invisible" />
 
         <!--<TextView-->
         <!--android:id="@+id/gameNumberLabel"-->
