@@ -6,18 +6,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
-
-import com.jakewharton.rxbinding.view.RxView;
-
-import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.model.LocalLoggedGame;
-
-import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import com.jakewharton.rxbinding.view.RxView;
+import java.util.ArrayList;
+import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.model.LocalLoggedGame;
 import rx.Observable;
 
 
@@ -34,6 +32,13 @@ public class GameListView extends FrameLayout{
 
     @BindView(R.id.addGameLog)
      FloatingActionButton fab;
+
+    @BindView(R.id.add_corp_game_fab)
+    FloatingActionButton corp_fab;
+
+    @BindView(R.id.add_runner_game_fab)
+    FloatingActionButton runner_fab;
+
 
     public GameListView(Activity activity) {
         super(activity);
@@ -64,9 +69,55 @@ public class GameListView extends FrameLayout{
 
     }
 
-    public Observable<Void> observeFab(){
-        return RxView.clicks(fab);
+
+  @OnClick(R.id.addGameLog)
+    public void fabClick(){
+
+        if(corp_fab.getVisibility() == View.INVISIBLE & runner_fab.getVisibility() == View.INVISIBLE  ) {
+
+            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) corp_fab.getLayoutParams();
+            layoutParams.rightMargin += (int) (corp_fab.getWidth() * 1.7);
+            layoutParams.bottomMargin += (int) (corp_fab.getHeight() * 0.25);
+            corp_fab.setLayoutParams(layoutParams);
+            //fab.startAnimation(show_fab_1);
+            corp_fab.setVisibility(View.VISIBLE);
+            corp_fab.setClickable(true);
+
+            layoutParams = (FrameLayout.LayoutParams) runner_fab.getLayoutParams();
+            layoutParams.rightMargin += (int) (runner_fab.getWidth() * 0.25);
+            layoutParams.bottomMargin += (int) (runner_fab.getHeight() * 1.7);
+            runner_fab.setLayoutParams(layoutParams);
+            //fab.startAnimation(show_fab_1);
+            runner_fab.setVisibility(View.VISIBLE);
+            runner_fab.setClickable(true);
+        }else{
+            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) corp_fab.getLayoutParams();
+            layoutParams.rightMargin -= (int) (corp_fab.getWidth() * 1.7);
+            layoutParams.bottomMargin -= (int) (corp_fab.getHeight() * 0.25);
+            corp_fab.setLayoutParams(layoutParams);
+            //fab.startAnimation(show_fab_1);
+            corp_fab.setVisibility(View.INVISIBLE);
+            corp_fab.setClickable(false);
+
+            layoutParams = (FrameLayout.LayoutParams) runner_fab.getLayoutParams();
+            layoutParams.rightMargin -= (int) (runner_fab.getWidth() * 0.25);
+            layoutParams.bottomMargin -= (int) (runner_fab.getHeight() * 1.7);
+            runner_fab.setLayoutParams(layoutParams);
+            //fab.startAnimation(show_fab_1);
+            runner_fab.setVisibility(View.INVISIBLE);
+            runner_fab.setClickable(false);
+        }
+
     }
+
+    public Observable<Void> observeCorpFab(){
+        return RxView.clicks(corp_fab);
+    }
+
+  public Observable<Void> observeRunnerFab(){
+    return RxView.clicks(runner_fab);
+  }
+
 
 //    @OnClick(R.id.listofgmaesrecyclerview)
 //    private void childSelect(){

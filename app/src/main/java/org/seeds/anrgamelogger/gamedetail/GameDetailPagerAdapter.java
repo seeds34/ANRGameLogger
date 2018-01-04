@@ -5,15 +5,12 @@ import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
-
+import java.util.ArrayList;
+import java.util.List;
 import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.gamedetail.views.DetailViewsEnum;
 import org.seeds.anrgamelogger.gamedetail.views.GameDetailNoteView;
 import org.seeds.anrgamelogger.gamedetail.views.GameDetailOverview;
 import org.seeds.anrgamelogger.model.LocalLoggedGame;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by user on 21/11/2017.
@@ -33,8 +30,8 @@ public class GameDetailPagerAdapter extends PagerAdapter {
 
         viewList.add(new GameDetailOverview(activity,data));
         viewList.add(new GameDetailNoteView(activity));
-        viewTitleList.add(activity.getString(R.string.gameoverview_title));
-        viewTitleList.add(activity.getString(R.string.gamenotes_title));
+        viewTitleList.add(activity.getString(R.string.title_overview));
+        viewTitleList.add(activity.getString(R.string.title_gamenotes));
     }
 
     @Override
@@ -49,20 +46,19 @@ public class GameDetailPagerAdapter extends PagerAdapter {
 
     }
 
-    public View getItem(int position) {
-        return viewList.get(position);
-    }
-
-    public void addView(View view, String title) {
-        viewList.add(view);
-        notifyDataSetChanged();
-        viewTitleList.add(title);
-    }
+//    public View getItem(int position) {
+//        return viewList.get(position);
+//    }
+//
+//    public void addView(View view, String title) {
+//        viewList.add(view);
+//        notifyDataSetChanged();
+//        viewTitleList.add(title);
+//    }
 
     @Override
     public int getCount() {
-        return DetailViewsEnum.values().length;
-        //return viewList.size();
+        return viewList.size();
     }
 
     @Override

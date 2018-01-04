@@ -42,7 +42,7 @@ public class GameListModel {
         GameDetailActivity.start(activity.getApplicationContext(),gameListManager.getGame(selectedGame));
     }
 
-    public void startAddGameActivity(){
-        AddGameActivity.start(activity.getApplicationContext());
+    public void startAddGameActivity(int side){
+        AddGameActivity.start(activity.getApplicationContext(),side);
     }
 }

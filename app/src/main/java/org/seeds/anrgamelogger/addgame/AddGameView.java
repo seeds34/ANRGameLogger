@@ -3,16 +3,12 @@ package org.seeds.anrgamelogger.addgame;
 import android.app.Activity;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.widget.ArrayAdapter;
+import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
-import android.widget.Spinner;
-
-import org.seeds.anrgamelogger.R;
-
-import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import java.util.ArrayList;
+import org.seeds.anrgamelogger.R;
 
 /**
  * Created by user on 09/12/2017.
@@ -20,34 +16,39 @@ import butterknife.ButterKnife;
 
 public class AddGameView extends FrameLayout {
 
-    @BindView(R.id.identitiesSpinner)
-    Spinner identitiesSpinner;
+    @BindView(R.id.toolbar)
+    public Toolbar toolbar;
 
-    @BindView(R.id.identitiesImageViewPager)
-    ViewPager identitiesImageViewPager;
+    @BindView(R.id.addGameViewPager)
+    public ViewPager addGameViewPager;
 
-    private TabLayout tabLayout;
+    @BindView(R.id.tabs)
+    public TabLayout tabLayout;
+
+    private AddGamePagerAdapter addGamePagerAdapter;
+    private Activity activity;
 
     public AddGameView(Activity activity){
         super(activity);
-        inflate(getContext(), R.layout.view_addgame, this);
+        this.activity = activity;
+        inflate(getContext(), R.layout.view_addgame_base, this);
         ButterKnife.setDebug(true);
         ButterKnife.bind(this);
-
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.addTab(tabLayout.newTab().setText("Corp"));
-        tabLayout.addTab(tabLayout.newTab().setText("Runner"));
-        tabLayout.addTab(tabLayout.newTab().setText("Overview#"));
+        toolbar.setTitle(R.string.title_add_new_game);
     }
 
-    public void setIdentitiesImageViewPager(ArrayList<byte[]> imageListIn){
-        identitiesImageViewPager.setAdapter(new AddGameIdentitesPageAdapter(getContext(), imageListIn));
+    public void setUpPages(ArrayList<Integer> titleList){
+        tabLayout.setupWithViewPager(addGameViewPager);
+        addGamePagerAdapter = new AddGamePagerAdapter(activity, titleList);
+        addGameViewPager.setAdapter(addGamePagerAdapter);
     }
 
-    public void setSpiinerAdaptor(ArrayList<String> identitiesList){
-        ArrayAdapter<String> idListAdaptor = new ArrayAdapter<String>(this.getContext(), R.layout.support_simple_spinner_dropdown_item, identitiesList);
-        identitiesSpinner.setAdapter(idListAdaptor);
-    }
+
+
+
+
+
+
 
 //    public class GetIdentityData extends AsyncTask<String, Void, String> {
 //

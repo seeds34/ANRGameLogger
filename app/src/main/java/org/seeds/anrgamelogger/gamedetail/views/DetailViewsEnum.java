@@ -8,8 +8,8 @@ import org.seeds.anrgamelogger.R;
 
 public enum DetailViewsEnum {
 
-    GAMEOVERVIEW(R.string.gameoverview_title, R.layout.view_gamedetail_overview),
-    GAMESTATS( R.string.gamestats_title, R.layout.view_gamedetail_notes);
+    GAMEOVERVIEW(R.string.title_overview, R.layout.view_gamedetail_overview),
+    GAMENOTES( R.string.title_gamenotes, R.layout.view_gamedetail_notes);
 
     private int titleRId;
     private int layoutRId;

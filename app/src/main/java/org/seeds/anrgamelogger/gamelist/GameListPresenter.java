@@ -1,5 +1,6 @@
 package org.seeds.anrgamelogger.gamelist;
 
+import org.seeds.anrgamelogger.R;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -32,7 +33,8 @@ public class GameListPresenter{
                         list->{view.setData(list);});
 
        compositeSubscription.add(onItemClick());
-        compositeSubscription.add(observeLookupButton());
+        compositeSubscription.add(observeCorpFab());
+        compositeSubscription.add(observeRunnerFab());
     }
 
     public void onDestroy() {
@@ -45,18 +47,26 @@ public class GameListPresenter{
         });
     }
 
-    private Subscription observeLookupButton() {
-        return view.observeFab()
-                //.doOnNext(__ -> view.showLoading(true))
-                //.map(__ -> view.getUsernameEdit())
-                //.observeOn(Schedulers.io())
-                //.switchMap(username -> model.getUserReops(username))
-                //.observeOn(AndroidSchedulers.mainThread())
-                //.doOnNext(() -> model.startAddGameActivity())
-                //.doOnEach(__ -> view.showLoading(false))
-                //.retry()
-                .subscribe(__ -> {
-                    model.startAddGameActivity();
-                });
+    private Subscription observeCorpFab() {
+        return view.observeCorpFab()
+            //.doOnNext(__ -> view.showLoading(true))
+            //.map(__ -> view.getUsernameEdit())
+            //.observeOn(Schedulers.io())
+            //.switchMap(username -> model.getUserReops(username))
+            //.observeOn(AndroidSchedulers.mainThread())
+            //.doOnNext(() -> model.startAddGameActivity())
+            //.doOnEach(__ -> view.showLoading(false))
+            //.retry()
+            .subscribe(__ -> {
+                model.startAddGameActivity(R.string.title_corp);
+    });
+    }
+
+    private Subscription observeRunnerFab() {
+        return view.observeRunnerFab()
+
+            .subscribe(__ -> {
+                model.startAddGameActivity(R.string.title_runner);
+            });
     }
 }

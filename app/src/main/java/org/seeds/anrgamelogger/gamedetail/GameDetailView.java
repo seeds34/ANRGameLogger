@@ -6,13 +6,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.FrameLayout;
-
-import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.gamedetail.views.*;
-import org.seeds.anrgamelogger.model.LocalLoggedGame;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.model.LocalLoggedGame;
 
 /**
  * Created by Tomas Seymour-Turner on 19/11/2017.
@@ -32,7 +29,7 @@ public class GameDetailView extends FrameLayout {
     public TabLayout tabLayout;
 
     private LocalLoggedGame data;
-   private Activity activity;
+    private Activity activity;
     private GameDetailPagerAdapter gameDetailPagerAdapter;
 
     //TODO: Add ButterKnife Injection
