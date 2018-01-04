@@ -10,7 +10,6 @@ import android.widget.Spinner;
 import org.seeds.anrgamelogger.R;
 
 import java.util.ArrayList;
-import java.util.Observable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,7 +30,7 @@ public class AddGameView extends FrameLayout {
 
     public AddGameView(Activity activity){
         super(activity);
-        inflate(getContext(), R.layout.view_addgame_playerone_v2, this);
+        inflate(getContext(), R.layout.view_addgame, this);
         ButterKnife.setDebug(true);
         ButterKnife.bind(this);
 
