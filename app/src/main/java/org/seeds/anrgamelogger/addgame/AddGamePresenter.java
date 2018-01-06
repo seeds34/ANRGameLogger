@@ -1,7 +1,7 @@
 package org.seeds.anrgamelogger.addgame;
 
 import java.util.ArrayList;
-import org.seeds.anrgamelogger.addgame.views.AddGameEnum;
+import org.seeds.anrgamelogger.R;
 
 /**
  * Created by user on 08/12/2017.
@@ -20,31 +20,34 @@ public class AddGamePresenter {
     }
 
     public void onCreate() {
-        setViewData();
-        setUpDeafults();;
         setUpView();
+        setViewData();
+        view.startPA();
+        //setUpDeafults();
+
     }
 
 
     public void setViewData(){
 
-//        view.setSpiinerAdaptor(model.getListOfIdentitesNames("Runner"));
-//        view.setIdentitiesImageViewPager(model.getListOfIdentitesImages("Runner"));
+        view.setImageSpinner(R.string.title_corp, model.getListOfIdentitesImages(R.string.title_corp));
+        view.setImageSpinner(R.string.title_corp, model.getListOfIdentitesImages(R.string.title_runner));
+
     }
 
     public void setUpView(){
 
         ArrayList<Integer> viewList = new ArrayList<>();
 
-        if (model.getSide() == AddGameEnum.ADDGAMECORP.getLayoutID()){
-            viewList.add(AddGameEnum.ADDGAMECORP.getTitleID());
-            viewList.add(AddGameEnum.ADDGAMERUNNER.getTitleID());
+        if (model.getSide() == R.string.title_corp){
+            viewList.add(R.string.title_corp);
+            viewList.add(R.string.title_runner);
         }else {
-            viewList.add(AddGameEnum.ADDGAMERUNNER.getTitleID());
-            viewList.add(AddGameEnum.ADDGAMECORP.getTitleID());
+            viewList.add(R.string.title_runner);
+            viewList.add(R.string.title_corp);
         }
 
-        viewList.add(AddGameEnum.ADDGAMEOVERVIEW.getTitleID());
+        viewList.add(R.string.title_overview);
 
         view.setUpPages(viewList);
 

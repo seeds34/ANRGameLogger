@@ -1,15 +1,17 @@
 package org.seeds.anrgamelogger.addgame.views;
 
 import android.app.Activity;
-import android.widget.FrameLayout;
 import org.seeds.anrgamelogger.R;
 
 /**
  * Created by Tomas Seymour-Turner on 04/01/2018.
  */
 
-public class AddGameOverview extends FrameLayout {
+public class AddGameOverview extends AddGameBaseView{
 
+  //TODO: Change Name of SIDE as this is overciew
+  //TODO: Add common type between ADDGame Views??
+  private final int TITLE = R.string.title_overview;
   private Activity activity;
 
   public AddGameOverview(Activity activity){
@@ -20,5 +22,8 @@ public class AddGameOverview extends FrameLayout {
 
   public void onCreate(){}
 
+  public int getTitle(){
+    return TITLE;
+  }
 
 }

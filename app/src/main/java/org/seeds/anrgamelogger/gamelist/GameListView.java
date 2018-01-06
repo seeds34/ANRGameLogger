@@ -73,9 +73,11 @@ public class GameListView extends FrameLayout{
   @OnClick(R.id.addGameLog)
     public void fabClick(){
 
-        if(corp_fab.getVisibility() == View.INVISIBLE & runner_fab.getVisibility() == View.INVISIBLE  ) {
+      FrameLayout.LayoutParams layoutParams;
 
-            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) corp_fab.getLayoutParams();
+      if(corp_fab.getVisibility() == View.INVISIBLE & runner_fab.getVisibility() == View.INVISIBLE  ) {
+
+            layoutParams = (FrameLayout.LayoutParams) corp_fab.getLayoutParams();
             layoutParams.rightMargin += (int) (corp_fab.getWidth() * 1.7);
             layoutParams.bottomMargin += (int) (corp_fab.getHeight() * 0.25);
             corp_fab.setLayoutParams(layoutParams);
@@ -91,7 +93,7 @@ public class GameListView extends FrameLayout{
             runner_fab.setVisibility(View.VISIBLE);
             runner_fab.setClickable(true);
         }else{
-            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) corp_fab.getLayoutParams();
+           layoutParams = (FrameLayout.LayoutParams) corp_fab.getLayoutParams();
             layoutParams.rightMargin -= (int) (corp_fab.getWidth() * 1.7);
             layoutParams.bottomMargin -= (int) (corp_fab.getHeight() * 0.25);
             corp_fab.setLayoutParams(layoutParams);

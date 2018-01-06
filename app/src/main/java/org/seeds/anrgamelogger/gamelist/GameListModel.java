@@ -3,6 +3,7 @@ package org.seeds.anrgamelogger.gamelist;
 import android.app.Activity;
 
 import org.seeds.anrgamelogger.addgame.AddGameActivity;
+import org.seeds.anrgamelogger.addgame.views.AddGameEnum;
 import org.seeds.anrgamelogger.gamedetail.GameDetailActivity;
 import org.seeds.anrgamelogger.model.GameListManager;
 import org.seeds.anrgamelogger.model.LocalLoggedGame;

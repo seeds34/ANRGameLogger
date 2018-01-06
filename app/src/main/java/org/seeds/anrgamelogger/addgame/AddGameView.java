@@ -40,10 +40,18 @@ public class AddGameView extends FrameLayout {
     public void setUpPages(ArrayList<Integer> titleList){
         tabLayout.setupWithViewPager(addGameViewPager);
         addGamePagerAdapter = new AddGamePagerAdapter(activity, titleList);
-        addGameViewPager.setAdapter(addGamePagerAdapter);
+       // addGameViewPager.setAdapter(addGamePagerAdapter);
     }
 
 
+    public void setImageSpinner(int side, ArrayList<byte[]> imageListIn) {
+        addGamePagerAdapter.setImageSpinner(side,imageListIn);
+    }
+
+    public void startPA(){
+        addGameViewPager.setAdapter(addGamePagerAdapter);
+
+    }
 
 
 

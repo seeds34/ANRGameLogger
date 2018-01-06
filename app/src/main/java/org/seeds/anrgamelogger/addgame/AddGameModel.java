@@ -2,7 +2,6 @@ package org.seeds.anrgamelogger.addgame;
 
 import android.app.Activity;
 import android.database.Cursor;
-
 import com.pushtorefresh.storio2.contentresolver.StorIOContentResolver;
 import com.pushtorefresh.storio2.contentresolver.impl.DefaultStorIOContentResolver;
 import com.pushtorefresh.storio2.contentresolver.queries.Query;
@@ -30,16 +29,18 @@ public class AddGameModel {
 
     }
 
-public ArrayList<String> getListOfIdentitesNames(String side){
+public ArrayList<String> getListOfIdentitesNames(int side){
 
     ArrayList<String> ret = new ArrayList<String>();
+
+    String sideName = activity.getString(side);
 
     Cursor queryResult = storIOContentResolver
         .get()
         .cursor()
         .withQuery(Query.builder()
             .uri(IdentitiesContract.URI_TABLE)
-            .where(IdentitiesContract.IdentitiesColumns.IDENTITY_SIDE + " = '" + side + "'")
+            .where(IdentitiesContract.IdentitiesColumns.IDENTITY_SIDE + " = '" + sideName + "'")
                 .sortOrder(IdentitiesColumns.IDENTITY_FACTION + " asc")
             .build())
         .prepare()
@@ -56,15 +57,17 @@ public ArrayList<String> getListOfIdentitesNames(String side){
     return  ret;
 }
 
-    public ArrayList<byte[]> getListOfIdentitesImages(String side) {
+    public ArrayList<byte[]> getListOfIdentitesImages(int side) {
         ArrayList<byte[]> ret = new ArrayList<>();
+
+        String sideName = activity.getString(side);
 
         Cursor queryResult = storIOContentResolver
                 .get()
                 .cursor()
                 .withQuery(Query.builder()
                         .uri(IdentitiesContract.URI_TABLE)
-                        .where(IdentitiesContract.IdentitiesColumns.IDENTITY_SIDE + " = '" + side + "'")
+                        .where(IdentitiesContract.IdentitiesColumns.IDENTITY_SIDE + " = '" + sideName + "'")
                         .sortOrder(IdentitiesColumns.IDENTITY_FACTION + " asc")
                         .build())
                 .prepare()

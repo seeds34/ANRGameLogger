@@ -3,10 +3,12 @@ package org.seeds.anrgamelogger.addgame;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
+import org.seeds.anrgamelogger.addgame.views.AddGameBaseView;
 import org.seeds.anrgamelogger.addgame.views.AddGameOverview;
 import org.seeds.anrgamelogger.addgame.views.AddGamePlayerView;
 
@@ -18,7 +20,7 @@ public class AddGamePagerAdapter extends PagerAdapter {
 
   private static final String LOG_TAG = AddGamePagerAdapter.class.getSimpleName();
 
-  private List<View> viewList;
+  private List<AddGameBaseView> viewList;
   private List<String> viewTitleList;
   private Activity activity;
   private Context context;
@@ -29,32 +31,15 @@ public class AddGamePagerAdapter extends PagerAdapter {
     viewList = new ArrayList<>();
     viewTitleList = new ArrayList<>();
 
-    setViewList();
+    setViewList(viewOrderList);
     setViewTitleList(viewOrderList);
   }
 
-  private void setViewList(){
+  private void setViewList(ArrayList<Integer> titleRid){
 
-    viewList.add((View)new AddGamePlayerView(activity));
-    viewList.add((View)new AddGamePlayerView(activity));
-    viewList.add((View)new AddGameOverview(activity));
-
-//    for (AddGameEnum e : a) {
-//      try {
-//        Log.d(LOG_TAG, "Class is: " + e.getClassID().getName());
-//        viewList.add((View)e.getClassID().getDeclaredConstructor(Activity.class).newInstance(activity));
-//      } catch (InstantiationException e1) {
-//        Log.e(LOG_TAG, "InstantiationException");
-//      } catch (IllegalAccessException e1) {
-//        Log.e(LOG_TAG, "IllegalAccessException");
-//      } catch (NoSuchMethodException e1) {
-//        Log.e(LOG_TAG, "NoSuchMethodException");
-//      } catch (InvocationTargetException e1) {
-//        Log.e(LOG_TAG, "InvocationTargetException");
-//      }
-//
-//    }
-
+    viewList.add(new AddGamePlayerView(activity, titleRid.get(0)));
+    viewList.add(new AddGamePlayerView(activity, titleRid.get(1)));
+    viewList.add(new AddGameOverview(activity));
 
   }
 
@@ -86,5 +71,16 @@ public class AddGamePagerAdapter extends PagerAdapter {
   @Override
   public CharSequence getPageTitle(int position) {
     return viewTitleList.get(position);
+  }
+
+  public void setImageSpinner(int side, ArrayList<byte[]> imageListIn){
+
+    for (AddGameBaseView i : viewList) {
+      if(i.getTitle() == side){
+        Log.d(LOG_TAG, "In correct side");
+        i.setIdentitiesImageViewPager(imageListIn);
+      }
+    }
+
   }
 }
