@@ -80,4 +80,6 @@ dependencies {
 
     //StorIO
     implementation 'com.pushtorefresh.storio2:content-resolver:2.1.0'
+    implementation 'com.pushtorefresh.storio3:content-resolver-annotations:2.1.0'
+    annotationProcessor 'com.pushtorefresh.storio3:content-resolver-annotations-processor:2.1.0'
 }

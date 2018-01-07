@@ -1,5 +1,6 @@
 package org.seeds.anrgamelogger.database.datacreater;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -32,10 +33,17 @@ public class InportedLoggedGame{
     private String data;
     private final String PARENT_NAME = "Game Tracker";
 
-    public InportedLoggedGame(Context contextIn){
-        data = GetRawData.GetRawDataFromFile(contextIn, R.raw.allgamesplayedtestall);
-        contentResolver = contextIn.getContentResolver();
-     //   inportLoggedGames();
+//    public InportedLoggedGame(Context contextIn){
+//        data = GetRawData.GetRawDataFromFile(contextIn, R.raw.allgamesplayedtestall);
+//        contentResolver = contextIn.getContentResolver();
+//     //   inportLoggedGames();
+//    }
+
+
+    public InportedLoggedGame(Activity activityIn){
+        data = GetRawData.GetRawDataFromFile(activityIn, R.raw.allgamesplayedtestall);
+        contentResolver = activityIn.getContentResolver();
+        //   inportLoggedGames();
     }
 
     public void inportLoggedGames(){

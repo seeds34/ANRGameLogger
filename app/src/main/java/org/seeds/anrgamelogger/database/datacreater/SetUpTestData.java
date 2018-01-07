@@ -1,5 +1,7 @@
 package org.seeds.anrgamelogger.database.datacreater;
 
+import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 
 /**
@@ -11,17 +13,17 @@ public class SetUpTestData {
     private static PopulateIdentitiesData c;
     private static  InportedLoggedGame e;
 
-    public static void setUpTestData(Context contextIn){
+    public static void setUpTestData(Activity activityIn){
        // context = contextIn;
-        c = new PopulateIdentitiesData(contextIn);
-        e = new InportedLoggedGame(contextIn);
+        c = new PopulateIdentitiesData(activityIn);
+        e = new InportedLoggedGame(activityIn);
 
         if(c.isIdentitiesTableEmpty()){
             c.extractIdentitiesFromNRDB();
         }
 
         if(e.isLoggedGamesTableEmpty()) {
-            e.inportLoggedGames();
+           // e.inportLoggedGames();
         }
 
     }

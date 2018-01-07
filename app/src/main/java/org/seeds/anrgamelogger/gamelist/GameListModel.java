@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import org.seeds.anrgamelogger.addgame.AddGameActivity;
 import org.seeds.anrgamelogger.addgame.views.AddGameEnum;
+import org.seeds.anrgamelogger.database.datacreater.SetUpTestData;
 import org.seeds.anrgamelogger.gamedetail.GameDetailActivity;
 import org.seeds.anrgamelogger.model.GameListManager;
 import org.seeds.anrgamelogger.model.LocalLoggedGame;
@@ -27,11 +28,13 @@ public class GameListModel {
     public GameListModel(Activity a){
         activity = a;
         gameListManager = new GameListManager();
+    }
 
+    public void databaseFirstTimeSetup(){
+        SetUpTestData.setUpTestData(activity);
     }
 
     public Observable<ArrayList<LocalLoggedGame>> getGameList(int lengthLimit){
-
        return Observable.defer(new Func0<Observable<ArrayList<LocalLoggedGame>>>() {
             @Override
             public Observable<ArrayList<LocalLoggedGame>> call() {

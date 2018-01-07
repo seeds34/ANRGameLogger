@@ -1,15 +1,20 @@
 package org.seeds.anrgamelogger.database.datacreater;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import com.pushtorefresh.storio2.contentresolver.StorIOContentResolver;
+import com.pushtorefresh.storio2.contentresolver.impl.DefaultStorIOContentResolver;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
+import org.seeds.anrgamelogger.model.Identites;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -29,12 +34,26 @@ public class PopulateIdentitiesData {
     private final String NRDB_CARD_LIST_API_URL = "https://netrunnerdb.com/api/2.0/public/cards";
     private final String NRDB_IMAGE_URL = "https://netrunnerdb.com/card_image/";
     private final String IMAGE_FILE_EXT = ".png";
+    private StorIOContentResolver storIOContentResolver;
 
 
-    public  PopulateIdentitiesData(Context contextIn){
-        contentResolver = contextIn.getContentResolver();
+//    public  PopulateIdentitiesData(Context contextIn){
+//        contentResolver = contextIn.getContentResolver();
+//        storIOContentResolver = DefaultStorIOContentResolver.builder()
+//                .contentResolver(contentResolver)
+//                .build();
+//    }
+
+    public  PopulateIdentitiesData(Activity activityIn){
+        contentResolver = activityIn.getContentResolver();
+        storIOContentResolver = DefaultStorIOContentResolver.builder()
+                .contentResolver(contentResolver)
+                .addTypeMapping(Identites.class, SQLiteTypeMapping.<Identites>builder()
+                        .putResolver
+
+                )
+                .build();
     }
-
 
     public boolean isIdentitiesTableEmpty(){
         boolean ret = true;
@@ -103,7 +122,12 @@ public class PopulateIdentitiesData {
                     values.put(IdentitiesContract.IdentitiesColumns.ROTATED_FLAG, "N");
                     values.put(IdentitiesContract.IdentitiesColumns.NRDB_CODE, code);
                     values.put(IdentitiesContract.IdentitiesColumns.IMAGE_BIT_ARRAY, imageByteArrayOutputStream.toByteArray());
-                    contentResolver.insert(IdentitiesContract.URI_TABLE, values);
+
+
+                    //contentResolver.insert(IdentitiesContract.URI_TABLE, values);
+
+                    storIOContentResolver.put()
+
 
                     Log.d(LOG_TAG, "Identity: Name: " + name + " | Side: " + side +" | Faction: " + faction + " | Code: " + code);
                     urlConnection.disconnect();
