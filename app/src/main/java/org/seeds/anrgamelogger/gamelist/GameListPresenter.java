@@ -1,7 +1,6 @@
 package org.seeds.anrgamelogger.gamelist;
 
 import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.addgame.views.AddGameEnum;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -26,6 +25,8 @@ public class GameListPresenter{
     }
 
     public void onCreate() {
+
+        model.databaseFirstTimeSetup();
 
         model.getGameList(25)
                 .subscribeOn(Schedulers.io())

@@ -1,8 +1,6 @@
 package org.seeds.anrgamelogger.database.datacreater;
 
 import android.app.Activity;
-import android.content.ContentResolver;
-import android.content.Context;
 
 /**
  * Created by Tomas Seymour-Turner on 10/11/2017.
@@ -22,9 +20,9 @@ public class SetUpTestData {
             c.extractIdentitiesFromNRDB();
         }
 
-        if(e.isLoggedGamesTableEmpty()) {
-           // e.inportLoggedGames();
-        }
+//        if(e.isLoggedGamesTableEmpty()) {
+//            e.inportLoggedGames();
+//        }
 
     }
 }

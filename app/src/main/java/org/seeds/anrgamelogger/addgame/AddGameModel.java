@@ -2,9 +2,9 @@ package org.seeds.anrgamelogger.addgame;
 
 import android.app.Activity;
 import android.database.Cursor;
-import com.pushtorefresh.storio2.contentresolver.StorIOContentResolver;
-import com.pushtorefresh.storio2.contentresolver.impl.DefaultStorIOContentResolver;
-import com.pushtorefresh.storio2.contentresolver.queries.Query;
+import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
+import com.pushtorefresh.storio3.contentresolver.impl.DefaultStorIOContentResolver;
+import com.pushtorefresh.storio3.contentresolver.queries.Query;
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;

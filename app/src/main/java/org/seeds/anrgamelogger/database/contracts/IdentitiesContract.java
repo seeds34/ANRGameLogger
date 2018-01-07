@@ -26,6 +26,7 @@ public class IdentitiesContract {
 
     public  static final Uri URI_TABLE = Uri.parse(BASE_CONTENT_URI.toString()+"/"+ PATH_IDENTITIES);
 
+
     public static final String[] TOP_LEVEL_PATHS = {
             PATH_IDENTITIES
     };

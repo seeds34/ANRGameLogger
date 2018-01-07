@@ -3,24 +3,25 @@ package org.seeds.anrgamelogger.database.datacreater;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
-
-import com.pushtorefresh.storio2.contentresolver.StorIOContentResolver;
-import com.pushtorefresh.storio2.contentresolver.impl.DefaultStorIOContentResolver;
-
+import com.pushtorefresh.storio3.contentresolver.ContentResolverTypeMapping;
+import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
+import com.pushtorefresh.storio3.contentresolver.impl.DefaultStorIOContentResolver;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
-import org.seeds.anrgamelogger.model.Identites;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import org.seeds.anrgamelogger.model.Identity;
+import org.seeds.anrgamelogger.model.IdentityStorIOContentResolverDeleteResolver;
+import org.seeds.anrgamelogger.model.IdentityStorIOContentResolverGetResolver;
+import org.seeds.anrgamelogger.model.IdentityStorIOContentResolverPutResolver;
 
 /**
  * Created by Tomas Seymour-Turner on 20/05/2017.
@@ -46,13 +47,19 @@ public class PopulateIdentitiesData {
 
     public  PopulateIdentitiesData(Activity activityIn){
         contentResolver = activityIn.getContentResolver();
+
+
         storIOContentResolver = DefaultStorIOContentResolver.builder()
                 .contentResolver(contentResolver)
-                .addTypeMapping(Identites.class, SQLiteTypeMapping.<Identites>builder()
-                        .putResolver
-
-                )
+            .addTypeMapping(Identity.class,ContentResolverTypeMapping.<Identity>builder()
+            .putResolver(new IdentityStorIOContentResolverPutResolver())
+                .getResolver(new IdentityStorIOContentResolverGetResolver())
+                .deleteResolver(new IdentityStorIOContentResolverDeleteResolver())
+                .build()
+            )
                 .build();
+
+
     }
 
     public boolean isIdentitiesTableEmpty(){
@@ -93,14 +100,29 @@ public class PopulateIdentitiesData {
 
 
 
-                    HttpURLConnection urlConnection = null;
 
-                        URL url = new URL(NRDB_IMAGE_URL + code + IMAGE_FILE_EXT);
-                        urlConnection =(HttpURLConnection) url.openConnection();
-                        urlConnection.setRequestMethod("GET");
-                        urlConnection.connect();
+                    OkHttpClient client = new OkHttpClient();
+                    InputStream imageInputStream = null;
 
-                        InputStream imageInputStream = urlConnection.getInputStream();
+                    try {
+                        Request request = new Request.Builder()
+                            .url(NRDB_IMAGE_URL + code + IMAGE_FILE_EXT)
+                            .build();
+
+                        Response response = client.newCall(request).execute();
+                        imageInputStream = response.body().byteStream();
+                    }catch (IOException e){
+                        Log.e(LOG_TAG, "Can Not Read File: " + e.toString());
+                    }
+
+//                    HttpURLConnection urlConnection = null;
+//
+//                        URL url = new URL(NRDB_IMAGE_URL + code + IMAGE_FILE_EXT);
+//                        urlConnection =(HttpURLConnection) url.openConnection();
+//                        urlConnection.setRequestMethod("GET");
+//                        urlConnection.connect();
+
+
                         ByteArrayOutputStream imageByteArrayOutputStream = new ByteArrayOutputStream();
                         int index;
                         byte[] byteChunk = new byte[1024];
@@ -115,22 +137,27 @@ public class PopulateIdentitiesData {
                         imageInputStream.close();
 
                         }
-                    values = new ContentValues();
-                    values.put(IdentitiesContract.IdentitiesColumns.IDENTITY_NAME, name);
-                    values.put(IdentitiesContract.IdentitiesColumns.IDENTITY_SIDE, side);
-                    values.put(IdentitiesContract.IdentitiesColumns.IDENTITY_FACTION, faction);
-                    values.put(IdentitiesContract.IdentitiesColumns.ROTATED_FLAG, "N");
-                    values.put(IdentitiesContract.IdentitiesColumns.NRDB_CODE, code);
-                    values.put(IdentitiesContract.IdentitiesColumns.IMAGE_BIT_ARRAY, imageByteArrayOutputStream.toByteArray());
+//                    values = new ContentValues();
+//                    values.put(IdentitiesContract.IdentitiesColumns.IDENTITY_NAME, name);
+//                    values.put(IdentitiesContract.IdentitiesColumns.IDENTITY_SIDE, side);
+//                    values.put(IdentitiesContract.IdentitiesColumns.IDENTITY_FACTION, faction);
+//                    values.put(IdentitiesContract.IdentitiesColumns.ROTATED_FLAG, "N");
+//                    values.put(IdentitiesContract.IdentitiesColumns.NRDB_CODE, code);
+//                    values.put(IdentitiesContract.IdentitiesColumns.IMAGE_BIT_ARRAY, imageByteArrayOutputStream.toByteArray());
 
 
                     //contentResolver.insert(IdentitiesContract.URI_TABLE, values);
 
+                    Identity iden = new Identity(name,side,faction,"N", code, imageByteArrayOutputStream.toByteArray());
+
                     storIOContentResolver.put()
+                        .object(iden)
+                        .prepare()
+                        .executeAsBlocking();
 
 
                     Log.d(LOG_TAG, "Identity: Name: " + name + " | Side: " + side +" | Faction: " + faction + " | Code: " + code);
-                    urlConnection.disconnect();
+//                    urlConnection.disconnect();
                 }
 
             }
