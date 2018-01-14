@@ -1,10 +1,10 @@
 package org.seeds.anrgamelogger.gamelist;
 
+
+
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import org.seeds.anrgamelogger.R;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
-import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by Tomas Seymour-Turner on 31/07/2017.
@@ -16,7 +16,7 @@ public class GameListPresenter{
 
     public GameListView view;
     public GameListModel model;
-    private final CompositeSubscription compositeSubscription = new CompositeSubscription();
+    private final CompositeDisposable compositeSubscription = new CompositeDisposable();
 
 
     public GameListPresenter(GameListView v, GameListModel m){
@@ -28,12 +28,14 @@ public class GameListPresenter{
 
         model.databaseFirstTimeSetup();
 
-        model.getGameList(25)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        list->{view.setData(list);});
+        //TODO: Uncomment once fixed getGameList
+//        model.getGameList(25)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(
+//                        list->{view.setData(list);});
 
+        //compositeSubscription.add(model.databaseFirstTimeSetup());
        compositeSubscription.add(onItemClick());
         compositeSubscription.add(observeCorpFab());
         compositeSubscription.add(observeRunnerFab());
@@ -43,13 +45,13 @@ public class GameListPresenter{
         compositeSubscription.clear();
     }
 
-    private Subscription onItemClick(){
+    private Disposable onItemClick(){
         return view.observeRecyckerView()
                 .subscribe(pos ->{ model.startGameDetailActivity(pos.toString());
         });
     }
 
-    private Subscription observeCorpFab() {
+    private Disposable observeCorpFab() {
         return view.observeCorpFab()
             //.doOnNext(__ -> view.showLoading(true))
             //.map(__ -> view.getUsernameEdit())
@@ -64,7 +66,7 @@ public class GameListPresenter{
     });
     }
 
-    private Subscription observeRunnerFab() {
+    private Disposable observeRunnerFab() {
         return view.observeRunnerFab()
 
             .subscribe(__ -> {

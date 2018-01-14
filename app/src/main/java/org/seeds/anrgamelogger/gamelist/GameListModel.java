@@ -1,18 +1,13 @@
 package org.seeds.anrgamelogger.gamelist;
 
 import android.app.Activity;
-
+import io.reactivex.Observable;
+import java.util.ArrayList;
 import org.seeds.anrgamelogger.addgame.AddGameActivity;
-import org.seeds.anrgamelogger.addgame.views.AddGameEnum;
-import org.seeds.anrgamelogger.database.datacreater.SetUpTestData;
 import org.seeds.anrgamelogger.gamedetail.GameDetailActivity;
 import org.seeds.anrgamelogger.model.GameListManager;
+import org.seeds.anrgamelogger.model.ImportDefaultData;
 import org.seeds.anrgamelogger.model.LocalLoggedGame;
-
-import java.util.ArrayList;
-
-import rx.Observable;
-import rx.functions.Func0;
 
 
 /**
@@ -31,16 +26,25 @@ public class GameListModel {
     }
 
     public void databaseFirstTimeSetup(){
-        SetUpTestData.setUpTestData(activity);
+      ImportDefaultData idd = new ImportDefaultData(activity);
+      idd.populateIdentitiesTable();
     }
 
-    public Observable<ArrayList<LocalLoggedGame>> getGameList(int lengthLimit){
-       return Observable.defer(new Func0<Observable<ArrayList<LocalLoggedGame>>>() {
-            @Override
-            public Observable<ArrayList<LocalLoggedGame>> call() {
-                return Observable.fromCallable(()-> gameListManager.getGameList()).doOnNext(ret -> gameListManager.genarateGameList(lengthLimit, activity.getContentResolver()));
-            }
-        });}
+    public Observable<ArrayList<LocalLoggedGame>> getGameList(int lengthLimit) {
+//       return Observable.defer(new Function<Observable<ArrayList<LocalLoggedGame>>>() {
+//         @Override
+//         public Object apply(Object o) throws Exception {
+//           return null;
+//         }
+//
+//         @Override
+//            public Observable<ArrayList<LocalLoggedGame>> call() {
+//                return Observable.fromCallable(()-> gameListManager.getGameList()).doOnNext(ret -> gameListManager.genarateGameList(lengthLimit, activity.getContentResolver()));
+//            }
+//        });
+//TODO: Rewite Methord
+      return null;
+    }
 
     public void startGameDetailActivity(String selectedGame){
         GameDetailActivity.start(activity.getApplicationContext(),gameListManager.getGame(selectedGame));

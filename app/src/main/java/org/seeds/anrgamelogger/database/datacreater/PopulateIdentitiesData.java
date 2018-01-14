@@ -2,21 +2,10 @@ package org.seeds.anrgamelogger.database.datacreater;
 
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.database.Cursor;
-import android.util.Log;
 import com.pushtorefresh.storio3.contentresolver.ContentResolverTypeMapping;
 import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
 import com.pushtorefresh.storio3.contentresolver.impl.DefaultStorIOContentResolver;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.model.Identity;
 import org.seeds.anrgamelogger.model.IdentityStorIOContentResolverDeleteResolver;
@@ -75,101 +64,104 @@ public class PopulateIdentitiesData {
 
         return  ret;
     }
-
-    public void extractIdentitiesFromNRDB(){
-        String data = GetRawData.GetRawDataFromSite(NRDB_CARD_LIST_API_URL);
-
-        try{
-            JSONObject jsonData = new JSONObject(data);
-            JSONArray itemArray = jsonData.getJSONArray("data");
-
-            ContentValues values;
-
-            for(int i = 1 ; i < itemArray.length() ; i++){
-                JSONObject card = itemArray.getJSONObject(i);
-
-                String type_code = card.getString("type_code");
-                if(type_code.equals("identity")){
-
-                    String code = card.getString("code");
-                    String side = card.getString("side_code");
-                    String faction = card.getString("faction_code");
-                    String name = card.getString("title");
-
-
-
-
-
-
-                    OkHttpClient client = new OkHttpClient();
-                    InputStream imageInputStream = null;
-
-                    try {
-                        Request request = new Request.Builder()
-                            .url(NRDB_IMAGE_URL + code + IMAGE_FILE_EXT)
-                            .build();
-
-                        Response response = client.newCall(request).execute();
-                        imageInputStream = response.body().byteStream();
-                    }catch (IOException e){
-                        Log.e(LOG_TAG, "Can Not Read File: " + e.toString());
-                    }
-
-//                    HttpURLConnection urlConnection = null;
 //
-//                        URL url = new URL(NRDB_IMAGE_URL + code + IMAGE_FILE_EXT);
-//                        urlConnection =(HttpURLConnection) url.openConnection();
-//                        urlConnection.setRequestMethod("GET");
-//                        urlConnection.connect();
-
-
-                        ByteArrayOutputStream imageByteArrayOutputStream = new ByteArrayOutputStream();
-                        int index;
-                        byte[] byteChunk = new byte[1024];
-
-                    if ( imageInputStream != null ) {
-
-
-                            while ( (index = imageInputStream.read(byteChunk)) > 0 ) {
-                                imageByteArrayOutputStream.write(byteChunk, 0, index);
-                            }
-
-                        imageInputStream.close();
-
-                        }
-//                    values = new ContentValues();
-//                    values.put(IdentitiesContract.IdentitiesColumns.IDENTITY_NAME, name);
-//                    values.put(IdentitiesContract.IdentitiesColumns.IDENTITY_SIDE, side);
-//                    values.put(IdentitiesContract.IdentitiesColumns.IDENTITY_FACTION, faction);
-//                    values.put(IdentitiesContract.IdentitiesColumns.ROTATED_FLAG, "N");
-//                    values.put(IdentitiesContract.IdentitiesColumns.NRDB_CODE, code);
-//                    values.put(IdentitiesContract.IdentitiesColumns.IMAGE_BIT_ARRAY, imageByteArrayOutputStream.toByteArray());
-
-
-                    //contentResolver.insert(IdentitiesContract.URI_TABLE, values);
-
-                    Identity iden = new Identity(name,side,faction,"N", code, imageByteArrayOutputStream.toByteArray());
-
-                    storIOContentResolver.put()
-                        .object(iden)
-                        .prepare()
-                        .executeAsBlocking();
-
-
-                    Log.d(LOG_TAG, "Identity: Name: " + name + " | Side: " + side +" | Faction: " + faction + " | Code: " + code);
-//                    urlConnection.disconnect();
-                }
-
-            }
-        }catch(IOException e) {
-            e.printStackTrace();
-            Log.e(LOG_TAG,"IO Exception" + e.toString());
-        }
-        catch (JSONException e){
-            e.printStackTrace();
-            Log.e(LOG_TAG,"Error Proccessing JSON" + e.toString());
-        }
-
-    }
+//
+//
+//
+//    public void extractIdentitiesFromNRDB(){
+//       // String data = GetRawData.GetRawDataFromSite(NRDB_CARD_LIST_API_URL);
+//
+//        try{
+//            JSONObject jsonData = new JSONObject(data);
+//            JSONArray itemArray = jsonData.getJSONArray("data");
+//
+//            ContentValues values;
+//
+//            for(int i = 1 ; i < itemArray.length() ; i++){
+//                JSONObject card = itemArray.getJSONObject(i);
+//
+//                String type_code = card.getString("type_code");
+//                if(type_code.equals("identity")){
+//
+//                    String code = card.getString("code");
+//                    String side = card.getString("side_code");
+//                    String faction = card.getString("faction_code");
+//                    String name = card.getString("title");
+//
+//
+//
+//
+//
+//
+//                    OkHttpClient client = new OkHttpClient();
+//                    InputStream imageInputStream = null;
+//
+//                    try {
+//                        Request request = new Request.Builder()
+//                            .url(NRDB_IMAGE_URL + code + IMAGE_FILE_EXT)
+//                            .build();
+//
+//                        Response response = client.newCall(request).execute();
+//                        imageInputStream = response.body().byteStream();
+//                    }catch (IOException e){
+//                        Log.e(LOG_TAG, "Can Not Read File: " + e.toString());
+//                    }
+//
+////                    HttpURLConnection urlConnection = null;
+////
+////                        URL url = new URL(NRDB_IMAGE_URL + code + IMAGE_FILE_EXT);
+////                        urlConnection =(HttpURLConnection) url.openConnection();
+////                        urlConnection.setRequestMethod("GET");
+////                        urlConnection.connect();
+//
+//
+//                        ByteArrayOutputStream imageByteArrayOutputStream = new ByteArrayOutputStream();
+//                        int index;
+//                        byte[] byteChunk = new byte[1024];
+//
+//                    if ( imageInputStream != null ) {
+//
+//
+//                            while ( (index = imageInputStream.read(byteChunk)) > 0 ) {
+//                                imageByteArrayOutputStream.write(byteChunk, 0, index);
+//                            }
+//
+//                        imageInputStream.close();
+//
+//                        }
+////                    values = new ContentValues();
+////                    values.put(IdentitiesContract.IdentitiesColumns.IDENTITY_NAME, name);
+////                    values.put(IdentitiesContract.IdentitiesColumns.IDENTITY_SIDE, side);
+////                    values.put(IdentitiesContract.IdentitiesColumns.IDENTITY_FACTION, faction);
+////                    values.put(IdentitiesContract.IdentitiesColumns.ROTATED_FLAG, "N");
+////                    values.put(IdentitiesContract.IdentitiesColumns.NRDB_CODE, code);
+////                    values.put(IdentitiesContract.IdentitiesColumns.IMAGE_BIT_ARRAY, imageByteArrayOutputStream.toByteArray());
+//
+//
+//                    //contentResolver.insert(IdentitiesContract.URI_TABLE, values);
+//
+//                    Identity iden = new Identity(name,side,faction,"N", code, imageByteArrayOutputStream.toByteArray());
+//
+//                    storIOContentResolver.put()
+//                        .object(iden)
+//                        .prepare()
+//                        .executeAsBlocking();
+//
+//
+//                    Log.d(LOG_TAG, "Identity: Name: " + name + " | Side: " + side +" | Faction: " + faction + " | Code: " + code);
+////                    urlConnection.disconnect();
+//                }
+//
+//            }
+//        }catch(IOException e) {
+//            e.printStackTrace();
+//            Log.e(LOG_TAG,"IO Exception" + e.toString());
+//        }
+//        catch (JSONException e){
+//            e.printStackTrace();
+//            Log.e(LOG_TAG,"Error Proccessing JSON" + e.toString());
+//        }
+//
+//    }
 
 }

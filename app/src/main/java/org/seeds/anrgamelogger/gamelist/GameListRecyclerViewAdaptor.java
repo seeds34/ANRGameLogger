@@ -3,16 +3,12 @@ package org.seeds.anrgamelogger.gamelist;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.jakewharton.rxbinding.view.RxView;
-
+import com.jakewharton.rxbinding2.view.RxView;
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
+import java.util.ArrayList;
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.model.LocalLoggedGame;
-
-import java.util.ArrayList;
-
-import rx.Observable;
-import rx.subjects.PublishSubject;
 
 /**
  * Created by Tomas Seymour-Turner on 19/03/2017.
@@ -27,7 +23,7 @@ public class GameListRecyclerViewAdaptor extends android.support.v7.widget.Recyc
     private PublishSubject<String> mViewClickSubject = PublishSubject.create();
 
     public Observable<String> getViewClickedObservable() {
-        return mViewClickSubject.asObservable();
+        return mViewClickSubject;
     }
 
 

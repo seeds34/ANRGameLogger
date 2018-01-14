@@ -55,48 +55,37 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:2.12"
 
     //RXjava1
-    implementation 'io.reactivex:rxjava:1.2.5'
-    implementation 'io.reactivex:rxandroid:1.2.1'
-    implementation 'com.twistedequations.rx:rx-savestate:2.0.2'
-    implementation 'com.jakewharton.rxbinding:rxbinding:1.0.0'
-    implementation 'com.jakewharton.rxbinding:rxbinding-support-v4:1.0.0'
-    implementation 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:1.0.0'
-    implementation 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:1.0.0'
+//    implementation 'io.reactivex:rxjava:1.2.5'
+//    implementation 'io.reactivex:rxandroid:1.2.1'
+//    implementation 'com.twistedequations.rx:rx-savestate:2.0.2'
+//    implementation 'com.jakewharton.rxbinding:rxbinding:1.0.0'
+//    implementation 'com.jakewharton.rxbinding:rxbinding-support-v4:1.0.0'
+//    implementation 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:1.0.0'
+//    implementation 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:1.0.0'
 
     //RXJava2
-
-    //compile 'io.reactivex.rxjava2:rxjava:2.1.6'
-
-    //compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-
-    //compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
-
-    //compile 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
-
-    //compile 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:2.0.0'
-
-    //compile 'com.twistedequations.rx2:rx2-savestate:2.0.0'
-
-    //compile 'com.google.code.gson:gson:2.8.2'
-
-    //compile 'com.jakewharton.timber:timber:4.6.0'
-
-    //annotationProcessor 'com.google.auto.value:auto-value:1.5'
-
-    //annotationProcessor 'com.ryanharter.auto.value:auto-value-parcel:0.2.5'
-
-    //provided 'com.jakewharton.auto.value:auto-value-annotations:1.5'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.6'
+    //implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    implementation 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
+    implementation 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:2.0.0'
+    //implementation 'com.twistedequations.rx2:rx2-savestate:2.0.0'
 
     //StorIO
-
-    //    implementation 'com.pushtorefresh.storio2:content-resolver:2.1.0'
-
-    //    implementation 'com.pushtorefresh.storio2:content-resolver-annotations:2.1.0'
-
-    //    annotationProcessor 'com.pushtorefresh.storio2:content-resolver-annotations-processor:2.1.0'
     implementation 'com.pushtorefresh.storio3:content-resolver:3.0.0'
     implementation 'com.pushtorefresh.storio3:content-resolver-annotations:3.0.0'
     annotationProcessor 'com.pushtorefresh.storio3:content-resolver-annotations-processor:3.0.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+
+    //GSON
+    implementation 'com.google.code.gson:gson:2.8.2'
+
+//    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+
+    implementation 'com.squareup.retrofit2:converter-moshi:2.3.0'
+
+    //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+
 }

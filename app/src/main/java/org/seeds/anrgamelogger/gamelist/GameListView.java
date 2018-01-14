@@ -12,11 +12,11 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.jakewharton.rxbinding.view.RxView;
+import com.jakewharton.rxbinding2.view.RxView;
+import io.reactivex.Observable;
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.model.LocalLoggedGame;
-import rx.Observable;
 
 
 public class GameListView extends FrameLayout{
@@ -112,11 +112,11 @@ public class GameListView extends FrameLayout{
 
     }
 
-    public Observable<Void> observeCorpFab(){
+    public Observable<Object> observeCorpFab(){
         return RxView.clicks(corp_fab);
     }
 
-  public Observable<Void> observeRunnerFab(){
+  public Observable<Object> observeRunnerFab(){
     return RxView.clicks(runner_fab);
   }
 
