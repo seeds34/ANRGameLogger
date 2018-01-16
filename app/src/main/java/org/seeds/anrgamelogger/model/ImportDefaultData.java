@@ -39,13 +39,13 @@ public class ImportDefaultData {
     contentResolver = activity.getContentResolver();
   }
 
-  public Disposable populateIdentitiesTable(){
+  public void populateIdentitiesTable(){
 
     RxJava2CallAdapterFactory rxAdapter = RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io());
 
 
     Moshi moshi = new Moshi.Builder().build();
-    JsonAdapter<Identities> jsonAdapter = moshi.adapter(Identities.class);
+    JsonAdapter<IdentitiesData> jsonAdapter = moshi.adapter(IdentitiesData.class);
 
 
 
@@ -56,37 +56,40 @@ public class ImportDefaultData {
         .build();
 
 
-
-
-
-
-
       Log.d(LOG_TAG, "Retrofit Started");
 
     NRDBApiEndpointInterface apiService = retrofit.create(NRDBApiEndpointInterface.class);
 
       Log.d(LOG_TAG, "RAPI Services Started");
 
-    Single<Identities> call = apiService.getAllIdentities();
+    Single<IdentitiesData> call = apiService.getAllIdentities();
 
       Log.d(LOG_TAG, "Observiable Made");
 
     return call.subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .map(new Function<Identities, List<Identity>>() {
-          @Override
-          public List<Identity> apply(
-              @io.reactivex.annotations.NonNull final Identities cityResponse)
-              throws Exception {
-            // we want to have the geonames and not the wrapper object
 
-            Log.d(LOG_TAG, "Fire Call.apply");
 
-            Log.d(LOG_TAG, (cityResponse.data == null)?"IDS is NULL":"IDS is not NULL");
 
-            return cityResponse.data;
-          }
-        })
+
+
+
+
+//        .map(new Function<IdentitiesData, List<Identity>>() {
+//          @Override
+//          public List<Identity> apply(
+//              @io.reactivex.annotations.NonNull final IdentitiesData cityResponse)
+//              throws Exception {
+//            // we want to have the geonames and not the wrapper object
+//
+//            Log.d(LOG_TAG, "Fire Call.apply");
+//
+//            Log.d(LOG_TAG, (cityResponse.identities == null)?"IDS is NULL":"IDS is not NULL");
+//
+//            return cityResponse.data;
+//          }
+//        })
+
         .subscribe(new Consumer<List<Identity>>() {
           @Override
           public void accept(
