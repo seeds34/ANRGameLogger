@@ -143,7 +143,7 @@ public class GameListView extends FrameLayout{
     }
 
 //
-//    public Observable<RecyclerViewChildAttachStateChangeEvent> test(){
+//    public Observable<RecyclerViewChildAttachStateChangeEvent> downloadImage(){
 //        //return RxView.clicks(gameRecyclerList);
 //        RxRecyclerViewAdapter.
 //        RxRecyclerVie

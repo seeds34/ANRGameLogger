@@ -3,12 +3,17 @@ package org.seeds.anrgamelogger.model;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.database.Cursor;
 import android.util.Log;
 import com.pushtorefresh.storio3.contentresolver.ContentResolverTypeMapping;
 import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
 import com.pushtorefresh.storio3.contentresolver.impl.DefaultStorIOContentResolver;
+import com.pushtorefresh.storio3.contentresolver.queries.Query;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+
+import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
+
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -47,15 +52,14 @@ public class ImportDefaultData {
 
   private ContentResolver contentResolver;
 
-
   private byte[] imageByteArray;
-    private InputStream is;
+  private InputStream is;
 
-  public ImportDefaultData(Activity activity){
+  public ImportDefaultData(Activity activity) {
     contentResolver = activity.getContentResolver();
   }
 
-  public void populateIdentitiesTable(){
+  public void populateIdentitiesTable() {
 
     RxJava2CallAdapterFactory rxAdapter = RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io());
 
@@ -63,27 +67,158 @@ public class ImportDefaultData {
     JsonAdapter<IdentitiesData> jsonAdapter = moshi.adapter(IdentitiesData.class);
 
     Retrofit retrofit = new Retrofit.Builder()
-        .baseUrl(NRDB_BASE_API_URL)
-        .addConverterFactory(MoshiConverterFactory.create(moshi))
-        .addCallAdapterFactory(rxAdapter)
-        .build();
+            .baseUrl(NRDB_BASE_API_URL)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addCallAdapterFactory(rxAdapter)
+            .build();
 
-      Log.d(LOG_TAG, "Retrofit Started");
+    Log.d(LOG_TAG, "Retrofit Started");
 
     NRDBApiEndpointInterface apiService = retrofit.create(NRDBApiEndpointInterface.class);
 
-      Log.d(LOG_TAG, "RAPI Services Started");
+    Log.d(LOG_TAG, "RAPI Services Started");
 
     Single<IdentitiesData> call = apiService.getAllIdentities();
 
-      Log.d(LOG_TAG, "Observiable Made");
+    Log.d(LOG_TAG, "Observiable Made");
 
     call.subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(i -> insertID(i)
             );
 
-//        .map(new Function<IdentitiesData, List<Identity>>() {
+  }
+
+
+  public void insertID(IdentitiesData identitiesIn) {
+
+    StorIOContentResolver storIOContentResolver = DefaultStorIOContentResolver.builder()
+            .contentResolver(contentResolver)
+            .addTypeMapping(Identity.class, ContentResolverTypeMapping.<Identity>builder()
+                    .putResolver(new IdentityStorIOContentResolverPutResolver())
+                    .getResolver(new IdentityStorIOContentResolverGetResolver())
+                    .deleteResolver(new IdentityStorIOContentResolverDeleteResolver())
+                    .build()
+            ).build();
+
+    List<Identity> ids = identitiesIn.getIdentities();
+
+    for (Identity i : ids) {
+
+      Log.d(LOG_TAG, "Type: " + i.type_code);
+      if (i.type_code.equals("identity")) {
+
+        Log.d(LOG_TAG, i.toString());
+
+        storIOContentResolver.put()
+                .object(i)
+                .prepare()
+                .executeAsBlocking();
+      }
+    }
+
+      setUpIdentityImages();
+  }
+
+
+  public void setUpIdentityImages() {
+
+    StorIOContentResolver storIOContentResolver = DefaultStorIOContentResolver.builder()
+            .contentResolver(contentResolver)
+            .addTypeMapping(Identity.class, ContentResolverTypeMapping.<Identity>builder()
+                   .putResolver(new IdentityStorIOContentResolverPutResolver())
+                    .getResolver(new IdentityStorIOContentResolverGetResolver())
+                    .deleteResolver(new IdentityStorIOContentResolverDeleteResolver())
+                    .build()
+            ).build();
+
+
+
+    List<Identity> cardImageList = storIOContentResolver
+            .get()
+            .listOfObjects(Identity.class)
+            .withQuery(Query.builder()
+                    .uri(IdentitiesContract.URI_TABLE)
+                    .build())
+            .prepare()
+            .executeAsBlocking();
+
+    for (Identity i : cardImageList) {
+
+    String url = NRDB_IMAGE_URL + i.getCode() + IMAGE_FILE_EXT;
+
+      OkHttpClient client = new OkHttpClient();
+      Request request = new Request.Builder().url(url)
+              .build();
+
+client.newCall(request).enqueue(new Callback() {
+
+    @Override
+    public void onFailure(Call call, IOException e) {
+      Log.d(LOG_TAG, "request failed: " + e.getMessage());
+
+    }
+
+    @Override
+    public void onResponse(Call call, Response response) throws IOException {
+      Log.d(LOG_TAG,"Reading in image" );
+
+      ByteArrayOutputStream imageByteArrayOutputStream = new ByteArrayOutputStream();
+      int index;
+      byte[] byteChunk = new byte[1024];
+
+      InputStream is = response.body().byteStream();
+
+      if ( is != null ) {
+          while ((index = is.read(byteChunk)) > 0) {
+              imageByteArrayOutputStream.write(byteChunk, 0, index);
+          }
+     }
+
+     Log.d(LOG_TAG, "Image Array for " + i.getCode() + "  |  " + imageByteArrayOutputStream.toByteArray());
+      i.setImageByteArray(imageByteArrayOutputStream.toByteArray()); // Read the data from the stream
+    }
+
+  });
+
+
+
+ for(Identity a : cardImageList) {
+
+
+     storIOContentResolver
+             .put()
+             .object(a)
+             .prepare()
+             .executeAsBlocking();
+ }
+
+  }
+
+
+
+  }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //        .map(new Function<IdentitiesData, List<Identity>>() {
 //          @Override
 //          public List<Identity> apply(
 //              @io.reactivex.annotations.NonNull final IdentitiesData cityResponse)
@@ -109,111 +244,64 @@ public class ImportDefaultData {
 //            insertID(ident);
 //          }
 //        });
-  }
-
-
-//  public void insertID(List<Identity> identitiesIn){
-    public void insertID(IdentitiesData identitiesIn){
-
-    StorIOContentResolver storIOContentResolver = DefaultStorIOContentResolver.builder()
-        .contentResolver(contentResolver)
-        .addTypeMapping(Identity.class, ContentResolverTypeMapping.<Identity>builder()
-            .putResolver(new IdentityStorIOContentResolverPutResolver())
-            .getResolver(new IdentityStorIOContentResolverGetResolver())
-            .deleteResolver(new IdentityStorIOContentResolverDeleteResolver())
-            .build()
-        ).build();
-
-//    List<Identity> a = identitiesIn.getIDS();
-
-//   Log.d(LOG_TAG, identitiesIn.toString());
-
-   List<Identity> ids = identitiesIn.getIdentities();
-//
-//      for (Identity i : ids){
-//
-//          downloadImage(i.code);
-//          i.setImageByteArray(imageByteArray);
-//
-//      }
-
-    for (Identity i : ids){
-//      Log.d(LOG_TAG, i.toString());
-
-      Log.d(LOG_TAG, "Type: " + i.type_code);
-      if(i.type_code.equals("identity")) {
-
-
-          i.setImageByteArray(downloadImage(i.code));
-
-          Log.d(LOG_TAG, i.toString());
-
-        storIOContentResolver.put()
-            .object(i)
-            .prepare()
-            .executeAsBlocking();
-      }
-      }
-  }
-
   //get ID by nrdb number
   //get image for that number
   //store image
 
-  public void setImageByteArray(InputStream imageInputStream){
-
-        is = imageInputStream;
-
-  }
-
-  public byte[] downloadImage(String imageNumber) {
-
-    String url = NRDB_IMAGE_URL + imageNumber + IMAGE_FILE_EXT;
-
-      OkHttpClient client = new OkHttpClient();
-      Request request = new Request.Builder().url(url)
-              .build();
-
-byte[] ret = null;
-
-      Response response = null;
-      try {
-          response = client.newCall(request).execute();
-
-
-      InputStream in = response.body().byteStream();
-
-      //BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-
-      ByteArrayOutputStream imageByteArrayOutputStream = new ByteArrayOutputStream();
-      int index;
-      byte[] byteChunk = new byte[1024];
-
-      Log.d(LOG_TAG, "Image inptut Strem is " + is.toString());
-
-      if ( is != null ) {
-          while ((index = is.read(byteChunk)) > 0) {
-              imageByteArrayOutputStream.write(byteChunk, 0, index);
-          }
-      }
-
-      ret = imageByteArrayOutputStream.toByteArray();
-
-      } catch (IOException e) {
-
-      }
-      response.body().close();
-
-
-
-
-
-return ret;
-
-
-
-
-    //    OkHttpClient client = new OkHttpClient();
+//  public void setImageByteArray(InputStream imageInputStream){
+//
+//        is = imageInputStream;
+//
+//  }
+//
+//  public byte[] downloadImage(String imageNumber) {
+//
+//    String url = NRDB_IMAGE_URL + imageNumber + IMAGE_FILE_EXT;
+////
+////      OkHttpClient client = new OkHttpClient();
+////      Request request = new Request.Builder().url(url)
+////              .build();
+////
+////byte[] ret = null;
+////
+////      Response response = null;
+////      try {
+////          response = client.newCall(request).execute();
+////
+////
+////      InputStream in = response.body().byteStream();
+////
+////      //BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+////
+////      ByteArrayOutputStream imageByteArrayOutputStream = new ByteArrayOutputStream();
+////      int index;
+////      byte[] byteChunk = new byte[1024];
+////
+////      Log.d(LOG_TAG, "Image inptut Strem is " + is.toString());
+////
+////      if ( is != null ) {
+////          while ((index = is.read(byteChunk)) > 0) {
+////              imageByteArrayOutputStream.write(byteChunk, 0, index);
+////          }
+////      }
+////
+////      ret = imageByteArrayOutputStream.toByteArray();
+////
+////      } catch (IOException e) {
+////
+////      }
+////      response.body().close();
+////
+////
+////
+////
+////
+////return ret;
+//
+//
+//
+//
+//        OkHttpClient client = new OkHttpClient();
 //
 //    Request request = new Request.Builder()
 //            .url(url)
@@ -243,6 +331,7 @@ return ret;
 //
 //
 //
+//
 //      ByteArrayOutputStream imageByteArrayOutputStream = new ByteArrayOutputStream();
 //      int index;
 //      byte[] byteChunk = new byte[1024];
@@ -266,11 +355,5 @@ return ret;
 //
 //      }
 //      return imageByteArrayOutputStream.toByteArray();
-//
+////
 
-
-  }
-
-
-
-}

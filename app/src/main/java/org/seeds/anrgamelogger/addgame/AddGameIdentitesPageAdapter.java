@@ -31,6 +31,7 @@ public class AddGameIdentitesPageAdapter extends PagerAdapter {
         inflater = LayoutInflater.from(contextIn);
     }
 
+    //TODO: Deal with Null image return for DB. Inset deafult image
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View imageLayout = inflater.inflate(R.layout.view_addgame_identities_image,container,false);

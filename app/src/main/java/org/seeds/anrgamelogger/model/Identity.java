@@ -5,6 +5,8 @@ import com.squareup.moshi.Json;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract.IdentitiesColumns;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 /**
  * Created by user on 07/01/2018.
  */
@@ -33,7 +35,7 @@ public class Identity {
       String code;
 
      @StorIOContentResolverColumn(name = IdentitiesColumns.IMAGE_BIT_ARRAY)
-     byte[] imageByteArrayOutputStream = null;
+     byte[] imageByteArrayOutputStream;
 
       @Json(name = "type_code")
       String type_code;
@@ -55,6 +57,10 @@ public class Identity {
       }
 
       public void setImageByteArray(byte[] in){
-          imageByteArrayOutputStream = in;
+         imageByteArrayOutputStream = in;
+      }
+
+      public String getCode(){
+          return code;
       }
 }
