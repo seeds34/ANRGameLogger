@@ -13,4 +13,9 @@ public class IdentitiesData {
   public List<Identity> identities;
 
 
+  public List<Identity> getIdentities(){
+    return identities;
+  }
+
+
 }

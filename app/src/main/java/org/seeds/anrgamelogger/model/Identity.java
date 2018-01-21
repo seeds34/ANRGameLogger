@@ -25,15 +25,15 @@ public class Identity {
       @StorIOContentResolverColumn(name = IdentitiesColumns.IDENTITY_FACTION)
       String faction_code;
 
-     // @StorIOContentResolverColumn(name = IdentitiesColumns.ROTATED_FLAG)
-      transient String roatated_flag;
+     @StorIOContentResolverColumn(name = IdentitiesColumns.ROTATED_FLAG)
+     String roatated_flag = "F";
 
       @Json(name = "code")
       @StorIOContentResolverColumn(name = IdentitiesColumns.NRDB_CODE)
       String code;
 
-     // @StorIOContentResolverColumn(name = IdentitiesColumns.IMAGE_BIT_ARRAY)
-      transient byte[] imageByteArrayOutputStream;
+     @StorIOContentResolverColumn(name = IdentitiesColumns.IMAGE_BIT_ARRAY)
+     byte[] imageByteArrayOutputStream = null;
 
       @Json(name = "type_code")
       String type_code;
@@ -51,6 +51,10 @@ public class Identity {
       }
 
       public String toString(){
-            return "Title: " + title + " | Side Code: " + side_code + " | Faction Code: " + faction_code + " | Roatated Flag: " + roatated_flag + " | NRDB Code: " + code;
+            return "Title: " + title + " | Type Code: " + type_code + " | Side Code: " + side_code + " | Faction Code: " + faction_code + " | Roatated Flag: " + roatated_flag + " | NRDB Code: " + code;
+      }
+
+      public void setImageByteArray(byte[] in){
+          imageByteArrayOutputStream = in;
       }
 }
