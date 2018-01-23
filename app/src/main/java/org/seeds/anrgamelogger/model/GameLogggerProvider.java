@@ -212,8 +212,24 @@ public class GameLogggerProvider extends ContentProvider {
     }
 
     @Override
-    public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s, @Nullable String[] strings) {
-        return 0;
+    public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String selection, @Nullable String[] selectionArgs) {
+
+        final int MATCH = URIMATCHER.match(uri);
+        final SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        int ret = 0;
+
+        switch (MATCH){
+            case IDENTITIES:
+                Log.d(LOG_TAG,"Match No: " + String.valueOf(MATCH));
+                ret = db.update(GameLoggerDatabase.Tables.LOCATIONS, contentValues, selection, selectionArgs);
+                break;
+            default:break;
+
+        }
+
+        db.close();
+        return ret;
     }
 
     @Override

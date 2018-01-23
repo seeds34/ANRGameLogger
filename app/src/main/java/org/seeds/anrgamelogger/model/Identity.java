@@ -35,7 +35,7 @@ public class Identity {
       String code;
 
      @StorIOContentResolverColumn(name = IdentitiesColumns.IMAGE_BIT_ARRAY)
-     byte[] imageByteArrayOutputStream;
+     byte[] imageByteArrayOutputStream = null;
 
       @Json(name = "type_code")
       String type_code;
@@ -62,5 +62,9 @@ public class Identity {
 
       public String getCode(){
           return code;
+      }
+
+      public byte[] getImageByteArrayOutputStream(){
+          return imageByteArrayOutputStream;
       }
 }
