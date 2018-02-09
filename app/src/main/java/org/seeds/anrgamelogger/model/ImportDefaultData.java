@@ -180,7 +180,6 @@ public class ImportDefaultData {
 
                     Log.d(LOG_TAG,"Efffected URI: " + p.affectedUri());
                     Log.d(LOG_TAG, "Row updated: "+p.wasUpdated());
-
                     Log.d(LOG_TAG, "Number of rows updated " + p.numberOfRowsUpdated());
                 }
             });
