@@ -3,6 +3,7 @@ package org.seeds.anrgamelogger;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import org.seeds.anrgamelogger.application.dagger.ApplicationComponent;
 import org.seeds.anrgamelogger.gamelist.GameListPresenter;
 import org.seeds.anrgamelogger.gamelist.GameListView;
 import org.seeds.anrgamelogger.gamelist.dagger.DaggerGameListComponent;
@@ -27,6 +28,7 @@ public class ANRLoggerMainActivity extends AppCompatActivity{
        super.onCreate(savedInstanceState);
 
         DaggerGameListComponent.builder()
+                .applicationComponent(ANRLoggerApplication.get(this).getApplicationComponent())
                 .gameListModule(new GameListModule(this))
                 .build()
                 .inject(this);

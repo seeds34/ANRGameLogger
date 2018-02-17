@@ -19,6 +19,8 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
+import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -32,7 +34,7 @@ public class ImportDefaultData {
 
     private static final String LOG_TAG = ImportDefaultData.class.getSimpleName();
     private final String NRDB_CARD_LIST_API_URL = "https://netrunnerdb.com/api/2.0/public/cards";
-    private final String NRDB_BASE_API_URL = "https://netrunnerdb.com/api/2.0/public/";
+    //private final String NRDB_BASE_API_URL = .getString(R.string.nrdb_base_api_url);
     private final String NRDB_IMAGE_URL = "https://netrunnerdb.com/card_image/";
     private final String IMAGE_FILE_EXT = ".png";
 

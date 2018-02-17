@@ -15,4 +15,5 @@
     <string name="title_runner">Runner</string>
     <string name="title_overview">Overview</string>
   <string name="title_add_new_game">Add New Game</string>
+    <string name="nrdb_base_api_url">https://netrunnerdb.com/api/2.0/public/</string>
 </resources>

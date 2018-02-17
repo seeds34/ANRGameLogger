@@ -1,6 +1,7 @@
 package org.seeds.anrgamelogger.application.dagger;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.ContentResolver;
 import com.pushtorefresh.storio3.contentresolver.ContentResolverTypeMapping;
 import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
@@ -25,19 +26,19 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 @Module
 public class ApplicationModule {
 
-  private final Activity activity;
+  private final Application application;
   private final String NRDB_BASE_API_URL;
 
-  public ApplicationModule(Activity activityIn){
-    this.activity = activityIn;
-    NRDB_BASE_API_URL = activity.getString(R.string.nrdb_base_api_url);
+  public ApplicationModule(Application applicationIn){
+    this.application = applicationIn;
+    NRDB_BASE_API_URL = application.getString(R.string.nrdb_base_api_url);
   }
 
 
   @Provides
   @ApplicationScope
   public ContentResolver getContentResolver(){
-    return activity.getContentResolver();
+    return application.getContentResolver();
   }
 
   @Provides
