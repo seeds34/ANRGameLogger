@@ -1,16 +1,11 @@
 package org.seeds.anrgamelogger.addgame.dagger;
 
 import android.app.Activity;
-
+import dagger.Module;
+import dagger.Provides;
 import org.seeds.anrgamelogger.addgame.AddGameModel;
 import org.seeds.anrgamelogger.addgame.AddGamePresenter;
 import org.seeds.anrgamelogger.addgame.AddGameView;
-import org.seeds.anrgamelogger.gamedetail.GameDetailModel;
-import org.seeds.anrgamelogger.gamedetail.GameDetailPresenter;
-import org.seeds.anrgamelogger.gamedetail.GameDetailView;
-
-import dagger.Module;
-import dagger.Provides;
 
 /**
  * Created by Tomas Seymour-Turner on 14/10/2017.

@@ -5,8 +5,6 @@ import com.squareup.moshi.Json;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract.IdentitiesColumns;
 
-import java.util.concurrent.atomic.AtomicReference;
-
 /**
  * Created by user on 07/01/2018.
  */
@@ -28,7 +26,7 @@ public class Identity {
       String faction_code;
 
      @StorIOContentResolverColumn(name = IdentitiesColumns.ROTATED_FLAG)
-     String roatated_flag = "F";
+     String roatated_flag = "N";
 
       @Json(name = "code")
       @StorIOContentResolverColumn(name = IdentitiesColumns.NRDB_CODE)

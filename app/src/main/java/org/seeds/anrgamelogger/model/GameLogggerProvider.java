@@ -1,5 +1,7 @@
 package org.seeds.anrgamelogger.model;
 
+import static org.seeds.anrgamelogger.database.contracts.DecksContract.Deck.buildDecksUri;
+
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
@@ -11,17 +13,14 @@ import android.provider.BaseColumns;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
-
-import org.seeds.anrgamelogger.database.contracts.DecksContract;
 import org.seeds.anrgamelogger.database.GameLoggerDatabase;
+import org.seeds.anrgamelogger.database.contracts.DecksContract;
 import org.seeds.anrgamelogger.database.contracts.GameNotesContract;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.LocationsContract;
 import org.seeds.anrgamelogger.database.contracts.LoggedGamesContract;
 import org.seeds.anrgamelogger.database.contracts.LoggedGamesFlatViewContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract;
-
-import static org.seeds.anrgamelogger.database.contracts.DecksContract.Deck.buildDecksUri;
 
 /**
  * Created by Tomas Seymour-Turner on 16/05/2017.
@@ -219,10 +218,13 @@ public class GameLogggerProvider extends ContentProvider {
 
         int ret = 0;
 
+        Log.d(LOG_TAG,"Contencts: " + contentValues.toString());
+
+
         switch (MATCH){
             case IDENTITIES:
                 Log.d(LOG_TAG,"Match No: " + String.valueOf(MATCH));
-                ret = db.update(GameLoggerDatabase.Tables.LOCATIONS, contentValues, selection, selectionArgs);
+                ret = db.update(GameLoggerDatabase.Tables.IDENTITIES, contentValues, selection, selectionArgs);
                 break;
             default:break;
 

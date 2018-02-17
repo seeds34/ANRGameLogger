@@ -1,13 +1,14 @@
 package org.seeds.anrgamelogger.gamelist.dagger;
 
 import android.app.Activity;
-
+import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
+import dagger.Module;
+import dagger.Provides;
+import okhttp3.OkHttpClient;
 import org.seeds.anrgamelogger.gamelist.GameListModel;
 import org.seeds.anrgamelogger.gamelist.GameListPresenter;
 import org.seeds.anrgamelogger.gamelist.GameListView;
-
-import dagger.Module;
-import dagger.Provides;
+import retrofit2.Retrofit;
 
 /**
  * Created by Tomas Seymour-Turner on 14/10/2017.
@@ -29,8 +30,8 @@ public class GameListModule {
 
     @Provides
     @GameListScope
-    public GameListModel GetGameGameListModel(){
-        return new GameListModel(activity);
+    public GameListModel GetGameGameListModel(StorIOContentResolver storIOContentResolverIn, OkHttpClient okHttpClientIn, Retrofit retrofitIn){
+        return new GameListModel(activity, storIOContentResolverIn, okHttpClientIn, retrofitIn);
     }
 
     @Provides

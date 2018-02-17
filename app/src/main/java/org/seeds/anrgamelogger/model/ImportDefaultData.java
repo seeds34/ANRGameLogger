@@ -4,15 +4,9 @@ package org.seeds.anrgamelogger.model;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.util.Log;
-import com.pushtorefresh.storio3.contentresolver.ContentResolverTypeMapping;
 import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
-import com.pushtorefresh.storio3.contentresolver.impl.DefaultStorIOContentResolver;
-import com.pushtorefresh.storio3.contentresolver.operations.put.PutResult;
+import com.pushtorefresh.storio3.contentresolver.operations.put.PutResults;
 import com.pushtorefresh.storio3.contentresolver.queries.Query;
-import com.pushtorefresh.storio3.contentresolver.queries.UpdateQuery;
-import com.squareup.moshi.JsonAdapter;
-import com.squareup.moshi.Moshi;
-import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -25,9 +19,9 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.moshi.MoshiConverterFactory;
 
 
 /**
@@ -46,23 +40,30 @@ public class ImportDefaultData {
 
     private byte[] imageByteArray;
     private InputStream is;
+    private OkHttpClient okHttpClient;
+    private Retrofit retrofit;
 
-    public ImportDefaultData(Activity activity) {
+    private StorIOContentResolver storIOContentResolver;
+
+    public ImportDefaultData(Activity activity, StorIOContentResolver storIOContentResolverIn, OkHttpClient okHttpClientIn, Retrofit retrofitIn) {
         contentResolver = activity.getContentResolver();
+        storIOContentResolver = storIOContentResolverIn;
+        okHttpClient = okHttpClientIn;
+        retrofit = retrofitIn;
     }
 
     public void populateIdentitiesTable() {
 
         RxJava2CallAdapterFactory rxAdapter = RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io());
 
-        Moshi moshi = new Moshi.Builder().build();
-        JsonAdapter<IdentitiesData> jsonAdapter = moshi.adapter(IdentitiesData.class);
+//        Moshi moshi = new Moshi.Builder().build();
+//        JsonAdapter<IdentitiesData> jsonAdapter = moshi.adapter(IdentitiesData.class);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(NRDB_BASE_API_URL)
-                .addConverterFactory(MoshiConverterFactory.create(moshi))
-                .addCallAdapterFactory(rxAdapter)
-                .build();
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(NRDB_BASE_API_URL)
+//                .addConverterFactory(MoshiConverterFactory.create(moshi))
+//                .addCallAdapterFactory(rxAdapter)
+//                .build();
 
         Log.d(LOG_TAG, "Retrofit Started");
 
@@ -84,14 +85,14 @@ public class ImportDefaultData {
 
     public void insertID(IdentitiesData identitiesIn) {
 
-        StorIOContentResolver storIOContentResolver = DefaultStorIOContentResolver.builder()
-                .contentResolver(contentResolver)
-                .addTypeMapping(Identity.class, ContentResolverTypeMapping.<Identity>builder()
-                        .putResolver(new IdentityStorIOContentResolverPutResolver())
-                        .getResolver(new IdentityStorIOContentResolverGetResolver())
-                        .deleteResolver(new IdentityStorIOContentResolverDeleteResolver())
-                        .build()
-                ).build();
+//        StorIOContentResolver storIOContentResolver = DefaultStorIOContentResolver.builder()
+//                .contentResolver(contentResolver)
+//                .addTypeMapping(Identity.class, ContentResolverTypeMapping.<Identity>builder()
+//                        .putResolver(new IdentityStorIOContentResolverPutResolver())
+//                        .getResolver(new IdentityStorIOContentResolverGetResolver())
+//                        .deleteResolver(new IdentityStorIOContentResolverDeleteResolver())
+//                        .build()
+//                ).build();
 
         List<Identity> ids = identitiesIn.getIdentities();
 
@@ -115,14 +116,14 @@ public class ImportDefaultData {
 
     public void setUpIdentityImages() {
 
-        StorIOContentResolver storIOContentResolver = DefaultStorIOContentResolver.builder()
-                .contentResolver(contentResolver)
-                .addTypeMapping(Identity.class, ContentResolverTypeMapping.<Identity>builder()
-                        .putResolver(new IdentityStorIOContentResolverPutResolver())
-                        .getResolver(new IdentityStorIOContentResolverGetResolver())
-                        .deleteResolver(new IdentityStorIOContentResolverDeleteResolver())
-                        .build()
-                ).build();
+//        StorIOContentResolver storIOContentResolver = DefaultStorIOContentResolver.builder()
+//                .contentResolver(contentResolver)
+//                .addTypeMapping(Identity.class, ContentResolverTypeMapping.<Identity>builder()
+//                        .putResolver(new IdentityStorIOContentResolverPutResolver())
+//                        .getResolver(new IdentityStorIOContentResolverGetResolver())
+//                        .deleteResolver(new IdentityStorIOContentResolverDeleteResolver())
+//                        .build()
+//                ).build();
 
 
         List<Identity> cardImageList = storIOContentResolver
@@ -140,11 +141,11 @@ public class ImportDefaultData {
 
             String url = NRDB_IMAGE_URL + i.getCode() + IMAGE_FILE_EXT;
 
-            OkHttpClient client = new OkHttpClient();
+//            OkHttpClient okHttpClient = new OkHttpClient();
             Request request = new Request.Builder().url(url)
                     .build();
 
-            client.newCall(request).enqueue(new Callback() {
+            okHttpClient.newCall(request).enqueue(new Callback() {
 
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -172,17 +173,23 @@ public class ImportDefaultData {
 
                     Log.d(LOG_TAG, (i.getImageByteArrayOutputStream() == null)?"Image Array is null":"Image Array is not null");
 
-                    PutResult p = storIOContentResolver
-                            .put()
-                            .object(i)
-                            .prepare()
-                            .executeAsBlocking();
-
-                    Log.d(LOG_TAG,"Efffected URI: " + p.affectedUri());
-                    Log.d(LOG_TAG, "Row updated: "+p.wasUpdated());
-                    Log.d(LOG_TAG, "Number of rows updated " + p.numberOfRowsUpdated());
+//                    PutResult p = storIOContentResolver
+//                            .put()
+//                            .object(i)
+//                            .prepare()
+//                            .executeAsBlocking();
+//
+//                    Log.d(LOG_TAG,"Affected URI: " + p.affectedUri());
+//                    Log.d(LOG_TAG, "Row updated: "+p.wasUpdated());
+//                    Log.d(LOG_TAG, "Number of rows updated " + p.numberOfRowsUpdated());
                 }
             });
+
+                      PutResults p = storIOContentResolver
+                            .put()
+                            .objects(cardImageList)
+                            .prepare()
+                            .executeAsBlocking();
         }
     }
 }
