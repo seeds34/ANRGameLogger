@@ -1,6 +1,9 @@
 package org.seeds.anrgamelogger.addgame.dagger;
 
 import android.app.Activity;
+
+import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
+
 import dagger.Module;
 import dagger.Provides;
 import org.seeds.anrgamelogger.addgame.AddGameModel;
@@ -27,8 +30,8 @@ public class AddGameModule {
 
     @Provides
     @AddGameScope
-    public AddGameModel GetAddGameModel(){
-        return new AddGameModel(activity);
+    public AddGameModel GetAddGameModel(StorIOContentResolver storIOContentResolver){
+        return new AddGameModel(activity, storIOContentResolver);
     }
 
     @Provides

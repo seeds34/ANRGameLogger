@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import javax.inject.Inject;
 import org.seeds.anrgamelogger.addgame.dagger.AddGameModule;
 import org.seeds.anrgamelogger.addgame.dagger.DaggerAddGameComponent;
+import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 
 public class AddGameActivity extends AppCompatActivity {
 
@@ -30,6 +31,7 @@ public class AddGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         DaggerAddGameComponent.builder()
+                .applicationComponent(ANRLoggerApplication.get(this).getApplicationComponent())
                 .addGameModule(new AddGameModule(this))
                 .build()
                 .inject(this);

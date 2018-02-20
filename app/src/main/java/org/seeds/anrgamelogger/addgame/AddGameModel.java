@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract.IdentitiesColumns;
+import org.seeds.anrgamelogger.model.Identity;
 
 
 /**
@@ -21,11 +22,13 @@ public class AddGameModel {
     private Activity activity;
     private StorIOContentResolver storIOContentResolver;
 
-    public AddGameModel(Activity activityIn){
+    public AddGameModel(Activity activityIn, StorIOContentResolver storIOContentResolverIn){
         activity = activityIn;
-        storIOContentResolver = DefaultStorIOContentResolver.builder()
-                .contentResolver(activity.getContentResolver())
-                .build();
+//        storIOContentResolver = DefaultStorIOContentResolver.builder()
+//                .contentResolver(activity.getContentResolver())
+//                .build();
+
+        storIOContentResolver = storIOContentResolverIn;
 
     }
 
@@ -56,6 +59,29 @@ public ArrayList<String> getListOfIdentitesNames(int side){
     }
     return  ret;
 }
+
+
+    public ArrayList<Identity> getListOfIdentieImages(int side){
+
+        ArrayList<Identity> ret = new ArrayList<>();
+        String sideName = activity.getString(side);
+
+        ret = storIOContentResolver
+                .get()
+                .listOfObjects(Identity.class)
+                .withQuery(Query.builder()
+                        .uri(IdentitiesContract.URI_TABLE)
+                        .where(IdentitiesContract.IdentitiesColumns.IDENTITY_SIDE + " = '" + sideName + "'")
+                        .sortOrder(IdentitiesColumns.IDENTITY_FACTION + " asc")
+                        .build())
+                .prepare()
+                .executeAsBlocking();
+
+
+
+
+    }
+
 
     public ArrayList<byte[]> getListOfIdentitesImages(int side) {
         ArrayList<byte[]> ret = new ArrayList<>();

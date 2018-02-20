@@ -1,7 +1,7 @@
 package org.seeds.anrgamelogger.gamelist.dagger;
 
 import dagger.Component;
-import org.seeds.anrgamelogger.ANRLoggerMainActivity;
+import org.seeds.anrgamelogger.GameListActivity;
 import org.seeds.anrgamelogger.application.dagger.ApplicationComponent;
 
 /**
@@ -13,6 +13,6 @@ import org.seeds.anrgamelogger.application.dagger.ApplicationComponent;
 @GameListScope
 public interface GameListComponent {
 
-        void inject(ANRLoggerMainActivity anrLoggerMainActivity);
+        void inject(GameListActivity gameListActivity);
 
 }

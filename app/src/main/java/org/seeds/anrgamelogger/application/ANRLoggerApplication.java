@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger;
+package org.seeds.anrgamelogger.application;
 
 import android.app.Activity;
 import android.app.Application;
@@ -16,13 +16,13 @@ public class ANRLoggerApplication extends Application {
     private ApplicationComponent applicationComponent;
 
     public static ANRLoggerApplication get(Activity activity){
-        return (ANRLoggerApplication) activity.getApplication();
+         Application a = activity.getApplication();
+        return (ANRLoggerApplication) a; //activity.getApplication();
     }
 
     @Override
     public void onCreate(){
         super.onCreate();
-
 
         applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
