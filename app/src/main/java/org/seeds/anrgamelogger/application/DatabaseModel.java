@@ -20,6 +20,7 @@ import retrofit2.Retrofit;
 
 public class DatabaseModel {
 
+  private final String LOG_TAG = this.getClass().getName();
   private StorIOContentResolver storIOContentResolver;
   private OkHttpClient okHttpClient;
   private Retrofit retrofit;
@@ -30,31 +31,51 @@ public class DatabaseModel {
     retrofit = retrofitIn;
   }
 
-  private boolean exists(Uri tableUri, String coloumnName, String valueIn){
+  private boolean isTableEmpty(Uri tableUri){
 
     boolean ret = false;
-    String value = DatabaseUtils.sqlEscapeString(valueIn);
-    String whereClause = coloumnName + " = " + value ;
-    Cursor queryResult = contentResolver.query(tableUri,null, whereClause ,null,null);
 
-    List<Identity> cardImageList = storIOContentResolver
+    Cursor queryResult = storIOContentResolver
         .get()
-        .listOfObjects(Identity.class)
+            .cursor()
         .withQuery(Query.builder()
-            .uri(IdentitiesContract.URI_TABLE)
+            .uri(tableUri)
             .build())
         .prepare()
         .executeAsBlocking();
 
+    if(queryResult != null && queryResult.getCount() > 0){
+      ret = true;
+    }
+
+    return ret;
+  }
+
+  private boolean find(Uri tableUri, String coloumnName, String valueIn){
+
+    boolean ret = false;
+    String value = DatabaseUtils.sqlEscapeString(valueIn);
+    String whereClause = coloumnName + " = " + value ;
+
+    Cursor queryResult = storIOContentResolver
+            .get()
+            .cursor()
+            .withQuery(Query.builder()
+                    .uri(tableUri)
+                    .whereArgs(coloumnName + " = ?")
+                    .where(value)
+                    .build())
+            .prepare()
+            .executeAsBlocking();
 
     if(queryResult != null && queryResult.getCount() > 0){
       ret = true;
     }
+
     Log.d(LOG_TAG, "Looking for: D: " + coloumnName + " I: " + valueIn + " V: " + version + " Returned: " + ret);
-    queryResult.close();
+
     return ret;
   }
-
 
 
 }

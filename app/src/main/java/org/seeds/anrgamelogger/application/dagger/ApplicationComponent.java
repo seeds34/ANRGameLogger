@@ -1,6 +1,9 @@
 package org.seeds.anrgamelogger.application.dagger;
 
 import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
+
+import org.seeds.anrgamelogger.application.DatabaseModel;
+
 import dagger.Component;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -17,5 +20,7 @@ public interface ApplicationComponent {
   StorIOContentResolver storIOContentResolver();
 
   Retrofit retrofit();
+
+  DatabaseModel databaseModel();
 
 }

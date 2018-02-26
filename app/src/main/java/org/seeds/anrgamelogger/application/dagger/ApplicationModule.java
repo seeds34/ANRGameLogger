@@ -12,6 +12,7 @@ import dagger.Provides;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.application.DatabaseModel;
 import org.seeds.anrgamelogger.model.Identity;
 import org.seeds.anrgamelogger.model.IdentityStorIOContentResolverDeleteResolver;
 import org.seeds.anrgamelogger.model.IdentityStorIOContentResolverGetResolver;
@@ -83,7 +84,11 @@ public class ApplicationModule {
     return RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io());
   }
 
-
+  @Provides
+  @ApplicationScope
+  public DatabaseModel getDatabaseModel(OkHttpClient okHttpClientIn, StorIOContentResolver storIOContentResolverIn,Retrofit retrofitIn ){
+    return  new DatabaseModel(storIOContentResolverIn, okHttpClientIn,   retrofitIn);
+  }
 
 
 
