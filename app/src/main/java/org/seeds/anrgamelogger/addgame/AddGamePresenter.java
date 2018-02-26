@@ -1,7 +1,9 @@
 package org.seeds.anrgamelogger.addgame;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.model.Identity;
 
 /**
  * Created by user on 08/12/2017.
@@ -27,12 +29,24 @@ public class AddGamePresenter {
 
     }
 
+    public void setIdentityData(int side){
+        List<Identity> idList = model.getListOfIdenties(side);
+        ArrayList<String> idNameList = new ArrayList<>();
+        ArrayList<byte[]> idImageList = new ArrayList<>();
+
+        for (Identity i : idList) {
+            idNameList.add(i.getName());
+            idImageList.add(i.getImageByteArrayOutputStream());
+        }
+
+        view.setImageSpinner(side,idImageList);
+        //TODO: Setup Name Spinner
+    }
+
 
     public void setViewData(){
-
-        view.setImageSpinner(R.string.title_corp, model.getListOfIdentitesImages(R.string.title_corp));
-        view.setImageSpinner(R.string.title_corp, model.getListOfIdentitesImages(R.string.title_runner));
-
+        setIdentityData(R.string.title_runner);
+        setIdentityData(R.string.title_corp);
     }
 
     public void setUpView(){
@@ -46,11 +60,8 @@ public class AddGamePresenter {
             viewList.add(R.string.title_runner);
             viewList.add(R.string.title_corp);
         }
-
         viewList.add(R.string.title_overview);
-
         view.setUpPages(viewList);
-
     }
 
     public void setUpDeafults(){

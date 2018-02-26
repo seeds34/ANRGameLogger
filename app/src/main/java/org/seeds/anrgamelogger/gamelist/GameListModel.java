@@ -52,7 +52,7 @@ public class GameListModel {
             .prepare()
             .executeAsBlocking();
 
-        if(ids.size() < 0 ){
+        if(ids.size() <= 0 ){
             ImportDefaultData idd = new ImportDefaultData(activity, storIOContentResolver, okHttpClient, retrofit);
             idd.populateIdentitiesTable();
         }

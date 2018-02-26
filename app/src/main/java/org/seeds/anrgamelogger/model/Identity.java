@@ -65,4 +65,12 @@ public class Identity {
       public byte[] getImageByteArrayOutputStream(){
           return imageByteArrayOutputStream;
       }
+
+      public String getName(){
+        return title;
+      }
+
+      public String getSide_code(){
+        return side_code;
+      }
 }
