@@ -87,7 +87,7 @@ public class ApplicationModule {
   @Provides
   @ApplicationScope
   public DatabaseModel getDatabaseModel(OkHttpClient okHttpClientIn, StorIOContentResolver storIOContentResolverIn,Retrofit retrofitIn ){
-    return  new DatabaseModel(storIOContentResolverIn, okHttpClientIn,   retrofitIn);
+    return new DatabaseModel(storIOContentResolverIn, okHttpClientIn, retrofitIn);
   }
 
 

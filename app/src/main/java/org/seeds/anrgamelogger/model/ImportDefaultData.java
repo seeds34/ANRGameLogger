@@ -21,6 +21,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.application.DatabaseModel;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -44,14 +45,16 @@ public class ImportDefaultData {
     private InputStream is;
     private OkHttpClient okHttpClient;
     private Retrofit retrofit;
+    private DatabaseModel databaseModel;
 
     private StorIOContentResolver storIOContentResolver;
 
-    public ImportDefaultData(Activity activity, StorIOContentResolver storIOContentResolverIn, OkHttpClient okHttpClientIn, Retrofit retrofitIn) {
+    public ImportDefaultData(DatabaseModel databaseModelIn, Activity activity, StorIOContentResolver storIOContentResolverIn, OkHttpClient okHttpClientIn, Retrofit retrofitIn) {
         contentResolver = activity.getContentResolver();
         storIOContentResolver = storIOContentResolverIn;
         okHttpClient = okHttpClientIn;
         retrofit = retrofitIn;
+        databaseModel = databaseModelIn;
     }
 
     public void populateIdentitiesTable() {
@@ -79,8 +82,7 @@ public class ImportDefaultData {
 
         call.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(i -> insertID(i)
-                );
+                .subscribe(i -> insertID(i));
 
     }
 
@@ -136,8 +138,6 @@ public class ImportDefaultData {
                         .build())
                 .prepare()
                 .executeAsBlocking();
-
-
 
         for (Identity i : cardImageList) {
 

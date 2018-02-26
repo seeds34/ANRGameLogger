@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import okhttp3.OkHttpClient;
 import org.seeds.anrgamelogger.addgame.AddGameActivity;
+import org.seeds.anrgamelogger.application.DatabaseModel;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.gamedetail.GameDetailActivity;
 import org.seeds.anrgamelogger.model.GameListManager;
@@ -29,31 +30,32 @@ public class GameListModel {
     private StorIOContentResolver storIOContentResolver;
     private OkHttpClient okHttpClient;
     private Retrofit retrofit;
+    private DatabaseModel databaseModel;
 
-
-    public GameListModel(Activity a, StorIOContentResolver storIOContentResolverIn, OkHttpClient okHttpClientIn, Retrofit retrofitIn){
+    public GameListModel(Activity a, DatabaseModel databaseModelIn, StorIOContentResolver storIOContentResolverIn, OkHttpClient okHttpClientIn, Retrofit retrofitIn){
         activity = a;
         gameListManager = new GameListManager();
         storIOContentResolver = storIOContentResolverIn;
         okHttpClient = okHttpClientIn;
         retrofit = retrofitIn;
+        databaseModel = databaseModelIn;
     }
 
     public void databaseFirstTimeSetup(){
 
         //Check if tables are set up
+//
+//        List<Identity> ids = storIOContentResolver
+//            .get()
+//            .listOfObjects(Identity.class)
+//            .withQuery(Query.builder()
+//                .uri(IdentitiesContract.URI_TABLE)
+//                .build())
+//            .prepare()
+//            .executeAsBlocking();
 
-        List<Identity> ids = storIOContentResolver
-            .get()
-            .listOfObjects(Identity.class)
-            .withQuery(Query.builder()
-                .uri(IdentitiesContract.URI_TABLE)
-                .build())
-            .prepare()
-            .executeAsBlocking();
-
-        if(ids.size() <= 0 ){
-            ImportDefaultData idd = new ImportDefaultData(activity, storIOContentResolver, okHttpClient, retrofit);
+        if(databaseModel.isTableEmpty(IdentitiesContract.URI_TABLE) ){
+            ImportDefaultData idd = new ImportDefaultData(databaseModel, activity, storIOContentResolver, okHttpClient, retrofit);
             idd.populateIdentitiesTable();
         }
     }

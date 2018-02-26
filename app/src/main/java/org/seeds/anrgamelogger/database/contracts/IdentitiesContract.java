@@ -3,6 +3,8 @@ package org.seeds.anrgamelogger.database.contracts;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+import org.seeds.anrgamelogger.model.Identity;
+
 /**
  * Created by Tomas Seymour-Turner on 02/05/2017.
  */
@@ -25,7 +27,6 @@ public class IdentitiesContract {
     public static final String PATH_IDENTITIES = "identities";
 
     public  static final Uri URI_TABLE = Uri.parse(BASE_CONTENT_URI.toString()+"/"+ PATH_IDENTITIES);
-
 
     public static final String[] TOP_LEVEL_PATHS = {
             PATH_IDENTITIES

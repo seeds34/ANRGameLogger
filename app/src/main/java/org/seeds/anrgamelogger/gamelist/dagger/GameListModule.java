@@ -5,6 +5,8 @@ import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
+
+import org.seeds.anrgamelogger.application.DatabaseModel;
 import org.seeds.anrgamelogger.gamelist.GameListModel;
 import org.seeds.anrgamelogger.gamelist.GameListPresenter;
 import org.seeds.anrgamelogger.gamelist.GameListView;
@@ -30,8 +32,8 @@ public class GameListModule {
 
     @Provides
     @GameListScope
-    public GameListModel GetGameGameListModel(StorIOContentResolver storIOContentResolverIn, OkHttpClient okHttpClientIn, Retrofit retrofitIn){
-        return new GameListModel(activity, storIOContentResolverIn, okHttpClientIn, retrofitIn);
+    public GameListModel GetGameGameListModel(DatabaseModel databaseModel, StorIOContentResolver storIOContentResolverIn, OkHttpClient okHttpClientIn, Retrofit retrofitIn){
+        return new GameListModel(activity, databaseModel, storIOContentResolverIn, okHttpClientIn, retrofitIn);
     }
 
     @Provides
