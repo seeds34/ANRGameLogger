@@ -107,10 +107,8 @@ public class ImportDefaultData {
 
                 Log.d(LOG_TAG, i.toString());
 
-                storIOContentResolver.put()
-                        .object(i)
-                        .prepare()
-                        .executeAsBlocking();
+                databaseModel.insertIdentity(i);
+
             }
         }
 
@@ -130,14 +128,16 @@ public class ImportDefaultData {
 //                ).build();
 
 
-        List<Identity> cardImageList = storIOContentResolver
-                .get()
-                .listOfObjects(Identity.class)
-                .withQuery(Query.builder()
-                        .uri(IdentitiesContract.URI_TABLE)
-                        .build())
-                .prepare()
-                .executeAsBlocking();
+        List<Identity> cardImageList = databaseModel.getIdentities();
+
+//        storIOContentResolver
+//                .get()
+//                .listOfObjects(Identity.class)
+//                .withQuery(Query.builder()
+//                        .uri(IdentitiesContract.URI_TABLE)
+//                        .build())
+//                .prepare()
+//                .executeAsBlocking();
 
         for (Identity i : cardImageList) {
 
@@ -187,11 +187,13 @@ public class ImportDefaultData {
                 }
             });
 
-                      PutResults p = storIOContentResolver
-                            .put()
-                            .objects(cardImageList)
-                            .prepare()
-                            .executeAsBlocking();
+
+            databaseModel.insertIdentities(cardImageList);
+//                      PutResults p = storIOContentResolver
+//                            .put()
+//                            .objects(cardImageList)
+//                            .prepare()
+//                            .executeAsBlocking();
         }
     }
 }

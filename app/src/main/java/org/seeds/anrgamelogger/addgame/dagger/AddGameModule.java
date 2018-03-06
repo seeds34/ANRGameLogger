@@ -9,6 +9,7 @@ import dagger.Provides;
 import org.seeds.anrgamelogger.addgame.AddGameModel;
 import org.seeds.anrgamelogger.addgame.AddGamePresenter;
 import org.seeds.anrgamelogger.addgame.AddGameView;
+import org.seeds.anrgamelogger.application.DatabaseModel;
 
 /**
  * Created by Tomas Seymour-Turner on 14/10/2017.
@@ -30,8 +31,8 @@ public class AddGameModule {
 
     @Provides
     @AddGameScope
-    public AddGameModel GetAddGameModel(StorIOContentResolver storIOContentResolver){
-        return new AddGameModel(activity, storIOContentResolver);
+    public AddGameModel GetAddGameModel(DatabaseModel databaseModel, StorIOContentResolver storIOContentResolver){
+        return new AddGameModel(activity, storIOContentResolver, databaseModel);
     }
 
     @Provides

@@ -3,6 +3,8 @@ package org.seeds.anrgamelogger.application;
 import android.database.Cursor;
 import android.net.Uri;
 import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
+import com.pushtorefresh.storio3.contentresolver.operations.put.PutResult;
+import com.pushtorefresh.storio3.contentresolver.operations.put.PutResults;
 import com.pushtorefresh.storio3.contentresolver.queries.Query;
 import java.util.List;
 import okhttp3.OkHttpClient;
@@ -47,6 +49,7 @@ public class DatabaseModel {
   public boolean isLoggedgamesTableEmpty(){
     return isTableEmpty(LoggedGamesContract.URI_TABLE);
   }
+
   private boolean isTableEmpty(Uri tableUri){
 
     boolean ret = false;
@@ -67,8 +70,7 @@ public class DatabaseModel {
     return ret;
   }
 
-  private List<Identity> getIdentities(){
-
+  public List<Identity> getIdentities(){
     return storIOContentResolver
         .get()
         .listOfObjects(Identity.class)
@@ -77,20 +79,23 @@ public class DatabaseModel {
             .build())
         .prepare()
         .executeAsBlocking();
-
   }
 
+  public PutResult insertIdentity(Identity i) {
+    return storIOContentResolver.put()
+            .object(i)
+            .prepare()
+            .executeAsBlocking();
+  }
 
+  public PutResults insertIdentities(List<Identity> i) {
+    return storIOContentResolver
+            .put()
+            .objects(i)
+            .prepare()
+            .executeAsBlocking();
 
-
-
-
-
-
-
-
-
-
+  }
 
 
 //Genric soultion ideas

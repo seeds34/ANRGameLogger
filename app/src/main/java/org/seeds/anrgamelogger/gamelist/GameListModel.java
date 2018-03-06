@@ -54,7 +54,7 @@ public class GameListModel {
 //            .prepare()
 //            .executeAsBlocking();
 
-        if(databaseModel.isTableEmpty(IdentitiesContract.URI_TABLE) ){
+        if(databaseModel.isIdentitiesTableEmpty() ){
             ImportDefaultData idd = new ImportDefaultData(databaseModel, activity, storIOContentResolver, okHttpClient, retrofit);
             idd.populateIdentitiesTable();
         }

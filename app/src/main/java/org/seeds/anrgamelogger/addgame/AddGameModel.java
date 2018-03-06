@@ -5,6 +5,7 @@ import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
 import com.pushtorefresh.storio3.contentresolver.queries.Query;
 import java.util.List;
 import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.application.DatabaseModel;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract.IdentitiesColumns;
 import org.seeds.anrgamelogger.model.Identity;
@@ -19,10 +20,12 @@ public class AddGameModel {
     private static final String LOG_TAG = AddGameModel.class.getSimpleName();
     private Activity activity;
     private StorIOContentResolver storIOContentResolver;
+    private DatabaseModel databaseModel;
 
-    public AddGameModel(Activity activityIn, StorIOContentResolver storIOContentResolverIn){
+    public AddGameModel(Activity activityIn, StorIOContentResolver storIOContentResolverIn, DatabaseModel databaseModelIn){
         activity = activityIn;
         storIOContentResolver = storIOContentResolverIn;
+        databaseModel = databaseModelIn;
     }
 
 //public ArrayList<String> getListOfIdentitesNames(int side){
@@ -90,6 +93,8 @@ public class AddGameModel {
 
         List<Identity> ret;
         String sideName = activity.getString(side);
+
+
 
         ret = storIOContentResolver
             .get()
