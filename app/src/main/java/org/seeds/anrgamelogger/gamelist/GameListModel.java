@@ -1,6 +1,8 @@
 package org.seeds.anrgamelogger.gamelist;
 
 import android.app.Activity;
+import android.util.Log;
+
 import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
 import com.pushtorefresh.storio3.contentresolver.queries.Query;
 import io.reactivex.Observable;
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import okhttp3.OkHttpClient;
 import org.seeds.anrgamelogger.addgame.AddGameActivity;
+import org.seeds.anrgamelogger.addgame.AddGameModel;
 import org.seeds.anrgamelogger.application.DatabaseModel;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.gamedetail.GameDetailActivity;
@@ -24,6 +27,7 @@ import retrofit2.Retrofit;
 
 public class GameListModel {
 
+    private static final String LOG_TAG = GameListModel.class.getSimpleName();
     private final String GAME_LIST = "GAME_LIST";
     private Activity activity;
     private GameListManager gameListManager;
@@ -55,6 +59,9 @@ public class GameListModel {
 //            .executeAsBlocking();
 
         if(databaseModel.isIdentitiesTableEmpty() ){
+
+            Log.d(LOG_TAG,"Starting to load first time data");
+
             ImportDefaultData idd = new ImportDefaultData(databaseModel, activity, storIOContentResolver, okHttpClient, retrofit);
             idd.populateIdentitiesTable();
         }

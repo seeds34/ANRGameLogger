@@ -83,7 +83,6 @@ public class ImportDefaultData {
         call.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(i -> insertID(i));
-
     }
 
 
@@ -100,18 +99,19 @@ public class ImportDefaultData {
 
         List<Identity> ids = identitiesIn.getIdentities();
 
+        Log.d(LOG_TAG,"Inserting IDs");
+
         for (Identity i : ids) {
 
             Log.d(LOG_TAG, "Type: " + i.type_code);
+
             if (i.type_code.equals("identity")) {
 
                 Log.d(LOG_TAG, i.toString());
 
                 databaseModel.insertIdentity(i);
-
             }
         }
-
         setUpIdentityImages();
     }
 
@@ -138,6 +138,8 @@ public class ImportDefaultData {
 //                        .build())
 //                .prepare()
 //                .executeAsBlocking();
+
+        Log.d(LOG_TAG,"Add Images to IDs");
 
         for (Identity i : cardImageList) {
 

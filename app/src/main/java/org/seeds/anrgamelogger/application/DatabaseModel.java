@@ -2,6 +2,7 @@ package org.seeds.anrgamelogger.application;
 
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
 import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
 import com.pushtorefresh.storio3.contentresolver.operations.put.PutResult;
 import com.pushtorefresh.storio3.contentresolver.operations.put.PutResults;
@@ -12,8 +13,7 @@ import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.LocationsContract;
 import org.seeds.anrgamelogger.database.contracts.LoggedGamesContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract;
-import org.seeds.anrgamelogger.model.Identity;
-import retrofit2.Retrofit;
+import org.seeds.anrgamelogger.model.Identity;import retrofit2.Retrofit;
 
 /**
  * Created by Tomas Seymour-Turner on 21/02/2018.
@@ -25,13 +25,11 @@ public class DatabaseModel {
   private StorIOContentResolver storIOContentResolver;
   private OkHttpClient okHttpClient;
   private Retrofit retrofit;
-  //private HashMap<Uri, Class> tableToClassMap;
 
   public DatabaseModel(StorIOContentResolver storIOContentResolverIn, OkHttpClient okHttpClientIn, Retrofit retrofitIn){
     storIOContentResolver = storIOContentResolverIn;
     okHttpClient = okHttpClientIn;
     retrofit = retrofitIn;
-//    databaseToClassModel();
   }
 
   public boolean isIdentitiesTableEmpty(){
@@ -54,6 +52,8 @@ public class DatabaseModel {
 
     boolean ret = false;
 
+    Log.d(LOG_TAG,"Starting is Table Empty Check for " + tableUri.toString());
+
     Cursor queryResult = storIOContentResolver
         .get()
         .cursor()
@@ -64,8 +64,12 @@ public class DatabaseModel {
         .executeAsBlocking();
 
     if(queryResult != null && queryResult.getCount() > 0){
+      ret = false;
+    }else{
       ret = true;
     }
+
+    Log.d(LOG_TAG,"Finished is Table Empty Check for " + tableUri.toString() + " Returning: " + ret);
 
     return ret;
   }
@@ -94,7 +98,6 @@ public class DatabaseModel {
             .objects(i)
             .prepare()
             .executeAsBlocking();
-
   }
 
 
