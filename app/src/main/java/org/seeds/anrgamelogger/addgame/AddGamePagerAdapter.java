@@ -30,9 +30,15 @@ public class AddGamePagerAdapter extends PagerAdapter {
     this.context = activity.getApplicationContext();
     viewList = new ArrayList<>();
     viewTitleList = new ArrayList<>();
-
     setViewList(viewOrderList);
     setViewTitleList(viewOrderList);
+  }
+
+  @Override
+  public Object instantiateItem(ViewGroup container, int position) {
+    ViewGroup layout = (ViewGroup)viewList.get(position);
+    container.addView(layout);
+    return layout;
   }
 
   private void setViewList(ArrayList<Integer> titleRid){
@@ -44,18 +50,9 @@ public class AddGamePagerAdapter extends PagerAdapter {
   }
 
   private void setViewTitleList(ArrayList<Integer> titleRid){
-
     for (int id: titleRid) {
       viewTitleList.add(activity.getString(id));
     }
-  }
-
-  @Override
-  public Object instantiateItem(ViewGroup container, int position) {
-    ViewGroup layout = (ViewGroup)viewList.get(position);
-    container.addView(layout);
-    return layout;
-
   }
 
   @Override
@@ -73,6 +70,20 @@ public class AddGamePagerAdapter extends PagerAdapter {
     return viewTitleList.get(position);
   }
 
+//  @Override
+//  public void destroyItem(ViewGroup container, int position, Object object) {
+//    super.destroyItem(container, position, object);
+//  }
+
+
+  public void destroyItem(ViewGroup container, int position, Object object) {
+    destroyItem((View) container, position, object);
+       }
+
+   public void destroyItem(View container, int position, Object object) {
+            throw new UnsupportedOperationException("Required method destroyItem was not overridden");
+      }
+
   public void setImageSpinner(int side, ArrayList<byte[]> imageListIn){
 
     for (AddGameBaseView i : viewList) {
@@ -84,3 +95,15 @@ public class AddGamePagerAdapter extends PagerAdapter {
 
   }
 }
+
+
+//    public View getItem(int position) {
+//        return viewList.get(position);
+//    }
+//
+//    public void addView(View view, String title) {
+//        viewList.add(view);
+//        notifyDataSetChanged();
+//        viewTitleList.add(title);
+//    }
+
