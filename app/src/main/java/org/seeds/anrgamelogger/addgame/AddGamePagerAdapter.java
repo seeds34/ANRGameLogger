@@ -70,19 +70,10 @@ public class AddGamePagerAdapter extends PagerAdapter {
     return viewTitleList.get(position);
   }
 
-//  @Override
-//  public void destroyItem(ViewGroup container, int position, Object object) {
-//    super.destroyItem(container, position, object);
-//  }
-
-
+  @Override
   public void destroyItem(ViewGroup container, int position, Object object) {
-    destroyItem((View) container, position, object);
-       }
-
-   public void destroyItem(View container, int position, Object object) {
-            throw new UnsupportedOperationException("Required method destroyItem was not overridden");
-      }
+    container.removeView((View) object);
+  }
 
   public void setImageSpinner(int side, ArrayList<byte[]> imageListIn){
 

@@ -8,11 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
-import org.seeds.anrgamelogger.R;
-
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
+import org.seeds.anrgamelogger.R;
 
 /**
  * Created by user on 09/12/2017.
@@ -37,11 +35,20 @@ public class AddGameIdentitesPageAdapter extends PagerAdapter {
         View imageLayout = inflater.inflate(R.layout.view_addgame_identities_image,container,false);
         ImageView identitiesIamgeView = (ImageView) imageLayout.findViewById(R.id.identitiesImageView);
 
-        byte[] imageByteArray = imageList.get(position);
-        ByteArrayInputStream imageStream = new ByteArrayInputStream(imageByteArray);
-        Bitmap theImage = BitmapFactory.decodeStream(imageStream);
-        identitiesIamgeView.setImageBitmap(theImage);
-        container.addView(imageLayout,0);
+        if(imageList != null) {
+
+            byte[] imageByteArray = imageList.get(position);
+            if(imageByteArray != null) {
+                ByteArrayInputStream imageStream = new ByteArrayInputStream(imageByteArray);
+                Bitmap theImage = BitmapFactory.decodeStream(imageStream);
+                identitiesIamgeView.setImageBitmap(theImage);
+            }
+            container.addView(imageLayout, 0);
+        }else{
+            container.addView(imageLayout,0);
+        }
+
+
         return imageLayout;
     }
 
