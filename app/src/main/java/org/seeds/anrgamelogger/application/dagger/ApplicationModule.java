@@ -12,6 +12,7 @@ import dagger.Provides;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.application.CardDetailsModel;
 import org.seeds.anrgamelogger.application.DatabaseModel;
 import org.seeds.anrgamelogger.model.Identity;
 import org.seeds.anrgamelogger.model.IdentityStorIOContentResolverDeleteResolver;
@@ -29,12 +30,13 @@ public class ApplicationModule {
 
   private final Application application;
   private final String NRDB_BASE_API_URL;
+  private final String CGDB_BASE_URL;
 
   public ApplicationModule(Application applicationIn){
     this.application = applicationIn;
     NRDB_BASE_API_URL = application.getString(R.string.nrdb_base_api_url);
+    CGDB_BASE_URL = "http://www.cardgamedb.com/forums/uploads/an/";
   }
-
 
   @Provides
   @ApplicationScope
@@ -61,7 +63,6 @@ public class ApplicationModule {
    return new OkHttpClient();
   }
 
-
   @Provides
   @ApplicationScope
       public Moshi getMoshi() {
@@ -70,12 +71,22 @@ public class ApplicationModule {
 
   @Provides
   @ApplicationScope
-  public Retrofit getRetrofit(Moshi moshi, RxJava2CallAdapterFactory rxAdapter){
+  public Retrofit getNRDBRetrofit(Moshi moshi, RxJava2CallAdapterFactory rxAdapter){
     return new Retrofit.Builder()
         .baseUrl(NRDB_BASE_API_URL)
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .addCallAdapterFactory(rxAdapter)
         .build();
+  }
+
+  @Provides
+  @ApplicationScope
+  public Retrofit getCGDBRetrofit(Moshi moshi, RxJava2CallAdapterFactory rxAdapter){
+    return new Retrofit.Builder()
+            .baseUrl(CGDB_BASE_URL)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addCallAdapterFactory(rxAdapter)
+            .build();
   }
 
   @Provides
@@ -86,10 +97,13 @@ public class ApplicationModule {
 
   @Provides
   @ApplicationScope
-  public DatabaseModel getDatabaseModel(OkHttpClient okHttpClientIn, StorIOContentResolver storIOContentResolverIn,Retrofit retrofitIn ){
-    return new DatabaseModel(storIOContentResolverIn, okHttpClientIn, retrofitIn);
+  public DatabaseModel getDatabaseModel(StorIOContentResolver storIOContentResolverIn){
+    return new DatabaseModel(storIOContentResolverIn);
   }
 
-
-
+  @Provides
+  @ApplicationScope
+  public CardDetailsModel getCardDetailsModel(OkHttpClient okHttpClientIn, Moshi moshi, RxJava2CallAdapterFactory rxAdapter ){
+    return new CardDetailsModel(okHttpClientIn, moshi, rxAdapter);
+  }
 }

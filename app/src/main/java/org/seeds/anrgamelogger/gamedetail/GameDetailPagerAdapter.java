@@ -36,7 +36,6 @@ public class GameDetailPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-
 //        DetailViewsEnum customPagerEnum = DetailViewsEnum.values()[position];
 //        LayoutInflater inflater = LayoutInflater.from(context);
 //        ViewGroup layout = (ViewGroup) inflater.inflate(customPagerEnum.getLayoutID(), container, false);
@@ -46,15 +45,7 @@ public class GameDetailPagerAdapter extends PagerAdapter {
 
     }
 
-//    public View getItem(int position) {
-//        return viewList.get(position);
-//    }
-//
-//    public void addView(View view, String title) {
-//        viewList.add(view);
-//        notifyDataSetChanged();
-//        viewTitleList.add(title);
-//    }
+
 
     @Override
     public int getCount() {

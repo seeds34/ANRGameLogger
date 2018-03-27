@@ -23,13 +23,9 @@ public class DatabaseModel {
 
   private final String LOG_TAG = this.getClass().getName();
   private StorIOContentResolver storIOContentResolver;
-  private OkHttpClient okHttpClient;
-  private Retrofit retrofit;
 
-  public DatabaseModel(StorIOContentResolver storIOContentResolverIn, OkHttpClient okHttpClientIn, Retrofit retrofitIn){
+  public DatabaseModel(StorIOContentResolver storIOContentResolverIn){
     storIOContentResolver = storIOContentResolverIn;
-    okHttpClient = okHttpClientIn;
-    retrofit = retrofitIn;
   }
 
   public boolean isIdentitiesTableEmpty(){
