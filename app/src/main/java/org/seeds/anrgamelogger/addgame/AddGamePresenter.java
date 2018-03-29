@@ -3,7 +3,7 @@ package org.seeds.anrgamelogger.addgame;
 import java.util.ArrayList;
 import java.util.List;
 import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.model.Identity;
+import org.seeds.anrgamelogger.model.Card;
 
 /**
  * Created by user on 08/12/2017.
@@ -30,11 +30,11 @@ public class AddGamePresenter {
     }
 
     public void setIdentityData(int side){
-        List<Identity> idList = model.getListOfIdenties(side);
+        List<Card> idList = model.getListOfIdenties(side);
         ArrayList<String> idNameList = new ArrayList<>();
         ArrayList<byte[]> idImageList = new ArrayList<>();
 
-        for (Identity i : idList) {
+        for (Card i : idList) {
             idNameList.add(i.getName());
             idImageList.add(i.getImageByteArrayOutputStream());
         }

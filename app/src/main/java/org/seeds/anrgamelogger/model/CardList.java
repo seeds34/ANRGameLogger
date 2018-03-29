@@ -7,13 +7,12 @@ import java.util.List;
  * Created by Tomas Seymour-Turner on 10/01/2018.
  */
 
-public class IdentitiesData {
+public class CardList {
 
   @Json(name = "data")
-  public List<Identity> identities;
+  public List<Card> identities;
 
-
-  public List<Identity> getIdentities(){
+  public List<Card> getIdentities(){
     return identities;
   }
 

@@ -4,18 +4,16 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
-import com.pushtorefresh.storio3.contentresolver.queries.Query;
+
 import io.reactivex.Observable;
 import java.util.ArrayList;
-import java.util.List;
+
 import okhttp3.OkHttpClient;
 import org.seeds.anrgamelogger.addgame.AddGameActivity;
-import org.seeds.anrgamelogger.addgame.AddGameModel;
 import org.seeds.anrgamelogger.application.DatabaseModel;
-import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
+import org.seeds.anrgamelogger.application.NetworkModel;
 import org.seeds.anrgamelogger.gamedetail.GameDetailActivity;
 import org.seeds.anrgamelogger.model.GameListManager;
-import org.seeds.anrgamelogger.model.Identity;
 import org.seeds.anrgamelogger.model.ImportDefaultData;
 import org.seeds.anrgamelogger.model.LocalLoggedGame;
 import retrofit2.Retrofit;
@@ -35,35 +33,29 @@ public class GameListModel {
     private OkHttpClient okHttpClient;
     private Retrofit retrofit;
     private DatabaseModel databaseModel;
+    private NetworkModel networkModel;
 
-    public GameListModel(Activity a, DatabaseModel databaseModelIn, StorIOContentResolver storIOContentResolverIn, OkHttpClient okHttpClientIn, Retrofit retrofitIn){
+    public GameListModel(Activity a, DatabaseModel databaseModelIn, NetworkModel networkModelIn){
         activity = a;
         gameListManager = new GameListManager();
-        storIOContentResolver = storIOContentResolverIn;
-        okHttpClient = okHttpClientIn;
-        retrofit = retrofitIn;
+//        storIOContentResolver = storIOContentResolverIn;
+//        okHttpClient = okHttpClientIn;
+//        retrofit = retrofitIn;
         databaseModel = databaseModelIn;
+        networkModel = networkModelIn;
     }
 
     public void databaseFirstTimeSetup(){
 
-        //Check if tables are set up
-//
-//        List<Identity> ids = storIOContentResolver
-//            .get()
-//            .listOfObjects(Identity.class)
-//            .withQuery(Query.builder()
-//                .uri(IdentitiesContract.URI_TABLE)
-//                .build())
-//            .prepare()
-//            .executeAsBlocking();
+        Log.d(LOG_TAG,"Checking if first time data has been set up");
 
         if(databaseModel.isIdentitiesTableEmpty() ){
 
             Log.d(LOG_TAG,"Starting to load first time data");
 
-            ImportDefaultData idd = new ImportDefaultData(databaseModel, activity, storIOContentResolver, okHttpClient, retrofit);
+            ImportDefaultData idd = new ImportDefaultData(databaseModel, networkModel);
             idd.populateIdentitiesTable();
+            idd.setUpIdentityImages();
         }
     }
 

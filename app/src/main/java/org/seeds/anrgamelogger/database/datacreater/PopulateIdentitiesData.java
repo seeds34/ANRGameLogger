@@ -7,10 +7,7 @@ import com.pushtorefresh.storio3.contentresolver.ContentResolverTypeMapping;
 import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
 import com.pushtorefresh.storio3.contentresolver.impl.DefaultStorIOContentResolver;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
-import org.seeds.anrgamelogger.model.Identity;
-import org.seeds.anrgamelogger.model.IdentityStorIOContentResolverDeleteResolver;
-import org.seeds.anrgamelogger.model.IdentityStorIOContentResolverGetResolver;
-import org.seeds.anrgamelogger.model.IdentityStorIOContentResolverPutResolver;
+import org.seeds.anrgamelogger.model.Card;
 
 /**
  * Created by Tomas Seymour-Turner on 20/05/2017.
@@ -34,36 +31,36 @@ public class PopulateIdentitiesData {
 //                .build();
 //    }
 
-    public  PopulateIdentitiesData(Activity activityIn){
-        contentResolver = activityIn.getContentResolver();
-
-
-        storIOContentResolver = DefaultStorIOContentResolver.builder()
-                .contentResolver(contentResolver)
-            .addTypeMapping(Identity.class,ContentResolverTypeMapping.<Identity>builder()
-            .putResolver(new IdentityStorIOContentResolverPutResolver())
-                .getResolver(new IdentityStorIOContentResolverGetResolver())
-                .deleteResolver(new IdentityStorIOContentResolverDeleteResolver())
-                .build()
-            )
-                .build();
-
-
-    }
-
-    public boolean isIdentitiesTableEmpty(){
-        boolean ret = true;
-
-        Cursor queryResult = contentResolver.query(IdentitiesContract.URI_TABLE,null, null ,null,null);
-
-        if(queryResult != null && queryResult.getCount() > 0){
-            ret = false;
-        }
-
-        queryResult.close();
-
-        return  ret;
-    }
+//    public  PopulateIdentitiesData(Activity activityIn){
+//        contentResolver = activityIn.getContentResolver();
+//
+//
+//        storIOContentResolver = DefaultStorIOContentResolver.builder()
+//                .contentResolver(contentResolver)
+//            .addTypeMapping(Card.class,ContentResolverTypeMapping.<Card>builder()
+//            .putResolver(new IdentityStorIOContentResolverPutResolver())
+//                .getResolver(new IdentityStorIOContentResolverGetResolver())
+//                .deleteResolver(new IdentityStorIOContentResolverDeleteResolver())
+//                .build()
+//            )
+//                .build();
+//
+//
+//    }
+//
+//    public boolean isIdentitiesTableEmpty(){
+//        boolean ret = true;
+//
+//        Cursor queryResult = contentResolver.query(IdentitiesContract.URI_TABLE,null, null ,null,null);
+//
+//        if(queryResult != null && queryResult.getCount() > 0){
+//            ret = false;
+//        }
+//
+//        queryResult.close();
+//
+//        return  ret;
+//    }
 //
 //
 //
@@ -140,7 +137,7 @@ public class PopulateIdentitiesData {
 //
 //                    //contentResolver.insert(IdentitiesContract.URI_TABLE, values);
 //
-//                    Identity iden = new Identity(name,side,faction,"N", code, imageByteArrayOutputStream.toByteArray());
+//                    Card iden = new Card(name,side,faction,"N", code, imageByteArrayOutputStream.toByteArray());
 //
 //                    storIOContentResolver.put()
 //                        .object(iden)
@@ -148,7 +145,7 @@ public class PopulateIdentitiesData {
 //                        .executeAsBlocking();
 //
 //
-//                    Log.d(LOG_TAG, "Identity: Name: " + name + " | Side: " + side +" | Faction: " + faction + " | Code: " + code);
+//                    Log.d(LOG_TAG, "Card: Name: " + name + " | Side: " + side +" | Faction: " + faction + " | Code: " + code);
 ////                    urlConnection.disconnect();
 //                }
 //

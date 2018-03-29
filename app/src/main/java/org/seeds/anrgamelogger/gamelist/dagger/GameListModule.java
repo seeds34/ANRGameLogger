@@ -7,6 +7,7 @@ import dagger.Provides;
 import okhttp3.OkHttpClient;
 
 import org.seeds.anrgamelogger.application.DatabaseModel;
+import org.seeds.anrgamelogger.application.NetworkModel;
 import org.seeds.anrgamelogger.gamelist.GameListModel;
 import org.seeds.anrgamelogger.gamelist.GameListPresenter;
 import org.seeds.anrgamelogger.gamelist.GameListView;
@@ -32,8 +33,8 @@ public class GameListModule {
 
     @Provides
     @GameListScope
-    public GameListModel GetGameGameListModel(DatabaseModel databaseModel, StorIOContentResolver storIOContentResolverIn, OkHttpClient okHttpClientIn, Retrofit retrofitIn){
-        return new GameListModel(activity, databaseModel, storIOContentResolverIn, okHttpClientIn, retrofitIn);
+    public GameListModel GetGameGameListModel(DatabaseModel databaseModel, NetworkModel networkModelIn){
+        return new GameListModel(activity, databaseModel, networkModelIn);
     }
 
     @Provides

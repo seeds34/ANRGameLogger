@@ -3,8 +3,6 @@ package org.seeds.anrgamelogger.database.contracts;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
-import org.seeds.anrgamelogger.model.Identity;
-
 /**
  * Created by Tomas Seymour-Turner on 02/05/2017.
  */

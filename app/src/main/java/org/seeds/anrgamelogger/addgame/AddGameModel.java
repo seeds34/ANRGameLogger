@@ -8,7 +8,7 @@ import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.application.DatabaseModel;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract.IdentitiesColumns;
-import org.seeds.anrgamelogger.model.Identity;
+import org.seeds.anrgamelogger.model.Card;
 
 
 /**
@@ -89,16 +89,16 @@ public class AddGameModel {
     }
 
 
-    public List<Identity> getListOfIdenties(int side){
+    public List<Card> getListOfIdenties(int side){
 
-        List<Identity> ret;
+        List<Card> ret;
         String sideName = activity.getString(side);
 
 
 
         ret = storIOContentResolver
             .get()
-            .listOfObjects(Identity.class)
+            .listOfObjects(Card.class)
             .withQuery(Query.builder()
                 .uri(IdentitiesContract.URI_TABLE)
                 .where(IdentitiesContract.IdentitiesColumns.IDENTITY_SIDE + " = '" + sideName + "'")

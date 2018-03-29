@@ -10,8 +10,7 @@ import org.seeds.anrgamelogger.database.contracts.IdentitiesContract.IdentitiesC
  */
 
 @StorIOContentResolverType(uri = "content://" + IdentitiesContract.CONTENT_AUTHORITY + "/" + IdentitiesContract.PATH_IDENTITIES)
-public class Identity {
-
+public class Card{
 
       @Json(name = "title")
       @StorIOContentResolverColumn(name = IdentitiesColumns.IDENTITY_NAME, key = true)
@@ -38,9 +37,12 @@ public class Identity {
       @Json(name = "type_code")
       String type_code;
 
-      public Identity(){}
+      @Json(name = "pack_code")
+      String pack_code;
 
-      public Identity(String name, String side, String faction, String roatated_flag, String nrdb_code, byte[] imageByteArrayOutputStream, String type_code){
+      public Card(){}
+
+      public Card(String name, String side, String faction, String roatated_flag, String nrdb_code, byte[] imageByteArrayOutputStream, String type_code, String packCode){
             this.title = name;
             this.side_code = side;
             this.faction_code = faction;
@@ -48,6 +50,7 @@ public class Identity {
             this.code = nrdb_code;
             this.imageByteArrayOutputStream = imageByteArrayOutputStream;
             this.type_code = type_code;
+            this.pack_code = pack_code;
       }
 
       public String toString(){
@@ -72,5 +75,9 @@ public class Identity {
 
       public String getSide_code(){
         return side_code;
+      }
+
+      public String getPack_code(){
+          return pack_code;
       }
 }

@@ -8,12 +8,12 @@ import com.pushtorefresh.storio3.contentresolver.operations.put.PutResult;
 import com.pushtorefresh.storio3.contentresolver.operations.put.PutResults;
 import com.pushtorefresh.storio3.contentresolver.queries.Query;
 import java.util.List;
-import okhttp3.OkHttpClient;
+
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.LocationsContract;
 import org.seeds.anrgamelogger.database.contracts.LoggedGamesContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract;
-import org.seeds.anrgamelogger.model.Identity;import retrofit2.Retrofit;
+import org.seeds.anrgamelogger.model.Card;
 
 /**
  * Created by Tomas Seymour-Turner on 21/02/2018.
@@ -70,10 +70,10 @@ public class DatabaseModel {
     return ret;
   }
 
-  public List<Identity> getIdentities(){
+  public List<Card> getIdentities(){
     return storIOContentResolver
         .get()
-        .listOfObjects(Identity.class)
+        .listOfObjects(Card.class)
         .withQuery(Query.builder()
             .uri(IdentitiesContract.URI_TABLE)
             .build())
@@ -81,14 +81,14 @@ public class DatabaseModel {
         .executeAsBlocking();
   }
 
-  public PutResult insertIdentity(Identity i) {
+  public PutResult insertIdentity(Card i) {
     return storIOContentResolver.put()
             .object(i)
             .prepare()
             .executeAsBlocking();
   }
 
-  public PutResults insertIdentities(List<Identity> i) {
+  public PutResults insertIdentities(List<Card> i) {
     return storIOContentResolver
             .put()
             .objects(i)
@@ -102,7 +102,7 @@ public class DatabaseModel {
 //  public void databaseToClassModel(){
 //
 //    tableToClassMap = new HashMap();
-//    tableToClassMap.put(IdentitiesContract.URI_TABLE, Identity.class);
+//    tableToClassMap.put(IdentitiesContract.URI_TABLE, Card.class);
 //    //tableToClassMap.put(LocationsContract.URI_TABLE, )
 //    tableToClassMap.put(LoggedGamesContract.URI_TABLE, Game.class);
 //    tableToClassMap.put(PlayersContract.URI_TABLE, Player.class);

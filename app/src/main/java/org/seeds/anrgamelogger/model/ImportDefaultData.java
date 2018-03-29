@@ -5,8 +5,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.util.Log;
 import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
-import com.pushtorefresh.storio3.contentresolver.operations.put.PutResults;
-import com.pushtorefresh.storio3.contentresolver.queries.Query;
+
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -20,9 +19,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.application.DatabaseModel;
-import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
+import org.seeds.anrgamelogger.application.NRDBApiEndpointInterface;
+import org.seeds.anrgamelogger.application.NetworkModel;
+
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
@@ -35,7 +35,6 @@ public class ImportDefaultData {
 
     private static final String LOG_TAG = ImportDefaultData.class.getSimpleName();
     private final String NRDB_CARD_LIST_API_URL = "https://netrunnerdb.com/api/2.0/public/cards";
-    //private final String NRDB_BASE_API_URL = .getString(R.string.nrdb_base_api_url);
     private final String NRDB_IMAGE_URL = "https://netrunnerdb.com/card_image/";
     private final String IMAGE_FILE_EXT = ".png";
 
@@ -46,23 +45,34 @@ public class ImportDefaultData {
     private OkHttpClient okHttpClient;
     private Retrofit retrofit;
     private DatabaseModel databaseModel;
+    private NetworkModel networkModel;
 
     private StorIOContentResolver storIOContentResolver;
 
-    public ImportDefaultData(DatabaseModel databaseModelIn, Activity activity, StorIOContentResolver storIOContentResolverIn, OkHttpClient okHttpClientIn, Retrofit retrofitIn) {
-        contentResolver = activity.getContentResolver();
-        storIOContentResolver = storIOContentResolverIn;
-        okHttpClient = okHttpClientIn;
-        retrofit = retrofitIn;
+//    public ImportDefaultData(DatabaseModel databaseModelIn, Activity activity, StorIOContentResolver storIOContentResolverIn, OkHttpClient okHttpClientIn, Retrofit retrofitIn) {
+//        contentResolver = activity.getContentResolver();data
+//        storIOContentResolver = storIOContentResolverIn;
+//        okHttpClient = okHttpClientIn;
+//        retrofit = retrofitIn;
+//        databaseModel = databaseModelIn;
+//    }
+
+    public ImportDefaultData(DatabaseModel databaseModelIn, NetworkModel networkModelIn){
         databaseModel = databaseModelIn;
+        networkModel = networkModelIn;
     }
+
+
 
     public void populateIdentitiesTable() {
 
-        RxJava2CallAdapterFactory rxAdapter = RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io());
+        networkModel.getNRDBCardList()
+        .subscribe(i -> insertID(i));
+
+//        RxJava2CallAdapterFactory rxAdapter = RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io());
 
 //        Moshi moshi = new Moshi.Builder().build();
-//        JsonAdapter<IdentitiesData> jsonAdapter = moshi.adapter(IdentitiesData.class);
+//        JsonAdapter<CardList> jsonAdapter = moshi.adapter(CardList.class);
 
 //        Retrofit retrofit = new Retrofit.Builder()
 //                .baseUrl(NRDB_BASE_API_URL)
@@ -70,38 +80,38 @@ public class ImportDefaultData {
 //                .addCallAdapterFactory(rxAdapter)
 //                .build();
 
-        Log.d(LOG_TAG, "Retrofit Started");
-
-        NRDBApiEndpointInterface apiService = retrofit.create(NRDBApiEndpointInterface.class);
-
-        Log.d(LOG_TAG, "RAPI Services Started");
-
-        Single<IdentitiesData> call = apiService.getAllIdentities();
-
-        Log.d(LOG_TAG, "Observiable Made");
-
-        call.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(i -> insertID(i));
+//        Log.d(LOG_TAG, "Retrofit Started");
+//
+//        NRDBApiEndpointInterface apiService = retrofit.create(NRDBApiEndpointInterface.class);
+//
+//        Log.d(LOG_TAG, "RAPI Services Started");
+//
+//        Single<CardList> call = apiService.getAllIdentities();
+//
+//        Log.d(LOG_TAG, "Observiable Made");
+//
+//        call.subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(i -> insertID(i));
     }
 
 
-    public void insertID(IdentitiesData identitiesIn) {
+    public void insertID(CardList identitiesIn) {
 
 //        StorIOContentResolver storIOContentResolver = DefaultStorIOContentResolver.builder()
 //                .contentResolver(contentResolver)
-//                .addTypeMapping(Identity.class, ContentResolverTypeMapping.<Identity>builder()
+//                .addTypeMapping(Card.class, ContentResolverTypeMapping.<Card>builder()
 //                        .putResolver(new IdentityStorIOContentResolverPutResolver())
 //                        .getResolver(new IdentityStorIOContentResolverGetResolver())
 //                        .deleteResolver(new IdentityStorIOContentResolverDeleteResolver())
 //                        .build()
 //                ).build();
 
-        List<Identity> ids = identitiesIn.getIdentities();
+        List<Card> ids = identitiesIn.getIdentities();
 
         Log.d(LOG_TAG,"Inserting IDs");
 
-        for (Identity i : ids) {
+        for (Card i : ids) {
 
             Log.d(LOG_TAG, "Type: " + i.type_code);
 
@@ -112,15 +122,25 @@ public class ImportDefaultData {
                 databaseModel.insertIdentity(i);
             }
         }
-        setUpIdentityImages();
     }
-
 
     public void setUpIdentityImages() {
 
+        Log.d(LOG_TAG,"Add Images to IDs");
+
+        List<Card> cardImageList = databaseModel.getIdentities();
+        for (Card i : cardImageList) {
+            Log.d(LOG_TAG, "Reading in image");
+
+            i.setImageByteArray(networkModel.getNRDBCardImage(i.getCode()));
+
+            Log.d(LOG_TAG, (i.getImageByteArrayOutputStream() == null)?"[IDD]Image Array is null":"[IDD]Image Array is not null");
+        }
+        databaseModel.insertIdentities(cardImageList);
+
 //        StorIOContentResolver storIOContentResolver = DefaultStorIOContentResolver.builder()
 //                .contentResolver(contentResolver)
-//                .addTypeMapping(Identity.class, ContentResolverTypeMapping.<Identity>builder()
+//                .addTypeMapping(Card.class, ContentResolverTypeMapping.<Card>builder()
 //                        .putResolver(new IdentityStorIOContentResolverPutResolver())
 //                        .getResolver(new IdentityStorIOContentResolverGetResolver())
 //                        .deleteResolver(new IdentityStorIOContentResolverDeleteResolver())
@@ -128,75 +148,75 @@ public class ImportDefaultData {
 //                ).build();
 
 
-        List<Identity> cardImageList = databaseModel.getIdentities();
-
-//        storIOContentResolver
-//                .get()
-//                .listOfObjects(Identity.class)
-//                .withQuery(Query.builder()
-//                        .uri(IdentitiesContract.URI_TABLE)
-//                        .build())
-//                .prepare()
-//                .executeAsBlocking();
-
-        Log.d(LOG_TAG,"Add Images to IDs");
-
-        for (Identity i : cardImageList) {
-
-            String url = NRDB_IMAGE_URL + i.getCode() + IMAGE_FILE_EXT;
-
-//            OkHttpClient okHttpClient = new OkHttpClient();
-            Request request = new Request.Builder().url(url)
-                    .build();
-
-            okHttpClient.newCall(request).enqueue(new Callback() {
-
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    Log.d(LOG_TAG, "request failed: " + e.getMessage());
-
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    Log.d(LOG_TAG, "Reading in image");
-
-                    ByteArrayOutputStream imageByteArrayOutputStream = new ByteArrayOutputStream();
-                    int index;
-                    byte[] byteChunk = new byte[1024];
-
-                    InputStream is = response.body().byteStream();
-
-                    if (is != null) {
-                        while ((index = is.read(byteChunk)) > 0) {
-                            imageByteArrayOutputStream.write(byteChunk, 0, index);
-                        }
-                    }
-
-                    i.setImageByteArray(imageByteArrayOutputStream.toByteArray()); // Read the data from the stream
-
-                    Log.d(LOG_TAG, (i.getImageByteArrayOutputStream() == null)?"Image Array is null":"Image Array is not null");
-
-//                    PutResult p = storIOContentResolver
-//                            .put()
-//                            .object(i)
-//                            .prepare()
-//                            .executeAsBlocking();
+//        List<Card> cardImageList = databaseModel.getIdentities();
 //
-//                    Log.d(LOG_TAG,"Affected URI: " + p.affectedUri());
-//                    Log.d(LOG_TAG, "Row updated: "+p.wasUpdated());
-//                    Log.d(LOG_TAG, "Number of rows updated " + p.numberOfRowsUpdated());
-                }
-            });
-
-
-            databaseModel.insertIdentities(cardImageList);
-//                      PutResults p = storIOContentResolver
-//                            .put()
-//                            .objects(cardImageList)
-//                            .prepare()
-//                            .executeAsBlocking();
-        }
+////        storIOContentResolver
+////                .get()
+////                .listOfObjects(Card.class)
+////                .withQuery(Query.builder()
+////                        .uri(IdentitiesContract.URI_TABLE)
+////                        .build())
+////                .prepare()
+////                .executeAsBlocking();
+//
+//
+//
+//        for (Card i : cardImageList) {
+//
+////            String url = NRDB_IMAGE_URL + i.getCode() + IMAGE_FILE_EXT;
+//
+////            OkHttpClient okHttpClient = new OkHttpClient();
+////            Request request = new Request.Builder().url(url)
+////                    .build();
+//
+////            okHttpClient.newCall(request).enqueue(new Callback() {
+//
+//                @Override
+//                public void onFailure(Call call, IOException e) {
+//                    Log.d(LOG_TAG, "request failed: " + e.getMessage());
+//
+//                }
+//
+//                @Override
+//                public void onResponse(Call call, Response response) throws IOException {
+//
+//
+//                    ByteArrayOutputStream imageByteArrayOutputStream = new ByteArrayOutputStream();
+//                    int index;
+//                    byte[] byteChunk = new byte[1024];
+//
+//                    InputStream is = response.body().byteStream();
+//
+//                    if (is != null) {
+//                        while ((index = is.read(byteChunk)) > 0) {
+//                            imageByteArrayOutputStream.write(byteChunk, 0, index);
+//                        }
+//                    }
+//
+//                    i.setImageByteArray(imageByteArrayOutputStream.toByteArray()); // Read the data from the stream
+//
+//
+//
+////                    PutResult p = storIOContentResolver
+////                            .put()
+////                            .object(i)
+////                            .prepare()
+////                            .executeAsBlocking();
+////
+////                    Log.d(LOG_TAG,"Affected URI: " + p.affectedUri());
+////                    Log.d(LOG_TAG, "Row updated: "+p.wasUpdated());
+////                    Log.d(LOG_TAG, "Number of rows updated " + p.numberOfRowsUpdated());
+//                }
+////            });
+//
+//
+//
+////                      PutResults p = storIOContentResolver
+////                            .put()
+////                            .objects(cardImageList)
+////                            .prepare()
+////                            .executeAsBlocking();
+//        }
     }
 }
 
@@ -215,10 +235,10 @@ public class ImportDefaultData {
 
 
 
-  //        .map(new Function<IdentitiesData, List<Identity>>() {
+  //        .map(new Function<CardList, List<Card>>() {
 //          @Override
-//          public List<Identity> apply(
-//              @io.reactivex.annotations.NonNull final IdentitiesData cityResponse)
+//          public List<Card> apply(
+//              @io.reactivex.annotations.NonNull final CardList cityResponse)
 //              throws Exception {
 //            // we want to have the geonames and not the wrapper object
 //
@@ -230,10 +250,10 @@ public class ImportDefaultData {
 //          }
 //        })
 
-//        .subscribe(new Consumer<List<Identity>>() {
+//        .subscribe(new Consumer<List<Card>>() {
 //          @Override
 //          public void accept(
-//              @io.reactivex.annotations.NonNull final List<Identity> ident)
+//              @io.reactivex.annotations.NonNull final List<Card> ident)
 //              throws Exception {
 //
 //            Log.d(LOG_TAG, "Fire Call.accept");

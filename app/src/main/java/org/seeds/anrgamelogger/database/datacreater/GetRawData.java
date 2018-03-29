@@ -82,7 +82,7 @@ public class GetRawData {
 ////                                            @Override
 ////                                            public void onResponse(Call call, final Response response) throws IOException {
 ////                                                // Process the data on the worker thread
-////                                                Identity ident = gson.fromJson(response.body().charStream(), Identity.class);
+////                                                Card ident = gson.fromJson(response.body().charStream(), Card.class);
 ////                                                // Access deserialized user object here
 ////                                            }
 ////            });
