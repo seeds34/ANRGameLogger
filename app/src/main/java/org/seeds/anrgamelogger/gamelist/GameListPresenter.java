@@ -4,6 +4,8 @@ package org.seeds.anrgamelogger.gamelist;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 import org.seeds.anrgamelogger.R;
 
 /**
@@ -39,6 +41,7 @@ public class GameListPresenter{
        compositeSubscription.add(onItemClick());
         compositeSubscription.add(observeCorpFab());
         compositeSubscription.add(observeRunnerFab());
+        compositeSubscription.add(observerImageLoadButtonClick());
     }
 
     public void onDestroy() {
@@ -49,6 +52,15 @@ public class GameListPresenter{
         return view.observeRecyckerView()
                 .subscribe(pos ->{ model.startGameDetailActivity(pos.toString());
         });
+    }
+
+    private Disposable observerImageLoadButtonClick(){
+        return view.observeLoadImageClick()
+                .subscribeOn(Schedulers.io())
+                .doOnNext(__ -> view.showLoading(true))
+                .doOnNext(__ -> model.loadIdentImages())
+                .doOnNext((__ -> view.showLoading(false)))
+                .subscribe();
     }
 
     private Disposable observeCorpFab() {

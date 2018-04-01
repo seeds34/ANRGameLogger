@@ -14,6 +14,7 @@ import org.seeds.anrgamelogger.database.contracts.LocationsContract;
 import org.seeds.anrgamelogger.database.contracts.LoggedGamesContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract;
 import org.seeds.anrgamelogger.model.Card;
+import org.seeds.anrgamelogger.model.CardImage;
 
 /**
  * Created by Tomas Seymour-Turner on 21/02/2018.
@@ -92,6 +93,22 @@ public class DatabaseModel {
     return storIOContentResolver
             .put()
             .objects(i)
+            .prepare()
+            .executeAsBlocking();
+  }
+
+  public PutResult insertIdentitieImage(CardImage ci){
+    return storIOContentResolver
+            .put()
+            .object(ci)
+            .prepare()
+            .executeAsBlocking();
+  }
+
+  public PutResults insertIdedentiteImages(List<CardImage> ci){
+    return storIOContentResolver
+            .put()
+            .objects(ci)
             .prepare()
             .executeAsBlocking();
   }

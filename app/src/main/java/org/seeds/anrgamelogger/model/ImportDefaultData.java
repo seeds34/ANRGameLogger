@@ -60,6 +60,8 @@ public class ImportDefaultData {
     public ImportDefaultData(DatabaseModel databaseModelIn, NetworkModel networkModelIn){
         databaseModel = databaseModelIn;
         networkModel = networkModelIn;
+
+        Log.i(LOG_TAG,"Database Model is: " + databaseModel);
     }
 
 
@@ -132,7 +134,7 @@ public class ImportDefaultData {
         for (Card i : cardImageList) {
             Log.d(LOG_TAG, "Reading in image");
 
-            i.setImageByteArray(networkModel.getNRDBCardImage(i.getCode()));
+           // i.setImageByteArray(networkModel.getNRDBCardImage(i.getCode()));
 
             Log.d(LOG_TAG, (i.getImageByteArrayOutputStream() == null)?"[IDD]Image Array is null":"[IDD]Image Array is not null");
         }

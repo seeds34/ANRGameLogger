@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 import butterknife.BindView;
@@ -39,6 +40,8 @@ public class GameListView extends FrameLayout{
     @BindView(R.id.add_runner_game_fab)
     FloatingActionButton runner_fab;
 
+    @BindView(R.id.loadImages)
+    Button loadImageButton;
 
     public GameListView(Activity activity) {
         super(activity);
@@ -58,6 +61,7 @@ public class GameListView extends FrameLayout{
         Log.d(LOG_TAG,"fab is " + ((fab == null)?"Null":"Not Null"));
     }
 
+
     public void setData(ArrayList<LocalLoggedGame> gameListIn) {
         gameListRecyclerViewAdaptor.loadNewData(gameListIn);
         gameRecyclerList.refreshDrawableState();
@@ -67,6 +71,11 @@ public class GameListView extends FrameLayout{
         return gameListRecyclerViewAdaptor.getViewClickedObservable();
        // return RxView.clicks(gameRecyclerList);
 
+    }
+
+    public Observable<Object> observeLoadImageClick(){
+        Log.d(LOG_TAG, "Load Image Buttin pressed");
+        return RxView.clicks(loadImageButton);
     }
 
 
@@ -130,7 +139,7 @@ public class GameListView extends FrameLayout{
 //    }
 
     public void showMessage(String messageIn){
-        Toast.makeText(this.getContext(), messageIn, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getContext(), messageIn, Toast.LENGTH_LONG).show();
     }
 
     public void showLoading(boolean loading){

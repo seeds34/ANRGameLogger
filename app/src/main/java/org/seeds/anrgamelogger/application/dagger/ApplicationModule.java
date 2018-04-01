@@ -13,6 +13,10 @@ import okhttp3.OkHttpClient;
 import org.seeds.anrgamelogger.application.NetworkModel;
 import org.seeds.anrgamelogger.application.DatabaseModel;
 import org.seeds.anrgamelogger.model.Card;
+import org.seeds.anrgamelogger.model.CardImage;
+import org.seeds.anrgamelogger.model.CardImageStorIOContentResolverDeleteResolver;
+import org.seeds.anrgamelogger.model.CardImageStorIOContentResolverGetResolver;
+import org.seeds.anrgamelogger.model.CardImageStorIOContentResolverPutResolver;
 import org.seeds.anrgamelogger.model.CardStorIOContentResolverDeleteResolver;
 import org.seeds.anrgamelogger.model.CardStorIOContentResolverGetResolver;
 import org.seeds.anrgamelogger.model.CardStorIOContentResolverPutResolver;
@@ -49,8 +53,13 @@ public class ApplicationModule {
             .putResolver(new CardStorIOContentResolverPutResolver())
             .getResolver(new CardStorIOContentResolverGetResolver())
             .deleteResolver(new CardStorIOContentResolverDeleteResolver())
-            .build()
-        ).build();
+            .build())
+            .addTypeMapping(CardImage.class, ContentResolverTypeMapping.<CardImage>builder()
+            .putResolver(new CardImageStorIOContentResolverPutResolver())
+            .getResolver(new CardImageStorIOContentResolverGetResolver())
+            .deleteResolver(new CardImageStorIOContentResolverDeleteResolver())
+            .build())
+            .build();
   }
 
   @Provides
