@@ -2,9 +2,19 @@
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="org.seeds.anrgamelogger.gamelist.GameListViewActivity">
+
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_favorite"
+        android:orderInCategory="300"
+        android:title="User"
+        app:showAsAction="ifRoom"></item>
 </menu>
+
+
+    <!--android:icon="@drawable/code"-->

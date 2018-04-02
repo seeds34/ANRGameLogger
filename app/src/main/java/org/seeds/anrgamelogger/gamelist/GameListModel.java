@@ -87,19 +87,18 @@ public class GameListModel {
 
         List<Card> cardImageList = databaseModel.getIdentities();
 
-
         Observable.fromIterable(cardImageList)
-//                .subscribeOn(Schedulers.io())
-                .subscribe(
-                     i ->
-                        networkModel.getNRDBCardImage(i.getSide_code())
-                             .subscribe(a -> i.setImageByteArray(a))
-                );
+                .subscribeOn(Schedulers.io())
+                .map(i -> networkModel.getCardImage(i.getPack_code(),i.getSide_code())
+                        .subscribe(a -> i.setImageByteArray(a)))
+//                .map(i -> networkModel.getNRDBCardImage(i.getSide_code())
+//                                .subscribe(a -> i.setImageByteArray(a)))
+                //.toList()
+               //.subscribe(i -> databaseModel.insertIdentities(i));
+                .map(i -> (Card)i)
+                .subscribe(c -> databaseModel.insertIdentity(c), Throwable::printStackTrace);
 
-
-        databaseModel.insertIdentities(cardImageList);
-
-
+        //databaseModel.insertIdentities(cardImageList);
 
 //        for (Card i : cardImageList) {
 //            Log.d(LOG_TAG, "Reading in image");
