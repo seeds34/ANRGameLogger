@@ -14,13 +14,13 @@ import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 @StorIOContentResolverType(uri = "content://" + IdentitiesContract.CONTENT_AUTHORITY + "/" + IdentitiesContract.PATH_IDENTITIES)
 public class CardImage {
 
-
     @StorIOContentResolverColumn(name = IdentitiesContract.IdentitiesColumns.NRDB_CODE, key=true)
     String code;
 
     @StorIOContentResolverColumn(name = IdentitiesContract.IdentitiesColumns.IMAGE_BIT_ARRAY)
     byte[] imageByteArray;
 
+    String imageUrl;
 
     public CardImage(){}
 
@@ -31,6 +31,14 @@ public class CardImage {
     public CardImage(String code, byte[] imageByteArrayOutputStream){
         this.imageByteArray = imageByteArrayOutputStream;
         this.code = code;
+    }
+
+    public void setImageUrl(String urlIn){
+        imageUrl = urlIn;
+    }
+
+    public String getImageUrl(){
+        return imageUrl;
     }
 
     public String getCode(){
@@ -63,6 +71,7 @@ public class CardImage {
     }
 
     public boolean isImageValid(){
+        //TODO: Work out how to check if image is what is needed
         boolean ret = true;
         return ret;
     }

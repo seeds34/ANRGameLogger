@@ -78,23 +78,10 @@ public class GameListModel {
 
     public void loadIdentImages(){
         Log.d(LOG_TAG,"Add Images to IDs");
-
         List<Card> cardImageList = databaseModel.getIdentities();
-//This needs to resives a Observaible<Byte[]> to into a card
-        Observable.fromIterable(cardImageList)
-                .subscribeOn(Schedulers.io())
-                .map(i -> networkModel.getCardImage(i.getPack_code(),i.getCode()))
-                    //    .subscribe(a -> i.setImageByteArray(a)))
-                .subscribe(a -> {
-                    new CardImage(i.getCode())
-                });
-    }
-
-    private void insertIDImage(byte[] iba, Card i){
-
-        PutResult p = databaseModel.insertIdentitieImage(new CardImage(i.getCode(), iba));
-
-        Log.d(LOG_TAG, "Was image updated: " + p.wasUpdated());
+        for(Card c : cardImageList){
+            databaseModel.insertIdentitieImage(networkModel.getCardImage(c.getPack_code(), c.getCode()));
+        }
     }
 
     public void startGameDetailActivity(String selectedGame){

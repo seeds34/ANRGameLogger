@@ -48,87 +48,58 @@ public class NetworkModel {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<byte[]> getNRDBCardImage(String card_code) {
-
-        String url = NRDB_IMAGE_URL + card_code + IMAGE_FILE_EXT;
-
-        return getData(url)
-                .retry()
-                .map(i -> i.body().byteStream())
-                .map(i -> turnInputStreamToBAOS(i))
-                .map(i -> i.toByteArray());
-
-    }
+//    public Observable<byte[]> getNRDBCardImage(String card_code) {
+//
+//        String url = NRDB_IMAGE_URL + card_code + IMAGE_FILE_EXT;
+//
+//        return getData(url)
+//                .retry()
+//                .map(i -> i.body().byteStream())
+//                .map(i -> turnInputStreamToBAOS(i))
+//                .map(i -> i.toByteArray());
+//
+//    }
 
     public CardImage getNRDBCardImage(String card_code) {
-        String url = NRDB_IMAGE_URL + card_code + IMAGE_FILE_EXT;
         CardImage ret = new CardImage(card_code);
-        getData(url).subscribe(r -> {
+        ret.setImageUrl(NRDB_IMAGE_URL + card_code + IMAGE_FILE_EXT);
+        getData(ret.getImageUrl()).subscribe(r -> {
             InputStream is = r.body().byteStream();
             ret.setImageByteArray(is);
-        });
+        },Throwable::printStackTrace);
         return ret;
     }
 
-    public Observable<byte[]> getCGDBCardImage(String nrdb_pack_code, String card_code){
-
-        //Use NRDB pack Code to get FFG_Pack Code
-        //Create URL
-        //String url = CGDB_BASE_URL;
-        //String ffg_pack_code;
-
-
-
-      return getNRDBPackList()
-          .map(i -> CGDB_BASE_URL + i.getDataPackMap().get(nrdb_pack_code)+ "_" +card_code + IMAGE_FILE_EXT)
-          .map(s -> getData(s)
-              .map(r -> r.body().byteStream())
-                  .map(bs -> turnInputStreamToBAOS(bs))
-                  .map(is -> is.toByteArray()))
-
-        String url =  "_" +card_code + IMAGE_FILE_EXT;
-
-        return getData(url)
-                .retry()
-                .map(i -> i.body().byteStream())
-                .map(i -> turnInputStreamToBAOS(i))
-                .map(i -> i.toByteArray());
-    }
-
-    public Observable<byte[]> getCardImage(String nrdb_pack_code, String card_code){
-
-        //1: Get Image From NRDB
-        //2: If Image is Null
-        //2.1: Get Image from CGDB
-        //2.2: If Iamge is Null
-        //2.2.1: Use defult iamge
-
-        return getNRDBCardImage(card_code)
-                .flatMap(
-                        i -> {
-                            if(isImageTrue()){
-                                return Observable.just(i);
-                            }else{
-                                return getCGDBCardImage(nrdb_pack_code, card_code);
-                            }
-                            //return ret;
-                        }
+    public CardImage getCGDBCardImage(String nrdb_pack_code, String card_code){
+        CardImage ret = new CardImage(card_code);
+        getNRDBPackList()
+                .subscribe(dpl -> {
+                    String url = CGDB_BASE_URL
+                            + dpl.getDataPackMap().get(nrdb_pack_code)
+                            + "_" +card_code
+                            + IMAGE_FILE_EXT;
+                    },Throwable::printStackTrace
                 );
+
+        getData(ret.getImageUrl()).subscribe(r -> {
+            InputStream is = r.body().byteStream();
+            ret.setImageByteArray(is);
+        },Throwable::printStackTrace);
+        return ret;
     }
 
-    private boolean isImageTrue(){
-        //Check image
-        return false;
+    public CardImage getCardImage(String nrdb_pack_code, String card_code){
+        CardImage ret = getNRDBCardImage(card_code);
+        if(!ret.isImageValid()){
+            ret = getCGDBCardImage(nrdb_pack_code, card_code);
+        }
+        return ret;
     }
-
 
     private Observable<Response> getData(String url) {
-
         final OkHttpClient client = new OkHttpClient();
-
         Request request = new Request.Builder().url(url)
                 .build();
-
         return Observable.create(emitter ->
                 {try{
                     Response response = client.newCall(request).execute();
@@ -140,24 +111,23 @@ public class NetworkModel {
                 }
         );
     }
-
-    private ByteArrayOutputStream turnInputStreamToBAOS(InputStream is) {
-
-        int index;
-        byte[] byteChunk = new byte[1024];
-
-        ByteArrayOutputStream imageByteArrayOutputStream = new ByteArrayOutputStream();
-        if (is != null) {
-            try {
-                while ((index = is.read(byteChunk)) > 0) {
-                    imageByteArrayOutputStream.write(byteChunk, 0, index);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return imageByteArrayOutputStream;
-    }
+//
+//    private ByteArrayOutputStream turnInputStreamToBAOS(InputStream is) {
+//
+//        int index;
+//        byte[] byteChunk = new byte[1024];
+//        ByteArrayOutputStream imageByteArrayOutputStream = new ByteArrayOutputStream();
+//        if (is != null) {
+//            try {
+//                while ((index = is.read(byteChunk)) > 0) {
+//                    imageByteArrayOutputStream.write(byteChunk, 0, index);
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        return imageByteArrayOutputStream;
+//    }
 
 }
 

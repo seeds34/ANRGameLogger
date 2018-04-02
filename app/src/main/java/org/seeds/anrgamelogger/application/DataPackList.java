@@ -16,18 +16,10 @@ class DataPackList {
     public List<DataPack> dataPacks;
 
     public List<DataPack> getDataPacks(){
-        //return identities.stream().filter(c -> c.getSide_code().equals("identity")).collect(Collectors.toList(Collectors.toList()));
-
-        Map<String, String> ret =  new HashMap<>();
-        for(DataPack dp : dataPacks){
-            ret.put(dp.getPack_code(), dp.getFfg_code());
-        }
         return dataPacks;
     }
 
     public Map<String, String> getDataPackMap(){
-        //return identities.stream().filter(c -> c.getSide_code().equals("identity")).collect(Collectors.toList(Collectors.toList()));
-
         Map<String, String> ret =  new HashMap<>();
         for(DataPack dp : dataPacks){
             ret.put(dp.getPack_code(), dp.getFfg_code());
