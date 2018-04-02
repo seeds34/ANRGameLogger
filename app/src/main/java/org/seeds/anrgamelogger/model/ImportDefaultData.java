@@ -183,7 +183,7 @@ public class ImportDefaultData {
 //                public void onResponse(Call call, Response response) throws IOException {
 //
 //
-//                    ByteArrayOutputStream imageByteArrayOutputStream = new ByteArrayOutputStream();
+//                    ByteArrayOutputStream imageByteArray = new ByteArrayOutputStream();
 //                    int index;
 //                    byte[] byteChunk = new byte[1024];
 //
@@ -191,11 +191,11 @@ public class ImportDefaultData {
 //
 //                    if (is != null) {
 //                        while ((index = is.read(byteChunk)) > 0) {
-//                            imageByteArrayOutputStream.write(byteChunk, 0, index);
+//                            imageByteArray.write(byteChunk, 0, index);
 //                        }
 //                    }
 //
-//                    i.setImageByteArray(imageByteArrayOutputStream.toByteArray()); // Read the data from the stream
+//                    i.setImageByteArray(imageByteArray.toByteArray()); // Read the data from the stream
 //
 //
 //
@@ -292,7 +292,7 @@ public class ImportDefaultData {
 ////
 ////      //BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 ////
-////      ByteArrayOutputStream imageByteArrayOutputStream = new ByteArrayOutputStream();
+////      ByteArrayOutputStream imageByteArray = new ByteArrayOutputStream();
 ////      int index;
 ////      byte[] byteChunk = new byte[1024];
 ////
@@ -300,11 +300,11 @@ public class ImportDefaultData {
 ////
 ////      if ( is != null ) {
 ////          while ((index = is.read(byteChunk)) > 0) {
-////              imageByteArrayOutputStream.write(byteChunk, 0, index);
+////              imageByteArray.write(byteChunk, 0, index);
 ////          }
 ////      }
 ////
-////      ret = imageByteArrayOutputStream.toByteArray();
+////      ret = imageByteArray.toByteArray();
 ////
 ////      } catch (IOException e) {
 ////
@@ -326,7 +326,7 @@ public class ImportDefaultData {
 //            .url(url)
 //            .build();
 //
-////    ByteArrayOutputStream imageByteArrayOutputStream = new ByteArrayOutputStream();
+////    ByteArrayOutputStream imageByteArray = new ByteArrayOutputStream();
 ////    int index;
 ////    byte[] byteChunk = new byte[1024];
 ////
@@ -351,7 +351,7 @@ public class ImportDefaultData {
 //
 //
 //
-//      ByteArrayOutputStream imageByteArrayOutputStream = new ByteArrayOutputStream();
+//      ByteArrayOutputStream imageByteArray = new ByteArrayOutputStream();
 //      int index;
 //      byte[] byteChunk = new byte[1024];
 //
@@ -360,7 +360,7 @@ public class ImportDefaultData {
 //      if ( is != null ) {
 //          try {
 //              while ( (index = is.read(byteChunk)) > 0 ) {
-//                  imageByteArrayOutputStream.write(byteChunk, 0, index);
+//                  imageByteArray.write(byteChunk, 0, index);
 //              }
 //          } catch (IOException e) {
 //              e.printStackTrace();
@@ -373,6 +373,6 @@ public class ImportDefaultData {
 //          }
 //
 //      }
-//      return imageByteArrayOutputStream.toByteArray();
+//      return imageByteArray.toByteArray();
 ////
 

@@ -2,11 +2,8 @@ package org.seeds.anrgamelogger.gamelist;
 
 
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-
 import org.seeds.anrgamelogger.R;
 
 /**
@@ -57,11 +54,6 @@ public class GameListPresenter{
 
     private Disposable observerImageLoadButtonClick(){
         return view.observeLoadImageClick()
-                //.doOnNext(__ -> view.showLoading(true))
-                //.doOnNext(__ -> model.loadIdentImages())
-                //.doOnNext((__ -> view.showLoading(false)))
-                //.subscribeOn(Schedulers.io())
-               //.observeOn(AndroidSchedulers.mainThread())
                 .subscribe(__ -> model.loadIdentImages());
     }
 
