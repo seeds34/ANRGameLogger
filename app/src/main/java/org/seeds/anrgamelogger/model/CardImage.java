@@ -75,4 +75,8 @@ public class CardImage {
         boolean ret = true;
         return ret;
     }
+
+    public String toString(){
+        return "Code: " + code + " | Image is length is " + imageByteArray.length;
+    }
 }

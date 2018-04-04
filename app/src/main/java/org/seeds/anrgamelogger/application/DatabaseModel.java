@@ -45,7 +45,7 @@ public class DatabaseModel {
     return isTableEmpty(LoggedGamesContract.URI_TABLE);
   }
 
-  private boolean isTableEmpty(Uri tableUri){
+  public boolean isTableEmpty(Uri tableUri){
 
     boolean ret = false;
 

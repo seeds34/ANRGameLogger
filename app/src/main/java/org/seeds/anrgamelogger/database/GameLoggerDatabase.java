@@ -160,7 +160,7 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
     public GameLoggerDatabase(Context contextIn){
         super(contextIn,DATABASE_NAME,null,DATABASE_VERSION);
         conext = contextIn;
-        deleteDatabase(conext);
+//        deleteDatabase(conext);
     }
 
     @Override

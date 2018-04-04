@@ -80,4 +80,8 @@ public class Card{
       public String getPack_code(){
           return pack_code;
       }
+
+      public void setRotted(String rot){
+          roatated_flag = rot;
+      }
 }

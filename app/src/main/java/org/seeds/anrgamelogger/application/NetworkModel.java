@@ -1,5 +1,7 @@
 package org.seeds.anrgamelogger.application;
 
+import android.util.Log;
+
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -48,43 +50,41 @@ public class NetworkModel {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-//    public Observable<byte[]> getNRDBCardImage(String card_code) {
-//
-//        String url = NRDB_IMAGE_URL + card_code + IMAGE_FILE_EXT;
-//
-//        return getData(url)
-//                .retry()
-//                .map(i -> i.body().byteStream())
-//                .map(i -> turnInputStreamToBAOS(i))
-//                .map(i -> i.toByteArray());
-//
-//    }
-
     public CardImage getNRDBCardImage(String card_code) {
         CardImage ret = new CardImage(card_code);
         ret.setImageUrl(NRDB_IMAGE_URL + card_code + IMAGE_FILE_EXT);
-        getData(ret.getImageUrl()).subscribe(r -> {
-            InputStream is = r.body().byteStream();
-            ret.setImageByteArray(is);
-        },Throwable::printStackTrace);
+        getData(ret.getImageUrl())
+                .subscribeOn(Schedulers.io())
+    //            .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(r -> {
+                    InputStream is = r.body().byteStream();
+                    ret.setImageByteArray(is);
+                }, e -> Log.d(LOG_TAG,e.getMessage()));
+        Log.d(LOG_TAG, "Card Image is for: " + ret.getCode());
         return ret;
     }
 
     public CardImage getCGDBCardImage(String nrdb_pack_code, String card_code){
         CardImage ret = new CardImage(card_code);
         getNRDBPackList()
+                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(dpl -> {
                     String url = CGDB_BASE_URL
                             + dpl.getDataPackMap().get(nrdb_pack_code)
                             + "_" +card_code
                             + IMAGE_FILE_EXT;
-                    },Throwable::printStackTrace
+                    },e -> Log.d(LOG_TAG,e.getMessage())
                 );
 
-        getData(ret.getImageUrl()).subscribe(r -> {
-            InputStream is = r.body().byteStream();
-            ret.setImageByteArray(is);
-        },Throwable::printStackTrace);
+        getData(ret.getImageUrl())
+                .subscribeOn(Schedulers.io())
+  //              .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(r -> {
+                    InputStream is = r.body().byteStream();
+                    ret.setImageByteArray(is);
+                },e -> Log.d(LOG_TAG,e.getMessage()));
+        Log.d(LOG_TAG, "Card Image is for: " + ret.getCode());
         return ret;
     }
 
@@ -129,5 +129,17 @@ public class NetworkModel {
 //        return imageByteArrayOutputStream;
 //    }
 
+
+//    public Observable<byte[]> getNRDBCardImage(String card_code) {
+//
+//        String url = NRDB_IMAGE_URL + card_code + IMAGE_FILE_EXT;
+//
+//        return getData(url)
+//                .retry()
+//                .map(i -> i.body().byteStream())
+//                .map(i -> turnInputStreamToBAOS(i))
+//                .map(i -> i.toByteArray());
+//
+//    }
 }
 

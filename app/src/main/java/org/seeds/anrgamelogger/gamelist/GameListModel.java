@@ -10,6 +10,7 @@ import java.util.List;
 import org.seeds.anrgamelogger.addgame.AddGameActivity;
 import org.seeds.anrgamelogger.application.DatabaseModel;
 import org.seeds.anrgamelogger.application.NetworkModel;
+import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.gamedetail.GameDetailActivity;
 import org.seeds.anrgamelogger.model.Card;
 import org.seeds.anrgamelogger.model.CardImage;
@@ -51,6 +52,7 @@ public class GameListModel {
         Log.i(LOG_TAG,"Database Model is: " + databaseModel);
 
         if(databaseModel.isIdentitiesTableEmpty() ){
+        //if(databaseModel.isTableEmpty(IdentitiesContract.URI_TABLE)){
 
             Log.i(LOG_TAG,"Starting to load first time data");
 
@@ -80,7 +82,17 @@ public class GameListModel {
         Log.d(LOG_TAG,"Add Images to IDs");
         List<Card> cardImageList = databaseModel.getIdentities();
         for(Card c : cardImageList){
-            databaseModel.insertIdentitieImage(networkModel.getCardImage(c.getPack_code(), c.getCode()));
+            Log.d(LOG_TAG,"Getting image for " + c.getName());
+            CardImage ci = networkModel.getCardImage(c.getPack_code(), c.getCode());
+//            Log.d(LOG_TAG,"New Card image is: " + ci.toString());
+            c.setImageByteArray(ci.getImageByteArray());
+//            String b = (c.getImageByteArrayOutputStream().length <1)?"Null":"Not Null";
+//                    Log.d(LOG_TAG,"Iamge for " + c.getName() + " is " + b);#
+            c.setRotted("Y");
+            PutResult pr = databaseModel.insertIdentity(c);
+            Log.d(LOG_TAG, "Effected URI: " + pr.affectedUri());
+            Log.d(LOG_TAG,"Loading image for " +c.getName() +" was " + pr.wasUpdated() + ". Number of Rows updated " + pr.numberOfRowsUpdated());
+            //databaseModel.insertIdentitieImage(networkModel.getCardImage(c.getPack_code(), c.getCode()));
         }
     }
 
