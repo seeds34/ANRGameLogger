@@ -29,18 +29,18 @@ public class GameListModel {
     private final String GAME_LIST = "GAME_LIST";
     private Activity activity;
     private GameListManager gameListManager;
-//    private StorIOContentResolver storIOContentResolver;
-//    private OkHttpClient okHttpClient;
-//    private Retrofit retrofit;
+//  private StorIOContentResolver storIOContentResolver;
+//  private OkHttpClient okHttpClient;
+//  private Retrofit retrofit;
     private DatabaseModel databaseModel;
     private NetworkModel networkModel;
 
     public GameListModel(Activity a, DatabaseModel databaseModelIn, NetworkModel networkModelIn){
         activity = a;
         gameListManager = new GameListManager();
-//        storIOContentResolver = storIOContentResolverIn;
-//        okHttpClient = okHttpClientIn;
-//        retrofit = retrofitIn;
+//      storIOContentResolver = storIOContentResolverIn;
+//      okHttpClient = okHttpClientIn;
+//      retrofit = retrofitIn;
         databaseModel = databaseModelIn;
         networkModel = networkModelIn;
     }
@@ -82,18 +82,23 @@ public class GameListModel {
         Log.d(LOG_TAG,"Add Images to IDs");
         List<Card> cardImageList = databaseModel.getIdentities();
         for(Card c : cardImageList){
-            Log.d(LOG_TAG,"Getting image for " + c.getName());
-            CardImage ci = networkModel.getCardImage(c.getPack_code(), c.getCode());
+
+
+            //if(c.getCode() == "05029") {
+
+                Log.d(LOG_TAG, "Getting image for " + c.getName());
+                CardImage ci = networkModel.getCardImage(c.getPack_code(), c.getCode());
 //            Log.d(LOG_TAG,"New Card image is: " + ci.toString());
-            c.setImageByteArray(ci.getImageByteArray());
-//            String b = (c.getImageByteArrayOutputStream().length <1)?"Null":"Not Null";
-//                    Log.d(LOG_TAG,"Iamge for " + c.getName() + " is " + b);#
-            c.setRotted("Y");
-            PutResult pr = databaseModel.insertIdentity(c);
-            Log.d(LOG_TAG, "Effected URI: " + pr.affectedUri());
-            Log.d(LOG_TAG,"Loading image for " +c.getName() +" was " + pr.wasUpdated() + ". Number of Rows updated " + pr.numberOfRowsUpdated());
-            //databaseModel.insertIdentitieImage(networkModel.getCardImage(c.getPack_code(), c.getCode()));
-        }
+                c.setImageByteArray(ci.getImageByteArray());
+                String b = (c.getImageByteArrayOutputStream() == null) ? "Null" : "Not Null";
+                Log.d(LOG_TAG, "Iamge for " + c.getName() + " is " + b);
+                c.setRotted("Y");
+                PutResult pr = databaseModel.insertIdentity(c);
+                Log.d(LOG_TAG, "Effected URI: " + pr.affectedUri());
+                Log.d(LOG_TAG, "Loading image for " + c.getName() + " was " + pr.wasUpdated() + ". Number of Rows updated " + pr.numberOfRowsUpdated());
+                //databaseModel.insertIdentitieImage(networkModel.getCardImage(c.getPack_code(), c.getCode()));
+            }
+        //}
     }
 
     public void startGameDetailActivity(String selectedGame){
