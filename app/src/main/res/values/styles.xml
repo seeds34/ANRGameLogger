@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/md_blue_700</item>
         <item name="colorPrimaryDark">@color/md_blue_900</item>
         <item name="colorAccent">@color/md_blue_a700</item>
-        <item name="android:textColor">@color/md_blue_grey_900</item>
+        <item name="android:textColor">@color/md_black</item>
 
     </style>
 

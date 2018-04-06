@@ -54,7 +54,7 @@ public class GameListPresenter{
 
     private Disposable observerImageLoadButtonClick(){
         return view.observeLoadImageClick()
-                .subscribe(__ -> model.loadIdentImages());
+                .subscribe(__ -> model.loadIdentityImages());
     }
 
     private Disposable observeCorpFab() {

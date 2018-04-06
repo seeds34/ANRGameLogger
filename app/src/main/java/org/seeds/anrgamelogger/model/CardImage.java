@@ -11,6 +11,7 @@ import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
  * Created by user on 21/01/2018.
  */
 
+//TODO:Clean up entire class
 @StorIOContentResolverType(uri = "content://" + IdentitiesContract.CONTENT_AUTHORITY + "/" + IdentitiesContract.PATH_IDENTITIES)
 public class CardImage {
 
@@ -22,6 +23,8 @@ public class CardImage {
 
     String imageUrl;
 
+    String source;
+
     public CardImage(){}
 
     public CardImage(String code){
@@ -31,6 +34,14 @@ public class CardImage {
     public CardImage(String code, byte[] imageByteArrayOutputStream){
         this.imageByteArray = imageByteArrayOutputStream;
         this.code = code;
+    }
+
+    public void setSource(String sourceIn){
+        source = sourceIn;
+    }
+
+    public String getSource() {
+        return source;
     }
 
     public void setImageUrl(String urlIn){
