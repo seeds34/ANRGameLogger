@@ -1,5 +1,6 @@
 package org.seeds.anrgamelogger.application;
 
+import android.os.StrictMode;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -43,7 +44,11 @@ public class NetworkModel {
     }
 
     public Observable<Response> getData(String url) {
-        //final OkHttpClient client = new OkHttpClient();
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        final OkHttpClient client = new OkHttpClient();
+
         Request request = new Request.Builder().url(url)
                 .build();
 

@@ -6,12 +6,13 @@ import com.pushtorefresh.storio3.contentresolver.operations.put.PutResult;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import okhttp3.Response;
 import org.seeds.anrgamelogger.application.DatabaseModel;
 import org.seeds.anrgamelogger.application.NetworkModel;
-
 
 /**
  * Created by Tomas Seymour-Turner on 09/01/2018.
@@ -60,12 +61,12 @@ public class SetupDatabaseDataModel {
         Log.d(LOG_TAG,"Add Images to IDs");
         List<Card> cardImageList = databaseModel.getIdentities();
         for(Card c : cardImageList){
-            downloadImageFromNRDB(c.getCode());
+            downloadImageFromNRDB(c.getPack_code(), c.getCode(), c.getPos());
         }
 
     }
 
-    public void downloadImageFromNRDB(String card_code) {
+    public void downloadImageFromNRDB(String nrdb_pack_code, String card_code, String pos) {
         CardImage cardImage = new CardImage(card_code);
         cardImage.setImageUrl(NRDB_IMAGE_URL + card_code + IMAGE_FILE_EXT);
 
@@ -82,14 +83,63 @@ public class SetupDatabaseDataModel {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(r -> {
                 InputStream is = r.body().byteStream();
-                cardImage.setImageByteArray(is);
-                PutResult pr = databaseModel.insertIdentitieImage(cardImage);
-                Log.d(LOG_TAG, "(3)Put Result for adding image for "
-                    + cardImage.getCode()
-                    + " is "
-                    + pr.wasUpdated()
-                    + ". Count of rows updated was "
-                    + pr.numberOfRowsUpdated());
+
+                int index;
+                byte[] byteChunk = new byte[1024];
+
+                ByteArrayOutputStream imageByteArrayOutputStream = new ByteArrayOutputStream();
+                if (is != null) {
+                  try {
+                    while ((index = is.read(byteChunk)) > 0) {
+                      imageByteArrayOutputStream.write(byteChunk, 0, index);
+                    }
+                  } catch (IOException e) {
+                    e.printStackTrace();
+                  }
+                }
+
+                //TODO: This feels like a hack
+                String startOfSteam =  imageByteArrayOutputStream.toString().substring(0,15);
+                if(startOfSteam.matches("<!DOCTYPE html>")){
+                  Log.d(LOG_TAG, "(2.1)Getting Image form CGDB");
+
+
+                  networkModel.getNRDBPackList()
+                      //.subscribeOn(Schedulers.io())
+                      //.observeOn(AndroidSchedulers.mainThread())
+                      .subscribe(dpl -> {
+                            String url = CGDB_BASE_URL
+                                + dpl.getDataPackMap().get(nrdb_pack_code)
+                                + "_" +pos
+                                + IMAGE_FILE_EXT;
+                          cardImage.setImageUrl(url);
+
+                        Log.d(LOG_TAG, "(2.2)URL Is: " + cardImage.getImageUrl());
+                          },e -> Log.d(LOG_TAG,e.getMessage())
+                      );
+
+
+
+                  networkModel.getData(cardImage.getImageUrl())
+                      //.subscribeOn(Schedulers.io())
+                      //.observeOn(AndroidSchedulers.mainThread())
+                      .subscribe(a -> {
+                        InputStream isa = a.body().byteStream();
+                        cardImage.setImageByteArray(isa);
+
+
+                        PutResult pr = databaseModel.insertIdentitieImage(cardImage);
+                        Log.d(LOG_TAG, "(3)Put Result for adding image for " + cardImage.getCode() + " is " + pr.wasUpdated() + ". Count of rows updated was " + pr.numberOfRowsUpdated());
+
+                      },e -> Log.d(LOG_TAG,e.getMessage()));
+
+                }else{
+                  cardImage.setImageByteArray(imageByteArrayOutputStream.toByteArray());
+
+                  PutResult pr = databaseModel.insertIdentitieImage(cardImage);
+                  Log.d(LOG_TAG, "(3)Put Result for adding image for " + cardImage.getCode() + " is " + pr.wasUpdated() + ". Count of rows updated was " + pr.numberOfRowsUpdated());
+                }
+
             }, e -> Log.d(LOG_TAG,e.getMessage()));
 
         Log.d(LOG_TAG, "(4)Card Image is for: " + cardImage.getCode());
@@ -98,7 +148,7 @@ public class SetupDatabaseDataModel {
 
 //    public CardImage getCGDBCardImage(String nrdb_pack_code, String card_code){
 //        CardImage ret = new CardImage(card_code);
-//        getNRDBPackList()
+//        networkModel.getNRDBPackList()
 //            .subscribeOn(Schedulers.io())
 //            .observeOn(AndroidSchedulers.mainThread())
 //            .subscribe(dpl -> {
@@ -110,7 +160,7 @@ public class SetupDatabaseDataModel {
 //                },e -> Log.d(LOG_TAG,e.getMessage())
 //            );
 //
-//        getData(ret.getImageUrl())
+//        networkModel.getData(ret.getImageUrl())
 //            .subscribeOn(Schedulers.io())
 //            .observeOn(AndroidSchedulers.mainThread())
 //            .subscribe(r -> {

@@ -9,9 +9,10 @@ import com.squareup.moshi.Moshi;
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.schedulers.Schedulers;
+import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
-import org.seeds.anrgamelogger.application.NetworkModel;
 import org.seeds.anrgamelogger.application.DatabaseModel;
+import org.seeds.anrgamelogger.application.NetworkModel;
 import org.seeds.anrgamelogger.model.Card;
 import org.seeds.anrgamelogger.model.CardImage;
 import org.seeds.anrgamelogger.model.CardImageStorIOContentResolverDeleteResolver;
@@ -20,7 +21,6 @@ import org.seeds.anrgamelogger.model.CardImageStorIOContentResolverPutResolver;
 import org.seeds.anrgamelogger.model.CardStorIOContentResolverDeleteResolver;
 import org.seeds.anrgamelogger.model.CardStorIOContentResolverGetResolver;
 import org.seeds.anrgamelogger.model.CardStorIOContentResolverPutResolver;
-
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.moshi.MoshiConverterFactory;
@@ -65,7 +65,7 @@ public class ApplicationModule {
   @Provides
   @ApplicationScope
   public OkHttpClient getHttpClient(){
-   return new OkHttpClient();
+   return new OkHttpClient.Builder().connectTimeout(30, TimeUnit.SECONDS).build();
   }
 
   @Provides

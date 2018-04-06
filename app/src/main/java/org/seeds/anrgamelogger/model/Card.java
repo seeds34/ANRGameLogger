@@ -40,9 +40,12 @@ public class Card{
       @Json(name = "pack_code")
       String pack_code;
 
+  @Json(name = "position")
+      String pos;
+
       public Card(){}
 
-      public Card(String name, String side, String faction, String roatated_flag, String nrdb_code, byte[] imageByteArrayOutputStream, String type_code, String packCode){
+      public Card(String name, String side, String faction, String roatated_flag, String nrdb_code, byte[] imageByteArrayOutputStream, String type_code, String pack_code, String posIn){
             this.title = name;
             this.side_code = side;
             this.faction_code = faction;
@@ -51,6 +54,7 @@ public class Card{
             this.imageByteArrayOutputStream = imageByteArrayOutputStream;
             this.type_code = type_code;
             this.pack_code = pack_code;
+            this.pos = posIn;
       }
 
       public String toString(){
@@ -84,4 +88,13 @@ public class Card{
       public void setRotted(String rot){
           roatated_flag = rot;
       }
+
+  public String getPos() {
+    return pos;
+  }
+
+  public void setPos(String pos) {
+    this.pos = pos;
+  }
+
 }
