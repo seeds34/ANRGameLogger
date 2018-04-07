@@ -109,29 +109,31 @@ public class SetupDatabaseDataModel {
                       //.observeOn(AndroidSchedulers.mainThread())
                       .subscribe(dpl -> {
                             String url = CGDB_BASE_URL
-                                + dpl.getDataPackMap().get(nrdb_pack_code)
-                                + "_" +pos
+                                + dpl.getMapping(nrdb_pack_code)
+                                + "_" + pos
                                 + IMAGE_FILE_EXT;
                           cardImage.setImageUrl(url);
 
                         Log.d(LOG_TAG, "(2.2)URL Is: " + cardImage.getImageUrl());
+
+                        networkModel.getData(cardImage.getImageUrl())
+                            //.subscribeOn(Schedulers.io())
+                            //.observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(a -> {
+                              InputStream isa = a.body().byteStream();
+                              cardImage.setImageByteArray(isa);
+
+
+                              PutResult pr = databaseModel.insertIdentitieImage(cardImage);
+                              Log.d(LOG_TAG, "(3)Put Result for adding image for " + cardImage.getCode() + " is " + pr.wasUpdated() + ". Count of rows updated was " + pr.numberOfRowsUpdated());
+
+                            },e -> Log.d(LOG_TAG,e.getMessage()));
                           },e -> Log.d(LOG_TAG,e.getMessage())
                       );
 
 
 
-                  networkModel.getData(cardImage.getImageUrl())
-                      //.subscribeOn(Schedulers.io())
-                      //.observeOn(AndroidSchedulers.mainThread())
-                      .subscribe(a -> {
-                        InputStream isa = a.body().byteStream();
-                        cardImage.setImageByteArray(isa);
 
-
-                        PutResult pr = databaseModel.insertIdentitieImage(cardImage);
-                        Log.d(LOG_TAG, "(3)Put Result for adding image for " + cardImage.getCode() + " is " + pr.wasUpdated() + ". Count of rows updated was " + pr.numberOfRowsUpdated());
-
-                      },e -> Log.d(LOG_TAG,e.getMessage()));
 
                 }else{
                   cardImage.setImageByteArray(imageByteArrayOutputStream.toByteArray());

@@ -8,10 +8,10 @@ import com.squareup.moshi.Json;
 
 class DataPack {
 
-    @Json(name = "pack_code")
+    @Json(name = "code")
     String pack_code;
 
-    @Json(name = "ffg_code")
+    @Json(name = "ffg_id")
     String ffg_code;
 
     public DataPack(){}

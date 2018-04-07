@@ -27,5 +27,15 @@ public class DataPackList {
         return ret;
     }
 
+    public String getMapping(String x){
+        String ret = "null";
+        for(DataPack d : dataPacks){
+            if(d.pack_code == x){
+                ret = d.getFfg_code();
+            }
+        }
+        return ret;
+    }
+
 
 }
