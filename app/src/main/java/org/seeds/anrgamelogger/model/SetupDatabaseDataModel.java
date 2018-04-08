@@ -58,9 +58,10 @@ public class SetupDatabaseDataModel {
 
     public void insertIdentityImages() {
 
-        Log.d(LOG_TAG,"Add Images to IDs");
+        Log.d(LOG_TAG,"(1) Add Images to IDs");
         List<Card> cardImageList = databaseModel.getIdentities();
         for(Card c : cardImageList){
+            Log.d(LOG_TAG, "(2) " +c.toString());
             downloadImageFromNRDB(c.getPack_code(), c.getCode(), c.getPos());
         }
 
@@ -72,11 +73,11 @@ public class SetupDatabaseDataModel {
 
         //Observable.just(1,2,3,4,5).subscribe(n -> Log.d(LOG_TAG,"A Nummeber " + n));
 
-        Log.d(LOG_TAG, "(1)URL Is: " + cardImage.getImageUrl());
+        Log.d(LOG_TAG, "(3)URL Is: " + cardImage.getImageUrl());
 
         Observable<Response> data = networkModel.getData(cardImage.getImageUrl());
 
-        Log.d(LOG_TAG,"(2)Observable is " + ((data == null)?"Null":"Not Null"));
+        Log.d(LOG_TAG,"(4)Observable is " + ((data == null)?"Null":"Not Null"));
 
         data
             .subscribeOn(Schedulers.io())
@@ -101,7 +102,7 @@ public class SetupDatabaseDataModel {
                 //TODO: This feels like a hack
                 String startOfSteam =  imageByteArrayOutputStream.toString().substring(0,15);
                 if(startOfSteam.matches("<!DOCTYPE html>")){
-                  Log.d(LOG_TAG, "(2.1)Getting Image form CGDB");
+                  Log.d(LOG_TAG, "(4.1)Getting Image form CGDB");
 
 
                   networkModel.getNRDBPackList()
@@ -114,7 +115,7 @@ public class SetupDatabaseDataModel {
                                 + IMAGE_FILE_EXT;
                           cardImage.setImageUrl(url);
 
-                        Log.d(LOG_TAG, "(2.2)URL Is: " + cardImage.getImageUrl());
+                        Log.d(LOG_TAG, "(4.2)URL Is: " + cardImage.getImageUrl());
 
                         networkModel.getData(cardImage.getImageUrl())
                             //.subscribeOn(Schedulers.io())
@@ -125,7 +126,7 @@ public class SetupDatabaseDataModel {
 
 
                               PutResult pr = databaseModel.insertIdentitieImage(cardImage);
-                              Log.d(LOG_TAG, "(3)Put Result for adding image for " + cardImage.getCode() + " is " + pr.wasUpdated() + ". Count of rows updated was " + pr.numberOfRowsUpdated());
+                              Log.d(LOG_TAG, "(5)Put Result for adding image for " + cardImage.getCode() + " is " + pr.wasUpdated() + ". Count of rows updated was " + pr.numberOfRowsUpdated());
 
                             },e -> Log.d(LOG_TAG,e.getMessage()));
                           },e -> Log.d(LOG_TAG,e.getMessage())
@@ -139,13 +140,13 @@ public class SetupDatabaseDataModel {
                   cardImage.setImageByteArray(imageByteArrayOutputStream.toByteArray());
 
                   PutResult pr = databaseModel.insertIdentitieImage(cardImage);
-                  Log.d(LOG_TAG, "(3)Put Result for adding image for " + cardImage.getCode() + " is " + pr.wasUpdated() + ". Count of rows updated was " + pr.numberOfRowsUpdated());
+                  Log.d(LOG_TAG, "(6)Put Result for adding image for " + cardImage.getCode() + " is " + pr.wasUpdated() + ". Count of rows updated was " + pr.numberOfRowsUpdated());
                 }
 
             }, e -> Log.d(LOG_TAG,e.getMessage()));
 
-        Log.d(LOG_TAG, "(4)Card Image is for: " + cardImage.getCode());
-        Log.d(LOG_TAG, "(5)Image Array is: " + ((cardImage.getImageByteArray() == null)?"Null":"Not Null") );
+        Log.d(LOG_TAG, "(7)Card Image is for: " + cardImage.getCode());
+        Log.d(LOG_TAG, "(8)Image Array is: " + ((cardImage.getImageByteArray() == null)?"Null":"Not Null") );
     }
 
 //    public CardImage getCGDBCardImage(String nrdb_pack_code, String card_code){

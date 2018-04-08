@@ -58,7 +58,14 @@ public class Card{
       }
 
       public String toString(){
-            return "Title: " + title + " | Type Code: " + type_code + " | Side Code: " + side_code + " | Faction Code: " + faction_code + " | Roatated Flag: " + roatated_flag + " | NRDB Code: " + code;
+            return  "Title: " + title +
+                "| Type Code: " + type_code +
+                " | Side Code: " + side_code +
+                " | Faction Code: " + faction_code +
+                " | Roatated Flag: " + roatated_flag +
+                " | NRDB Code: " + code +
+                " | Pack Code " + pack_code +
+                " | POS " + pos;
       }
 
       public void setImageByteArray(byte[] in){
