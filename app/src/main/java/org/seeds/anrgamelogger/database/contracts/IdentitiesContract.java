@@ -16,6 +16,8 @@ public class IdentitiesContract {
         String ROTATED_FLAG = "rotated";
         String NRDB_CODE = "nrdbcode";
         String IMAGE_BIT_ARRAY = "imagedata";
+        String POSTION_IN_PACK = "postioninpack";
+        String NRDB_PACK_CODE = "nrdbpackcode";
     }
 
     public static final String CONTENT_AUTHORITY = "org.seeds.anrgl.procider";

@@ -23,7 +23,7 @@ public class SetupDatabaseDataModel {
     private static final String LOG_TAG = SetupDatabaseDataModel.class.getSimpleName();
     private DatabaseModel databaseModel;
     private NetworkModel networkModel;
-    private final String CGDB_BASE_URL = "http://www.cardgamedb.com/forums/uploads/an/ffg_adn";
+    private final String CGDB_BASE_URL = "https://www.cardgamedb.com/forums/uploads/an/med_ADN";
     private final String NRDB_IMAGE_URL = "https://netrunnerdb.com/card_image/";
     private final String IMAGE_FILE_EXT = ".png";
 
@@ -80,8 +80,8 @@ public class SetupDatabaseDataModel {
         Log.d(LOG_TAG,"(4)Observable is " + ((data == null)?"Null":"Not Null"));
 
         data
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.single())
+            //.observeOn(AndroidSchedulers.mainThread())
             .subscribe(r -> {
                 InputStream is = r.body().byteStream();
 
@@ -106,7 +106,7 @@ public class SetupDatabaseDataModel {
 
 
                   networkModel.getNRDBPackList()
-                      //.subscribeOn(Schedulers.io())
+                      .subscribeOn(Schedulers.single())
                       //.observeOn(AndroidSchedulers.mainThread())
                       .subscribe(dpl -> {
                             String url = CGDB_BASE_URL
@@ -118,7 +118,7 @@ public class SetupDatabaseDataModel {
                         Log.d(LOG_TAG, "(4.2)URL Is: " + cardImage.getImageUrl());
 
                         networkModel.getData(cardImage.getImageUrl())
-                            //.subscribeOn(Schedulers.io())
+                            .subscribeOn(Schedulers.single())
                             //.observeOn(AndroidSchedulers.mainThread())
                             .subscribe(a -> {
                               InputStream isa = a.body().byteStream();

@@ -37,9 +37,12 @@ public class Card{
       @Json(name = "type_code")
       String type_code;
 
+      @StorIOContentResolverColumn(name = IdentitiesColumns.NRDB_PACK_CODE)
       @Json(name = "pack_code")
       String pack_code;
 
+
+    @StorIOContentResolverColumn(name = IdentitiesColumns.POSTION_IN_PACK)
   @Json(name = "position")
       String pos;
 

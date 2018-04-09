@@ -1,6 +1,11 @@
 package org.seeds.anrgamelogger.application;
 
+import android.util.Log;
+
 import com.squareup.moshi.Json;
+
+import org.seeds.anrgamelogger.model.SetupDatabaseDataModel;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +19,8 @@ public class DataPackList {
 
     @Json(name = "data")
     public List<DataPack> dataPacks;
+
+    private static final String LOG_TAG = DataPackList.class.getSimpleName();
 
     public List<DataPack> getDataPacks(){
         return dataPacks;
@@ -30,12 +37,10 @@ public class DataPackList {
     public String getMapping(String x){
         String ret = "null";
         for(DataPack d : dataPacks){
-            if(d.pack_code == x){
+            if(d.pack_code.matches(x)){
                 ret = d.getFfg_code();
             }
         }
         return ret;
     }
-
-
 }

@@ -44,6 +44,8 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
             + IdentitiesContract.IdentitiesColumns.IDENTITY_SIDE + " TEXT NOT NULL COLLATE NOCASE, "
             + IdentitiesContract.IdentitiesColumns.ROTATED_FLAG + " TEXT NOT NULL, "
             + IdentitiesContract.IdentitiesColumns.NRDB_CODE + " TEXT NOT NULL, "
+            + IdentitiesContract.IdentitiesColumns.NRDB_PACK_CODE + " TEXT, "
+            + IdentitiesContract.IdentitiesColumns.POSTION_IN_PACK + " TEXT, "
             + IdentitiesContract.IdentitiesColumns.IMAGE_BIT_ARRAY + " BLOB, "
             + "CONSTRAINT identitity_name_unique UNIQUE("+ IdentitiesContract.IdentitiesColumns.IDENTITY_NAME +"));";
 
