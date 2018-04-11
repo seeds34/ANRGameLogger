@@ -5,6 +5,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
+import android.widget.Spinner;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import java.util.ArrayList;
@@ -53,9 +55,9 @@ public class AddGameView extends FrameLayout {
 
     }
 
-
-
-
+    public void setIDNameSpinner(int side, ArrayList<String> idNameList) {
+        addGamePagerAdapter.setIDNameSpinner(side, idNameList);
+    }
 
 
 //    public class GetIdentityData extends AsyncTask<String, Void, String> {

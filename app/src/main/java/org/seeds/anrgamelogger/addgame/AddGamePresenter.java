@@ -40,6 +40,7 @@ public class AddGamePresenter {
         }
 
         view.setImageSpinner(side,idImageList);
+        view.setIDNameSpinner(side, idNameList);
         //TODO: Setup Name Spinner
     }
 

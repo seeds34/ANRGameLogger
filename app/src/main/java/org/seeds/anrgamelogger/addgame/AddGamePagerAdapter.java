@@ -79,8 +79,17 @@ public class AddGamePagerAdapter extends PagerAdapter {
 
     for (AddGameBaseView i : viewList) {
       if(i.getTitle() == side){
-        Log.d(LOG_TAG, "In correct side");
         i.setIdentitiesImageViewPager(imageListIn);
+      }
+    }
+
+  }
+
+  public void setIDNameSpinner(int side, ArrayList<String> imageListIn){
+
+    for (AddGameBaseView i : viewList) {
+      if(i.getTitle() == side){
+        i.setSpiinerAdaptor(imageListIn);
       }
     }
 

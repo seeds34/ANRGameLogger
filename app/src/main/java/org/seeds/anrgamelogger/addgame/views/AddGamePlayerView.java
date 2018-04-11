@@ -7,6 +7,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnItemSelected;
+
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.addgame.AddGameIdentitesPageAdapter;
@@ -38,9 +40,7 @@ public class AddGamePlayerView extends AddGameBaseView{
     this.TITLE = title;
   }
 
-  public void onCreate(){
-    Toast.makeText(this.getContext(), "HELLO!!" , Toast.LENGTH_LONG);
-  }
+  public void onCreate(){}
 
   public int getTitle(){
     return TITLE;
@@ -57,4 +57,11 @@ public class AddGamePlayerView extends AddGameBaseView{
     identitiesSpinner.setAdapter(idListAdaptor);
   }
 
+  @OnItemSelected(R.id.identitiesSpinner)
+  public void identityNameSelected() {
+
+      identitiesSpinner.getSelectedItem();
+
+
+  }
 }

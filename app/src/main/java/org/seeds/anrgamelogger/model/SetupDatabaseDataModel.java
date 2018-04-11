@@ -67,11 +67,10 @@ public class SetupDatabaseDataModel {
 
     }
 
+    //TODO: Please Tidy, this is horrid and wrong
     public void downloadImageFromNRDB(String nrdb_pack_code, String card_code, String pos) {
         CardImage cardImage = new CardImage(card_code);
         cardImage.setImageUrl(NRDB_IMAGE_URL + card_code + IMAGE_FILE_EXT);
-
-        //Observable.just(1,2,3,4,5).subscribe(n -> Log.d(LOG_TAG,"A Nummeber " + n));
 
         Log.d(LOG_TAG, "(3)URL Is: " + cardImage.getImageUrl());
 
