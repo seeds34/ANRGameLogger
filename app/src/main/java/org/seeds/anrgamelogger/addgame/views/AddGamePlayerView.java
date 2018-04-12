@@ -4,12 +4,11 @@ import android.app.Activity;
 import android.support.v4.view.ViewPager;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemSelected;
-
 import java.util.ArrayList;
+import java.util.Map;
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.addgame.AddGameIdentitesPageAdapter;
 
@@ -29,6 +28,9 @@ public class AddGamePlayerView extends AddGameBaseView{
   @BindView(R.id.identitiesImageViewPager)
   ViewPager identitiesImageViewPager;
 
+  private AddGameIdentitesPageAdapter identityImageViewAdapter;
+  private ArrayAdapter identityNameArrayAdapter;
+
   private Activity activity;
 
   public AddGamePlayerView(Activity activity, int title){
@@ -47,14 +49,16 @@ public class AddGamePlayerView extends AddGameBaseView{
   }
 
   @Override
-  public void setIdentitiesImageViewPager(ArrayList<byte[]> imageListIn){
-    identitiesImageViewPager.setAdapter(new AddGameIdentitesPageAdapter(getContext(), imageListIn));
+  public void setIdentitiesImageViewPager(Map<String, byte[]> imageListIn){
+    identityImageViewAdapter = new AddGameIdentitesPageAdapter(getContext(), imageListIn);
+    identitiesImageViewPager.setAdapter(identityImageViewAdapter);
   }
 
   @Override
   public void setSpiinerAdaptor(ArrayList<String> identitiesList){
-    ArrayAdapter<String> idListAdaptor = new ArrayAdapter<String>(this.getContext(), R.layout.support_simple_spinner_dropdown_item, identitiesList);
-    identitiesSpinner.setAdapter(idListAdaptor);
+
+    identityNameArrayAdapter = new ArrayAdapter<String>(this.getContext(), R.layout.support_simple_spinner_dropdown_item, identitiesList);
+    identitiesSpinner.setAdapter(identityNameArrayAdapter);
   }
 
   @OnItemSelected(R.id.identitiesSpinner)

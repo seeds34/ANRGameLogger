@@ -5,11 +5,10 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
-import android.widget.Spinner;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import java.util.ArrayList;
+import java.util.Map;
 import org.seeds.anrgamelogger.R;
 
 /**
@@ -46,7 +45,7 @@ public class AddGameView extends FrameLayout {
     }
 
 
-    public void setImageSpinner(int side, ArrayList<byte[]> imageListIn) {
+    public void setImageSpinner(int side, Map<String, byte[]> imageListIn) {
         addGamePagerAdapter.setImageSpinner(side,imageListIn);
     }
 

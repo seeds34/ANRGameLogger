@@ -3,11 +3,11 @@ package org.seeds.anrgamelogger.addgame;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import org.seeds.anrgamelogger.addgame.views.AddGameBaseView;
 import org.seeds.anrgamelogger.addgame.views.AddGameOverview;
 import org.seeds.anrgamelogger.addgame.views.AddGamePlayerView;
@@ -75,7 +75,7 @@ public class AddGamePagerAdapter extends PagerAdapter {
     container.removeView((View) object);
   }
 
-  public void setImageSpinner(int side, ArrayList<byte[]> imageListIn){
+  public void setImageSpinner(int side, Map<String, byte[]> imageListIn){
 
     for (AddGameBaseView i : viewList) {
       if(i.getTitle() == side){

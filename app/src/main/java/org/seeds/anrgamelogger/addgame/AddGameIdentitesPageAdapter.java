@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import java.io.ByteArrayInputStream;
-import java.util.ArrayList;
+import java.util.Map;
 import org.seeds.anrgamelogger.R;
 
 /**
@@ -18,11 +18,12 @@ import org.seeds.anrgamelogger.R;
 
 public class AddGameIdentitesPageAdapter extends PagerAdapter {
 
-    ArrayList<byte[]> imageList;
+    //ArrayList<byte[]> imageList;
+    Map<String, byte[]> imageList;
     Context context;
     LayoutInflater  inflater;
 
-    public AddGameIdentitesPageAdapter(Context contextIn, ArrayList<byte[]> imageListIn) {
+    public AddGameIdentitesPageAdapter(Context contextIn, Map<String, byte[]> imageListIn) {
         super();
         imageList = imageListIn;
         context = contextIn;

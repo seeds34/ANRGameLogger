@@ -1,7 +1,9 @@
 package org.seeds.anrgamelogger.addgame;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.model.Card;
 
@@ -32,11 +34,11 @@ public class AddGamePresenter {
     public void setIdentityData(int side){
         List<Card> idList = model.getListOfIdenties(side);
         ArrayList<String> idNameList = new ArrayList<>();
-        ArrayList<byte[]> idImageList = new ArrayList<>();
+        Map<String, byte[]> idImageList = new LinkedHashMap<>();
 
         for (Card i : idList) {
             idNameList.add(i.getName());
-            idImageList.add(i.getImageByteArrayOutputStream());
+            idImageList.put(i.getCode(), i.getImageByteArrayOutputStream());
         }
 
         view.setImageSpinner(side,idImageList);
