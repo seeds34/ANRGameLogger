@@ -11,7 +11,7 @@ public class AddGameOverview extends AddGameBaseView{
 
   //TODO: Change Name of SIDE as this is overciew
   //TODO: Add common type between ADDGame Views??
-  private final int TITLE = R.string.title_overview;
+  private final String TITLE = "Overview";
   private Activity activity;
 
   public AddGameOverview(Activity activity){
@@ -22,7 +22,7 @@ public class AddGameOverview extends AddGameBaseView{
 
   public void onCreate(){}
 
-  public int getTitle(){
+  public String getTitle(){
     return TITLE;
   }
 

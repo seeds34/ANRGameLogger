@@ -2,7 +2,11 @@ package org.seeds.anrgamelogger.addgame.views;
 
 import android.app.Activity;
 import android.widget.FrameLayout;
+
+import org.seeds.anrgamelogger.model.IdentityList;
+
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -15,8 +19,10 @@ public abstract class AddGameBaseView extends FrameLayout {
     super(activity);
   }
 
-  public abstract int getTitle();
+  public abstract String getTitle();
 
-  public void setIdentitiesImageViewPager(Map<String, byte[]> imageListIn){};
+  public void setIdentitiesImageViewPager(LinkedHashMap<String, byte[]> imageListIn){};
   public void setSpiinerAdaptor(ArrayList<String> identitiesList){};
+
+  public void setIdApadters(IdentityList idList){};
 }

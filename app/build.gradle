@@ -27,6 +27,13 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
+//sourceSets{
+//    main{
+//        java{
+//            exclude 'IdentityArrayAdaptor.java'
+//        }
+//    }
+//}
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')

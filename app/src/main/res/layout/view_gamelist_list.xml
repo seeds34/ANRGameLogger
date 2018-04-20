@@ -31,6 +31,6 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/new_game_icon"/>
 
-    <include layout="@layout/view_fab_menu" />
+    <include layout="@layout/sub_view_fab_menu" />
 
 </android.support.design.widget.CoordinatorLayout>

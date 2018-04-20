@@ -7,10 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
 import org.seeds.anrgamelogger.addgame.views.AddGameBaseView;
 import org.seeds.anrgamelogger.addgame.views.AddGameOverview;
 import org.seeds.anrgamelogger.addgame.views.AddGamePlayerView;
+import org.seeds.anrgamelogger.model.IdentityList;
 
 /**
  * Created by Tomas Seymour-Turner on 04/01/2018.
@@ -25,7 +26,7 @@ public class AddGamePagerAdapter extends PagerAdapter {
   private Activity activity;
   private Context context;
 
-  public AddGamePagerAdapter(Activity activity, ArrayList<Integer> viewOrderList){
+  public AddGamePagerAdapter(Activity activity, ArrayList<String> viewOrderList){
     this.activity = activity;
     this.context = activity.getApplicationContext();
     viewList = new ArrayList<>();
@@ -41,17 +42,15 @@ public class AddGamePagerAdapter extends PagerAdapter {
     return layout;
   }
 
-  private void setViewList(ArrayList<Integer> titleRid){
-
+  private void setViewList(ArrayList<String> titleRid){
     viewList.add(new AddGamePlayerView(activity, titleRid.get(0)));
     viewList.add(new AddGamePlayerView(activity, titleRid.get(1)));
     viewList.add(new AddGameOverview(activity));
-
   }
 
-  private void setViewTitleList(ArrayList<Integer> titleRid){
-    for (int id: titleRid) {
-      viewTitleList.add(activity.getString(id));
+  private void setViewTitleList(ArrayList<String> titleRid){
+    for (String id: titleRid) {
+      viewTitleList.add(id);
     }
   }
 
@@ -75,35 +74,9 @@ public class AddGamePagerAdapter extends PagerAdapter {
     container.removeView((View) object);
   }
 
-  public void setImageSpinner(int side, Map<String, byte[]> imageListIn){
-
-    for (AddGameBaseView i : viewList) {
-      if(i.getTitle() == side){
-        i.setIdentitiesImageViewPager(imageListIn);
+    public void setUpIdSpinnerAndImageView(IdentityList idList) {
+      for (AddGameBaseView i : viewList) {
+        i.setIdApadters(idList.getOneSidedList(i.getTitle()));
       }
     }
-
-  }
-
-  public void setIDNameSpinner(int side, ArrayList<String> imageListIn){
-
-    for (AddGameBaseView i : viewList) {
-      if(i.getTitle() == side){
-        i.setSpiinerAdaptor(imageListIn);
-      }
-    }
-
-  }
 }
-
-
-//    public View getItem(int position) {
-//        return viewList.get(position);
-//    }
-//
-//    public void addView(View view, String title) {
-//        viewList.add(view);
-//        notifyDataSetChanged();
-//        viewTitleList.add(title);
-//    }
-

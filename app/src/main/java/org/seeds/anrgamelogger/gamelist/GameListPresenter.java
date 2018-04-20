@@ -5,6 +5,7 @@ package org.seeds.anrgamelogger.gamelist;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 
 /**
  * Created by Tomas Seymour-Turner on 31/07/2017.
@@ -68,7 +69,7 @@ public class GameListPresenter{
             //.doOnEach(__ -> view.showLoading(false))
             //.retry()
             .subscribe(__ -> {
-                model.startAddGameActivity(R.string.title_corp);
+                model.startAddGameActivity(ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
     });
     }
 
@@ -76,7 +77,7 @@ public class GameListPresenter{
         return view.observeRunnerFab()
 
             .subscribe(__ -> {
-                model.startAddGameActivity(R.string.title_runner);
+                model.startAddGameActivity(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
             });
     }
 }

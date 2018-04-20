@@ -15,6 +15,7 @@ import org.seeds.anrgamelogger.database.contracts.LoggedGamesContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract;
 import org.seeds.anrgamelogger.model.Card;
 import org.seeds.anrgamelogger.model.CardImage;
+import org.seeds.anrgamelogger.model.IdentityList;
 
 /**
  * Created by Tomas Seymour-Turner on 21/02/2018.
@@ -77,6 +78,7 @@ public class DatabaseModel {
         .listOfObjects(Card.class)
         .withQuery(Query.builder()
             .uri(IdentitiesContract.URI_TABLE)
+                .sortOrder(IdentitiesContract.IdentitiesColumns.IDENTITY_FACTION + " asc")
             .build())
         .prepare()
         .executeAsBlocking();

@@ -5,7 +5,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 import org.seeds.anrgamelogger.model.Card;
+import org.seeds.anrgamelogger.model.IdentityList;
 
 /**
  * Created by user on 08/12/2017.
@@ -31,39 +33,32 @@ public class AddGamePresenter {
 
     }
 
-    public void setIdentityData(int side){
-        List<Card> idList = model.getListOfIdenties(side);
-        ArrayList<String> idNameList = new ArrayList<>();
-        Map<String, byte[]> idImageList = new LinkedHashMap<>();
+    public void setIdentityData(){
 
-        for (Card i : idList) {
-            idNameList.add(i.getName());
-            idImageList.put(i.getCode(), i.getImageByteArrayOutputStream());
-        }
+        IdentityList idList = new IdentityList(model.getListOfIdenties());
 
-        view.setImageSpinner(side,idImageList);
-        view.setIDNameSpinner(side, idNameList);
+        view.setIDSelecters(idList);
         //TODO: Setup Name Spinner
     }
 
-
     public void setViewData(){
-        setIdentityData(R.string.title_runner);
-        setIdentityData(R.string.title_corp);
+        setIdentityData();
+        //setIdentityData(R.string.title_runner);
+        //setIdentityData(R.string.title_corp);
     }
 
     public void setUpView(){
 
-        ArrayList<Integer> viewList = new ArrayList<>();
+        ArrayList<String> viewList = new ArrayList<>();
 
-        if (model.getSide() == R.string.title_corp){
-            viewList.add(R.string.title_corp);
-            viewList.add(R.string.title_runner);
+        if (model.getSide() == ANRLoggerApplication.CORP_SIDE_IDENTIFIER){
+            viewList.add(ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
+            viewList.add(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
         }else {
-            viewList.add(R.string.title_runner);
-            viewList.add(R.string.title_corp);
+            viewList.add(ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
+            viewList.add(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
         }
-        viewList.add(R.string.title_overview);
+        viewList.add("Overview");
         view.setUpPages(viewList);
     }
 

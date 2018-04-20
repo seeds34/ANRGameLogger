@@ -8,8 +8,10 @@ import android.widget.FrameLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.model.IdentityList;
 
 /**
  * Created by user on 09/12/2017.
@@ -38,15 +40,15 @@ public class AddGameView extends FrameLayout {
         toolbar.setTitle(R.string.title_add_new_game);
     }
 
-    public void setUpPages(ArrayList<Integer> titleList){
+    public void setUpPages(ArrayList<String> titleList){
         tabLayout.setupWithViewPager(addGameViewPager);
         addGamePagerAdapter = new AddGamePagerAdapter(activity, titleList);
        // addGameViewPager.setAdapter(addGamePagerAdapter);
     }
 
 
-    public void setImageSpinner(int side, Map<String, byte[]> imageListIn) {
-        addGamePagerAdapter.setImageSpinner(side,imageListIn);
+    public void setImageSpinner(int side, LinkedHashMap<String, byte[]> imageListIn) {
+        //addGamePagerAdapter.setImageSpinner(side,imageListIn);
     }
 
     public void startPA(){
@@ -55,7 +57,11 @@ public class AddGameView extends FrameLayout {
     }
 
     public void setIDNameSpinner(int side, ArrayList<String> idNameList) {
-        addGamePagerAdapter.setIDNameSpinner(side, idNameList);
+        //addGamePagerAdapter.setIDNameSpinner(side, idNameList);
+    }
+
+    public void setIDSelecters(IdentityList idList) {
+        addGamePagerAdapter.setUpIdSpinnerAndImageView(idList);
     }
 
 

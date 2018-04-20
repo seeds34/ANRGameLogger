@@ -75,7 +75,7 @@ public class GameListModel {
         GameDetailActivity.start(activity.getApplicationContext(),gameListManager.getGame(selectedGame));
     }
 
-    public void startAddGameActivity(int side){
+    public void startAddGameActivity(String side){
         AddGameActivity.start(activity.getApplicationContext(),side);
     }
 }

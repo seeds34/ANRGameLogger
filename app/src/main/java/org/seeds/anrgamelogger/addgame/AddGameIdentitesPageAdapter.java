@@ -4,13 +4,18 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import java.io.ByteArrayInputStream;
-import java.util.Map;
+
 import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.model.IdentityList;
+import org.w3c.dom.Text;
 
 /**
  * Created by user on 09/12/2017.
@@ -18,27 +23,31 @@ import org.seeds.anrgamelogger.R;
 
 public class AddGameIdentitesPageAdapter extends PagerAdapter {
 
-    //ArrayList<byte[]> imageList;
-    Map<String, byte[]> imageList;
+    private static final String LOG_TAG = AddGameIdentitesPageAdapter.class.getSimpleName();
+    //ArrayList<byte[]> idList;
+    IdentityList idList;
     Context context;
     LayoutInflater  inflater;
 
-    public AddGameIdentitesPageAdapter(Context contextIn, Map<String, byte[]> imageListIn) {
+    public AddGameIdentitesPageAdapter(Context contextIn, IdentityList idListIn) {
         super();
-        imageList = imageListIn;
+        idList = idListIn;
         context = contextIn;
         inflater = LayoutInflater.from(contextIn);
     }
 
-    //TODO: Deal with Null image return for DB. Inset deafult image
+    //TODO: Deal with Null image return for DB. Inset default image
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View imageLayout = inflater.inflate(R.layout.view_addgame_identities_image,container,false);
         ImageView identitiesIamgeView = (ImageView) imageLayout.findViewById(R.id.identitiesImageView);
+        TextView identityImageRef = (TextView) imageLayout.findViewById(R.id.identitieImageReferance);
 
-        if(imageList != null) {
+        Log.d(LOG_TAG,"Position is: " + position
+                + "/n" + "Data at Position from idList: " + idList.getImage(position));
 
-            byte[] imageByteArray = imageList.get(position);
+        if(idList != null) {
+            byte[] imageByteArray = idList.getImage(position);
             if(imageByteArray != null) {
                 ByteArrayInputStream imageStream = new ByteArrayInputStream(imageByteArray);
                 Bitmap theImage = BitmapFactory.decodeStream(imageStream);
@@ -49,6 +58,7 @@ public class AddGameIdentitesPageAdapter extends PagerAdapter {
             container.addView(imageLayout,0);
         }
 
+        identityImageRef.setText(idList.getName(position));
 
         return imageLayout;
     }
@@ -60,11 +70,20 @@ public class AddGameIdentitesPageAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return imageList.size();
+        return idList.getSize();
     }
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return view.equals(object);
+    }
+
+    public String getNameAtPOS(int pos){
+        return idList.getName(pos);
+    }
+
+
+    public int getNameAtPOS(String name){
+        return idList.getPosByName(name);
     }
 }

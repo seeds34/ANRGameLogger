@@ -3,8 +3,11 @@ package org.seeds.anrgamelogger.addgame;
 import android.app.Activity;
 import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
 import com.pushtorefresh.storio3.contentresolver.queries.Query;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 import org.seeds.anrgamelogger.application.DatabaseModel;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract.IdentitiesColumns;
@@ -84,29 +87,28 @@ public class AddGameModel {
 //
 //    }
 
-    public int getSide(){
-        return activity.getIntent().getIntExtra(AddGameActivity.SIDE, R.string.title_corp);
+    public String getSide(){
+        return activity.getIntent().getStringExtra(AddGameActivity.SIDE);
     }
 
 
-    public List<Card> getListOfIdenties(int side){
+    public List<Card> getListOfIdenties(){
 
-        List<Card> ret;
-        String sideName = activity.getString(side);
-
-
-
-        ret = storIOContentResolver
-            .get()
-            .listOfObjects(Card.class)
-            .withQuery(Query.builder()
-                .uri(IdentitiesContract.URI_TABLE)
-                .where(IdentitiesContract.IdentitiesColumns.IDENTITY_SIDE + " = '" + sideName + "'")
-                .sortOrder(IdentitiesColumns.IDENTITY_FACTION + " asc")
-                .build())
-            .prepare()
-            .executeAsBlocking();
-
-        return ret;
+        return databaseModel.getIdentities();
+//        List<Card> ret;
+//        String sideName = activity.getString(side);
+//
+//        ret = storIOContentResolver
+//            .get()
+//            .listOfObjects(Card.class)
+//            .withQuery(Query.builder()
+//                .uri(IdentitiesContract.URI_TABLE)
+//                .where(IdentitiesContract.IdentitiesColumns.IDENTITY_SIDE + " = '" + sideName + "'")
+//                .sortOrder(IdentitiesColumns.IDENTITY_FACTION + " asc")
+//                .build())
+//            .prepare()
+//            .executeAsBlocking();
+//
+//        return ret;
     }
 }

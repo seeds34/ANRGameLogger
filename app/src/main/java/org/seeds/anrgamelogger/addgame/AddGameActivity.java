@@ -20,7 +20,7 @@ public class AddGameActivity extends AppCompatActivity {
     @Inject
     AddGameView view;
 
-    public static void start(Context contextIn, int side) {
+    public static void start(Context contextIn, String side) {
         Intent intent = new Intent(contextIn, AddGameActivity.class);
         intent.putExtra(SIDE, side);
         contextIn.startActivity(intent);

@@ -20,12 +20,12 @@ public class Card{
       @StorIOContentResolverColumn(name = IdentitiesColumns.IDENTITY_SIDE)
       String side_code;
 
-      @Json(name = "faction_code")
-      @StorIOContentResolverColumn(name = IdentitiesColumns.IDENTITY_FACTION)
-      String faction_code;
+       @Json(name = "faction_code")
+       @StorIOContentResolverColumn(name = IdentitiesColumns.IDENTITY_FACTION)
+       String faction_code;
 
-     @StorIOContentResolverColumn(name = IdentitiesColumns.ROTATED_FLAG)
-     String roatated_flag = "N";
+       @StorIOContentResolverColumn(name = IdentitiesColumns.ROTATED_FLAG)
+       String roatated_flag = "N";
 
       @Json(name = "code")
       @StorIOContentResolverColumn(name = IdentitiesColumns.NRDB_CODE)
@@ -41,9 +41,8 @@ public class Card{
       @Json(name = "pack_code")
       String pack_code;
 
-
-    @StorIOContentResolverColumn(name = IdentitiesColumns.POSTION_IN_PACK)
-  @Json(name = "position")
+      @StorIOContentResolverColumn(name = IdentitiesColumns.POSTION_IN_PACK)
+      @Json(name = "position")
       String pos;
 
       public Card(){}
@@ -62,7 +61,7 @@ public class Card{
 
       public String toString(){
             return  "Title: " + title +
-                "| Type Code: " + type_code +
+                " | Type Code: " + type_code +
                 " | Side Code: " + side_code +
                 " | Faction Code: " + faction_code +
                 " | Roatated Flag: " + roatated_flag +
@@ -99,12 +98,11 @@ public class Card{
           roatated_flag = rot;
       }
 
-  public String getPos() {
+      public String getPos() {
     return pos;
   }
 
-  public void setPos(String pos) {
+      public void setPos(String pos) {
     this.pos = pos;
   }
-
 }

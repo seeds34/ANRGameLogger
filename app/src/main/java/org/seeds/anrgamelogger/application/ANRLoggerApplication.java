@@ -14,6 +14,8 @@ public class ANRLoggerApplication extends Application {
 
     private ApplicationComponent applicationComponent;
 
+    public static final String CORP_SIDE_IDENTIFIER = "corp";
+    public static final String RUNNER_SIDE_IDENTIFIER = "runner";
 
     public static ANRLoggerApplication get(Activity activity){
          Application a = activity.getApplication();
