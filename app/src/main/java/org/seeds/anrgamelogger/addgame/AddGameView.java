@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.Map;
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.model.IdentityList;
 
@@ -18,6 +20,9 @@ import org.seeds.anrgamelogger.model.IdentityList;
  */
 
 public class AddGameView extends FrameLayout {
+
+
+    private static final String LOG_TAG = AddGameView.class.getSimpleName();
 
     @BindView(R.id.toolbar)
     public Toolbar toolbar;
@@ -62,6 +67,15 @@ public class AddGameView extends FrameLayout {
 
     public void setIDSelecters(IdentityList idList) {
         addGamePagerAdapter.setUpIdSpinnerAndImageView(idList);
+    }
+
+    public Observable<Object> saveGame(){
+        return addGamePagerAdapter.saveGame();
+    }
+
+    public void showMessage(String messageIn){
+        Log.d(LOG_TAG, "Game Save Preesed");
+        Toast.makeText(this.getContext(), messageIn, Toast.LENGTH_LONG).show();
     }
 
 

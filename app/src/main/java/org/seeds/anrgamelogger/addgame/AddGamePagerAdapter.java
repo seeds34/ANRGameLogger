@@ -3,8 +3,10 @@ package org.seeds.anrgamelogger.addgame;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import io.reactivex.Observable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,4 +81,14 @@ public class AddGamePagerAdapter extends PagerAdapter {
         i.setIdApadters(idList.getOneSidedList(i.getTitle()));
       }
     }
+
+    public Observable<Object> saveGame(){
+      AddGameOverview overviewView = (AddGameOverview)viewList.get(2);
+
+      Log.d(LOG_TAG, "OverviewView is: " + overviewView);
+
+      return overviewView.save();
+      //return Observable.just(1);
+    }
+
 }

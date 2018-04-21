@@ -1,12 +1,9 @@
 package org.seeds.anrgamelogger.addgame;
 
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
-import org.seeds.anrgamelogger.model.Card;
 import org.seeds.anrgamelogger.model.IdentityList;
 
 /**
@@ -20,6 +17,9 @@ public class AddGamePresenter {
     private AddGameModel model;
     private AddGameView view;
 
+    private final CompositeDisposable compositeSubscription = new CompositeDisposable();
+
+
     public AddGamePresenter(AddGameView view, AddGameModel model){
         this.view = view;
         this.model = model;
@@ -29,6 +29,8 @@ public class AddGamePresenter {
         setUpView();
         setViewData();
         view.startPA();
+
+        compositeSubscription.add(observeSaveGame());
         //setUpDeafults();
 
     }
@@ -66,9 +68,16 @@ public class AddGamePresenter {
 
     }
 
+    public Disposable observeSaveGame(){
+        return view.saveGame().subscribe(
+            a -> view.showMessage("Save Game")
+        );
+    }
 
 
-    public void onDestroy(){}
+    public void onDestroy(){
+        compositeSubscription.dispose();
+    }
 
 
 }
