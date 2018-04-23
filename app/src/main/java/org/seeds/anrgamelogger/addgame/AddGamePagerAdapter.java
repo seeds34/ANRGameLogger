@@ -6,6 +6,9 @@ import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.jakewharton.rxbinding2.view.RxView;
+
 import io.reactivex.Observable;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +47,8 @@ public class AddGamePagerAdapter extends PagerAdapter {
     return layout;
   }
 
+
+
   private void setViewList(ArrayList<String> titleRid){
     viewList.add(new AddGamePlayerView(activity, titleRid.get(0)));
     viewList.add(new AddGamePlayerView(activity, titleRid.get(1)));
@@ -55,6 +60,8 @@ public class AddGamePagerAdapter extends PagerAdapter {
       viewTitleList.add(id);
     }
   }
+
+
 
   @Override
   public int getCount() {
@@ -83,10 +90,8 @@ public class AddGamePagerAdapter extends PagerAdapter {
     }
 
     public Observable<Object> saveGame(){
+      Log.d(LOG_TAG, "OverviewView is: " + viewList.get(2));
       AddGameOverview overviewView = (AddGameOverview)viewList.get(2);
-
-      Log.d(LOG_TAG, "OverviewView is: " + overviewView);
-
       return overviewView.save();
       //return Observable.just(1);
     }

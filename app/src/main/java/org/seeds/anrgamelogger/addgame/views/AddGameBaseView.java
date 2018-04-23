@@ -22,7 +22,8 @@ public abstract class AddGameBaseView extends FrameLayout {
   public abstract String getTitle();
 
   public void setIdentitiesImageViewPager(LinkedHashMap<String, byte[]> imageListIn){};
-  public void setSpiinerAdaptor(ArrayList<String> identitiesList){};
 
   public void setIdApadters(IdentityList idList){};
+
+  public void savePress(){};
 }
