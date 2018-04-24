@@ -9,10 +9,12 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.Observable;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.addgame.SubPresenters.OverviewSubPresenter;
+import org.seeds.anrgamelogger.addgame.SubPresenters.PlayerSubPresenter;
 import org.seeds.anrgamelogger.model.IdentityList;
 
 /**
@@ -43,11 +45,16 @@ public class AddGameView extends FrameLayout {
         ButterKnife.setDebug(true);
         ButterKnife.bind(this);
         toolbar.setTitle(R.string.title_add_new_game);
+
+        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, findViewById(R.id.playerOneView)) );
+        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, findViewById(R.id.playerTwoView)) );
+        addGamePagerAdapter.addView(new OverviewSubPresenter(activity, findViewById(R.id.overviewView)) );
+
     }
 
     public void setUpPages(ArrayList<String> titleList){
         tabLayout.setupWithViewPager(addGameViewPager);
-        addGamePagerAdapter = new AddGamePagerAdapter(activity, titleList);
+        //addGamePagerAdapter = new AddGamePagerAdapter(activity, titleList);
        // addGameViewPager.setAdapter(addGamePagerAdapter);
     }
 
@@ -66,12 +73,12 @@ public class AddGameView extends FrameLayout {
     }
 
     public void setIDSelecters(IdentityList idList) {
-        addGamePagerAdapter.setUpIdSpinnerAndImageView(idList);
+        //addGamePagerAdapter.setUpIdSpinnerAndImageView(idList);
     }
 
-    public Observable<Object> saveGame(){
-        return addGamePagerAdapter.saveGame();
-    }
+//    public Observable<Object> saveGame(){
+//        return addGamePagerAdapter.saveGame();
+//    }
 
     public void showMessage(String messageIn){
         Log.d(LOG_TAG, "Game Save Preesed");

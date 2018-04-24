@@ -39,12 +39,12 @@
       tools:layout_conversion_absoluteHeight="567dp"
       tools:layout_conversion_absoluteWidth="384dp">
 
-      <include android:id="@+id/firstPlayerView"
+      <include android:id="@+id/playerOneView"
         layout="@layout/view_addgame_player" />
 
-      <include android:id="@+id/secondPlayerView"
+      <include android:id="@+id/playerTwoView"
           layout="@layout/view_addgame_player" />
-      
+
       <include android:id="@+id/overviewView"
           layout="@layout/view_addgame_overview" />
 

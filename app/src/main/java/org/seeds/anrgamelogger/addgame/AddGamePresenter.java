@@ -30,7 +30,7 @@ public class AddGamePresenter {
         setViewData();
         view.startPA();
 
-        compositeSubscription.add(observeSaveGame());
+//        compositeSubscription.add(observeSaveGame());
         //setUpDeafults();
 
     }
@@ -68,11 +68,11 @@ public class AddGamePresenter {
 
     }
 
-    public Disposable observeSaveGame(){
-        return view.saveGame().subscribe(
-            a -> view.showMessage("Save Game")
-        );
-    }
+//    public Disposable observeSaveGame(){
+//        return view.saveGame().subscribe(
+//            a -> view.showMessage("Save Game")
+//        );
+//    }
 
 
     public void onDestroy(){
