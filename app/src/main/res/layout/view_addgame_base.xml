@@ -37,7 +37,19 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       tools:layout_conversion_absoluteHeight="567dp"
-      tools:layout_conversion_absoluteWidth="384dp" />
+      tools:layout_conversion_absoluteWidth="384dp">
+
+      <include android:id="@+id/firstPlayerView"
+        layout="@layout/view_addgame_player" />
+
+      <include android:id="@+id/secondPlayerView"
+          layout="@layout/view_addgame_player" />
+      
+      <include android:id="@+id/overviewView"
+          layout="@layout/view_addgame_overview" />
+
+    </android.support.v4.view.ViewPager>
+
 
   </android.support.constraint.ConstraintLayout>
 
