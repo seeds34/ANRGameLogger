@@ -10,7 +10,7 @@ public enum AddGameEnum {
 
     ADDGAMECORP(R.string.title_corp, R.layout.view_addgame_player, AddGamePlayerView.class.getClass()),
     ADDGAMERUNNER(R.string.title_runner, R.layout.view_addgame_player, AddGamePlayerView.class.getClass()),
-    ADDGAMEOVERVIEW(R.string.title_overview, R.layout.view_addgame_overview, AddGameOverview.class.getClass());
+    ADDGAMEOVERVIEW(R.string.title_overview, R.layout.view_addgame_overview, AddGameOverviewView.class.getClass());
 
     private int titleRId;
     private int layoutRId;

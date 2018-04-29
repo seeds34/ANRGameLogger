@@ -19,7 +19,7 @@ public abstract class AddGameBaseView extends FrameLayout {
     super(activity);
   }
 
-  public abstract String getTitle();
+//  public abstract String getTitle();
 
   public void setIdentitiesImageViewPager(LinkedHashMap<String, byte[]> imageListIn){};
 

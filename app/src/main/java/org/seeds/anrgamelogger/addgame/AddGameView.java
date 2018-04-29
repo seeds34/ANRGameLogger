@@ -13,8 +13,10 @@ import butterknife.ButterKnife;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.addgame.SubPresenters.OverviewSubPresenter;
-import org.seeds.anrgamelogger.addgame.SubPresenters.PlayerSubPresenter;
+import org.seeds.anrgamelogger.addgame.subpresenters.OverviewSubPresenter;
+import org.seeds.anrgamelogger.addgame.subpresenters.PlayerSubPresenter;
+import org.seeds.anrgamelogger.addgame.views.AddGameOverviewView;
+import org.seeds.anrgamelogger.addgame.views.AddGamePlayerView;
 import org.seeds.anrgamelogger.model.IdentityList;
 
 /**
@@ -46,26 +48,36 @@ public class AddGameView extends FrameLayout {
         ButterKnife.bind(this);
         toolbar.setTitle(R.string.title_add_new_game);
 
-        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, findViewById(R.id.playerOneView)) );
-        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, findViewById(R.id.playerTwoView)) );
-        addGamePagerAdapter.addView(new OverviewSubPresenter(activity, findViewById(R.id.overviewView)) );
+        addGamePagerAdapter =  new AddGamePagerAdapter();
 
-    }
-
-    public void setUpPages(ArrayList<String> titleList){
+        addGameViewPager.setOffscreenPageLimit(2);
         tabLayout.setupWithViewPager(addGameViewPager);
-        //addGamePagerAdapter = new AddGamePagerAdapter(activity, titleList);
-       // addGameViewPager.setAdapter(addGamePagerAdapter);
+
     }
+
+
+
+//    public void setUpPagerViews(ArrayList<String> titleList){
+//        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, findViewById(R.id.playerOneView)) );
+//        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, findViewById(R.id.playerTwoView)) );
+//        addGamePagerAdapter.addView(new OverviewSubPresenter(activity, findViewById(R.id.overviewView)) );
+//        }
 
 
     public void setImageSpinner(int side, LinkedHashMap<String, byte[]> imageListIn) {
         //addGamePagerAdapter.setImageSpinner(side,imageListIn);
     }
 
-    public void startPA(){
-        addGameViewPager.setAdapter(addGamePagerAdapter);
+    public void startPageViewer(ArrayList<String> viewTitleList){
+//        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, findViewById(R.id.playerOneView), viewTitleList.get(0)) );
+//        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, findViewById(R.id.playerTwoView), viewTitleList.get(1)) );
+//        addGamePagerAdapter.addView(new OverviewSubPresenter(activity, findViewById(R.id.overviewView)) );
 
+        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, new AddGamePlayerView(activity), viewTitleList.get(0)) );
+        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, new AddGamePlayerView(activity), viewTitleList.get(1)) );
+        addGamePagerAdapter.addView(new OverviewSubPresenter(activity, new AddGameOverviewView(activity)) );
+
+        addGameViewPager.setAdapter(addGamePagerAdapter);
     }
 
     public void setIDNameSpinner(int side, ArrayList<String> idNameList) {
@@ -73,7 +85,7 @@ public class AddGameView extends FrameLayout {
     }
 
     public void setIDSelecters(IdentityList idList) {
-        //addGamePagerAdapter.setUpIdSpinnerAndImageView(idList);
+        addGamePagerAdapter.setUpIdSpinnerAndImageView(idList);
     }
 
 //    public Observable<Object> saveGame(){

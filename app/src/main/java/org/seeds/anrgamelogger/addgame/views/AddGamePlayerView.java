@@ -23,8 +23,6 @@ public class AddGamePlayerView extends AddGameBaseView{
 
   private static final String LOG_TAG = AddGamePlayerView.class.getSimpleName();
 
-  private final String TITLE;
-
   @BindView(R.id.identitiesSpinner)
   Spinner identitiesSpinner;
 
@@ -35,20 +33,15 @@ public class AddGamePlayerView extends AddGameBaseView{
   private ArrayAdapter identityNameArrayAdapter;
   private Activity activity;
 
-  public AddGamePlayerView(Activity activity, String title){
+  public AddGamePlayerView(Activity activity){
     super(activity);
     this.activity = activity;
     inflate(getContext(), R.layout.view_addgame_player, this);
     ButterKnife.setDebug(true);
     ButterKnife.bind(this);
-    this.TITLE = title;
   }
 
   public void onCreate(){}
-
-  public String getTitle(){
-    return TITLE;
-  }
 
   @Override
   public void setIdApadters(IdentityList idList) {
