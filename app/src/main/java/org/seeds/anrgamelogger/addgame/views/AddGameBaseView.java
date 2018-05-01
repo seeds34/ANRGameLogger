@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import io.reactivex.Observable;
+
 /**
  * Created by Tomas Seymour-Turner on 06/01/2018.
  */
@@ -25,5 +27,5 @@ public abstract class AddGameBaseView extends FrameLayout {
 
   public void setIdApadters(IdentityList idList){};
 
-  public void savePress(){};
+  public abstract Observable<Object> save();
 }

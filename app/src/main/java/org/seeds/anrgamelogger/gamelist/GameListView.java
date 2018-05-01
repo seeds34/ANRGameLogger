@@ -70,7 +70,6 @@ public class GameListView extends FrameLayout{
     public Observable<String> observeRecyckerView() {
         return gameListRecyclerViewAdaptor.getViewClickedObservable();
        // return RxView.clicks(gameRecyclerList);
-
     }
 
     public Observable<Object> observeLoadImageClick(){

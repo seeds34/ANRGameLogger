@@ -6,6 +6,8 @@ import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.addgame.views.AddGameOverviewView;
 import org.seeds.anrgamelogger.model.IdentityList;
 
+import io.reactivex.Observable;
+
 public class OverviewSubPresenter extends SubPresenter{
 
     public OverviewSubPresenter(Activity activity, AddGameOverviewView view){
@@ -18,5 +20,9 @@ public class OverviewSubPresenter extends SubPresenter{
     @Override
     public void onCreateView(){
 
+    }
+
+    public Observable<Object> observeSave(){
+        return view.save();
     }
 }

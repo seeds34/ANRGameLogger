@@ -1,6 +1,7 @@
 package org.seeds.anrgamelogger.addgame;
 
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
@@ -32,19 +33,27 @@ public class AddGamePresenter {
             viewTitleList.add(ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
             viewTitleList.add(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
         }else {
-            viewTitleList.add(ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
             viewTitleList.add(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
+            viewTitleList.add(ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
         }
 
-        setUpView();
-        setViewData();
-        view.startPageViewer(viewTitleList);
+        view.setUpPagerViews(viewTitleList);
+        IdentityList idList = new IdentityList(model.getListOfIdenties());
+        view.setIDSelecters(idList);
+        view.startPageViewer();
+
+        compositeSubscription.add(observerSave());
     }
 
     public void setIdentityData(){
         IdentityList idList = new IdentityList(model.getListOfIdenties());
         view.setIDSelecters(idList);
         //TODO: Setup Name Spinner
+    }
+
+    public Disposable observerSave(){
+        return view.save()
+                .subscribe();
     }
 
     public void setViewData(){
@@ -61,12 +70,11 @@ public class AddGamePresenter {
             viewTitleList.add(ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
             viewTitleList.add(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
         }else {
-            viewTitleList.add(ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
             viewTitleList.add(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
+            viewTitleList.add(ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
         }
         viewTitleList.add("Overview");
-//        view.setTitles(viewTitleList);
-        //view.setUpPagerViews(viewTitleList);
+//        view.setUpPagerViews(viewTitleList);
     }
 
     public void setUpDeafults(){ }

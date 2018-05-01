@@ -10,6 +10,7 @@ import com.jakewharton.rxbinding2.view.RxView;
 import org.seeds.anrgamelogger.R;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
 
@@ -35,6 +36,8 @@ public class AddGameOverviewView extends AddGameBaseView{
     super(activity);
     this.activity = activity;
     inflate(getContext(), viewNo, this);
+    ButterKnife.setDebug(true);
+    ButterKnife.bind(this);
   }
 
   public int getViewNo(){
@@ -43,13 +46,14 @@ public class AddGameOverviewView extends AddGameBaseView{
 
   public void onCreate(){}
 
-  @Override
-  @OnClick(R.id.btn_save)
-  public void savePress(){
-    Log.d(LOG_TAG, "Save Button Pressed");
-    Toast.makeText(this.getContext(), "Saved", Toast.LENGTH_LONG).show();
-  }
+//  @Override
+//  @OnClick(R.id.btn_save)
+//  public void savePress(){
+//    Log.d(LOG_TAG, "Save Button Pressed");
+//    Toast.makeText(this.getContext(), "Saved", Toast.LENGTH_LONG).show();
+//  }
 
+    @Override
   public Observable<Object> save(){
     return RxView.clicks(btn_save);
   }

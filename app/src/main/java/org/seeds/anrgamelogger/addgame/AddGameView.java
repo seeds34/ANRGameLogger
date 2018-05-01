@@ -7,8 +7,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+
+import com.jakewharton.rxbinding2.view.RxView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -24,7 +28,6 @@ import org.seeds.anrgamelogger.model.IdentityList;
  */
 
 public class AddGameView extends FrameLayout {
-
 
     private static final String LOG_TAG = AddGameView.class.getSimpleName();
 
@@ -49,55 +52,47 @@ public class AddGameView extends FrameLayout {
         toolbar.setTitle(R.string.title_add_new_game);
 
         addGamePagerAdapter =  new AddGamePagerAdapter();
-
         addGameViewPager.setOffscreenPageLimit(2);
+
         tabLayout.setupWithViewPager(addGameViewPager);
-
     }
 
-
-
-//    public void setUpPagerViews(ArrayList<String> titleList){
-//        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, findViewById(R.id.playerOneView)) );
-//        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, findViewById(R.id.playerTwoView)) );
-//        addGamePagerAdapter.addView(new OverviewSubPresenter(activity, findViewById(R.id.overviewView)) );
-//        }
-
-
-    public void setImageSpinner(int side, LinkedHashMap<String, byte[]> imageListIn) {
-        //addGamePagerAdapter.setImageSpinner(side,imageListIn);
+    public void setUpPagerViews(ArrayList<String> viewTitleList){
+        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, new AddGamePlayerView(activity), viewTitleList.get(0)) );
+        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, new AddGamePlayerView(activity), viewTitleList.get(1)) );
+        addGamePagerAdapter.addView(new OverviewSubPresenter(activity, new AddGameOverviewView(activity)) );
     }
-
-    public void startPageViewer(ArrayList<String> viewTitleList){
+//ArrayList<String> viewTitleList
+    public void startPageViewer(){
 //        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, findViewById(R.id.playerOneView), viewTitleList.get(0)) );
 //        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, findViewById(R.id.playerTwoView), viewTitleList.get(1)) );
 //        addGamePagerAdapter.addView(new OverviewSubPresenter(activity, findViewById(R.id.overviewView)) );
 
-        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, new AddGamePlayerView(activity), viewTitleList.get(0)) );
-        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, new AddGamePlayerView(activity), viewTitleList.get(1)) );
-        addGamePagerAdapter.addView(new OverviewSubPresenter(activity, new AddGameOverviewView(activity)) );
-
         addGameViewPager.setAdapter(addGamePagerAdapter);
-    }
-
-    public void setIDNameSpinner(int side, ArrayList<String> idNameList) {
-        //addGamePagerAdapter.setIDNameSpinner(side, idNameList);
     }
 
     public void setIDSelecters(IdentityList idList) {
         addGamePagerAdapter.setUpIdSpinnerAndImageView(idList);
     }
 
-//    public Observable<Object> saveGame(){
-//        return addGamePagerAdapter.saveGame();
-//    }
-
+    public Observable<Object> save() {
+        return addGamePagerAdapter.obsereSave();
+    }
     public void showMessage(String messageIn){
         Log.d(LOG_TAG, "Game Save Preesed");
         Toast.makeText(this.getContext(), messageIn, Toast.LENGTH_LONG).show();
     }
 
 
+//    public void setImageSpinner(int side, LinkedHashMap<String, byte[]> imageListIn) {
+//        //addGamePagerAdapter.setImageSpinner(side,imageListIn);
+//    }
+//    public Observable<Object> saveGame(){
+//        return addGamePagerAdapter.saveGame();
+//    }
+//public void setIDNameSpinner(int side, ArrayList<String> idNameList) {
+//    //addGamePagerAdapter.setIDNameSpinner(side, idNameList);
+//}
 //    public class GetIdentityData extends AsyncTask<String, Void, String> {
 //
 //        @Override

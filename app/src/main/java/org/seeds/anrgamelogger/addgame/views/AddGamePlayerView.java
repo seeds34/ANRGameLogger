@@ -14,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemSelected;
 import butterknife.OnPageChange;
+import io.reactivex.Observable;
 
 /**
  * Created by Tomas Seymour-Turner on 04/01/2018.
@@ -75,11 +76,15 @@ public class AddGamePlayerView extends AddGameBaseView{
 //TODO: This feels like more luck then jundment for working
     identitiesSpinner.setSelection(identityNameArrayAdapter.getPosition(identityImageViewAdapter.getNameAtPOS(i)));
     //identityImageViewAdapter.get
-
     //identitiesSpinner.setSelection(identityNameArrayAdapter.getPosition(i));
   }
 
-//  @Override
+  @Override
+  public Observable<Object> save() {
+    return null;
+  }
+
+  //  @Override
 //  public void setIdentitiesImageViewPager(LinkedHashMap<String, byte[]> imageListIn){
 //      identityImageViewAdapter = new AddGameIdentitesPageAdapter(getContext(), imageListIn);
 //      identitiesImageViewPager.setAdapter(identityImageViewAdapter);

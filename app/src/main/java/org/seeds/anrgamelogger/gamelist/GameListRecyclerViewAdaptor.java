@@ -26,8 +26,6 @@ public class GameListRecyclerViewAdaptor extends android.support.v7.widget.Recyc
         return mViewClickSubject;
     }
 
-
-
     @Override
     public GameOverviewViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_gamelist_item, parent, false);
@@ -38,7 +36,6 @@ public class GameListRecyclerViewAdaptor extends android.support.v7.widget.Recyc
                 .map(aVoid -> gameListImageViewHolder.getGameNo())
                 .subscribe(mViewClickSubject);
 
-
         return gameListImageViewHolder;
     }
 
@@ -46,7 +43,6 @@ public class GameListRecyclerViewAdaptor extends android.support.v7.widget.Recyc
     public void onBindViewHolder(GameOverviewViewHolder holder, int position) {
         holder.setUpData(gameList.get(position));
     }
-
 
     @Override
     public long getItemId(int position) {

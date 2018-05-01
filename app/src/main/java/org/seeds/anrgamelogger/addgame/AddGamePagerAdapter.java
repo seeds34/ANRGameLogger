@@ -1,6 +1,7 @@
 package org.seeds.anrgamelogger.addgame;
 
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -10,6 +11,8 @@ import java.util.List;
 import org.seeds.anrgamelogger.addgame.subpresenters.PlayerSubPresenter;
 import org.seeds.anrgamelogger.addgame.subpresenters.SubPresenter;
 import org.seeds.anrgamelogger.model.IdentityList;
+
+import io.reactivex.Observable;
 
 /**
  * Created by Tomas Seymour-Turner on 04/01/2018.
@@ -60,6 +63,7 @@ public class AddGamePagerAdapter extends PagerAdapter {
           sp.setUpIdentitySpiner(idList.getOneSidedList(sp.getTitle()));
         }
     }
+
 //
 //
 //      for (AddGameBaseView i : viewList) {
@@ -67,4 +71,9 @@ public class AddGamePagerAdapter extends PagerAdapter {
 //      }
     }
 
+    public Observable<Object> obsereSave(){
+      Observable o = presenterList.get(2).save();
+      Log.d(LOG_TAG, "Obserible being returned is: " + o);
+      return o;
+    }
 }

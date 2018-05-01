@@ -6,6 +6,8 @@ import android.view.View;
 import org.seeds.anrgamelogger.addgame.views.AddGameBaseView;
 import org.seeds.anrgamelogger.model.IdentityList;
 
+import io.reactivex.Observable;
+
 public abstract class SubPresenter {
 
     protected AddGameBaseView view;
@@ -28,6 +30,8 @@ public abstract class SubPresenter {
     public String getTitle(){
         return title;
     }
+
+    public Observable<Object> save(){return null;}
 
     public abstract void setUpIdentitySpiner(IdentityList oneSidedList);
 }
