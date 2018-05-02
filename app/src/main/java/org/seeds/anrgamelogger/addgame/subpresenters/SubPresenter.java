@@ -31,7 +31,7 @@ public abstract class SubPresenter {
         return title;
     }
 
-    public Observable<Object> save(){return null;}
+    public Observable<Object> observeSave(){return null;}
 
     public abstract void setUpIdentitySpiner(IdentityList oneSidedList);
 }

@@ -2,16 +2,11 @@ package org.seeds.anrgamelogger.addgame;
 
 import android.app.Activity;
 import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
-import com.pushtorefresh.storio3.contentresolver.queries.Query;
-
 import java.util.ArrayList;
 import java.util.List;
-import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 import org.seeds.anrgamelogger.application.DatabaseModel;
-import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
-import org.seeds.anrgamelogger.database.contracts.IdentitiesContract.IdentitiesColumns;
 import org.seeds.anrgamelogger.model.Card;
+import org.seeds.anrgamelogger.model.Player;
 
 
 /**
@@ -110,5 +105,14 @@ public class AddGameModel {
 //            .executeAsBlocking();
 //
 //        return ret;
+    }
+
+    public ArrayList<String> getPlayerList() {
+        List<Player> temp = databaseModel.getPlayers();
+        ArrayList<String> ret = new ArrayList<>();
+        for(Player p : temp){
+            ret.add(p.getName());
+        }
+       return ret;
     }
 }

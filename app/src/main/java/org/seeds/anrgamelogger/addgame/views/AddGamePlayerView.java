@@ -4,17 +4,17 @@ import android.app.Activity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Spinner;
-
-import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.addgame.AddGameIdentitesPageAdapter;
-import org.seeds.anrgamelogger.model.IdentityList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemSelected;
 import butterknife.OnPageChange;
 import io.reactivex.Observable;
+import java.util.ArrayList;
+import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.addgame.AddGameIdentitesPageAdapter;
+import org.seeds.anrgamelogger.model.IdentityList;
 
 /**
  * Created by Tomas Seymour-Turner on 04/01/2018.
@@ -34,6 +34,11 @@ public class AddGamePlayerView extends AddGameBaseView{
   private ArrayAdapter identityNameArrayAdapter;
   private Activity activity;
 
+  @BindView(R.id.addGamepalyerName)
+  public AutoCompleteTextView playerName;
+
+  private ArrayAdapter<String> adapter;
+
   public AddGamePlayerView(Activity activity){
     super(activity);
     this.activity = activity;
@@ -43,6 +48,13 @@ public class AddGamePlayerView extends AddGameBaseView{
   }
 
   public void onCreate(){}
+
+  @Override
+  public void setUpNameAutoComplete(ArrayList<String> playerList){
+    adapter = new ArrayAdapter<>(activity, R.layout.support_simple_spinner_dropdown_item, playerList);
+    adapter.setNotifyOnChange(true);
+    playerName.setAdapter(adapter);
+  }
 
   @Override
   public void setIdApadters(IdentityList idList) {

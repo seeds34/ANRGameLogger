@@ -8,14 +8,13 @@ import com.pushtorefresh.storio3.contentresolver.operations.put.PutResult;
 import com.pushtorefresh.storio3.contentresolver.operations.put.PutResults;
 import com.pushtorefresh.storio3.contentresolver.queries.Query;
 import java.util.List;
-
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.LocationsContract;
 import org.seeds.anrgamelogger.database.contracts.LoggedGamesContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract;
 import org.seeds.anrgamelogger.model.Card;
 import org.seeds.anrgamelogger.model.CardImage;
-import org.seeds.anrgamelogger.model.IdentityList;
+import org.seeds.anrgamelogger.model.Player;
 
 /**
  * Created by Tomas Seymour-Turner on 21/02/2018.
@@ -115,6 +114,23 @@ public class DatabaseModel {
             .executeAsBlocking();
   }
 
+  public List<Player> getPlayers() {
+    return storIOContentResolver
+        .get()
+        .listOfObjects(Player.class)
+        .withQuery(Query.builder()
+            .uri(PlayersContract.URI_TABLE)
+            .build())
+        .prepare()
+        .executeAsBlocking();
+  }
+
+  public PutResult insertPlayer(Player playerIn){
+    return storIOContentResolver.put()
+        .object(playerIn)
+        .prepare()
+        .executeAsBlocking();
+  }
 
 //Genric soultion ideas
 

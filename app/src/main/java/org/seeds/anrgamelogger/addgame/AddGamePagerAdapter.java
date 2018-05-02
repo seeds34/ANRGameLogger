@@ -1,18 +1,14 @@
 package org.seeds.anrgamelogger.addgame;
 
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-
+import io.reactivex.Observable;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.seeds.anrgamelogger.addgame.subpresenters.PlayerSubPresenter;
 import org.seeds.anrgamelogger.addgame.subpresenters.SubPresenter;
 import org.seeds.anrgamelogger.model.IdentityList;
-
-import io.reactivex.Observable;
 
 /**
  * Created by Tomas Seymour-Turner on 04/01/2018.
@@ -46,34 +42,25 @@ public class AddGamePagerAdapter extends PagerAdapter {
     return presenterList.get(position).getTitle();
   }
 
-//  @Override
-//  public void destroyItem(ViewGroup container, int position, Object object) {
-//    container.removeView(presenterList.get(position).getView());
-//    container.removeView(object);
-//  }
-
   public void addView(SubPresenter presenter) {
     presenterList.add(presenter);
   }
 
   public void setUpIdSpinnerAndImageView(IdentityList idList) {
 
-    for(SubPresenter sp : presenterList){
-        if(sp instanceof PlayerSubPresenter) {
-          sp.setUpIdentitySpiner(idList.getOneSidedList(sp.getTitle()));
-        }
+      for(SubPresenter sp : presenterList){
+          if(sp instanceof PlayerSubPresenter) {
+            sp.setUpIdentitySpiner(idList.getOneSidedList(sp.getTitle()));
+          }
+      }
     }
 
-//
-//
-//      for (AddGameBaseView i : viewList) {
-//        i.setIdApadters(idList.getOneSidedList(i.getTitle()));
-//      }
+    //TODO:Need to replace with ENUM of view positions.
+    public Observable<Object> observeSave(){
+      return presenterList.get(2).observeSave();
     }
 
-    public Observable<Object> obsereSave(){
-      Observable o = presenterList.get(2).save();
-      Log.d(LOG_TAG, "Obserible being returned is: " + o);
-      return o;
+    public void getOverviewData(){
+      //presenterList.get(2).get
     }
 }

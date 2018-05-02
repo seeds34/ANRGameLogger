@@ -2,14 +2,10 @@ package org.seeds.anrgamelogger.addgame.views;
 
 import android.app.Activity;
 import android.widget.FrameLayout;
-
-import org.seeds.anrgamelogger.model.IdentityList;
-
+import io.reactivex.Observable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.Map;
-
-import io.reactivex.Observable;
+import org.seeds.anrgamelogger.model.IdentityList;
 
 /**
  * Created by Tomas Seymour-Turner on 06/01/2018.
@@ -28,4 +24,6 @@ public abstract class AddGameBaseView extends FrameLayout {
   public void setIdApadters(IdentityList idList){};
 
   public abstract Observable<Object> save();
+
+  public void setUpNameAutoComplete(ArrayList<String> playerList) {}
 }

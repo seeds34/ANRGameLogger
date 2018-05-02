@@ -3,13 +3,13 @@ package org.seeds.anrgamelogger.model;
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
+import org.seeds.anrgamelogger.addgame.ViewData;
+
 /**
  * Created by Tomas Seymour-Turner on 19/03/2017.
  */
 
-public class LocalLoggedGame implements Parcelable
-
-{
+public class LocalLoggedGame implements Parcelable, ViewData {
 
     private String gameID;
     private Player playerOne;
@@ -19,6 +19,12 @@ public class LocalLoggedGame implements Parcelable
     private String playedDate;
     private String winnerFlag = "Y";
 
+
+    public LocalLoggedGame(String locationName,  String playedDate, String winType){
+        this.locationName = locationName;
+        this.playedDate = playedDate;
+        this.winType = winType;
+    }
     public LocalLoggedGame(Player playerOne, Player playerTwo, String locationName,  String playedDate, String gameID, String winType) {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;

@@ -2,22 +2,35 @@ package org.seeds.anrgamelogger.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
+import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
+import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
 import java.io.Serializable;
+import org.seeds.anrgamelogger.addgame.ViewData;
+import org.seeds.anrgamelogger.database.contracts.PlayersContract;
+import org.seeds.anrgamelogger.database.contracts.PlayersContract.PlayersColumns;
 
 /**
  * Created by Tomas Seymour-Turner on 19/03/2017.
  */
 
-public class Player implements Serializable{
+@StorIOContentResolverType(uri = "content://" + PlayersContract.CONTENT_AUTHORITY + "/" + PlayersContract.PATH_PLAYERS)
+public class Player implements Serializable, ViewData {
 
-    private String name;
+    @StorIOContentResolverColumn(name = PlayersColumns.PLAYER_NAME, key = true)
+    public String name;
+
     private String deck;
     private int score;
     private String winnerFlag;
     private static final long SERAILVERSIONUID = 1L;
     private  byte[]  imageByteArray;
     private String identityName;
+
+    public Player(){}
+
+    public Player(String name){
+        this.name = name;
+    }
 
     public Player(String name, String deck) {
         this.name = name;

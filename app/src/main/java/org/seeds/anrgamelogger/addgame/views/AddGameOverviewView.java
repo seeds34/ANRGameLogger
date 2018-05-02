@@ -1,18 +1,13 @@
 package org.seeds.anrgamelogger.addgame.views;
 
 import android.app.Activity;
-import android.util.Log;
 import android.widget.Button;
-import android.widget.Toast;
-
-import com.jakewharton.rxbinding2.view.RxView;
-
-import org.seeds.anrgamelogger.R;
-
+import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+import com.jakewharton.rxbinding2.view.RxView;
 import io.reactivex.Observable;
+import org.seeds.anrgamelogger.R;
 
 /**
  * Created by Tomas Seymour-Turner on 04/01/2018.
@@ -30,6 +25,12 @@ public class AddGameOverviewView extends AddGameBaseView{
   @BindView(R.id.btn_save)
   public Button btn_save;
 
+  @BindView(R.id.txt_location)
+  public EditText location;
+
+  @BindView(R.id.et_dateChooser)
+  public EditText playedDate;
+
   private final int viewNo = R.layout.view_addgame_overview;
 
   public AddGameOverviewView(Activity activity){
@@ -46,15 +47,16 @@ public class AddGameOverviewView extends AddGameBaseView{
 
   public void onCreate(){}
 
-//  @Override
-//  @OnClick(R.id.btn_save)
-//  public void savePress(){
-//    Log.d(LOG_TAG, "Save Button Pressed");
-//    Toast.makeText(this.getContext(), "Saved", Toast.LENGTH_LONG).show();
-//  }
-
     @Override
-  public Observable<Object> save(){
+    public Observable<Object> save(){
     return RxView.clicks(btn_save);
+  }
+
+    public String getLocation(){
+      return location.getText().toString();
+    }
+
+  public String getPlayedDate(){
+    return playedDate.getText().toString();
   }
 }

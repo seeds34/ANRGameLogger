@@ -1,8 +1,8 @@
 package org.seeds.anrgamelogger.addgame;
 
+import android.util.Log;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 import org.seeds.anrgamelogger.model.IdentityList;
@@ -37,7 +37,11 @@ public class AddGamePresenter {
             viewTitleList.add(ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
         }
 
-        view.setUpPagerViews(viewTitleList);
+        ArrayList<String> playerList = model.getPlayerList();
+
+        Log.d(LOG_TAG, "Player List is " + playerList.toString());
+
+        view.setUpPagerViews(viewTitleList, playerList);
         IdentityList idList = new IdentityList(model.getListOfIdenties());
         view.setIDSelecters(idList);
         view.startPageViewer();
@@ -53,7 +57,8 @@ public class AddGamePresenter {
 
     public Disposable observerSave(){
         return view.save()
-                .subscribe();
+            .map(a ->"Saving")
+                .subscribe( a -> view.showMessage(a));
     }
 
     public void setViewData(){

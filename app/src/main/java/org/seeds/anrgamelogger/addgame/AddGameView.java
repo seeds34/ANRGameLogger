@@ -7,15 +7,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.Toast;
-
-import com.jakewharton.rxbinding2.view.RxView;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
-
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.addgame.subpresenters.OverviewSubPresenter;
 import org.seeds.anrgamelogger.addgame.subpresenters.PlayerSubPresenter;
@@ -57,9 +52,9 @@ public class AddGameView extends FrameLayout {
         tabLayout.setupWithViewPager(addGameViewPager);
     }
 
-    public void setUpPagerViews(ArrayList<String> viewTitleList){
-        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, new AddGamePlayerView(activity), viewTitleList.get(0)) );
-        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, new AddGamePlayerView(activity), viewTitleList.get(1)) );
+    public void setUpPagerViews(ArrayList<String> viewTitleList, ArrayList<String> playerList){
+        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, new AddGamePlayerView(activity), viewTitleList.get(0),playerList) );
+        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, new AddGamePlayerView(activity), viewTitleList.get(1), playerList) );
         addGamePagerAdapter.addView(new OverviewSubPresenter(activity, new AddGameOverviewView(activity)) );
     }
 //ArrayList<String> viewTitleList
@@ -76,7 +71,7 @@ public class AddGameView extends FrameLayout {
     }
 
     public Observable<Object> save() {
-        return addGamePagerAdapter.obsereSave();
+        return addGamePagerAdapter.observeSave();
     }
     public void showMessage(String messageIn){
         Log.d(LOG_TAG, "Game Save Preesed");
