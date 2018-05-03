@@ -21,6 +21,11 @@ import org.seeds.anrgamelogger.model.CardImageStorIOContentResolverPutResolver;
 import org.seeds.anrgamelogger.model.CardStorIOContentResolverDeleteResolver;
 import org.seeds.anrgamelogger.model.CardStorIOContentResolverGetResolver;
 import org.seeds.anrgamelogger.model.CardStorIOContentResolverPutResolver;
+import org.seeds.anrgamelogger.model.Player;
+import org.seeds.anrgamelogger.model.PlayerStorIOContentResolverDeleteResolver;
+import org.seeds.anrgamelogger.model.PlayerStorIOContentResolverGetResolver;
+import org.seeds.anrgamelogger.model.PlayerStorIOContentResolverPutResolver;
+
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.moshi.MoshiConverterFactory;
@@ -58,6 +63,11 @@ public class ApplicationModule {
             .putResolver(new CardImageStorIOContentResolverPutResolver())
             .getResolver(new CardImageStorIOContentResolverGetResolver())
             .deleteResolver(new CardImageStorIOContentResolverDeleteResolver())
+            .build())
+            .addTypeMapping(Player.class, ContentResolverTypeMapping.<Player>builder()
+            .putResolver(new PlayerStorIOContentResolverPutResolver())
+            .getResolver(new PlayerStorIOContentResolverGetResolver())
+            .deleteResolver(new PlayerStorIOContentResolverDeleteResolver())
             .build())
             .build();
   }

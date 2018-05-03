@@ -9,6 +9,8 @@ import io.reactivex.schedulers.Schedulers;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import okhttp3.Response;
 import org.seeds.anrgamelogger.application.DatabaseModel;
@@ -41,6 +43,13 @@ public class SetupDatabaseDataModel {
         .subscribe(i -> insertIdentityData(i));
     }
 
+    //TODO: Remove at later date
+    public void setUpTestUsers(){
+        ArrayList<String> playerList = new ArrayList<>(Arrays.asList(new String[]{"Tomas","Zoe","Greg","Dan","Colin","Scott"}));
+        for(String s : playerList){
+            databaseModel.insertPlayer(new Player(s));
+        }
+    }
 
     public void insertIdentityData(CardList identitiesIn) {
 

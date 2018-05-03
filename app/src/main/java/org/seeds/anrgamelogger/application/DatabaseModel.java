@@ -126,10 +126,11 @@ public class DatabaseModel {
   }
 
   public PutResult insertPlayer(Player playerIn){
-    return storIOContentResolver.put()
-        .object(playerIn)
-        .prepare()
-        .executeAsBlocking();
+    return storIOContentResolver
+            .put()
+            .object(playerIn)
+            .prepare()
+            .executeAsBlocking();
   }
 
 //Genric soultion ideas
