@@ -6,6 +6,8 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Spinner;
+import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemSelected;
@@ -30,13 +32,18 @@ public class AddGamePlayerView extends AddGameBaseView{
   @BindView(R.id.identitiesImageViewPager)
   ViewPager identitiesImageViewPager;
 
+  @BindView(R.id.addGamepalyerName)
+  AutoCompleteTextView playerName;
+
+  @BindView(R.id.deckName)
+  AutoCompleteTextView deckName;
+
+  @BindView(R.id.addGameDeckVer)
+  TextView deckVer;
+
   private AddGameIdentitesPageAdapter identityImageViewAdapter;
   private ArrayAdapter identityNameArrayAdapter;
   private Activity activity;
-
-  @BindView(R.id.addGamepalyerName)
-  public AutoCompleteTextView playerName;
-
   private ArrayAdapter<String> adapter;
 
   public AddGamePlayerView(Activity activity){
@@ -94,6 +101,22 @@ public class AddGamePlayerView extends AddGameBaseView{
   @Override
   public Observable<Object> save() {
     return null;
+  }
+
+  public String getIdentitiesName() {
+    return identitiesSpinner.getSelectedItem().toString();
+  }
+
+  public String getPlayerName() {
+    return playerName.getText().toString();
+  }
+
+  public String getDeckName() {
+    return deckName.getText().toString();
+  }
+
+  public String getDeckVer() {
+    return deckVer.getText().toString();
   }
 
   //  @Override

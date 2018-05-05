@@ -44,8 +44,8 @@ public class SetupDatabaseDataModel {
     }
 
     //TODO: Remove at later date
-    public void setUpTestUsers(){
-        ArrayList<String> playerList = new ArrayList<>(Arrays.asList(new String[]{"Tomas","Zoe","Greg","Dan","Colin","Scott"}));
+    public void setUpTestPlayers(){
+        ArrayList<String> playerList = new ArrayList<>(Arrays.asList(new String[]{"Tomas","Zoe","Greg","Dan","Colin","Scott","Simon","Bill", "Tim", "Kyle"}));
         for(String s : playerList){
             databaseModel.insertPlayer(new Player(s));
         }

@@ -36,6 +36,12 @@ public class Player implements Serializable, ViewData {
         this.deck = deck;
     }
 
+    public Player(String name, String deck, String identityName) {
+        this.name = name;
+        this.deck = deck;
+        this.identityName = identityName;
+    }
+
     public Player(String name, String deck, int score,  byte[]  imageByteArray, String winnerFlag, String identityName) {
         this.name = name;
         this.deck = deck;

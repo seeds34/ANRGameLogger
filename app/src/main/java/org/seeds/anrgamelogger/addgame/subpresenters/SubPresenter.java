@@ -10,20 +10,17 @@ import io.reactivex.Observable;
 
 public abstract class SubPresenter {
 
-    protected AddGameBaseView view;
+    //protected AddGameBaseView view;
     private Activity activity;
     private String title;
 
-    public SubPresenter(Activity activity, AddGameBaseView view, String title) {
+    public SubPresenter(Activity activity, String title) {
         this.activity = activity;
-        this.view = view;
         this.title = title;
         onCreateView();
     }
 
-    public View getView() {
-        return view;
-    }
+    public abstract View getView();
 
     public abstract void onCreateView();
 
