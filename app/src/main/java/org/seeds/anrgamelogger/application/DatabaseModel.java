@@ -14,7 +14,7 @@ import org.seeds.anrgamelogger.database.contracts.LoggedGamesContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract;
 import org.seeds.anrgamelogger.model.Card;
 import org.seeds.anrgamelogger.model.CardImage;
-import org.seeds.anrgamelogger.model.Player;
+import org.seeds.anrgamelogger.buisnessobjects.Player;
 
 /**
  * Created by Tomas Seymour-Turner on 21/02/2018.

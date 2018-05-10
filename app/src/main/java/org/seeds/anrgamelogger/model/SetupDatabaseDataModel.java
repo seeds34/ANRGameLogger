@@ -4,7 +4,6 @@ package org.seeds.anrgamelogger.model;
 import android.util.Log;
 import com.pushtorefresh.storio3.contentresolver.operations.put.PutResult;
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -15,6 +14,7 @@ import java.util.List;
 import okhttp3.Response;
 import org.seeds.anrgamelogger.application.DatabaseModel;
 import org.seeds.anrgamelogger.application.NetworkModel;
+import org.seeds.anrgamelogger.buisnessobjects.Player;
 
 /**
  * Created by Tomas Seymour-Turner on 09/01/2018.

@@ -70,7 +70,7 @@ public class GameListRecyclerViewAdaptor extends android.support.v7.widget.Recyc
 //        holder.playerOneName.setText(cursor.getString(cursor.getColumnIndex(LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_NAME)));
 //        holder.playerTwoName.setText(cursor.getString(cursor.getColumnIndex(LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_NAME)));
 //        holder.playedDate.setText(cursor.getString(cursor.getColumnIndex(LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYED_DATE)));
-//        holder.location.setText(cursor.getString(cursor.getColumnIndex(LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.LOCATION_NAME)));
+//        holder.Location.setText(cursor.getString(cursor.getColumnIndex(LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.LOCATION_NAME)));
 //
 //        holder.gameNo.setText(GAME_NO_TEXT + cursor.getString(cursor.getColumnIndex(LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID)));
 //

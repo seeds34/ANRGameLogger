@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.model;
+package org.seeds.anrgamelogger.buisnessobjects;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract;
-import org.seeds.anrgamelogger.database.contracts.PlayersContract.PlayersColumns;
+import org.seeds.anrgamelogger.model.ViewData;
 
 /**
  * Created by Tomas Seymour-Turner on 19/03/2017.

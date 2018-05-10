@@ -21,7 +21,7 @@ import org.seeds.anrgamelogger.model.CardImageStorIOContentResolverPutResolver;
 import org.seeds.anrgamelogger.model.CardStorIOContentResolverDeleteResolver;
 import org.seeds.anrgamelogger.model.CardStorIOContentResolverGetResolver;
 import org.seeds.anrgamelogger.model.CardStorIOContentResolverPutResolver;
-import org.seeds.anrgamelogger.model.Player;
+import org.seeds.anrgamelogger.buisnessobjects.Player;
 import org.seeds.anrgamelogger.model.PlayerStorIOContentResolverDeleteResolver;
 import org.seeds.anrgamelogger.model.PlayerStorIOContentResolverGetResolver;
 import org.seeds.anrgamelogger.model.PlayerStorIOContentResolverPutResolver;

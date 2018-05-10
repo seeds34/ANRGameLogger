@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.seeds.anrgamelogger.application.DatabaseModel;
 import org.seeds.anrgamelogger.model.Card;
-import org.seeds.anrgamelogger.model.Player;
+import org.seeds.anrgamelogger.buisnessobjects.Player;
 
 
 /**

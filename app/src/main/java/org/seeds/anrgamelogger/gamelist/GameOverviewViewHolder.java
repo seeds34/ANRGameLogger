@@ -46,7 +46,7 @@ public class GameOverviewViewHolder extends RecyclerView.ViewHolder {
 //        playerOneName = (TextView) view.findViewById(R.id.playerOneName);
 //        playerTwoName = (TextView) view.findViewById(R.id.playerTwoName);
 //        playedDate = (TextView) view.findViewById(R.id.playeddate);
-//        location = (TextView) view.findViewById(R.id.location);
+//        Location = (TextView) view.findViewById(R.id.Location);
 //        playerOneIDImage = (ImageView) view.findViewById(R.id.playerIneIDImage);
 //        playerTwoIDImage = (ImageView) view.findViewById(R.id.playerTwoIDImage);
 //        gameNo = (TextView) view.findViewById(R.id.gameNumber);

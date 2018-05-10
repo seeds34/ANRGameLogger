@@ -4,6 +4,8 @@ import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.seeds.anrgamelogger.buisnessobjects.Player;
+
 /**
  * Created by Tomas Seymour-Turner on 19/03/2017.
  */

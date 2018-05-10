@@ -3,6 +3,7 @@ package org.seeds.anrgamelogger.model;
 import android.content.ContentResolver;
 import android.database.Cursor;
 
+import org.seeds.anrgamelogger.buisnessobjects.Player;
 import org.seeds.anrgamelogger.database.contracts.LoggedGamesFlatViewContract;
 
 import java.util.ArrayList;

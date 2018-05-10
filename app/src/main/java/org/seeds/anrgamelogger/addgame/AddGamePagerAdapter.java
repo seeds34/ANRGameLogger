@@ -9,7 +9,6 @@ import java.util.List;
 import org.seeds.anrgamelogger.addgame.subpresenters.PlayerSubPresenter;
 import org.seeds.anrgamelogger.addgame.subpresenters.SubPresenter;
 import org.seeds.anrgamelogger.model.IdentityList;
-import org.seeds.anrgamelogger.model.Player;
 
 /**
  * Created by Tomas Seymour-Turner on 04/01/2018.
