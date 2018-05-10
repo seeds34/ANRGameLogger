@@ -3,6 +3,7 @@ package org.seeds.anrgamelogger.addgame.subpresenters;
 import android.app.Activity;
 import android.view.View;
 
+import org.seeds.anrgamelogger.addgame.PlayerViewData;
 import org.seeds.anrgamelogger.addgame.views.AddGameBaseView;
 import org.seeds.anrgamelogger.addgame.views.AddGamePlayerView;
 import org.seeds.anrgamelogger.model.IdentityList;
@@ -34,12 +35,14 @@ public class PlayerSubPresenter extends SubPresenter{
         view.setIdApadters(idList);
     }
 
-    public Player createPlayer(){
+    public PlayerViewData createPlayer(){
 
-        return  new Player(
+        return  new PlayerViewData(
+                view.getIdentitiesName(),
                 view.getPlayerName(),
                 view.getDeckName(),
-                view.getIdentitiesName()
+                Integer.toString(1),
+                getTitle()
         );
     }
 

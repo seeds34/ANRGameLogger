@@ -5,6 +5,8 @@ import android.os.Parcelable;
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
 import java.io.Serializable;
+
+import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract.PlayersColumns;
 
@@ -15,15 +17,15 @@ import org.seeds.anrgamelogger.database.contracts.PlayersContract.PlayersColumns
 @StorIOContentResolverType(uri = "content://" + PlayersContract.CONTENT_AUTHORITY + "/" + PlayersContract.PATH_PLAYERS)
 public class Player implements Serializable, ViewData {
 
-    @StorIOContentResolverColumn(name = PlayersColumns.PLAYER_NAME, key = true)
+    @StorIOContentResolverColumn(name = IdentitiesContract.IdentitiesColumns.IDENTITY_NAME, key = true)
     public String name;
-
     private String deck;
     private int score;
     private String winnerFlag;
     private static final long SERAILVERSIONUID = 1L;
     private  byte[]  imageByteArray;
     private String identityName;
+    private String side;
 
     public Player(){}
 
@@ -36,10 +38,11 @@ public class Player implements Serializable, ViewData {
         this.deck = deck;
     }
 
-    public Player(String name, String deck, String identityName) {
+    public Player(String name, String deck, String identityName, String side) {
         this.name = name;
         this.deck = deck;
         this.identityName = identityName;
+        this.side = side;
     }
 
     public Player(String name, String deck, int score,  byte[]  imageByteArray, String winnerFlag, String identityName) {
