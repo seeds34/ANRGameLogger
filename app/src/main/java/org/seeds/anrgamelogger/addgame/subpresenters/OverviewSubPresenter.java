@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.view.View;
 
 import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.addgame.OverviewViewData;
+import org.seeds.anrgamelogger.addgame.PlayerViewData;
 import org.seeds.anrgamelogger.addgame.views.AddGameOverviewView;
 import org.seeds.anrgamelogger.model.IdentityList;
 
@@ -31,7 +33,23 @@ public class OverviewSubPresenter extends SubPresenter{
 
     }
 
+    @Override
     public Observable<Object> observeSave(){
         return view.save();
+    }
+
+    @Override
+    public OverviewViewData getGameOverview(){
+        return new OverviewViewData(
+            view.getLocation(),
+            view.getPlayedDate(),
+            view.getWiningSide(),
+            view.getWinType()
+        );
+    }
+
+    @Override
+    public PlayerViewData getPlayerData() {
+        return null;
     }
 }

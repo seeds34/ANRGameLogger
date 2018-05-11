@@ -57,12 +57,8 @@ public class AddGameView extends FrameLayout {
         addGamePagerAdapter.addView(new PlayerSubPresenter(activity, new AddGamePlayerView(activity), viewTitleList.get(1), playerList) );
         addGamePagerAdapter.addView(new OverviewSubPresenter(activity, new AddGameOverviewView(activity)) );
     }
-//ArrayList<String> viewTitleList
-    public void startPageViewer(){
-//        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, findViewById(R.id.playerOneView), viewTitleList.get(0)) );
-//        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, findViewById(R.id.playerTwoView), viewTitleList.get(1)) );
-//        addGamePagerAdapter.addView(new OverviewSubPresenter(activity, findViewById(R.id.overviewView)) );
 
+    public void startPageViewer(){
         addGameViewPager.setAdapter(addGamePagerAdapter);
     }
 
@@ -73,41 +69,22 @@ public class AddGameView extends FrameLayout {
     public Observable<Object> save() {
         return addGamePagerAdapter.observeSave();
     }
+
     public void showMessage(String messageIn){
         Log.d(LOG_TAG, "Game Save Preesed");
         Toast.makeText(this.getContext(), messageIn, Toast.LENGTH_LONG).show();
     }
 
+    public PlayerViewData getPlayerOne(){
+        return addGamePagerAdapter.getPlayerOne();
+    }
 
-//    public void setImageSpinner(int side, LinkedHashMap<String, byte[]> imageListIn) {
-//        //addGamePagerAdapter.setImageSpinner(side,imageListIn);
-//    }
-//    public Observable<Object> saveGame(){
-//        return addGamePagerAdapter.saveGame();
-//    }
-//public void setIDNameSpinner(int side, ArrayList<String> idNameList) {
-//    //addGamePagerAdapter.setIDNameSpinner(side, idNameList);
-//}
-//    public class GetIdentityData extends AsyncTask<String, Void, String> {
-//
-//        @Override
-//        protected String doInBackground(String... strings) {
-//            Log.v(LOG_TAG, "Started Proccessing Data");
-//            Context context = getApplicationContext();
-//
-//            Log.v(LOG_TAG, "Finished Proccessing Data");
-//
-//
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String s) {
-//
-//        }
-//    }
+    public PlayerViewData getPlayerTwo(){
+        return addGamePagerAdapter.getPlayerTwo();
+    }
 
-
-
+    public OverviewViewData getGameOverview(){
+        return addGamePagerAdapter.getGameOverview();
+    }
 
 }

@@ -60,11 +60,15 @@ public class AddGamePagerAdapter extends PagerAdapter {
       return presenterList.get(2).observeSave();
     }
 
-    public void getOverviewData(){
-      //presenterList.get(2).get
+    public PlayerViewData getPlayerOne(){
+      return presenterList.get(0).getPlayerData();
     }
 
-    public PlayerViewData getPlayer(){
-      return presenterList.get(1).createPlayer();
+    public PlayerViewData getPlayerTwo(){
+      return presenterList.get(1).getPlayerData();
+    }
+
+    public OverviewViewData getGameOverview(){
+      return presenterList.get(2).getGameOverview();
     }
 }

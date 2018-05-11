@@ -57,8 +57,16 @@ public class AddGamePresenter {
 
     public Disposable observerSave(){
         return view.save()
-            .map(a ->"Saving")
-                .subscribe( a -> view.showMessage(a));
+                .subscribe( a ->
+                    addGame()
+                );
+    }
+
+    private void addGame() {
+        view.getGameOverview();
+        view.getPlayerOne();
+        view.getPlayerTwo();
+
     }
 
     public void setViewData(){
