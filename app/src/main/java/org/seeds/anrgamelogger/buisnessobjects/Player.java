@@ -5,20 +5,28 @@ import android.os.Parcelable;
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
 import java.io.Serializable;
-
-import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract;
+import org.seeds.anrgamelogger.database.contracts.PlayersContract.PlayersColumns;
 import org.seeds.anrgamelogger.model.ViewData;
 
 /**
  * Created by Tomas Seymour-Turner on 19/03/2017.
  */
 
+
+//TODO: Need to change so its only refrance to Player DB but need to change all the LOCAL LOGGED GAME Stuff and logic
 @StorIOContentResolverType(uri = "content://" + PlayersContract.CONTENT_AUTHORITY + "/" + PlayersContract.PATH_PLAYERS)
 public class Player implements Serializable, ViewData {
 
-    @StorIOContentResolverColumn(name = IdentitiesContract.IdentitiesColumns.IDENTITY_NAME, key = true)
+    @StorIOContentResolverColumn(name = PlayersColumns.PLAYER_NAME, key = true)
     public String name;
+
+    @StorIOContentResolverColumn(name = PlayersColumns.JNET_ID)
+    public String jnetName;
+
+    @StorIOContentResolverColumn(name = PlayersColumns.PLAYER_NICK_NAME)
+    public String nickName;
+
     private String deck;
     private int score;
     private String winnerFlag;
@@ -31,6 +39,12 @@ public class Player implements Serializable, ViewData {
 
     public Player(String name){
         this.name = name;
+    }
+
+    public Player(String name, String jnetName, String nickName) {
+        this.name = name;
+        this.jnetName = jnetName;
+        this.nickName = nickName;
     }
 
     public Player(String name, String deck) {
@@ -72,6 +86,26 @@ public class Player implements Serializable, ViewData {
 
     public  byte[]  getImageByteArray(){
         return imageByteArray;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getJnetName() {
+        return jnetName;
+    }
+
+    public void setJnetName(String jnetName) {
+        this.jnetName = jnetName;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     /*Genrated at: http://www.parcelabler.com/ */

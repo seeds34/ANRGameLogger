@@ -14,6 +14,7 @@ import java.util.List;
 import okhttp3.Response;
 import org.seeds.anrgamelogger.application.DatabaseModel;
 import org.seeds.anrgamelogger.application.NetworkModel;
+import org.seeds.anrgamelogger.buisnessobjects.Identity;
 import org.seeds.anrgamelogger.buisnessobjects.Player;
 
 /**
@@ -68,8 +69,8 @@ public class SetupDatabaseDataModel {
     public void insertIdentityImages() {
 
         Log.d(LOG_TAG,"(1) Add Images to IDs");
-        List<Card> cardImageList = databaseModel.getIdentities();
-        for(Card c : cardImageList){
+        List<Identity> cardImageList = databaseModel.getAllIdentities();
+        for(Identity c : cardImageList){
             Log.d(LOG_TAG, "(2) " +c.toString());
             downloadImageFromNRDB(c.getPack_code(), c.getCode(), c.getPos());
         }

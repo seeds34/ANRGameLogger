@@ -1,23 +1,22 @@
 package org.seeds.anrgamelogger.model;
 
-import org.seeds.anrgamelogger.addgame.views.AddGameBaseView;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.seeds.anrgamelogger.buisnessobjects.Identity;
 
 public class IdentityList  {
 
    // ArrayList<Card> identities;
-    List<Card> identities;
+    List<Identity> identities;
 
-    public IdentityList(List<Card> listIn){
+    public IdentityList(List<Identity> listIn){
         identities = listIn;
     }
 
     public IdentityList getOneSidedList(String sideIn){
         //identities.stream().filter(c -> c.getSide_code().equals(sideIn));
         ArrayList temp = new ArrayList();
-        for (Card c : identities) {
+        for (Identity c : identities) {
             if(c.getSide_code().equals(sideIn)){
                 temp.add(c);
             }
@@ -37,7 +36,7 @@ public class IdentityList  {
 
     public ArrayList<String> getListOfNames(){
         ArrayList ret = new ArrayList();
-        for (Card c : identities) {
+        for (Identity c : identities) {
             ret.add(c.getName());
         }
         return ret;

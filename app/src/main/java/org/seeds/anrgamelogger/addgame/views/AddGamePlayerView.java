@@ -35,7 +35,7 @@ public class AddGamePlayerView extends AddGameBaseView{
   @BindView(R.id.addGamepalyerName)
   AutoCompleteTextView playerName;
 
-  @BindView(R.id.deckName)
+  @BindView(R.id.addGameDeckName)
   AutoCompleteTextView deckName;
 
   @BindView(R.id.addGameDeckVer)

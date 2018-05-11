@@ -2,11 +2,10 @@ package org.seeds.anrgamelogger.addgame.subpresenters;
 
 import android.app.Activity;
 import android.view.View;
-
-import org.seeds.anrgamelogger.addgame.views.AddGameBaseView;
-import org.seeds.anrgamelogger.model.IdentityList;
-
 import io.reactivex.Observable;
+import org.seeds.anrgamelogger.addgame.OverviewViewData;
+import org.seeds.anrgamelogger.addgame.PlayerViewData;
+import org.seeds.anrgamelogger.model.IdentityList;
 
 public abstract class SubPresenter {
 
@@ -31,4 +30,8 @@ public abstract class SubPresenter {
     public Observable<Object> observeSave(){return null;}
 
     public abstract void setUpIdentitySpiner(IdentityList oneSidedList);
+
+    public abstract PlayerViewData getPlayerData();
+    public abstract OverviewViewData getGameOverview();
+
 }

@@ -5,7 +5,8 @@ import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
 import java.util.ArrayList;
 import java.util.List;
 import org.seeds.anrgamelogger.application.DatabaseModel;
-import org.seeds.anrgamelogger.model.Card;
+import org.seeds.anrgamelogger.buisnessobjects.Identity;
+import org.seeds.anrgamelogger.buisnessobjects.Location;
 import org.seeds.anrgamelogger.buisnessobjects.Player;
 
 
@@ -87,9 +88,9 @@ public class AddGameModel {
     }
 
 
-    public List<Card> getListOfIdenties(){
+    public List<Identity> getListOfIdenties(){
 
-        return databaseModel.getIdentities();
+        return databaseModel.getAllIdentities();
 //        List<Card> ret;
 //        String sideName = activity.getString(side);
 //
@@ -107,12 +108,24 @@ public class AddGameModel {
 //        return ret;
     }
 
+    public Identity getIdentity(String identityName){
+        return databaseModel.getIdentity(identityName);
+    }
+
     public ArrayList<String> getPlayerList() {
-        List<Player> temp = databaseModel.getPlayers();
+        List<Player> temp = databaseModel.getAllPlayers();
         ArrayList<String> ret = new ArrayList<>();
         for(Player p : temp){
             ret.add(p.getName());
         }
        return ret;
+    }
+
+    public Player getPlayer(String playerName){
+        return databaseModel.getPlayer(playerName);
+    }
+
+    private Location getLocation(String locationName){
+        return databaseModel.getLocation(locationName);
     }
 }

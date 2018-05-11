@@ -59,4 +59,12 @@ public class AddGameOverviewView extends AddGameBaseView{
   public String getPlayedDate(){
     return playedDate.getText().toString();
   }
+
+  public String getWinType() {
+    return "ABC";
+  }
+
+  public String getWiningSide() {
+    return "ABC";
+  }
 }

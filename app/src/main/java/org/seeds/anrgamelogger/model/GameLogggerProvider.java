@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import org.seeds.anrgamelogger.database.GameLoggerDatabase;
+import org.seeds.anrgamelogger.database.GameLoggerDatabase.Tables;
 import org.seeds.anrgamelogger.database.contracts.DecksContract;
 import org.seeds.anrgamelogger.database.contracts.GameNotesContract;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
@@ -57,8 +58,8 @@ public class GameLogggerProvider extends ContentProvider {
     //Todo: Read what this does
     private static UriMatcher buildUriMatcher(){
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
-        String authority = IdentitiesContract.CONTENT_AUTHORITY;
 
+        String authority = IdentitiesContract.CONTENT_AUTHORITY;
         matcher.addURI(authority, "identities", IDENTITIES );
         matcher.addURI(authority, "identities/*", IDENTITIES_ID );
 
@@ -223,8 +224,19 @@ public class GameLogggerProvider extends ContentProvider {
 
         switch (MATCH){
             case IDENTITIES:
-                Log.d(LOG_TAG,"Match No: " + String.valueOf(MATCH));
                 ret = db.update(GameLoggerDatabase.Tables.IDENTITIES, contentValues, selection, selectionArgs);
+                break;
+            case DECK:
+                ret = db.update(Tables.DECKS, contentValues, selection, selectionArgs);
+                break;
+            case PLAYER:
+                ret = db.update(Tables.PLAYERS, contentValues, selection, selectionArgs);
+                break;
+            case LOGGEDGAME:
+                ret = db.update(Tables.LOGGED_GAMES, contentValues, selection, selectionArgs);
+                break;
+            case LOCATION:
+                ret = db.update(Tables.LOCATIONS, contentValues, selection, selectionArgs);
                 break;
             default:break;
 
@@ -251,7 +263,6 @@ public class GameLogggerProvider extends ContentProvider {
                 recordID = db.insertOrThrow(GameLoggerDatabase.Tables.LOCATIONS, null, contentValues);
                 ret = LocationsContract.Location.buildLocationUri(String.valueOf(recordID));
                 break;
-
             case PLAYER:
                 Log.d(LOG_TAG,"Match No: " + String.valueOf(MATCH));
                 recordID = db.insertOrThrow(GameLoggerDatabase.Tables.PLAYERS, null, contentValues);
@@ -278,7 +289,7 @@ public class GameLogggerProvider extends ContentProvider {
 
         db.close();
         if(ret == null){
-            throw new IllegalArgumentException("insert Oprations: Unkown Uri " + uri);
+            throw new IllegalArgumentException("insert Operations: Unknown Uri " + uri);
         }else{
             return ret;
         }

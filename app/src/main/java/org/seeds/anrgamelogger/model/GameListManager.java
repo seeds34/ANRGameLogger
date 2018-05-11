@@ -65,10 +65,11 @@ public class GameListManager {
                     String playerTwoWinFlag = queryResult.getString(queryResult.getColumnIndex(LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_WIN_FLAG));
                     byte[]  playerTwoIDImage = queryResult.getBlob(queryResult.getColumnIndex(LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_ID_IMAGE));
 
-                    playerOne = new Player(playerOneName,playerOneDeckName, playerOnceScore, playerOneIDImage, playerOneWinFlag, playerOneIDName);
-                    playerTwo = new Player(playerTwoName,playerTwoDeckName, playerTwoeScore, playerTwoIDImage, playerTwoWinFlag, playerTwoIDName);
+                    //TODO: Shit need to fix as i've now broken the "Load Logged Games Part"
+                    //playerOne = new Player(playerOneName,playerOneDeckName, playerOnceScore, playerOneIDImage, playerOneWinFlag, playerOneIDName);
+                    //playerTwo = new Player(playerTwoName,playerTwoDeckName, playerTwoeScore, playerTwoIDImage, playerTwoWinFlag, playerTwoIDName);
 
-                    loggedGamesList.add(new LocalLoggedGame(playerOne, playerTwo, location, playedDate, gameID, winType));
+                    //loggedGamesList.add(new LocalLoggedGame(playerOne, playerTwo, location, playedDate, gameID, winType));
 
 
                 }while (queryResult.moveToNext());

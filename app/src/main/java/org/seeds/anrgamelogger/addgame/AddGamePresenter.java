@@ -5,6 +5,8 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
+import org.seeds.anrgamelogger.buisnessobjects.Deck;
+import org.seeds.anrgamelogger.buisnessobjects.Player;
 import org.seeds.anrgamelogger.model.IdentityList;
 
 /**
@@ -57,8 +59,32 @@ public class AddGamePresenter {
 
     public Disposable observerSave(){
         return view.save()
-            .map(a ->"Saving")
-                .subscribe( a -> view.showMessage(a));
+                .subscribe( a ->
+                    addGame()
+                );
+    }
+
+    private void addGame() {
+
+
+        PlayerViewData pOneData = view.getPlayerOne();
+        PlayerViewData pTwoData = view.getPlayerTwo();
+
+        Player playerOne = model.getPlayer(pOneData.getPlayerNames());
+        if(playerOne == null){
+            playerOne = new Player(pOneData.getPlayerNames());
+        }
+
+
+
+        Deck pOneDeck = new Deck(pOneData.getDeckName());
+        Deck pTwoDeck = new Deck(pTwoData.getDeckName());
+
+        Player playerTwo = new Player(pTwoData.getPlayerNames());
+
+        view.getGameOverview();
+
+
     }
 
     public void setViewData(){

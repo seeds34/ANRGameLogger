@@ -8,13 +8,18 @@ import com.pushtorefresh.storio3.contentresolver.operations.put.PutResult;
 import com.pushtorefresh.storio3.contentresolver.operations.put.PutResults;
 import com.pushtorefresh.storio3.contentresolver.queries.Query;
 import java.util.List;
+import org.seeds.anrgamelogger.buisnessobjects.Identity;
+import org.seeds.anrgamelogger.buisnessobjects.Location;
+import org.seeds.anrgamelogger.buisnessobjects.Player;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
+import org.seeds.anrgamelogger.database.contracts.IdentitiesContract.IdentitiesColumns;
 import org.seeds.anrgamelogger.database.contracts.LocationsContract;
+import org.seeds.anrgamelogger.database.contracts.LocationsContract.LocationsColumns;
 import org.seeds.anrgamelogger.database.contracts.LoggedGamesContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract;
+import org.seeds.anrgamelogger.database.contracts.PlayersContract.PlayersColumns;
 import org.seeds.anrgamelogger.model.Card;
 import org.seeds.anrgamelogger.model.CardImage;
-import org.seeds.anrgamelogger.buisnessobjects.Player;
 
 /**
  * Created by Tomas Seymour-Turner on 21/02/2018.
@@ -26,7 +31,7 @@ public class DatabaseModel {
   private StorIOContentResolver storIOContentResolver;
 
   public DatabaseModel(StorIOContentResolver storIOContentResolverIn){
-    storIOContentResolver = storIOContentResolverIn;
+      storIOContentResolver = storIOContentResolverIn;
   }
 
   public boolean isIdentitiesTableEmpty(){
@@ -71,10 +76,12 @@ public class DatabaseModel {
     return ret;
   }
 
-  public List<Card> getIdentities(){
+  //----------  Identities ----------//
+
+  public List<Identity> getAllIdentities(){
     return storIOContentResolver
         .get()
-        .listOfObjects(Card.class)
+        .listOfObjects(Identity.class)
         .withQuery(Query.builder()
             .uri(IdentitiesContract.URI_TABLE)
                 .sortOrder(IdentitiesContract.IdentitiesColumns.IDENTITY_FACTION + " asc")
@@ -83,6 +90,21 @@ public class DatabaseModel {
         .executeAsBlocking();
   }
 
+  public Identity getIdentity(String identityName){
+    return storIOContentResolver
+        .get()
+        .object(Identity.class)
+        .withQuery(Query.builder()
+            .uri(IdentitiesContract.URI_TABLE)
+            .where(IdentitiesColumns.IDENTITY_NAME + " = ?")
+            .whereArgs(identityName)
+            .sortOrder(IdentitiesContract.IdentitiesColumns.IDENTITY_FACTION + " asc")
+            .build())
+        .prepare()
+        .executeAsBlocking();
+  }
+
+  //Use Card instead of Identity Object as IDs will always be inserted 'remotely' not by user
   public PutResult insertIdentity(Card i) {
     return storIOContentResolver.put()
             .object(i)
@@ -90,7 +112,7 @@ public class DatabaseModel {
             .executeAsBlocking();
   }
 
-  public PutResults insertIdentities(List<Card> i) {
+  public PutResults insertIdentities(List<Identity> i) {
     return storIOContentResolver
             .put()
             .objects(i)
@@ -114,7 +136,11 @@ public class DatabaseModel {
             .executeAsBlocking();
   }
 
-  public List<Player> getPlayers() {
+  //No Get IdentityImage as Image is part of the identity.
+
+  //----------  Players ----------//
+
+  public List<Player> getAllPlayers() {
     return storIOContentResolver
         .get()
         .listOfObjects(Player.class)
@@ -125,12 +151,60 @@ public class DatabaseModel {
         .executeAsBlocking();
   }
 
+  public Player getPlayer(String playerName){
+    return storIOContentResolver
+        .get()
+        .object(Player.class)
+        .withQuery(Query.builder()
+            .uri(PlayersContract.URI_TABLE)
+            .where(PlayersColumns.PLAYER_NAME + " = ?")
+            .whereArgs(playerName)
+            .build())
+        .prepare()
+        .executeAsBlocking();
+  }
+
+
   public PutResult insertPlayer(Player playerIn){
     return storIOContentResolver
             .put()
             .object(playerIn)
             .prepare()
             .executeAsBlocking();
+  }
+
+  //----------  Location ----------//
+
+  public List<Location> getLocations(){
+    return storIOContentResolver
+        .get()
+        .listOfObjects(Location.class)
+        .withQuery(Query.builder()
+            .uri(LocationsContract.URI_TABLE)
+            .build())
+        .prepare()
+        .executeAsBlocking();
+  }
+
+  public Location getLocation(String locationName){
+    return storIOContentResolver
+        .get()
+        .object(Location.class)
+        .withQuery(Query.builder()
+            .uri(LocationsContract.URI_TABLE)
+            .where(LocationsColumns.LOCATION_NAME + " = ?")
+            .whereArgs(locationName)
+            .build())
+        .prepare()
+        .executeAsBlocking();
+  }
+
+  public PutResult insertLocation(Location locationIn){
+    return storIOContentResolver
+        .put()
+        .object(locationIn)
+        .prepare()
+        .executeAsBlocking();
   }
 
 //Genric soultion ideas

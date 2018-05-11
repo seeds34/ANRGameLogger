@@ -13,19 +13,18 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import org.seeds.anrgamelogger.application.DatabaseModel;
 import org.seeds.anrgamelogger.application.NetworkModel;
-import org.seeds.anrgamelogger.model.Card;
+import org.seeds.anrgamelogger.buisnessobjects.Identity;
+import org.seeds.anrgamelogger.buisnessobjects.IdentityStorIOContentResolverDeleteResolver;
+import org.seeds.anrgamelogger.buisnessobjects.IdentityStorIOContentResolverGetResolver;
+import org.seeds.anrgamelogger.buisnessobjects.IdentityStorIOContentResolverPutResolver;
+import org.seeds.anrgamelogger.buisnessobjects.Player;
+import org.seeds.anrgamelogger.buisnessobjects.PlayerStorIOContentResolverDeleteResolver;
+import org.seeds.anrgamelogger.buisnessobjects.PlayerStorIOContentResolverGetResolver;
+import org.seeds.anrgamelogger.buisnessobjects.PlayerStorIOContentResolverPutResolver;
 import org.seeds.anrgamelogger.model.CardImage;
 import org.seeds.anrgamelogger.model.CardImageStorIOContentResolverDeleteResolver;
 import org.seeds.anrgamelogger.model.CardImageStorIOContentResolverGetResolver;
 import org.seeds.anrgamelogger.model.CardImageStorIOContentResolverPutResolver;
-import org.seeds.anrgamelogger.model.CardStorIOContentResolverDeleteResolver;
-import org.seeds.anrgamelogger.model.CardStorIOContentResolverGetResolver;
-import org.seeds.anrgamelogger.model.CardStorIOContentResolverPutResolver;
-import org.seeds.anrgamelogger.buisnessobjects.Player;
-import org.seeds.anrgamelogger.model.PlayerStorIOContentResolverDeleteResolver;
-import org.seeds.anrgamelogger.model.PlayerStorIOContentResolverGetResolver;
-import org.seeds.anrgamelogger.model.PlayerStorIOContentResolverPutResolver;
-
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.moshi.MoshiConverterFactory;
@@ -54,17 +53,17 @@ public class ApplicationModule {
   public StorIOContentResolver getStorIOContentResolver(ContentResolver contentResolverIn){
     return DefaultStorIOContentResolver.builder()
         .contentResolver(contentResolverIn)
-        .addTypeMapping(Card.class, ContentResolverTypeMapping.<Card>builder()
-            .putResolver(new CardStorIOContentResolverPutResolver())
-            .getResolver(new CardStorIOContentResolverGetResolver())
-            .deleteResolver(new CardStorIOContentResolverDeleteResolver())
+        .addTypeMapping(Identity.class, ContentResolverTypeMapping.<Identity>builder()
+            .putResolver(new IdentityStorIOContentResolverPutResolver())
+            .getResolver(new IdentityStorIOContentResolverGetResolver())
+            .deleteResolver(new IdentityStorIOContentResolverDeleteResolver())
             .build())
-            .addTypeMapping(CardImage.class, ContentResolverTypeMapping.<CardImage>builder()
+        .addTypeMapping(CardImage.class, ContentResolverTypeMapping.<CardImage>builder()
             .putResolver(new CardImageStorIOContentResolverPutResolver())
             .getResolver(new CardImageStorIOContentResolverGetResolver())
             .deleteResolver(new CardImageStorIOContentResolverDeleteResolver())
             .build())
-            .addTypeMapping(Player.class, ContentResolverTypeMapping.<Player>builder()
+        .addTypeMapping(Player.class, ContentResolverTypeMapping.<Player>builder()
             .putResolver(new PlayerStorIOContentResolverPutResolver())
             .getResolver(new PlayerStorIOContentResolverGetResolver())
             .deleteResolver(new PlayerStorIOContentResolverDeleteResolver())
