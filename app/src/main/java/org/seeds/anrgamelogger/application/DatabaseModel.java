@@ -8,9 +8,12 @@ import com.pushtorefresh.storio3.contentresolver.operations.put.PutResult;
 import com.pushtorefresh.storio3.contentresolver.operations.put.PutResults;
 import com.pushtorefresh.storio3.contentresolver.queries.Query;
 import java.util.List;
+
+import org.seeds.anrgamelogger.buisnessobjects.Deck;
 import org.seeds.anrgamelogger.buisnessobjects.Identity;
 import org.seeds.anrgamelogger.buisnessobjects.Location;
 import org.seeds.anrgamelogger.buisnessobjects.Player;
+import org.seeds.anrgamelogger.database.contracts.DecksContract;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract.IdentitiesColumns;
 import org.seeds.anrgamelogger.database.contracts.LocationsContract;
@@ -20,6 +23,7 @@ import org.seeds.anrgamelogger.database.contracts.PlayersContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract.PlayersColumns;
 import org.seeds.anrgamelogger.model.Card;
 import org.seeds.anrgamelogger.model.CardImage;
+import org.seeds.anrgamelogger.model.LoggedGame;
 
 /**
  * Created by Tomas Seymour-Turner on 21/02/2018.
@@ -206,6 +210,64 @@ public class DatabaseModel {
         .prepare()
         .executeAsBlocking();
   }
+
+  //----------  Deck ----------//
+
+  public List<Deck> getDecks(){
+    return storIOContentResolver
+            .get()
+            .listOfObjects(Deck.class)
+            .withQuery(Query.builder()
+                    .uri(DecksContract.URI_TABLE)
+                    .build())
+            .prepare()
+            .executeAsBlocking();
+  }
+
+  public Deck getDeck(String deckName, String deckVersion, int identityNo){
+    return storIOContentResolver
+            .get()
+            .object(Deck.class)
+            .withQuery(Query.builder()
+                    .uri(DecksContract.URI_TABLE)
+                    .where(DecksContract.DecksColumns.DECK_NAME + " = ? AND " + DecksContract.DecksColumns.DECK_IDENTITY + " = ? AND " + DecksContract.DecksColumns.DECK_IDENTITY + " = ?")
+                    .whereArgs(deckName, deckVersion, identityNo)
+                    .build())
+            .prepare()
+            .executeAsBlocking();
+  }
+
+  public PutResult insertDeck(Deck deckIn){
+    return storIOContentResolver
+            .put()
+            .object(deckIn)
+            .prepare()
+            .executeAsBlocking();
+  }
+
+  //----------  Logged Game ----------//
+
+  public LoggedGame getLoggedGame(int gameId){
+    return storIOContentResolver
+            .get()
+            .object(LoggedGame.class)
+            .withQuery(Query.builder()
+                    .uri(LoggedGamesContract.URI_TABLE)
+                    .where(LoggedGamesContract.LoggedGamesColumns.GAME_ID + " = ?")
+                    .whereArgs(gameId)
+                    .build())
+            .prepare()
+            .executeAsBlocking();
+  }
+
+  public PutResult insertLoggedGame(LoggedGame loggedGame){
+    return storIOContentResolver
+            .put()
+            .object(loggedGame)
+            .prepare()
+            .executeAsBlocking();
+  }
+
 
 //Genric soultion ideas
 

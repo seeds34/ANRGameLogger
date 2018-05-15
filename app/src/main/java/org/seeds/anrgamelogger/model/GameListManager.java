@@ -15,13 +15,13 @@ import java.util.ArrayList;
 public class GameListManager {
 
     private static final String LOG_TAG = GameListManager.class.getSimpleName();
-    private ArrayList<LocalLoggedGame> loggedGamesList;
+    private ArrayList<LoggedGame> loggedGamesList;
 
     public GameListManager(){
         loggedGamesList = new ArrayList<>();
     }
 
-    public ArrayList<LocalLoggedGame>  getGameList(){
+    public ArrayList<LoggedGame>  getGameList(){
         return loggedGamesList;
     }
 
@@ -69,7 +69,7 @@ public class GameListManager {
                     //playerOne = new Player(playerOneName,playerOneDeckName, playerOnceScore, playerOneIDImage, playerOneWinFlag, playerOneIDName);
                     //playerTwo = new Player(playerTwoName,playerTwoDeckName, playerTwoeScore, playerTwoIDImage, playerTwoWinFlag, playerTwoIDName);
 
-                    //loggedGamesList.add(new LocalLoggedGame(playerOne, playerTwo, location, playedDate, gameID, winType));
+                    //loggedGamesList.add(new LoggedGame(playerOne, playerTwo, location, playedDate, gameID, winType));
 
 
                 }while (queryResult.moveToNext());
@@ -80,10 +80,10 @@ public class GameListManager {
        // return loggedGamesList;
     }
 
-    public LocalLoggedGame getGame(String gameIdIn){
-        LocalLoggedGame ret = null;
+    public LoggedGame getGame(String gameIdIn){
+        LoggedGame ret = null;
 
-        for(LocalLoggedGame llg: loggedGamesList){
+        for(LoggedGame llg: loggedGamesList){
             if(llg.getGameID().equals(gameIdIn)) {
                 ret = llg;
             }
@@ -96,7 +96,7 @@ public class GameListManager {
 
 //    private int listLengthLimit;
 //    private String resultOrder;
-//    ArrayList<LocalLoggedGame> loggedGamesList;
+//    ArrayList<LoggedGame> loggedGamesList;
 //    private ContentResolver contentResolver;
 //    private Context context;
 
@@ -110,7 +110,7 @@ public class GameListManager {
 //        SetUpTestData.setUpTestData(contextIn);
 //    }
 
-//    public ArrayList<LocalLoggedGame>  getGameList(int listLengthLimitIn){
+//    public ArrayList<LoggedGame>  getGameList(int listLengthLimitIn){
 //        return loggedGamesList;
 //    }
 //

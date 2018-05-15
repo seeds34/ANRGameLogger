@@ -9,14 +9,23 @@ import com.squareup.moshi.Moshi;
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.schedulers.Schedulers;
+
 import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import org.seeds.anrgamelogger.application.DatabaseModel;
 import org.seeds.anrgamelogger.application.NetworkModel;
+import org.seeds.anrgamelogger.buisnessobjects.Deck;
+import org.seeds.anrgamelogger.buisnessobjects.DeckStorIOContentResolverDeleteResolver;
+import org.seeds.anrgamelogger.buisnessobjects.DeckStorIOContentResolverGetResolver;
+import org.seeds.anrgamelogger.buisnessobjects.DeckStorIOContentResolverPutResolver;
 import org.seeds.anrgamelogger.buisnessobjects.Identity;
 import org.seeds.anrgamelogger.buisnessobjects.IdentityStorIOContentResolverDeleteResolver;
 import org.seeds.anrgamelogger.buisnessobjects.IdentityStorIOContentResolverGetResolver;
 import org.seeds.anrgamelogger.buisnessobjects.IdentityStorIOContentResolverPutResolver;
+import org.seeds.anrgamelogger.buisnessobjects.Location;
+import org.seeds.anrgamelogger.buisnessobjects.LocationStorIOContentResolverDeleteResolver;
+import org.seeds.anrgamelogger.buisnessobjects.LocationStorIOContentResolverGetResolver;
+import org.seeds.anrgamelogger.buisnessobjects.LocationStorIOContentResolverPutResolver;
 import org.seeds.anrgamelogger.buisnessobjects.Player;
 import org.seeds.anrgamelogger.buisnessobjects.PlayerStorIOContentResolverDeleteResolver;
 import org.seeds.anrgamelogger.buisnessobjects.PlayerStorIOContentResolverGetResolver;
@@ -25,6 +34,11 @@ import org.seeds.anrgamelogger.model.CardImage;
 import org.seeds.anrgamelogger.model.CardImageStorIOContentResolverDeleteResolver;
 import org.seeds.anrgamelogger.model.CardImageStorIOContentResolverGetResolver;
 import org.seeds.anrgamelogger.model.CardImageStorIOContentResolverPutResolver;
+import org.seeds.anrgamelogger.model.LoggedGame;
+import org.seeds.anrgamelogger.model.LoggedGameStorIOContentResolverDeleteResolver;
+import org.seeds.anrgamelogger.model.LoggedGameStorIOContentResolverGetResolver;
+import org.seeds.anrgamelogger.model.LoggedGameStorIOContentResolverPutResolver;
+
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.moshi.MoshiConverterFactory;
@@ -51,24 +65,42 @@ public class ApplicationModule {
   @Provides
   @ApplicationScope
   public StorIOContentResolver getStorIOContentResolver(ContentResolver contentResolverIn){
+
     return DefaultStorIOContentResolver.builder()
-        .contentResolver(contentResolverIn)
-        .addTypeMapping(Identity.class, ContentResolverTypeMapping.<Identity>builder()
-            .putResolver(new IdentityStorIOContentResolverPutResolver())
-            .getResolver(new IdentityStorIOContentResolverGetResolver())
-            .deleteResolver(new IdentityStorIOContentResolverDeleteResolver())
-            .build())
-        .addTypeMapping(CardImage.class, ContentResolverTypeMapping.<CardImage>builder()
-            .putResolver(new CardImageStorIOContentResolverPutResolver())
-            .getResolver(new CardImageStorIOContentResolverGetResolver())
-            .deleteResolver(new CardImageStorIOContentResolverDeleteResolver())
-            .build())
-        .addTypeMapping(Player.class, ContentResolverTypeMapping.<Player>builder()
-            .putResolver(new PlayerStorIOContentResolverPutResolver())
-            .getResolver(new PlayerStorIOContentResolverGetResolver())
-            .deleteResolver(new PlayerStorIOContentResolverDeleteResolver())
+            .contentResolver(contentResolverIn)
+            .addTypeMapping(Identity.class, ContentResolverTypeMapping.<Identity>builder()
+                    .putResolver(new IdentityStorIOContentResolverPutResolver())
+                    .getResolver(new IdentityStorIOContentResolverGetResolver())
+                    .deleteResolver(new IdentityStorIOContentResolverDeleteResolver())
+                    .build())
+            .addTypeMapping(CardImage.class, ContentResolverTypeMapping.<CardImage>builder()
+                    .putResolver(new CardImageStorIOContentResolverPutResolver())
+                    .getResolver(new CardImageStorIOContentResolverGetResolver())
+                    .deleteResolver(new CardImageStorIOContentResolverDeleteResolver())
+                    .build())
+            .addTypeMapping(Player.class, ContentResolverTypeMapping.<Player>builder()
+                    .putResolver(new PlayerStorIOContentResolverPutResolver())
+                    .getResolver(new PlayerStorIOContentResolverGetResolver())
+                    .deleteResolver(new PlayerStorIOContentResolverDeleteResolver())
+                    .build())
+            .addTypeMapping(Location.class, ContentResolverTypeMapping.<Location>builder()
+                    .putResolver(new LocationStorIOContentResolverPutResolver())
+                    .getResolver(new LocationStorIOContentResolverGetResolver())
+                    .deleteResolver(new LocationStorIOContentResolverDeleteResolver())
+                    .build())
+            .addTypeMapping(Deck.class, ContentResolverTypeMapping.<Deck>builder()
+                    .putResolver(new DeckStorIOContentResolverPutResolver())
+                    .getResolver(new DeckStorIOContentResolverGetResolver())
+                    .deleteResolver(new DeckStorIOContentResolverDeleteResolver())
+                    .build())
+                     .addTypeMapping(LoggedGame.class, ContentResolverTypeMapping.<LoggedGame>builder()
+            .putResolver(new LoggedGameStorIOContentResolverPutResolver())
+            .getResolver(new LoggedGameStorIOContentResolverGetResolver())
+            .deleteResolver(new LoggedGameStorIOContentResolverDeleteResolver())
             .build())
             .build();
+
+
   }
 
   @Provides

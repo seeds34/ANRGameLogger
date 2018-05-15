@@ -6,6 +6,8 @@ import io.reactivex.disposables.Disposable;
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 import org.seeds.anrgamelogger.buisnessobjects.Deck;
+import org.seeds.anrgamelogger.buisnessobjects.Identity;
+import org.seeds.anrgamelogger.buisnessobjects.Location;
 import org.seeds.anrgamelogger.buisnessobjects.Player;
 import org.seeds.anrgamelogger.model.IdentityList;
 
@@ -66,25 +68,61 @@ public class AddGamePresenter {
 
     private void addGame() {
 
-
         PlayerViewData pOneData = view.getPlayerOne();
         PlayerViewData pTwoData = view.getPlayerTwo();
+        OverviewViewData ovData = view.getGameOverview();
 
-        Player playerOne = model.getPlayer(pOneData.getPlayerNames());
-        if(playerOne == null){
-            playerOne = new Player(pOneData.getPlayerNames());
+        /*
+        1: Sort Player 1 ID
+        2: Sort Player 1 Deck
+        3: Sort Player 2 ID
+        4: Sort Player 3 Deck
+        5: Sort Player 1
+        6: Sort Player 2
+        7: Sort Location
+        8: Sort Player 1 Logged Game
+        9: Sort Player 2 Logged Game
+         */
+
+        Identity playerOneid = model.getIdentity(pOneData.getIdentityName());
+        Identity playerTwoid = model.getIdentity(pTwoData.getIdentityName());
+
+//Get Deck based on Name, ID and Version. If Name is Null user Player+ID+Version. Although Current Deck name can't be Null
+        Deck pOneDeck = model.getDeck(pOneData.getDeckName(), pOneData.getDeckVersion(), playerOneid.getRowid());
+        if(pOneDeck == null){
+            model.insertNewDeck(new Deck(pOneData.getDeckName(), pOneData.getDeckVersion(), playerOneid.getRowid()));
+            pOneDeck = model.getDeck(pOneData.getDeckName(), pOneData.getDeckVersion(), playerOneid.getRowid());
         }
 
 
-
-        Deck pOneDeck = new Deck(pOneData.getDeckName());
-        Deck pTwoDeck = new Deck(pTwoData.getDeckName());
-
-        Player playerTwo = new Player(pTwoData.getPlayerNames());
-
-        view.getGameOverview();
+        Deck pTwoDeck = model.getDeck(pTwoData.getDeckName(), pTwoData.getDeckVersion(), playerTwoid.getRowid());
+        if(pTwoDeck == null){
+            model.insertNewDeck(new Deck(pTwoData.getDeckName(), pTwoData.getDeckVersion(), playerTwoid.getRowid()));
+            pTwoDeck = model.getDeck(pTwoData.getDeckName(), pTwoData.getDeckVersion(), playerTwoid.getRowid());
+        }
 
 
+        Player playerOne = model.getPlayer(pOneData.getPlayerNames());
+        if(playerOne == null){
+            model.insertPlayer(new Player(pOneData.getPlayerNames()));
+            playerOne = model.getPlayer(pOneData.getPlayerNames());
+        }
+
+        Player playerTwo = model.getPlayer(pTwoData.getPlayerNames());
+        if(playerTwo == null){
+            model.insertPlayer(new Player(pTwoData.getPlayerNames()));
+            playerTwo = model.getPlayer(pTwoData.getPlayerNames());
+        }
+
+        Location loc = model.getLocation(ovData.getLocation());
+        if(loc == null){
+            model.insertNewLocation(new Location(ovData.getLocation()));
+            loc = model.getLocation(ovData.getLocation());
+        }
+
+        //Caused by: android.database.sqlite.SQLiteConstraintException: UNIQUE constraint failed: locations._id (code 1555)
+
+        //How to sort null values
     }
 
     public void setViewData(){

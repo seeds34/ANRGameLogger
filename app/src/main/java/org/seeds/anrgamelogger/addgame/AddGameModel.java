@@ -2,9 +2,12 @@ package org.seeds.anrgamelogger.addgame;
 
 import android.app.Activity;
 import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
+import com.pushtorefresh.storio3.contentresolver.operations.put.PutResult;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.seeds.anrgamelogger.application.DatabaseModel;
+import org.seeds.anrgamelogger.buisnessobjects.Deck;
 import org.seeds.anrgamelogger.buisnessobjects.Identity;
 import org.seeds.anrgamelogger.buisnessobjects.Location;
 import org.seeds.anrgamelogger.buisnessobjects.Player;
@@ -125,7 +128,33 @@ public class AddGameModel {
         return databaseModel.getPlayer(playerName);
     }
 
-    private Location getLocation(String locationName){
+    public Location getLocation(String locationName){
         return databaseModel.getLocation(locationName);
     }
+
+    public Deck getDeck(String deckName, String deckVersion, int identiyNo){
+        return databaseModel.getDeck(deckName, deckVersion, identiyNo);
+    }
+
+    public void insertNewLocation(Location loc){
+        databaseModel.insertLocation(loc);
+    }
+
+    public void insertNewDeck(Deck deck) {
+        databaseModel.insertDeck(deck);
+    }
+
+    public void insertPlayer(Player player) {
+        databaseModel.insertPlayer(player);
+    }
+
+    //Fix Overview to work out winner (and which player it is) etc etc
+
+    /*
+    1: Get MAX Logged Game GAME_ID
+    2: Create LoggedGame using PlayerOne Data
+    3: Create LoggedGame using PlayerTwo Data
+     */
+
+
 }

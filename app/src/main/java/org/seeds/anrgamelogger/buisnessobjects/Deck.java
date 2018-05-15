@@ -1,5 +1,7 @@
 package org.seeds.anrgamelogger.buisnessobjects;
 
+import android.provider.BaseColumns;
+
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
 import org.seeds.anrgamelogger.database.contracts.DecksContract;
@@ -19,7 +21,12 @@ public class Deck {
 
   @StorIOContentResolverColumn(name = DecksColumns.NRDB_LINK)
   String nrdbLink;
-  //String identity;
+
+  @StorIOContentResolverColumn(name = BaseColumns._ID)
+  int rowid;
+
+  @StorIOContentResolverColumn(name = DecksColumns.DECK_IDENTITY)
+  int identity_rowno;
 
   public Deck(){}
 
@@ -30,6 +37,12 @@ public class Deck {
   public Deck(String name, String version) {
     this.name = name;
     this.version = version;
+  }
+
+  public Deck(String name, String version, int identity_rowno) {
+    this.name = name;
+    this.version = version;
+    this.identity_rowno = identity_rowno;
   }
 
   public Deck(String name, String version, String archetype, String nrdbLink) {
@@ -69,5 +82,13 @@ public class Deck {
 
   public void setNrdbLink(String nrdbLink) {
     this.nrdbLink = nrdbLink;
+  }
+
+  public int getRowid() {
+    return rowid;
+  }
+
+  public void setRowid(int rowid) {
+    this.rowid = rowid;
   }
 }

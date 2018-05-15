@@ -2,6 +2,8 @@ package org.seeds.anrgamelogger.buisnessobjects;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.BaseColumns;
+
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
 import java.io.Serializable;
@@ -26,6 +28,9 @@ public class Player implements Serializable, ViewData {
 
     @StorIOContentResolverColumn(name = PlayersColumns.PLAYER_NICK_NAME)
     public String nickName;
+
+    @StorIOContentResolverColumn(name = BaseColumns._ID)
+    int rowid;
 
     private String deck;
     private int score;
@@ -106,6 +111,14 @@ public class Player implements Serializable, ViewData {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+
+    public int getRowid() {
+        return rowid;
+    }
+
+    public void setRowid(int rowid) {
+        this.rowid = rowid;
     }
 
     /*Genrated at: http://www.parcelabler.com/ */

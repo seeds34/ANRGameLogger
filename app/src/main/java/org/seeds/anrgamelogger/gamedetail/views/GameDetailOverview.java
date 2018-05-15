@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.model.LocalLoggedGame;
+import org.seeds.anrgamelogger.model.LoggedGame;
 
 import java.io.ByteArrayInputStream;
 
@@ -23,7 +23,7 @@ import java.io.ByteArrayInputStream;
 public class GameDetailOverview extends FrameLayout {
 
 //    private final Activity activity;
-    private LocalLoggedGame data;
+    private LoggedGame data;
 
     protected TextView playerOneName;
     protected TextView playerTwoName;
@@ -41,7 +41,7 @@ public class GameDetailOverview extends FrameLayout {
 
     private Activity activity;
 
-    public GameDetailOverview(Activity activity, LocalLoggedGame gameIn){
+    public GameDetailOverview(Activity activity, LoggedGame gameIn){
         super(activity);
         inflate(getContext(), R.layout.view_gamedetail_overview, this);
         data = gameIn;
@@ -55,7 +55,7 @@ public class GameDetailOverview extends FrameLayout {
 
         Log.v(this.getClass().getName(),"Checking savedInstanceState");
         //if(getArguments() != null){
-        //data = (LocalLoggedGame) getArguments().get(GAME_TRNASFER);
+        //data = (LoggedGame) getArguments().get(GAME_TRNASFER);
 
         location = (TextView) this.findViewById(R.id.playedLocation);
         playerOneName = (TextView) this.findViewById(R.id.playerOneName);

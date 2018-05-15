@@ -18,6 +18,8 @@ public class GameNotes {
   @StorIOContentResolverColumn(name = BaseColumns._ID)
   int rowid;
 
+  public GameNotes(){};
+
   public GameNotes(String gameID, String gameNotes, int rowid) {
     this.gameID = gameID;
     this.gameNotes = gameNotes;

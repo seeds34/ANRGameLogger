@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.model.LocalLoggedGame;
+import org.seeds.anrgamelogger.model.LoggedGame;
 
 import java.io.ByteArrayInputStream;
 
@@ -52,20 +52,20 @@ public class GameOverviewViewHolder extends RecyclerView.ViewHolder {
 //        gameNo = (TextView) view.findViewById(R.id.gameNumber);
     }
 
-    public void setUpData(LocalLoggedGame localLoggedGame){
-        playerOneName.setText(localLoggedGame.getPlayerOne().getName());
-        playerTwoName.setText(localLoggedGame.getPlayerTwo().getName());
-        playedDate.setText(localLoggedGame.getPlayedDate());
-        location.setText(localLoggedGame.getLocationName());
-        gameNo.setText(localLoggedGame.getGameID());
+    public void setUpData(LoggedGame loggedGame){
+        playerOneName.setText(loggedGame.getPlayerOne().getName());
+        playerTwoName.setText(loggedGame.getPlayerTwo().getName());
+        playedDate.setText(loggedGame.getPlayedDate());
+        location.setText(loggedGame.getLocationName());
+        gameNo.setText(loggedGame.getGameID());
 //GAME_NO_TEXT +
-        byte[] imageByteArray = localLoggedGame.getPlayerOne().getImageByteArray();
+        byte[] imageByteArray = loggedGame.getPlayerOne().getImageByteArray();
         ByteArrayInputStream imageStream = new ByteArrayInputStream(imageByteArray);
         Bitmap theImage = BitmapFactory.decodeStream(imageStream);
 
         playerOneIDImage.setImageBitmap(theImage);
 
-        imageByteArray = localLoggedGame.getPlayerTwo().getImageByteArray();
+        imageByteArray = loggedGame.getPlayerTwo().getImageByteArray();
         imageStream = new ByteArrayInputStream(imageByteArray);
         theImage = BitmapFactory.decodeStream(imageStream);
 

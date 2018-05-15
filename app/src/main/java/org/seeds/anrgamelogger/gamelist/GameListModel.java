@@ -9,7 +9,7 @@ import org.seeds.anrgamelogger.application.DatabaseModel;
 import org.seeds.anrgamelogger.application.NetworkModel;
 import org.seeds.anrgamelogger.gamedetail.GameDetailActivity;
 import org.seeds.anrgamelogger.model.GameListManager;
-import org.seeds.anrgamelogger.model.LocalLoggedGame;
+import org.seeds.anrgamelogger.model.LoggedGame;
 import org.seeds.anrgamelogger.model.SetupDatabaseDataModel;
 
 
@@ -55,15 +55,15 @@ public class GameListModel {
     }
 
 
-  public Observable<ArrayList<LocalLoggedGame>> getGameList(int lengthLimit) {
-//       return Observable.defer(new Function<Observable<ArrayList<LocalLoggedGame>>>() {
+  public Observable<ArrayList<LoggedGame>> getGameList(int lengthLimit) {
+//       return Observable.defer(new Function<Observable<ArrayList<LoggedGame>>>() {
 //         @Override
 //         public Object apply(Object o) throws Exception {
 //           return null;
 //         }
 //
 //         @Override
-//            public Observable<ArrayList<LocalLoggedGame>> call() {
+//            public Observable<ArrayList<LoggedGame>> call() {
 //                return Observable.fromCallable(()-> gameListManager.getGameList()).doOnNext(ret -> gameListManager.genarateGameList(lengthLimit, activity.getContentResolver()));
 //            }
 //        });

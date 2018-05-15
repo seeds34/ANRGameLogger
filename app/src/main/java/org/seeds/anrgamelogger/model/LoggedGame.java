@@ -4,15 +4,48 @@ import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
+import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
+
 import org.seeds.anrgamelogger.buisnessobjects.Player;
+import org.seeds.anrgamelogger.database.contracts.LoggedGamesContract;
 
 /**
  * Created by Tomas Seymour-Turner on 19/03/2017.
  */
 
-public class LocalLoggedGame implements Parcelable, ViewData {
+@StorIOContentResolverType(uri = "content://" + LoggedGamesContract.CONTENT_AUTHORITY + "/" + LoggedGamesContract.PATH_LOGGED_GAMES)
+public class LoggedGame implements Parcelable {
 
-    private String gameID;
+    @StorIOContentResolverColumn(name = LoggedGamesContract.LoggedGamesColumns.GAME_ID, key = true)
+    String gameID;
+
+    @StorIOContentResolverColumn(name = LoggedGamesContract.LoggedGamesColumns.PLAYER_ID)
+    int player_id;
+
+    @StorIOContentResolverColumn(name = LoggedGamesContract.LoggedGamesColumns.DECK_ID)
+    int deck_id;
+
+    @StorIOContentResolverColumn(name = LoggedGamesContract.LoggedGamesColumns.LOCATION_ID)
+    int location_id;
+
+    @StorIOContentResolverColumn(name = LoggedGamesContract.LoggedGamesColumns.PLAYED_DATE)
+    String played_date;
+
+    @StorIOContentResolverColumn(name = LoggedGamesContract.LoggedGamesColumns.WIN_TYPE)
+    String win_type;
+
+    @StorIOContentResolverColumn(name = LoggedGamesContract.LoggedGamesColumns.PLAYER_SIDE)
+    String side;
+
+    @StorIOContentResolverColumn(name = LoggedGamesContract.LoggedGamesColumns.WIN_FLAG)
+    String win_flag;
+
+    @StorIOContentResolverColumn(name = LoggedGamesContract.LoggedGamesColumns.SCORE)
+    String score;
+
+
+
     private Player playerOne;
     private Player playerTwo;
     private String locationName;
@@ -20,13 +53,26 @@ public class LocalLoggedGame implements Parcelable, ViewData {
     private String playedDate;
     private String winnerFlag = "Y";
 
+    public LoggedGame(){}
 
-    public LocalLoggedGame(String locationName,  String playedDate, String winType){
+    public LoggedGame(String gameID, int player_id, int deck_id, int location_id, String played_date, String win_type, String side, String win_flag, String score) {
+        this.gameID = gameID;
+        this.player_id = player_id;
+        this.deck_id = deck_id;
+        this.location_id = location_id;
+        this.played_date = played_date;
+        this.win_type = win_type;
+        this.side = side;
+        this.win_flag = win_flag;
+        this.score = score;
+    }
+
+    public LoggedGame(String locationName, String playedDate, String winType){
         this.locationName = locationName;
         this.playedDate = playedDate;
         this.winType = winType;
     }
-    public LocalLoggedGame(Player playerOne, Player playerTwo, String locationName,  String playedDate, String gameID, String winType) {
+    public LoggedGame(Player playerOne, Player playerTwo, String locationName, String playedDate, String gameID, String winType) {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
         this.locationName = locationName;
@@ -37,7 +83,7 @@ public class LocalLoggedGame implements Parcelable, ViewData {
 
 
 
-    public LocalLoggedGame(Cursor loggedGamesCursor){
+    public LoggedGame(Cursor loggedGamesCursor){
         //TODO: Load game data directly from cursor
     }
 
@@ -77,7 +123,7 @@ public class LocalLoggedGame implements Parcelable, ViewData {
 
 
     /*Genrated at: http://www.parcelabler.com/ */
-        protected LocalLoggedGame(Parcel in) {
+        protected LoggedGame(Parcel in) {
             gameID = in.readString();
             playerOne = (Player) in.readValue(Player.class.getClassLoader());
             playerTwo = (Player) in.readValue(Player.class.getClassLoader());
@@ -104,15 +150,15 @@ public class LocalLoggedGame implements Parcelable, ViewData {
         }
 
         @SuppressWarnings("unused")
-        public static final Parcelable.Creator<LocalLoggedGame> CREATOR = new Parcelable.Creator<LocalLoggedGame>() {
+        public static final Parcelable.Creator<LoggedGame> CREATOR = new Parcelable.Creator<LoggedGame>() {
             @Override
-            public LocalLoggedGame createFromParcel(Parcel in) {
-                return new LocalLoggedGame(in);
+            public LoggedGame createFromParcel(Parcel in) {
+                return new LoggedGame(in);
             }
 
             @Override
-            public LocalLoggedGame[] newArray(int size) {
-                return new LocalLoggedGame[size];
+            public LoggedGame[] newArray(int size) {
+                return new LoggedGame[size];
             }
         };
 }

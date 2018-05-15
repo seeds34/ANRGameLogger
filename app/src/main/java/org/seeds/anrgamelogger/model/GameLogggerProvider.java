@@ -174,6 +174,12 @@ public class GameLogggerProvider extends ContentProvider {
                 queryBuilder.setTables(GameLoggerDatabase.Tables.IDENTITIES);
                 ret = queryBuilder.query(db, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
+            case IDENTITIES_ID:
+                queryBuilder.setTables(GameLoggerDatabase.Tables.IDENTITIES);
+                String identites_id = DecksContract.Deck.getDeckId(uri);
+                queryBuilder.appendWhere(BaseColumns._ID + " = " + identites_id);
+                ret = queryBuilder.query(db, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
             case LOCATION:
                 queryBuilder.setTables(GameLoggerDatabase.Tables.LOCATIONS);
                 ret = queryBuilder.query(db, projection, selection, selectionArgs, null, null, sortOrder);

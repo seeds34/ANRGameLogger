@@ -1,4 +1,6 @@
 package org.seeds.anrgamelogger.buisnessobjects;
+import android.provider.BaseColumns;
+
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
@@ -29,12 +31,14 @@ public class Identity {
      @StorIOContentResolverColumn(name = IdentitiesColumns.IMAGE_BIT_ARRAY)
      byte[] imageByteArrayOutputStream = null;
 
-
       @StorIOContentResolverColumn(name = IdentitiesColumns.NRDB_PACK_CODE)
       String pack_code;
 
       @StorIOContentResolverColumn(name = IdentitiesColumns.POSTION_IN_PACK)
       String pos;
+
+    @StorIOContentResolverColumn(name = BaseColumns._ID)
+    int rowid;
 
       public Identity(){}
 
@@ -94,4 +98,12 @@ public class Identity {
       public void setPos(String pos) {
     this.pos = pos;
   }
+
+    public int getRowid() {
+        return rowid;
+    }
+
+    public void setRowid(int rowid) {
+        this.rowid = rowid;
+    }
 }

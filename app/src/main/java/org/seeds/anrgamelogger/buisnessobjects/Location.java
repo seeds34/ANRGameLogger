@@ -1,5 +1,7 @@
 package org.seeds.anrgamelogger.buisnessobjects;
 
+import android.provider.BaseColumns;
+
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
 import org.seeds.anrgamelogger.database.contracts.LocationsContract;
@@ -11,6 +13,11 @@ public class Location {
   @StorIOContentResolverColumn(name = LocationsColumns.LOCATION_NAME, key = true)
   public String name;
 
+  @StorIOContentResolverColumn(name = BaseColumns._ID)
+  int rowid;
+
+  public Location(){};
+
   public Location(String name) {
     this.name = name;
   }
@@ -21,5 +28,13 @@ public class Location {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public int getRowid() {
+    return rowid;
+  }
+
+  public void setRowid(int rowid) {
+    this.rowid = rowid;
   }
 }
