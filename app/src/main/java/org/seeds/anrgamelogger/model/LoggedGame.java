@@ -76,7 +76,7 @@ public class LoggedGame implements Parcelable {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
         this.locationName = locationName;
-       this.playedDate = playedDate;
+        this.playedDate = playedDate;
         this.gameID = gameID;
         this.winType = winType;
     }
@@ -123,42 +123,43 @@ public class LoggedGame implements Parcelable {
 
 
     /*Genrated at: http://www.parcelabler.com/ */
-        protected LoggedGame(Parcel in) {
-            gameID = in.readString();
-            playerOne = (Player) in.readValue(Player.class.getClassLoader());
-            playerTwo = (Player) in.readValue(Player.class.getClassLoader());
-            locationName = in.readString();
-            winType = in.readString();
-            playedDate = in.readString();
-            winnerFlag = in.readString();
+    protected LoggedGame(Parcel in) {
+        gameID = in.readString();
+        playerOne = (Player) in.readValue(Player.class.getClassLoader());
+        playerTwo = (Player) in.readValue(Player.class.getClassLoader());
+        locationName = in.readString();
+        winType = in.readString();
+        playedDate = in.readString();
+        winnerFlag = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(gameID);
+        dest.writeValue(playerOne);
+        dest.writeValue(playerTwo);
+        dest.writeString(locationName);
+        dest.writeString(winType);
+        dest.writeString(playedDate);
+        dest.writeString(winnerFlag);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<LoggedGame> CREATOR = new Parcelable.Creator<LoggedGame>() {
+        @Override
+        public LoggedGame createFromParcel(Parcel in) {
+            return new LoggedGame(in);
         }
 
         @Override
-        public int describeContents() {
-            return 0;
+        public LoggedGame[] newArray(int size) {
+            return new LoggedGame[size];
         }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeString(gameID);
-            dest.writeValue(playerOne);
-            dest.writeValue(playerTwo);
-            dest.writeString(locationName);
-            dest.writeString(winType);
-            dest.writeString(playedDate);
-            dest.writeString(winnerFlag);
-        }
-
-        @SuppressWarnings("unused")
-        public static final Parcelable.Creator<LoggedGame> CREATOR = new Parcelable.Creator<LoggedGame>() {
-            @Override
-            public LoggedGame createFromParcel(Parcel in) {
-                return new LoggedGame(in);
-            }
-
-            @Override
-            public LoggedGame[] newArray(int size) {
-                return new LoggedGame[size];
-            }
-        };
+    };
 }
+

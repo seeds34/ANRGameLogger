@@ -76,12 +76,12 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
             + LoggedGamesContract.LoggedGamesColumns.GAME_ID + " INTEGER NOT NULL,"
             + LoggedGamesContract.LoggedGamesColumns.PLAYER_ID + " INTEGER NOT NULL,"
             + LoggedGamesContract.LoggedGamesColumns.DECK_ID + " INTEGER NOT NULL,"
-            + LoggedGamesContract.LoggedGamesColumns.LOCATION_ID + " INTEGER NOT NULL,"
+            + LoggedGamesContract.LoggedGamesColumns.LOCATION_ID + " INTEGER,"
             + LoggedGamesContract.LoggedGamesColumns.WIN_FLAG + " TEXT NOT NULL,"
             + LoggedGamesContract.LoggedGamesColumns.SCORE + " INTEGER NOT NULL,"
             + LoggedGamesContract.LoggedGamesColumns.WIN_TYPE + " TEXT NOT NULL,"
-            + LoggedGamesContract.LoggedGamesColumns.PLAYED_DATE + " TEXT NOT NULL,"
-            + LoggedGamesContract.LoggedGamesColumns.PLAYER_SIDE + " TEXT ,"
+            + LoggedGamesContract.LoggedGamesColumns.PLAYED_DATE + " TEXT,"
+            + LoggedGamesContract.LoggedGamesColumns.PLAYER_SIDE + " TEXT,"
             + "FOREIGN KEY("+LoggedGamesContract.LoggedGamesColumns.PLAYER_ID +") REFERENCES "+ Tables.PLAYERS +"("+BaseColumns._ID+")"
             + "FOREIGN KEY("+LoggedGamesContract.LoggedGamesColumns.DECK_ID +") REFERENCES "+ Tables.DECKS +"("+BaseColumns._ID+")"
             + "FOREIGN KEY("+LoggedGamesContract.LoggedGamesColumns.LOCATION_ID +") REFERENCES "+ Tables.LOCATIONS +"("+BaseColumns._ID+")"
@@ -162,11 +162,11 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
     public GameLoggerDatabase(Context contextIn){
         super(contextIn,DATABASE_NAME,null,DATABASE_VERSION);
         conext = contextIn;
-//        deleteDatabase(conext);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        deleteDatabase(conext);
         sqLiteDatabase.execSQL(IDENTITIES_DDL);
         sqLiteDatabase.execSQL(DECKS_DDL);
         sqLiteDatabase.execSQL(LOCATIONS_DDL);

@@ -115,12 +115,10 @@ public class AddGamePresenter {
         }
 
         Location loc = model.getLocation(ovData.getLocation());
-        if(loc == null){
+        if(loc == null && (!ovData.getLocation().equals(null) || !ovData.getLocation().matches(""))){
             model.insertNewLocation(new Location(ovData.getLocation()));
             loc = model.getLocation(ovData.getLocation());
         }
-
-        //Caused by: android.database.sqlite.SQLiteConstraintException: UNIQUE constraint failed: locations._id (code 1555)
 
         //How to sort null values
     }
