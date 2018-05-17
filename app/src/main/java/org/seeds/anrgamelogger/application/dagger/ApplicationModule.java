@@ -26,6 +26,7 @@ import org.seeds.anrgamelogger.buisnessobjects.Location;
 import org.seeds.anrgamelogger.buisnessobjects.LocationStorIOContentResolverDeleteResolver;
 import org.seeds.anrgamelogger.buisnessobjects.LocationStorIOContentResolverGetResolver;
 import org.seeds.anrgamelogger.buisnessobjects.LocationStorIOContentResolverPutResolver;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlat;
 import org.seeds.anrgamelogger.buisnessobjects.Player;
 import org.seeds.anrgamelogger.buisnessobjects.PlayerStorIOContentResolverDeleteResolver;
 import org.seeds.anrgamelogger.buisnessobjects.PlayerStorIOContentResolverGetResolver;
@@ -93,11 +94,16 @@ public class ApplicationModule {
                     .getResolver(new DeckStorIOContentResolverGetResolver())
                     .deleteResolver(new DeckStorIOContentResolverDeleteResolver())
                     .build())
-                     .addTypeMapping(LoggedGame.class, ContentResolverTypeMapping.<LoggedGame>builder()
-            .putResolver(new LoggedGameStorIOContentResolverPutResolver())
-            .getResolver(new LoggedGameStorIOContentResolverGetResolver())
-            .deleteResolver(new LoggedGameStorIOContentResolverDeleteResolver())
-            .build())
+            .addTypeMapping(LoggedGame.class, ContentResolverTypeMapping.<LoggedGame>builder()
+                    .putResolver(new LoggedGameStorIOContentResolverPutResolver())
+                    .getResolver(new LoggedGameStorIOContentResolverGetResolver())
+                    .deleteResolver(new LoggedGameStorIOContentResolverDeleteResolver())
+                    .build())
+            .addTypeMapping(LoggedGameFlat.class, ContentResolverTypeMapping.<LoggedGameFlat>builder()
+                    .putResolver(new LoggegGameF())
+                    .getResolver(new LoggedGameStorIOContentResolverGetResolver())
+                    .deleteResolver(new LoggedGameStorIOContentResolverDeleteResolver())
+                    .build())
             .build();
 
 

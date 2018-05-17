@@ -13,6 +13,9 @@ public class LoggedGameFlat {
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID, key = true)
     int gameID;
 
+    @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_NAME)
+    String pO_Name;
+
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.LOCATION_NAME)
     String locationName;
 
@@ -34,6 +37,9 @@ public class LoggedGameFlat {
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_WIN_FLAG)
     String pO_WinFlag;
 
+    @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_NAME)
+    String pT_Name;
+
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_DECK_NAME)
     String pT_DeckName;
 
@@ -52,10 +58,13 @@ public class LoggedGameFlat {
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.WIN_TYPE)
     String winType;
 
+    private final String WINNERFLAG = "Y";
+
     public LoggedGameFlat(){}
 
-    public LoggedGameFlat(int gameID, String locationName, String playedDate, String pO_DeckName, String pO_Identity, Byte[] pO_IdentityImage, int pO_Score, String pO_WinFlag, String pT_DeckName, String pT_Identity, Byte[] pT_IdentityImage, int pT_Score, String pT_WinFlag, String winType) {
+    public LoggedGameFlat(int gameID, String pO_Name, String locationName, String playedDate, String pO_DeckName, String pO_Identity, Byte[] pO_IdentityImage, int pO_Score, String pO_WinFlag, String pT_Name, String pT_DeckName, String pT_Identity, Byte[] pT_IdentityImage, int pT_Score, String pT_WinFlag, String winType) {
         this.gameID = gameID;
+        this.pO_Name = pO_Name;
         this.locationName = locationName;
         this.playedDate = playedDate;
         this.pO_DeckName = pO_DeckName;
@@ -63,12 +72,29 @@ public class LoggedGameFlat {
         this.pO_IdentityImage = pO_IdentityImage;
         this.pO_Score = pO_Score;
         this.pO_WinFlag = pO_WinFlag;
+        this.pT_Name = pT_Name;
         this.pT_DeckName = pT_DeckName;
         this.pT_Identity = pT_Identity;
         this.pT_IdentityImage = pT_IdentityImage;
         this.pT_Score = pT_Score;
         this.pT_WinFlag = pT_WinFlag;
         this.winType = winType;
+    }
+
+    public String getpO_Name() {
+        return pO_Name;
+    }
+
+    public void setpO_Name(String pO_Name) {
+        this.pO_Name = pO_Name;
+    }
+
+    public String getpT_Name() {
+        return pT_Name;
+    }
+
+    public void setpT_Name(String pT_Name) {
+        this.pT_Name = pT_Name;
     }
 
     public int getGameID() {
@@ -185,10 +211,10 @@ public class LoggedGameFlat {
 
     public String getWinnerName() {
         String ret;
-        if(playerOne.isWinner().toUpperCase() == winnerFlag || playerOne.isWinner().toUpperCase() == winnerFlag){
-            ret = playerOne.getName();
+        if(pO_WinFlag.matches(WINNERFLAG)){
+            ret = pO_Name;
         }else{
-            ret = playerTwo.getName();
+            ret = pT_Name;
         }
         return ret;
     }

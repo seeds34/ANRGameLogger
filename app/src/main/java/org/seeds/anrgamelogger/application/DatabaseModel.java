@@ -12,6 +12,7 @@ import java.util.List;
 import org.seeds.anrgamelogger.buisnessobjects.Deck;
 import org.seeds.anrgamelogger.buisnessobjects.Identity;
 import org.seeds.anrgamelogger.buisnessobjects.Location;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlat;
 import org.seeds.anrgamelogger.buisnessobjects.Player;
 import org.seeds.anrgamelogger.database.contracts.DecksContract;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
@@ -19,6 +20,7 @@ import org.seeds.anrgamelogger.database.contracts.IdentitiesContract.IdentitiesC
 import org.seeds.anrgamelogger.database.contracts.LocationsContract;
 import org.seeds.anrgamelogger.database.contracts.LocationsContract.LocationsColumns;
 import org.seeds.anrgamelogger.database.contracts.LoggedGamesContract;
+import org.seeds.anrgamelogger.database.contracts.LoggedGamesFlatViewContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract.PlayersColumns;
 import org.seeds.anrgamelogger.model.Card;
@@ -268,6 +270,19 @@ public class DatabaseModel {
             .executeAsBlocking();
   }
 
+  //----------  Logged Game Flat ----------//
+
+  public List<LoggedGameFlat> getLoggedGameFlat(int listLength){
+    return storIOContentResolver
+            .get()
+            .listOfObjects(LoggedGameFlat.class)
+            .withQuery(Query.builder()
+                    .uri(LoggedGamesFlatViewContract.URI_TABLE)
+                      //.
+                    .build())
+            .prepare()
+            .executeAsBlocking();
+  }
 
 //Genric soultion ideas
 

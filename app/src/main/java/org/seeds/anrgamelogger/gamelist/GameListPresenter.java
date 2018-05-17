@@ -37,7 +37,8 @@ public class GameListPresenter{
 //                        list->{view.setData(list);});
 
         //compositeSubscription.add(model.databaseFirstTimeSetup());
-       compositeSubscription.add(onItemClick());
+        model.getGameList(50);
+        compositeSubscription.add(onItemClick());
         compositeSubscription.add(observeCorpFab());
         compositeSubscription.add(observeRunnerFab());
         compositeSubscription.add(observerImageLoadButtonClick());

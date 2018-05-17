@@ -55,7 +55,7 @@ public class GameListModel {
     }
 
 
-  public Observable<ArrayList<LoggedGame>> getGameList(int lengthLimit) {
+  public ArrayList<LoggedGame> getGameList(int lengthLimit) {
 //       return Observable.defer(new Function<Observable<ArrayList<LoggedGame>>>() {
 //         @Override
 //         public Object apply(Object o) throws Exception {
@@ -68,7 +68,7 @@ public class GameListModel {
 //            }
 //        });
 //TODO: Rewite Methord
-      return null;
+      return (ArrayList)databaseModel.getLoggedGameFlat(50);
     }
 
 
