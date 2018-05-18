@@ -27,6 +27,9 @@ import org.seeds.anrgamelogger.buisnessobjects.LocationStorIOContentResolverDele
 import org.seeds.anrgamelogger.buisnessobjects.LocationStorIOContentResolverGetResolver;
 import org.seeds.anrgamelogger.buisnessobjects.LocationStorIOContentResolverPutResolver;
 import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlat;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlatStorIOContentResolverDeleteResolver;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlatStorIOContentResolverGetResolver;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlatStorIOContentResolverPutResolver;
 import org.seeds.anrgamelogger.buisnessobjects.Player;
 import org.seeds.anrgamelogger.buisnessobjects.PlayerStorIOContentResolverDeleteResolver;
 import org.seeds.anrgamelogger.buisnessobjects.PlayerStorIOContentResolverGetResolver;
@@ -39,6 +42,7 @@ import org.seeds.anrgamelogger.model.LoggedGame;
 import org.seeds.anrgamelogger.model.LoggedGameStorIOContentResolverDeleteResolver;
 import org.seeds.anrgamelogger.model.LoggedGameStorIOContentResolverGetResolver;
 import org.seeds.anrgamelogger.model.LoggedGameStorIOContentResolverPutResolver;
+
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -100,9 +104,9 @@ public class ApplicationModule {
                     .deleteResolver(new LoggedGameStorIOContentResolverDeleteResolver())
                     .build())
             .addTypeMapping(LoggedGameFlat.class, ContentResolverTypeMapping.<LoggedGameFlat>builder()
-                    .putResolver(new LoggegGameF())
-                    .getResolver(new LoggedGameStorIOContentResolverGetResolver())
-                    .deleteResolver(new LoggedGameStorIOContentResolverDeleteResolver())
+                    .putResolver(new LoggedGameFlatStorIOContentResolverPutResolver())
+                    .getResolver(new LoggedGameFlatStorIOContentResolverGetResolver())
+                    .deleteResolver(new LoggedGameFlatStorIOContentResolverDeleteResolver())
                     .build())
             .build();
 

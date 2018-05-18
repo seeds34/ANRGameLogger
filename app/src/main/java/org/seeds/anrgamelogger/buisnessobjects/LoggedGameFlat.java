@@ -29,7 +29,7 @@ public class LoggedGameFlat {
     String pO_Identity;
 
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_ID_IMAGE)
-    Byte[] pO_IdentityImage;
+    byte[] pO_IdentityImage;
 
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_SCORE)
     int    pO_Score;
@@ -47,7 +47,7 @@ public class LoggedGameFlat {
     String pT_Identity;
 
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_ID_IMAGE)
-    Byte[] pT_IdentityImage;
+    byte[] pT_IdentityImage;
 
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_SCORE)
     int    pT_Score;
@@ -62,7 +62,7 @@ public class LoggedGameFlat {
 
     public LoggedGameFlat(){}
 
-    public LoggedGameFlat(int gameID, String pO_Name, String locationName, String playedDate, String pO_DeckName, String pO_Identity, Byte[] pO_IdentityImage, int pO_Score, String pO_WinFlag, String pT_Name, String pT_DeckName, String pT_Identity, Byte[] pT_IdentityImage, int pT_Score, String pT_WinFlag, String winType) {
+    public LoggedGameFlat(int gameID, String pO_Name, String locationName, String playedDate, String pO_DeckName, String pO_Identity, byte[] pO_IdentityImage, int pO_Score, String pO_WinFlag, String pT_Name, String pT_DeckName, String pT_Identity, byte[] pT_IdentityImage, int pT_Score, String pT_WinFlag, String winType) {
         this.gameID = gameID;
         this.pO_Name = pO_Name;
         this.locationName = locationName;
@@ -137,11 +137,11 @@ public class LoggedGameFlat {
         this.pO_Identity = pO_Identity;
     }
 
-    public Byte[] getpO_IdentityImage() {
+    public byte[] getpO_IdentityImage() {
         return pO_IdentityImage;
     }
 
-    public void setpO_IdentityImage(Byte[] pO_IdentityImage) {
+    public void setpO_IdentityImage(byte[] pO_IdentityImage) {
         this.pO_IdentityImage = pO_IdentityImage;
     }
 
@@ -177,11 +177,11 @@ public class LoggedGameFlat {
         this.pT_Identity = pT_Identity;
     }
 
-    public Byte[] getpT_IdentityImage() {
+    public byte[] getpT_IdentityImage() {
         return pT_IdentityImage;
     }
 
-    public void setpT_IdentityImage(Byte[] pT_IdentityImage) {
+    public void setpT_IdentityImage(byte[] pT_IdentityImage) {
         this.pT_IdentityImage = pT_IdentityImage;
     }
 
