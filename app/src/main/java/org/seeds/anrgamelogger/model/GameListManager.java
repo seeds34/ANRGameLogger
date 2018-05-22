@@ -84,7 +84,7 @@ public class GameListManager {
         LoggedGame ret = null;
 
         for(LoggedGame llg: loggedGamesList){
-            if(llg.getGameID().equals(gameIdIn)) {
+            if(llg.getGameID() == Integer.valueOf(gameIdIn)) {
                 ret = llg;
             }
         }

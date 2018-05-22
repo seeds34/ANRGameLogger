@@ -18,7 +18,7 @@ import org.seeds.anrgamelogger.database.contracts.LoggedGamesContract;
 public class LoggedGame implements Parcelable {
 
     @StorIOContentResolverColumn(name = LoggedGamesContract.LoggedGamesColumns.GAME_ID, key = true)
-    String gameID;
+    int gameID;
 
     @StorIOContentResolverColumn(name = LoggedGamesContract.LoggedGamesColumns.PLAYER_ID)
     int player_id;
@@ -55,7 +55,7 @@ public class LoggedGame implements Parcelable {
 
     public LoggedGame(){}
 
-    public LoggedGame(String gameID, int player_id, int deck_id, int location_id, String played_date, String win_type, String side, String win_flag, String score) {
+    public LoggedGame(int gameID, int player_id, int deck_id, int location_id, String played_date, String win_type, String side, String win_flag, String score) {
         this.gameID = gameID;
         this.player_id = player_id;
         this.deck_id = deck_id;
@@ -72,7 +72,7 @@ public class LoggedGame implements Parcelable {
         this.playedDate = playedDate;
         this.winType = winType;
     }
-    public LoggedGame(Player playerOne, Player playerTwo, String locationName, String playedDate, String gameID, String winType) {
+    public LoggedGame(Player playerOne, Player playerTwo, String locationName, String playedDate, int gameID, String winType) {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
         this.locationName = locationName;
@@ -87,7 +87,7 @@ public class LoggedGame implements Parcelable {
         //TODO: Load game data directly from cursor
     }
 
-    public String getGameID() {
+    public int getGameID() {
         return gameID;
     }
 
@@ -124,7 +124,7 @@ public class LoggedGame implements Parcelable {
 
     /*Genrated at: http://www.parcelabler.com/ */
     protected LoggedGame(Parcel in) {
-        gameID = in.readString();
+        gameID = in.readInt();
         playerOne = (Player) in.readValue(Player.class.getClassLoader());
         playerTwo = (Player) in.readValue(Player.class.getClassLoader());
         locationName = in.readString();
@@ -140,7 +140,7 @@ public class LoggedGame implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(gameID);
+        dest.writeInt(gameID);
         dest.writeValue(playerOne);
         dest.writeValue(playerTwo);
         dest.writeString(locationName);

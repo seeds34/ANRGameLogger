@@ -148,6 +148,10 @@ public class AddGameModel {
         databaseModel.insertPlayer(player);
     }
 
+    public int getNextGameNo() {
+        return databaseModel.getNextGameNo();
+    }
+
     //Fix Overview to work out winner (and which player it is) etc etc
 
     /*

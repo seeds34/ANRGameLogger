@@ -84,41 +84,44 @@ public class AddGamePresenter {
         9: Sort Player 2 Logged Game
          */
 
+    if(pOneData.getPlayerNames().matches("") || pTwoData.getPlayerNames().matches("")){
+        view.showMessage("Player One is: " + pOneData.getPlayerNames() + " and Player Two is: " + pTwoData.getPlayerNames() + " Either Player name can be empty");
+    }else {
+
         Identity playerOneid = model.getIdentity(pOneData.getIdentityName());
         Identity playerTwoid = model.getIdentity(pTwoData.getIdentityName());
 
 //Get Deck based on Name, ID and Version. If Name is Null user Player+ID+Version. Although Current Deck name can't be Null
         Deck pOneDeck = model.getDeck(pOneData.getDeckName(), pOneData.getDeckVersion(), playerOneid.getRowid());
-        if(pOneDeck == null){
+        if (pOneDeck == null) {
             model.insertNewDeck(new Deck(pOneData.getDeckName(), pOneData.getDeckVersion(), playerOneid.getRowid()));
             pOneDeck = model.getDeck(pOneData.getDeckName(), pOneData.getDeckVersion(), playerOneid.getRowid());
         }
 
-
         Deck pTwoDeck = model.getDeck(pTwoData.getDeckName(), pTwoData.getDeckVersion(), playerTwoid.getRowid());
-        if(pTwoDeck == null){
+        if (pTwoDeck == null) {
             model.insertNewDeck(new Deck(pTwoData.getDeckName(), pTwoData.getDeckVersion(), playerTwoid.getRowid()));
             pTwoDeck = model.getDeck(pTwoData.getDeckName(), pTwoData.getDeckVersion(), playerTwoid.getRowid());
         }
 
-
         Player playerOne = model.getPlayer(pOneData.getPlayerNames());
-        if(playerOne == null){
+        if (playerOne == null) {
             model.insertPlayer(new Player(pOneData.getPlayerNames()));
             playerOne = model.getPlayer(pOneData.getPlayerNames());
         }
 
         Player playerTwo = model.getPlayer(pTwoData.getPlayerNames());
-        if(playerTwo == null){
+        if (playerTwo == null) {
             model.insertPlayer(new Player(pTwoData.getPlayerNames()));
             playerTwo = model.getPlayer(pTwoData.getPlayerNames());
         }
 
         Location loc = model.getLocation(ovData.getLocation());
-        if(loc == null && (!ovData.getLocation().equals(null) || !ovData.getLocation().matches(""))){
+        if (loc == null && !ovData.getLocation().matches("")) {
             model.insertNewLocation(new Location(ovData.getLocation()));
             loc = model.getLocation(ovData.getLocation());
         }
+    }
 
         //How to sort null values
     }

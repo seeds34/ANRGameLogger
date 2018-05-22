@@ -262,6 +262,19 @@ public class DatabaseModel {
             .executeAsBlocking();
   }
 
+  public int getNextGameNo(){
+    LoggedGame lg = storIOContentResolver
+            .get()
+            .object(LoggedGame.class)
+            .withQuery(Query.builder()
+                    .uri(LoggedGamesContract.URI_TABLE)
+                    .columns("MAX(" + LoggedGamesContract.LoggedGamesColumns.GAME_ID +")")
+                    .build())
+            .prepare()
+            .executeAsBlocking();
+
+    return lg.getGameID();
+  }
   public PutResult insertLoggedGame(LoggedGame loggedGame){
     return storIOContentResolver
             .put()
