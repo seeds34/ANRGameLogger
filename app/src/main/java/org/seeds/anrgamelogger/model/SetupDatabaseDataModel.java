@@ -2,6 +2,7 @@ package org.seeds.anrgamelogger.model;
 
 
 import android.util.Log;
+import com.pushtorefresh.storio3.StorIOException;
 import com.pushtorefresh.storio3.contentresolver.operations.put.PutResult;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
@@ -48,20 +49,26 @@ public class SetupDatabaseDataModel {
     public void setUpTestPlayers(){
         ArrayList<String> playerList = new ArrayList<>(Arrays.asList(new String[]{"Tomas","Zoe","Greg","Dan","Colin","Scott","Simon","Bill", "Tim", "Kyle"}));
         for(String s : playerList){
+          try {
             databaseModel.insertPlayer(new Player(s));
+          }catch (StorIOException e){
+            Log.e(LOG_TAG, "Attempted to insert Player * " + s + "* | This failed");
+          }
+
         }
     }
 
     public void insertIdentityData(CardList identitiesIn) {
 
-        List<Card> ids = identitiesIn.getIdentities();
+        List<Card> ids = identitiesIn.getCards();
 
         Log.d(LOG_TAG,"Inserting IDs");
         for (Card i : ids) {
             Log.d(LOG_TAG, "Type: " + i.type_code);
             if (i.type_code.equals("identity")) {
                 Log.d(LOG_TAG, i.toString());
-                databaseModel.insertIdentity(i);
+                Identity ident = new Identity(i);
+                databaseModel.insertIdentity(ident);
             }
         }
     }

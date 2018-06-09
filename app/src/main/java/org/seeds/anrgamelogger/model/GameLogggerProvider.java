@@ -60,8 +60,8 @@ public class GameLogggerProvider extends ContentProvider {
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
 
         String authority = IdentitiesContract.CONTENT_AUTHORITY;
-        matcher.addURI(authority, "identities", IDENTITIES );
-        matcher.addURI(authority, "identities/*", IDENTITIES_ID );
+        matcher.addURI(authority, "cards", IDENTITIES );
+        matcher.addURI(authority, "cards/*", IDENTITIES_ID );
 
         authority = DecksContract.CONTENT_AUTHORITY;
         matcher.addURI(authority, "decks", DECK );

@@ -10,7 +10,7 @@ public class Card{
 
       @Json(name = "title")
       //@StorIOContentResolverColumn(name = IdentitiesColumns.IDENTITY_NAME, key = true)
-      String title;
+      String name;
 
       @Json(name = "side_code")
       //@StorIOContentResolverColumn(name = IdentitiesColumns.IDENTITY_SIDE)
@@ -38,7 +38,7 @@ public class Card{
       public Card(){}
 
       public Card(String name, String side, String faction, String roatated_flag, String nrdb_code, byte[] imageByteArrayOutputStream, String type_code, String pack_code, String posIn){
-            this.title = name;
+            this.name = name;
             this.side_code = side;
             this.faction_code = faction;
             //this.roatated_flag = roatated_flag;
@@ -50,7 +50,7 @@ public class Card{
       }
 
       public String toString(){
-            return  "Title: " + title +
+            return  "Title: " + name +
                 " | Type Code: " + type_code +
                 " | Side Code: " + side_code +
                 " | Faction Code: " + faction_code +
@@ -60,39 +60,59 @@ public class Card{
                 " | POS " + pos;
       }
 
-//      public void setImageByteArray(byte[] in){
-//         imageByteArrayOutputStream = in;
-//      }
-
-      public String getCode(){
-          return code;
+      public String getName() {
+        return name;
       }
 
-//      public byte[] getImageByteArrayOutputStream(){
-//          return imageByteArrayOutputStream;
-//      }
-
-      public String getName(){
-        return title;
+      public void setName(String title) {
+        this.name = title;
       }
 
-      public String getSide_code(){
+      public String getSide_code() {
         return side_code;
       }
 
-      public String getPack_code(){
-          return pack_code;
+      public void setSide_code(String side_code) {
+        this.side_code = side_code;
       }
 
-//      public void setRotted(String rot){
-//          roatated_flag = rot;
-//      }
+      public String getFaction_code() {
+        return faction_code;
+      }
+
+      public void setFaction_code(String faction_code) {
+        this.faction_code = faction_code;
+      }
+
+      public String getCode() {
+        return code;
+      }
+
+      public void setCode(String code) {
+        this.code = code;
+      }
+
+      public String getType_code() {
+        return type_code;
+      }
+
+      public void setType_code(String type_code) {
+        this.type_code = type_code;
+      }
+
+      public String getPack_code() {
+        return pack_code;
+      }
+
+      public void setPack_code(String pack_code) {
+        this.pack_code = pack_code;
+      }
 
       public String getPos() {
-    return pos;
-  }
+        return pos;
+      }
 
       public void setPos(String pos) {
-    this.pos = pos;
-  }
+        this.pos = pos;
+      }
 }

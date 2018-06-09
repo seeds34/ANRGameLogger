@@ -3,12 +3,12 @@ package org.seeds.anrgamelogger.application;
 import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
+import com.pushtorefresh.storio3.StorIOException;
 import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
 import com.pushtorefresh.storio3.contentresolver.operations.put.PutResult;
 import com.pushtorefresh.storio3.contentresolver.operations.put.PutResults;
 import com.pushtorefresh.storio3.contentresolver.queries.Query;
 import java.util.List;
-
 import org.seeds.anrgamelogger.buisnessobjects.Deck;
 import org.seeds.anrgamelogger.buisnessobjects.Identity;
 import org.seeds.anrgamelogger.buisnessobjects.Location;
@@ -23,7 +23,6 @@ import org.seeds.anrgamelogger.database.contracts.LoggedGamesContract;
 import org.seeds.anrgamelogger.database.contracts.LoggedGamesFlatViewContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract.PlayersColumns;
-import org.seeds.anrgamelogger.model.Card;
 import org.seeds.anrgamelogger.model.CardImage;
 import org.seeds.anrgamelogger.model.LoggedGame;
 
@@ -111,7 +110,7 @@ public class DatabaseModel {
   }
 
   //Use Card instead of Identity Object as IDs will always be inserted 'remotely' not by user
-  public PutResult insertIdentity(Card i) {
+  public PutResult insertIdentity(Identity i) {
     return storIOContentResolver.put()
             .object(i)
             .prepare()
@@ -171,7 +170,7 @@ public class DatabaseModel {
   }
 
 
-  public PutResult insertPlayer(Player playerIn){
+  public PutResult insertPlayer(Player playerIn) throws StorIOException {
     return storIOContentResolver
             .put()
             .object(playerIn)

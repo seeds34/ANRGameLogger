@@ -1,10 +1,12 @@
 package org.seeds.anrgamelogger.buisnessobjects;
-import android.provider.BaseColumns;
 
+import android.provider.BaseColumns;
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract.IdentitiesColumns;
+import org.seeds.anrgamelogger.model.Card;
+import org.seeds.anrgamelogger.model.CardImage;
 
 /**
  * Created by user on 07/01/2018.
@@ -14,7 +16,7 @@ import org.seeds.anrgamelogger.database.contracts.IdentitiesContract.IdentitiesC
 public class Identity {
 
       @StorIOContentResolverColumn(name = IdentitiesColumns.IDENTITY_NAME, key = true)
-      String title;
+      String name;
 
       @StorIOContentResolverColumn(name = IdentitiesColumns.IDENTITY_SIDE)
       String side_code;
@@ -43,7 +45,7 @@ public class Identity {
       public Identity(){}
 
       public Identity(String name, String side, String faction, String roatated_flag, String nrdb_code, byte[] imageByteArrayOutputStream, String pack_code, String posIn){
-            this.title = name;
+            this.name = name;
             this.side_code = side;
             this.faction_code = faction;
             this.roatated_flag = roatated_flag;
@@ -53,8 +55,22 @@ public class Identity {
             this.pos = posIn;
       }
 
+      public Identity(Card c){
+        this.name = c.getName();
+        this.side_code = c.getSide_code();
+        this.faction_code = c.getFaction_code();
+        this.code = c.getCode();
+        this.pack_code = c.getPack_code();
+        this.pos = c.getPos();
+      }
+
+      public Identity(CardImage ci){
+        this.code = ci.getCode();
+        this.imageByteArrayOutputStream = ci.getImageByteArray();
+      }
+
       public String toString(){
-            return  "Title: " + title +
+            return  "Title: " + name +
                 " | Side Code: " + side_code +
                 " | Faction Code: " + faction_code +
                 " | Roatated Flag: " + roatated_flag +
@@ -76,7 +92,7 @@ public class Identity {
       }
 
       public String getName(){
-        return title;
+        return name;
       }
 
       public String getSide_code(){

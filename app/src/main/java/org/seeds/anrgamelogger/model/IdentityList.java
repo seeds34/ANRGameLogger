@@ -6,7 +6,7 @@ import org.seeds.anrgamelogger.buisnessobjects.Identity;
 
 public class IdentityList  {
 
-   // ArrayList<Card> identities;
+   // ArrayList<Card> cards;
     List<Identity> identities;
 
     public IdentityList(List<Identity> listIn){
@@ -14,7 +14,7 @@ public class IdentityList  {
     }
 
     public IdentityList getOneSidedList(String sideIn){
-        //identities.stream().filter(c -> c.getSide_code().equals(sideIn));
+        //cards.stream().filter(c -> c.getSide_code().equals(sideIn));
         ArrayList temp = new ArrayList();
         for (Identity c : identities) {
             if(c.getSide_code().equals(sideIn)){

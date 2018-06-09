@@ -24,7 +24,7 @@ public class IdentitiesContract {
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://"+CONTENT_AUTHORITY);
 
     //Table identifyers
-    public static final String PATH_IDENTITIES = "identities";
+    public static final String PATH_IDENTITIES = "cards";
 
     public  static final Uri URI_TABLE = Uri.parse(BASE_CONTENT_URI.toString()+"/"+ PATH_IDENTITIES);
 
@@ -34,8 +34,8 @@ public class IdentitiesContract {
 
     public static class Identitity implements IdentitiesColumns, BaseColumns {
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendEncodedPath(PATH_IDENTITIES).build();
-        public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd."+CONTENT_AUTHORITY+".identities";
-        public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd."+CONTENT_AUTHORITY+".identities";
+        public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd."+CONTENT_AUTHORITY+".cards";
+        public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd."+CONTENT_AUTHORITY+".cards";
 
         public static Uri buildIdentutyUri(String identutyId){
             return CONTENT_URI.buildUpon().appendEncodedPath(identutyId).build();

@@ -2,7 +2,6 @@ package org.seeds.anrgamelogger.gamelist;
 
 import android.app.Activity;
 import android.util.Log;
-import io.reactivex.Observable;
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.addgame.AddGameActivity;
 import org.seeds.anrgamelogger.application.DatabaseModel;
@@ -46,7 +45,7 @@ public class GameListModel {
         if(databaseModel.isIdentitiesTableEmpty() ){
             Log.i(LOG_TAG,"Starting to load first time data");
             idd.populateIdentitiesTable();
-            idd.setUpTestPlayers();
+            //idd.setUpTestPlayers();
         }
     }
 
