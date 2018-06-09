@@ -166,7 +166,7 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        deleteDatabase(conext);
+//        deleteDatabase(conext);
         sqLiteDatabase.execSQL(IDENTITIES_DDL);
         sqLiteDatabase.execSQL(DECKS_DDL);
         sqLiteDatabase.execSQL(LOCATIONS_DDL);

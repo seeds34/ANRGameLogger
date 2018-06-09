@@ -62,6 +62,8 @@ public class SetupDatabaseDataModel {
 
         List<Card> ids = identitiesIn.getCards();
 
+        Log.d(LOG_TAG, "ID List lenght: " + ids.size());
+
         Log.d(LOG_TAG,"Inserting IDs");
         for (Card i : ids) {
             Log.d(LOG_TAG, "Type: " + i.type_code);
