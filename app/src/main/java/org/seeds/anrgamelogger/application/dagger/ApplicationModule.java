@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import org.seeds.anrgamelogger.application.DatabaseModel;
 import org.seeds.anrgamelogger.application.NetworkModel;
+import org.seeds.anrgamelogger.buisnessobjects.CustomIdentityPutResolver;
 import org.seeds.anrgamelogger.buisnessobjects.Deck;
 import org.seeds.anrgamelogger.buisnessobjects.DeckStorIOContentResolverDeleteResolver;
 import org.seeds.anrgamelogger.buisnessobjects.DeckStorIOContentResolverGetResolver;
@@ -74,7 +75,7 @@ public class ApplicationModule {
     return DefaultStorIOContentResolver.builder()
             .contentResolver(contentResolverIn)
             .addTypeMapping(Identity.class, ContentResolverTypeMapping.<Identity>builder()
-                    .putResolver(new IdentityStorIOContentResolverPutResolver())
+                    .putResolver(new CustomIdentityPutResolver())
                     .getResolver(new IdentityStorIOContentResolverGetResolver())
                     .deleteResolver(new IdentityStorIOContentResolverDeleteResolver())
                     .build())

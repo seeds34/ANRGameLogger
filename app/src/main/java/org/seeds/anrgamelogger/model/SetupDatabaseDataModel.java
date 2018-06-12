@@ -38,6 +38,17 @@ public class SetupDatabaseDataModel {
         Log.i(LOG_TAG,"Database Model is: " + databaseModel);
     }
 
+//
+//    public boolean haveAllIdentites() {
+//        final boolean ret = false;
+//
+//        int dbIdentityListSize = databaseModel.getAllIdentities().size();
+//
+//        networkModel.getNRDBCardList()
+//                .
+//
+//        return ret;
+//    }
 
     public void populateIdentitiesTable() {
 

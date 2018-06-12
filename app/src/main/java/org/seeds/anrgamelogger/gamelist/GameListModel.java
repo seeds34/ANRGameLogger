@@ -42,7 +42,8 @@ public class GameListModel {
 
         Log.i(LOG_TAG,"Database Model is: " + databaseModel);
 
-        if(databaseModel.isIdentitiesTableEmpty() ){
+
+        if(databaseModel.isIdentitiesTableEmpty()){
             Log.i(LOG_TAG,"Starting to load first time data");
             idd.populateIdentitiesTable();
             //idd.setUpTestPlayers();

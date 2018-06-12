@@ -10,6 +10,7 @@ import com.pushtorefresh.storio3.contentresolver.operations.put.PutResults;
 import com.pushtorefresh.storio3.contentresolver.queries.Query;
 import java.util.List;
 import org.seeds.anrgamelogger.buisnessobjects.Deck;
+import org.seeds.anrgamelogger.buisnessobjects.CustomIdentityPutResolver;
 import org.seeds.anrgamelogger.buisnessobjects.Identity;
 import org.seeds.anrgamelogger.buisnessobjects.Location;
 import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlat;
@@ -113,6 +114,7 @@ public class DatabaseModel {
   public PutResult insertIdentity(Identity i) {
     return storIOContentResolver.put()
             .object(i)
+            //.withPutResolver(new CustomIdentityPutResolver())
             .prepare()
             .executeAsBlocking();
   }
@@ -295,6 +297,7 @@ public class DatabaseModel {
             .prepare()
             .executeAsBlocking();
   }
+
 
 //Genric soultion ideas
 
