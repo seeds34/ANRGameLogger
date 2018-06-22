@@ -31,6 +31,7 @@ import org.seeds.anrgamelogger.model.LoggedGame;
  * Created by Tomas Seymour-Turner on 21/02/2018.
  */
 
+//TODO: Should the DB Setup e.g. Add IDs and Images code be in the model??
 public class DatabaseModel {
 
   private final String LOG_TAG = this.getClass().getName();
