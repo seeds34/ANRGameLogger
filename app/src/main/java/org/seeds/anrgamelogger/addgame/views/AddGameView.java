@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.addgame;
+package org.seeds.anrgamelogger.addgame.views;
 
 import android.app.Activity;
 import android.support.design.widget.TabLayout;
@@ -12,10 +12,11 @@ import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.addgame.AddGamePagerAdapter;
+import org.seeds.anrgamelogger.addgame.model.OverviewViewData;
+import org.seeds.anrgamelogger.addgame.model.PlayerViewData;
 import org.seeds.anrgamelogger.addgame.subpresenters.OverviewSubPresenter;
 import org.seeds.anrgamelogger.addgame.subpresenters.PlayerSubPresenter;
-import org.seeds.anrgamelogger.addgame.views.AddGameOverviewView;
-import org.seeds.anrgamelogger.addgame.views.AddGamePlayerView;
 import org.seeds.anrgamelogger.model.IdentityList;
 
 /**
@@ -52,10 +53,10 @@ public class AddGameView extends FrameLayout {
         tabLayout.setupWithViewPager(addGameViewPager);
     }
 
-    public void setUpPagerViews(ArrayList<String> viewTitleList, ArrayList<String> playerList){
-        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, new AddGamePlayerView(activity), viewTitleList.get(0),playerList) );
-        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, new AddGamePlayerView(activity), viewTitleList.get(1), playerList) );
-        addGamePagerAdapter.addView(new OverviewSubPresenter(activity, new AddGameOverviewView(activity)) );
+    public void setUpPagerViews(ArrayList<String> viewTitleList, ArrayList<String> playerList, ArrayList<String> deckList, ArrayList<String> locationList){
+        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, new AddGamePlayerView(activity), viewTitleList.get(0),playerList, deckList) );
+        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, new AddGamePlayerView(activity), viewTitleList.get(1), playerList, deckList) );
+        addGamePagerAdapter.addView(new OverviewSubPresenter(activity, new AddGameOverviewView(activity), locationList) );
     }
 
     public void startPageViewer(){

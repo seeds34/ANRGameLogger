@@ -1,12 +1,15 @@
 package org.seeds.anrgamelogger.addgame.views;
 
 import android.app.Activity;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.jakewharton.rxbinding2.view.RxView;
 import io.reactivex.Observable;
+import java.util.ArrayList;
 import org.seeds.anrgamelogger.R;
 
 /**
@@ -26,12 +29,14 @@ public class AddGameOverviewView extends AddGameBaseView{
   public Button btn_save;
 
   @BindView(R.id.txt_location)
-  public EditText location;
+  public AutoCompleteTextView location;
 
   @BindView(R.id.et_dateChooser)
   public EditText playedDate;
 
   private final int viewNo = R.layout.view_addgame_overview;
+  private ArrayAdapter<String> locationListAdapter;
+
 
   public AddGameOverviewView(Activity activity){
     super(activity);
@@ -47,7 +52,15 @@ public class AddGameOverviewView extends AddGameBaseView{
 
   public void onCreate(){}
 
-    @Override
+  @Override
+  public void setUpLocationAutoComplete(ArrayList<String> locationList){
+    locationListAdapter = new ArrayAdapter<>(activity, R.layout.support_simple_spinner_dropdown_item, locationList);
+    locationListAdapter.setNotifyOnChange(true);
+    location.setAdapter(locationListAdapter);
+  }
+
+
+  @Override
     public Observable<Object> save(){
     return RxView.clicks(btn_save);
   }

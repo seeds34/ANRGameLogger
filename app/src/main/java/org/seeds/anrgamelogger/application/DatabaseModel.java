@@ -10,7 +10,6 @@ import com.pushtorefresh.storio3.contentresolver.operations.put.PutResults;
 import com.pushtorefresh.storio3.contentresolver.queries.Query;
 import java.util.List;
 import org.seeds.anrgamelogger.buisnessobjects.Deck;
-import org.seeds.anrgamelogger.buisnessobjects.CustomIdentityPutResolver;
 import org.seeds.anrgamelogger.buisnessobjects.Identity;
 import org.seeds.anrgamelogger.buisnessobjects.Location;
 import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlat;
@@ -183,6 +182,17 @@ public class DatabaseModel {
 
   //----------  Location ----------//
 
+  public List<Location> getAllLocations() {
+    return storIOContentResolver
+        .get()
+        .listOfObjects(Location.class)
+        .withQuery(Query.builder()
+            .uri(LocationsContract.URI_TABLE)
+            .build())
+        .prepare()
+        .executeAsBlocking();
+  }
+
   public List<Location> getLocations(){
     return storIOContentResolver
         .get()
@@ -216,6 +226,17 @@ public class DatabaseModel {
   }
 
   //----------  Deck ----------//
+
+  public List<Deck> getAllDecks() {
+    return storIOContentResolver
+        .get()
+        .listOfObjects(Deck.class)
+        .withQuery(Query.builder()
+            .uri(DecksContract.URI_TABLE)
+            .build())
+        .prepare()
+        .executeAsBlocking();
+  }
 
   public List<Deck> getDecks(){
     return storIOContentResolver

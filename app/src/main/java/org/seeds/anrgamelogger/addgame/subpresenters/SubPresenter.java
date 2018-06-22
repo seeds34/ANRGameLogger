@@ -3,8 +3,8 @@ package org.seeds.anrgamelogger.addgame.subpresenters;
 import android.app.Activity;
 import android.view.View;
 import io.reactivex.Observable;
-import org.seeds.anrgamelogger.addgame.OverviewViewData;
-import org.seeds.anrgamelogger.addgame.PlayerViewData;
+import org.seeds.anrgamelogger.addgame.model.OverviewViewData;
+import org.seeds.anrgamelogger.addgame.model.PlayerViewData;
 import org.seeds.anrgamelogger.model.IdentityList;
 
 public abstract class SubPresenter {

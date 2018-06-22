@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import io.reactivex.Observable;
 import java.util.ArrayList;
 import java.util.List;
+import org.seeds.anrgamelogger.addgame.model.OverviewViewData;
+import org.seeds.anrgamelogger.addgame.model.PlayerViewData;
 import org.seeds.anrgamelogger.addgame.subpresenters.PlayerSubPresenter;
 import org.seeds.anrgamelogger.addgame.subpresenters.SubPresenter;
 import org.seeds.anrgamelogger.model.IdentityList;

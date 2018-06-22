@@ -75,7 +75,7 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
     private final String LOGGED_GAMES_DDL = "CREATE TABLE IF NOT EXISTS " + Tables.LOGGED_GAMES + " ( " + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + LoggedGamesContract.LoggedGamesColumns.GAME_ID + " INTEGER NOT NULL,"
             + LoggedGamesContract.LoggedGamesColumns.PLAYER_ID + " INTEGER NOT NULL,"
-            + LoggedGamesContract.LoggedGamesColumns.DECK_ID + " INTEGER NOT NULL,"
+            + LoggedGamesContract.LoggedGamesColumns.DECK_ID + " INTEGER ," /*NOT NULL Removed so DECK_ID is no longer mandatory */
             + LoggedGamesContract.LoggedGamesColumns.LOCATION_ID + " INTEGER,"
             + LoggedGamesContract.LoggedGamesColumns.WIN_FLAG + " TEXT NOT NULL,"
             + LoggedGamesContract.LoggedGamesColumns.SCORE + " INTEGER NOT NULL,"

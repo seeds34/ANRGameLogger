@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.addgame;
+package org.seeds.anrgamelogger.addgame.model;
 
 public class OverviewViewData {
 

@@ -6,9 +6,9 @@ import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
 
 import dagger.Module;
 import dagger.Provides;
-import org.seeds.anrgamelogger.addgame.AddGameModel;
+import org.seeds.anrgamelogger.addgame.model.AddGameModel;
 import org.seeds.anrgamelogger.addgame.AddGamePresenter;
-import org.seeds.anrgamelogger.addgame.AddGameView;
+import org.seeds.anrgamelogger.addgame.views.AddGameView;
 import org.seeds.anrgamelogger.application.DatabaseModel;
 
 /**

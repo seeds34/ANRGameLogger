@@ -26,4 +26,7 @@ public abstract class AddGameBaseView extends FrameLayout {
   public abstract Observable<Object> save();
 
   public void setUpNameAutoComplete(ArrayList<String> playerList) {}
+  public void setUpDeckNameAutoComplete(ArrayList<String> playerList) {}
+  public void setUpLocationAutoComplete(ArrayList<String> locationList) {}
+
 }

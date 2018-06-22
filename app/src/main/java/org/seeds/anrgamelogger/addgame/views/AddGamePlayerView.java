@@ -44,7 +44,8 @@ public class AddGamePlayerView extends AddGameBaseView{
   private AddGameIdentitesPageAdapter identityImageViewAdapter;
   private ArrayAdapter identityNameArrayAdapter;
   private Activity activity;
-  private ArrayAdapter<String> adapter;
+  private ArrayAdapter<String> nameListAdapter;
+  private ArrayAdapter<String> deckListAdapter;
 
   public AddGamePlayerView(Activity activity){
     super(activity);
@@ -58,9 +59,16 @@ public class AddGamePlayerView extends AddGameBaseView{
 
   @Override
   public void setUpNameAutoComplete(ArrayList<String> playerList){
-    adapter = new ArrayAdapter<>(activity, R.layout.support_simple_spinner_dropdown_item, playerList);
-    adapter.setNotifyOnChange(true);
-    playerName.setAdapter(adapter);
+    nameListAdapter = new ArrayAdapter<>(activity, R.layout.support_simple_spinner_dropdown_item, playerList);
+    nameListAdapter.setNotifyOnChange(true);
+    playerName.setAdapter(nameListAdapter);
+  }
+
+  @Override
+  public void setUpDeckNameAutoComplete(ArrayList<String> deckList) {
+    deckListAdapter = new ArrayAdapter<>(activity, R.layout.support_simple_spinner_dropdown_item, deckList);
+    deckListAdapter.setNotifyOnChange(true);
+    deckName.setAdapter(deckListAdapter);
   }
 
   @Override
@@ -118,6 +126,8 @@ public class AddGamePlayerView extends AddGameBaseView{
   public String getDeckVer() {
     return deckVer.getText().toString();
   }
+
+
 
   //  @Override
 //  public void setIdentitiesImageViewPager(LinkedHashMap<String, byte[]> imageListIn){

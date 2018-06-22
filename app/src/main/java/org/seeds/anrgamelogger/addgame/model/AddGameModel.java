@@ -1,11 +1,11 @@
-package org.seeds.anrgamelogger.addgame;
+package org.seeds.anrgamelogger.addgame.model;
 
 import android.app.Activity;
 import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
-import com.pushtorefresh.storio3.contentresolver.operations.put.PutResult;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.seeds.anrgamelogger.addgame.AddGameActivity;
 import org.seeds.anrgamelogger.application.DatabaseModel;
 import org.seeds.anrgamelogger.buisnessobjects.Deck;
 import org.seeds.anrgamelogger.buisnessobjects.Identity;
@@ -150,6 +150,24 @@ public class AddGameModel {
 
     public int getNextGameNo() {
         return databaseModel.getNextGameNo();
+    }
+
+    public ArrayList<String> getDeckList() {
+        List<Deck> temp = databaseModel.getAllDecks();
+        ArrayList<String> ret = new ArrayList<>();
+        for(Deck d : temp){
+            ret.add(d.getName());
+        }
+        return ret;
+    }
+
+    public ArrayList<String> getLocationList() {
+        List<Location> temp = databaseModel.getAllLocations();
+        ArrayList<String> ret = new ArrayList<>();
+        for(Location l : temp){
+            ret.add(l.getName());
+        }
+        return ret;
     }
 
     //Fix Overview to work out winner (and which player it is) etc etc
