@@ -11,6 +11,7 @@ import org.seeds.anrgamelogger.addgame.views.AddGameView;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 import org.seeds.anrgamelogger.buisnessobjects.Deck;
 import org.seeds.anrgamelogger.buisnessobjects.Identity;
+import org.seeds.anrgamelogger.buisnessobjects.Location;
 import org.seeds.anrgamelogger.buisnessobjects.Player;
 import org.seeds.anrgamelogger.model.IdentityList;
 
@@ -112,7 +113,6 @@ public class AddGamePresenter {
             pTwoDeck = model.getDeck(pTwoData.getDeckName(), pTwoData.getDeckVersion(), playerTwoid.getRowid());
         }
 
-        //Broken heres??
         Player playerOne = model.getPlayer(pOneData.getPlayerNames());
         if (playerOne == null) {
             model.insertPlayer(new Player(pOneData.getPlayerNames()));
@@ -124,12 +124,12 @@ public class AddGamePresenter {
             model.insertPlayer(new Player(pTwoData.getPlayerNames()));
             playerTwo = model.getPlayer(pTwoData.getPlayerNames());
         }
-//
-//        Location loc = model.getLocation(ovData.getLocation());
-//        if (loc == null && !ovData.getLocation().matches("")) {
-//            model.insertNewLocation(new Location(ovData.getLocation()));
-//            loc = model.getLocation(ovData.getLocation());
-//        }
+
+        Location loc = model.getLocation(ovData.getLocation());
+        if (loc == null && !ovData.getLocation().matches("")) {
+            model.insertNewLocation(new Location(ovData.getLocation()));
+            loc = model.getLocation(ovData.getLocation());
+        }
     }
 
         //How to sort null values
