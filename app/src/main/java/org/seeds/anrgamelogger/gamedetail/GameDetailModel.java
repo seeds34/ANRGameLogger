@@ -1,8 +1,7 @@
 package org.seeds.anrgamelogger.gamedetail;
 
 import android.app.Activity;
-
-import org.seeds.anrgamelogger.model.LoggedGame;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlat;
 
 /**
  * Created by Tomas Seymour-Turner on 19/11/2017.
@@ -16,7 +15,7 @@ public class GameDetailModel {
         this.activity = activity;
     }
 
-    public LoggedGame getLoggedGame() {
+    public LoggedGameFlat getLoggedGame() {
         return activity.getIntent().getParcelableExtra(GameDetailActivity.GAME_TRNASFER);
     }
 

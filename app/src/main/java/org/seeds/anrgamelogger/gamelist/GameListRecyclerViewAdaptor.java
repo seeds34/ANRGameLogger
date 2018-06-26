@@ -8,7 +8,7 @@ import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.model.LoggedGame;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlat;
 
 /**
  * Created by Tomas Seymour-Turner on 19/03/2017.
@@ -17,7 +17,7 @@ import org.seeds.anrgamelogger.model.LoggedGame;
 public class GameListRecyclerViewAdaptor extends android.support.v7.widget.RecyclerView.Adapter<GameOverviewViewHolder> {
 
     private String LOG_TAG = GameListRecyclerViewAdaptor.class.getSimpleName();
-    private ArrayList<LoggedGame> gameList = new ArrayList<>();
+    private ArrayList<LoggedGameFlat> gameList = new ArrayList<>();
     private final String GAME_NO_TEXT = "No. ";
 
     private PublishSubject<String> mViewClickSubject = PublishSubject.create();
@@ -54,7 +54,7 @@ public class GameListRecyclerViewAdaptor extends android.support.v7.widget.Recyc
         return (null != gameList ? gameList.size() : 0);
     }
 
-    public void loadNewData(ArrayList<LoggedGame> gameListIn){
+    public void loadNewData(ArrayList<LoggedGameFlat> gameListIn){
         gameList.clear();
         if (gameListIn != null && !gameListIn.isEmpty()) {
             this.gameList.addAll(gameListIn);

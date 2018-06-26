@@ -17,7 +17,7 @@ import com.jakewharton.rxbinding2.view.RxView;
 import io.reactivex.Observable;
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.model.LoggedGame;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlat;
 
 
 public class GameListView extends FrameLayout{
@@ -62,7 +62,7 @@ public class GameListView extends FrameLayout{
     }
 
 
-    public void setData(ArrayList<LoggedGame> gameListIn) {
+    public void setData(ArrayList<LoggedGameFlat> gameListIn) {
         gameListRecyclerViewAdaptor.loadNewData(gameListIn);
         gameRecyclerList.refreshDrawableState();
     }

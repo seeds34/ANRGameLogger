@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlat;
 import org.seeds.anrgamelogger.gamedetail.views.GameDetailNoteView;
 import org.seeds.anrgamelogger.gamedetail.views.GameDetailOverview;
-import org.seeds.anrgamelogger.model.LoggedGame;
 
 /**
  * Created by user on 21/11/2017.
@@ -21,11 +21,11 @@ public class GameDetailPagerAdapter extends PagerAdapter {
 
     private  List<View> viewList = new ArrayList<>();
     private  List<String> viewTitleList = new ArrayList<>();
-    private LoggedGame game;
+   // private LoggedGameFlat game;
     private Context context;
 
-    public GameDetailPagerAdapter(LoggedGame data, Activity activity) {
-        game = data;
+    public GameDetailPagerAdapter(LoggedGameFlat data, Activity activity) {
+        //game = data;
         this.context = activity.getApplicationContext();
 
         viewList.add(new GameDetailOverview(activity,data));

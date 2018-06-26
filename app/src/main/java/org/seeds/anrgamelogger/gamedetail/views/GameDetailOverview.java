@@ -9,11 +9,9 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.model.LoggedGame;
-
 import java.io.ByteArrayInputStream;
+import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlat;
 
 /**
  * Created by user on 21/11/2017.
@@ -23,7 +21,7 @@ import java.io.ByteArrayInputStream;
 public class GameDetailOverview extends FrameLayout {
 
 //    private final Activity activity;
-    private LoggedGame data;
+    private LoggedGameFlat data;
 
     protected TextView playerOneName;
     protected TextView playerTwoName;
@@ -41,7 +39,7 @@ public class GameDetailOverview extends FrameLayout {
 
     private Activity activity;
 
-    public GameDetailOverview(Activity activity, LoggedGame gameIn){
+    public GameDetailOverview(Activity activity, LoggedGameFlat gameIn){
         super(activity);
         inflate(getContext(), R.layout.view_gamedetail_overview, this);
         data = gameIn;
@@ -72,32 +70,33 @@ public class GameDetailOverview extends FrameLayout {
 
         location.setText("@" + data.getLocationName());
         playedDate.setText(data.getPlayedDate());
-        playerOneName.setText(data.getPlayerOne().getName());
-        playerTwoName.setText(data.getPlayerTwo().getName());
-        playerOneScore.setText(String.valueOf(data.getPlayerOne().getScore()));
-        playerTwoScore.setText(String.valueOf(data.getPlayerTwo().getScore()));
-        playerOneDeckName.setText(data.getPlayerOne().getDeck());
-        playerTwoDeckName.setText(data.getPlayerTwo().getDeck());
+        playerOneName.setText(data.getpO_Name());
+        playerTwoName.setText(data.getpT_Name());
+        playerOneScore.setText(String.valueOf(data.getpO_Score()));
+        playerTwoScore.setText(String.valueOf(data.getpT_Score()));
+        playerOneDeckName.setText(data.getpO_DeckName());
+        playerTwoDeckName.setText(data.getpT_DeckName());
         gameNo.setText(data.getGameID());
 
         String winnerText = "Winner Name: " + data.getWinnerName();
         // winnerName.setText(winnerText);
 
-        if(data.getWinnerName() == data.getPlayerOne().getName()){
+        //TODO: Fix Win logic
+//        if(data.getWinnerName() == data.getPlayerOne().getName()){
             winnerLabel = (TextView) this.findViewById(R.id.playerOneWinnerLable);
             winnerLabel.setVisibility(View.VISIBLE);
-        }else{
-            winnerLabel = (TextView) this.findViewById(R.id.playerTwoWinnerLable);
-            winnerLabel.setVisibility(View.VISIBLE);
-        }
+//        }else{
+//            winnerLabel = (TextView) this.findViewById(R.id.playerTwoWinnerLable);
+//            winnerLabel.setVisibility(View.VISIBLE);
+//        }
 
-        byte[] imageByteArray = data.getPlayerOne().getImageByteArray();
+        byte[] imageByteArray = data.getpO_IdentityImage();
         ByteArrayInputStream imageStream = new ByteArrayInputStream(imageByteArray);
         Bitmap theImage = BitmapFactory.decodeStream(imageStream);
 
         playerOneIDImage.setImageBitmap(theImage);
 
-        imageByteArray = data.getPlayerTwo().getImageByteArray();
+        imageByteArray = data.getpT_IdentityImage();
         imageStream = new ByteArrayInputStream(imageByteArray);
         theImage = BitmapFactory.decodeStream(imageStream);
         playerTwoIDImage.setImageBitmap(theImage);

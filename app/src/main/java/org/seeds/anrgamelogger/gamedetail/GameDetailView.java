@@ -9,7 +9,7 @@ import android.widget.FrameLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.model.LoggedGame;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlat;
 
 /**
  * Created by Tomas Seymour-Turner on 19/11/2017.
@@ -28,7 +28,7 @@ public class GameDetailView extends FrameLayout {
     @BindView(R.id.tabs)
     public TabLayout tabLayout;
 
-    private LoggedGame data;
+    private LoggedGameFlat data;
     private Activity activity;
     private GameDetailPagerAdapter gameDetailPagerAdapter;
 
@@ -59,7 +59,7 @@ public class GameDetailView extends FrameLayout {
         toolbar.setTitle("Game " + data.getGameID() + "     " + data.getPlayedDate());
     }
 
-    public void setData(LoggedGame gameIn){
+    public void setData(LoggedGameFlat gameIn){
             data = gameIn;
     }
 

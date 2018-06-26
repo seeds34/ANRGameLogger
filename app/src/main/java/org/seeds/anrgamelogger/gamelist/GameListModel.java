@@ -67,7 +67,7 @@ public class GameListModel {
 //                return Observable.fromCallable(()-> gameListManager.getGameList()).doOnNext(ret -> gameListManager.genarateGameList(lengthLimit, activity.getContentResolver()));
 //            }
 //        });
-//TODO: Rewite Methord
+//TODO: Rewrite Methord
       return (ArrayList)databaseModel.getLoggedGameFlat(50);
     }
 

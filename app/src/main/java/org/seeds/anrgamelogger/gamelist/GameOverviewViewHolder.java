@@ -6,14 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.model.LoggedGame;
-
-import java.io.ByteArrayInputStream;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import java.io.ByteArrayInputStream;
+import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlat;
 
 /**
  * Created by Tomas Seymour-Turner on 19/03/2017.
@@ -52,20 +49,20 @@ public class GameOverviewViewHolder extends RecyclerView.ViewHolder {
 //        gameNo = (TextView) view.findViewById(R.id.gameNumber);
     }
 
-    public void setUpData(LoggedGame loggedGame){
-        playerOneName.setText(loggedGame.getPlayerOne().getName());
-        playerTwoName.setText(loggedGame.getPlayerTwo().getName());
+    public void setUpData(LoggedGameFlat loggedGame){
+        playerOneName.setText(loggedGame.getpO_Name());
+        playerTwoName.setText(loggedGame.getpT_Name());
         playedDate.setText(loggedGame.getPlayedDate());
         location.setText(loggedGame.getLocationName());
         gameNo.setText(loggedGame.getGameID());
 //GAME_NO_TEXT +
-        byte[] imageByteArray = loggedGame.getPlayerOne().getImageByteArray();
+        byte[] imageByteArray = loggedGame.getpO_IdentityImage();
         ByteArrayInputStream imageStream = new ByteArrayInputStream(imageByteArray);
         Bitmap theImage = BitmapFactory.decodeStream(imageStream);
 
         playerOneIDImage.setImageBitmap(theImage);
 
-        imageByteArray = loggedGame.getPlayerTwo().getImageByteArray();
+        imageByteArray = loggedGame.getpT_IdentityImage();
         imageStream = new ByteArrayInputStream(imageByteArray);
         theImage = BitmapFactory.decodeStream(imageStream);
 

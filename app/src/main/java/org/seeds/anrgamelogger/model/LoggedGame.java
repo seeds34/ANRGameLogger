@@ -43,6 +43,8 @@ public class LoggedGame{
     @StorIOContentResolverColumn(name = LoggedGamesContract.LoggedGamesColumns.SCORE)
     String score;
 
+    public LoggedGame(){}
+
     public LoggedGame(Deck deckIn, Player playerIn, Location locationIn, String playedDateIn, String winnTypeIn){
 
     }

@@ -1,13 +1,12 @@
 package org.seeds.anrgamelogger.buisnessobjects;
 
+import android.os.Parcel;
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
-
-import org.seeds.anrgamelogger.database.contracts.LoggedGamesContract;
 import org.seeds.anrgamelogger.database.contracts.LoggedGamesFlatViewContract;
 
 @StorIOContentResolverType(uri = "content://" + LoggedGamesFlatViewContract.CONTENT_AUTHORITY + "/" + LoggedGamesFlatViewContract.PATH_LOGGED_GAMES)
-public class LoggedGameFlat {
+public class LoggedGameFlat implements android.os.Parcelable {
 
 
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID, key = true)
@@ -219,4 +218,60 @@ public class LoggedGameFlat {
         return ret;
     }
 
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.gameID);
+        dest.writeString(this.pO_Name);
+        dest.writeString(this.locationName);
+        dest.writeString(this.playedDate);
+        dest.writeString(this.pO_DeckName);
+        dest.writeString(this.pO_Identity);
+        dest.writeByteArray(this.pO_IdentityImage);
+        dest.writeInt(this.pO_Score);
+        dest.writeString(this.pO_WinFlag);
+        dest.writeString(this.pT_Name);
+        dest.writeString(this.pT_DeckName);
+        dest.writeString(this.pT_Identity);
+        dest.writeByteArray(this.pT_IdentityImage);
+        dest.writeInt(this.pT_Score);
+        dest.writeString(this.pT_WinFlag);
+        dest.writeString(this.winType);
+    }
+
+    protected LoggedGameFlat(Parcel in) {
+        this.gameID = in.readInt();
+        this.pO_Name = in.readString();
+        this.locationName = in.readString();
+        this.playedDate = in.readString();
+        this.pO_DeckName = in.readString();
+        this.pO_Identity = in.readString();
+        this.pO_IdentityImage = in.createByteArray();
+        this.pO_Score = in.readInt();
+        this.pO_WinFlag = in.readString();
+        this.pT_Name = in.readString();
+        this.pT_DeckName = in.readString();
+        this.pT_Identity = in.readString();
+        this.pT_IdentityImage = in.createByteArray();
+        this.pT_Score = in.readInt();
+        this.pT_WinFlag = in.readString();
+        this.winType = in.readString();
+    }
+
+    public static final Creator<LoggedGameFlat> CREATOR = new Creator<LoggedGameFlat>() {
+        @Override
+        public LoggedGameFlat createFromParcel(Parcel source) {
+            return new LoggedGameFlat(source);
+        }
+
+        @Override
+        public LoggedGameFlat[] newArray(int size) {
+            return new LoggedGameFlat[size];
+        }
+    };
 }
