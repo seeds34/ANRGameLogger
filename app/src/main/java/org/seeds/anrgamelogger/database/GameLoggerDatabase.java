@@ -159,7 +159,74 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
             + " WHERE po." + LoggedGamesContract.LoggedGamesColumns.GAME_ID + " = pt." + LoggedGamesContract.LoggedGamesColumns.GAME_ID
             + " AND po." + LoggedGamesContract.LoggedGamesColumns.GAME_ID + " = su." + LoggedGamesContract.LoggedGamesColumns.GAME_ID + ";";
 
-    public GameLoggerDatabase(Context contextIn){
+
+
+
+    /* New Version */
+
+    private final String LOGGED_GAMES_OVERVIEW_DDL = "CREATE TABLE IF NOT EXISTS " + Tables.LOGGED_GAME_OVERVIEWS + " ( " + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + LoggedGameOverviewsContract.LoggedGameOverviewsColumns.GAME_ID + " INTEGER NOT NULL,"
+            + LoggedGameOverviewsContract.LoggedGameOverviewsColumns.LOCATION_ID + " INTEGER,"
+            + LoggedGameOverviewsContract.LoggedGameOverviewsColumns.WIN_TYPE + " TEXT NOT NULL,"
+            + LoggedGameOverviewsContract.LoggedGameOverviewsColumns.PLAYED_DATE + " TEXT,"
+            + "FOREIGN KEY("+LoggedGameOverviewsContract.LoggedGameOverviewsColumns.LOCATION_ID +") REFERENCES "+ Tables.LOCATIONS +"("+BaseColumns._ID+"));";
+
+
+private final String LOGGED_GAME_PLAYER_DDL = "CREATE TABLE IF NOT EXISTS " + Tables.LOGGED_GAME_PLAYERS + " ( " + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + LoggedGamePlayers.LoggedGamePlayersColumns.GAME_ID + " INTEGER NOT NULL,"
+            + LoggedGamePlayers.LoggedGamePlayersColumns.PLAYER_ID + " INTEGER NOT NULL,"
+            + LoggedGamePlayers.LoggedGamePlayersColumns.DECK_ID + " INTEGER ," /*NOT NULL Removed so DECK_ID is no longer mandatory */
+            + LoggedGamePlayers.LoggedGamePlayersColumns.WIN_FLAG + " TEXT NOT NULL,"
+      + LoggedGamePlayers.LoggedGamePlayersColumns.SCORE + " INTEGER NOT NULL,"
+      + LoggedGamePlayers.LoggedGamePlayersColumns.PLAYER_SIDE + " TEXT,"
+      + "FOREIGN KEY("+LoggedGamePlayers.LoggedGamePlayersColumns.PLAYER_ID +") REFERENCES "+ Tables.PLAYERS +"("+BaseColumns._ID+")"
+      + "FOREIGN KEY("+LoggedGamePlayers.LoggedGamePlayersColumns.DECK_ID +") REFERENCES "+ Tables.DECKS +"("+BaseColumns._ID+")"
+      + "CONSTRAINT game_player_unique UNIQUE("+LoggedGamePlayers.LoggedGamePlayersColumns.GAME_ID + "," + LoggedGamePlayers.LoggedGamePlayersColumns.PLAYER_ID   +"));";
+
+
+
+
+  private final String LOGGED_GAMES_FLAT_VIEW_DDL = "CREATE VIEW IF NOT EXISTS " + Views.LOGGED_GAMES_FLAT_VIEW + " AS SELECT "
+      + "ov." + LoggedGameOverviewsContract.LoggedGameOverviewsColumns.GAME_ID + " " +  LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID + ", "
+      + "ov." +   + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.LOCATION_NAME + ", "
+      + "ov." +   + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYED_DATE + ", "
+      + "po." +   + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_DECK_NAME + ", "
+      + "po." +   + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_NAME + ", "
+      + "po." +   + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_ID_NAME + ", "
+      + "po." +   + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_ID_IMAGE + ", "
+      + "po." +   + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_SCORE + ", "
+      + "po." +   + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_WIN_FLAG + ", "
+      + "pt." +   + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_DECK_NAME + ", "
+      + "pt." +   + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_NAME + ", "
+      + "pt." +   + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_ID_NAME + ", "
+      + "pt." +   + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_ID_IMAGE + ", "
+      + "pt." +   + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_WIN_FLAG + ", "
+      + "ov." +   + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.WIN_TYPE + ", "
+      + "po." +   + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_NRDB_CODE + ", "
+      + "pt." +   + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_NRDB_CODE + ", "
+      + "pt." +   + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_SCORE
+      + " FROM "
+      + " (" + Tables.LOGGED_GAME_PLAYERS + ") po, "
+      + " (" + Tables.LOGGED_GAME_PLAYERS + ") pt, "
+      + " (" + LOGGED_GAMES_OVERVIEW_DDL + ") ov "
+      + " WHERE po." + LoggedGamePlayers.LoggedGamePlayersColumns.GAME_ID + " = ov." + LoggedGameOverviewsContract.LoggedGameOverviewsColumns.GAME_ID
+      + " AND pt." + LoggedGamePlayers.LoggedGamePlayersColumns.GAME_ID + " = ov." + LoggedGameOverviewsContract.LoggedGameOverviewsColumns.GAME_ID
+      + " AND po." + LoggedGamePlayers.LoggedGamePlayersColumns.PLAYER_SIDE + " = 1"
+      + " AND pt." + LoggedGamePlayers.LoggedGamePlayersColumns.PLAYER_SIDE + " = 2"
+      + ";";
+
+
+
+
+
+
+
+
+
+
+
+
+  public GameLoggerDatabase(Context contextIn){
         super(contextIn,DATABASE_NAME,null,DATABASE_VERSION);
         conext = contextIn;
     }
