@@ -53,7 +53,7 @@ public class GameDetailOverview extends FrameLayout {
 
         Log.v(this.getClass().getName(),"Checking savedInstanceState");
         //if(getArguments() != null){
-        //data = (LoggedGame) getArguments().get(GAME_TRNASFER);
+        //data = (LoggedGameOverviews) getArguments().get(GAME_TRNASFER);
 
         location = (TextView) this.findViewById(R.id.playedLocation);
         playerOneName = (TextView) this.findViewById(R.id.playerOneName);

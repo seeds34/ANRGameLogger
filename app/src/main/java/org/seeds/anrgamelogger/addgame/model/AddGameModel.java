@@ -174,8 +174,8 @@ public class AddGameModel {
 
     /*
     1: Get MAX Logged Game GAME_ID
-    2: Create LoggedGame using PlayerOne Data
-    3: Create LoggedGame using PlayerTwo Data
+    2: Create LoggedGameOverviews using PlayerOne Data
+    3: Create LoggedGameOverviews using PlayerTwo Data
      */
 
 

@@ -166,7 +166,7 @@ public class GameListView extends FrameLayout{
 
 //        contentResolver = this.getContentResolver();
 //
-//        mGameListAdaptor = new GameListRecyclerViewAdaptor(new ArrayList<LoggedGame>());
+//        mGameListAdaptor = new GameListRecyclerViewAdaptor(new ArrayList<LoggedGameOverviews>());
 //        gameList.setAdapter(mGameListAdaptor);
 //
 //

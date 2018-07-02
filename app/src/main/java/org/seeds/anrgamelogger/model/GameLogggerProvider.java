@@ -19,7 +19,7 @@ import org.seeds.anrgamelogger.database.contracts.DecksContract;
 import org.seeds.anrgamelogger.database.contracts.GameNotesContract;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.LocationsContract;
-import org.seeds.anrgamelogger.database.contracts.LoggedGamesContract;
+import org.seeds.anrgamelogger.database.contracts.LoggedGameOverviewsContract;
 import org.seeds.anrgamelogger.database.contracts.LoggedGamesFlatViewContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract;
 
@@ -43,8 +43,8 @@ public class GameLogggerProvider extends ContentProvider {
     private static final int LOCATION = 30;
     private static final int LOCATION_ID = 31;
 
-    private static final int LOGGEDGAME = 40;
-    private static final int LOGGEDGAME_ID = 41;
+    private static final int LOGGEDGAMEOVERVIEW = 40;
+    private static final int LOGGEDGAMEOVERVIEW_ID = 41;
 
     private static final int LOGGEDGAMEFLATVIEW = 45;
     private static final int LOGGEDGAMEFLATVIEW_ID = 46;
@@ -54,6 +54,9 @@ public class GameLogggerProvider extends ContentProvider {
 
     private static final int GAMENOTES = 60;
     private static final int GAMENOTES_ID = 61;
+
+    private static final int LOGGEDGAMEPLAYERS = 70;
+    private static final int LOGGEDGAMEPLAYERS_ID = 71;
 
     //Todo: Read what this does
     private static UriMatcher buildUriMatcher(){
@@ -71,9 +74,9 @@ public class GameLogggerProvider extends ContentProvider {
         matcher.addURI(authority, "locations", LOCATION );
         matcher.addURI(authority, "locations/*", LOCATION_ID );
 
-        authority = LoggedGamesContract.CONTENT_AUTHORITY;
-        matcher.addURI(authority, "loggedgames", LOGGEDGAME );
-        matcher.addURI(authority, "loggedgames/*", LOGGEDGAME_ID );
+        authority = LoggedGameOverviewsContract.CONTENT_AUTHORITY;
+        matcher.addURI(authority, "loggedgames", LOGGEDGAMEOVERVIEW );
+        matcher.addURI(authority, "loggedgames/*", LOGGEDGAMEOVERVIEW_ID );
 
         authority = LoggedGamesFlatViewContract.CONTENT_AUTHORITY;
         matcher.addURI(authority, "loggedgamesflatview", LOGGEDGAMEFLATVIEW );
@@ -86,6 +89,10 @@ public class GameLogggerProvider extends ContentProvider {
         authority = GameNotesContract.CONTENT_AUTHORITY;
         matcher.addURI(authority, "gamenotes", GAMENOTES );
         matcher.addURI(authority, "gamenotes/*", GAMENOTES_ID );
+
+        authority = LoggedGameOverviewsContract.CONTENT_AUTHORITY;
+        matcher.addURI(authority, "loggedgames", LOGGEDGAMEPLAYERS );
+        matcher.addURI(authority, "loggedgames/*", LOGGEDGAMEPLAYERS_ID );
 
         return matcher;
 
@@ -126,16 +133,16 @@ public class GameLogggerProvider extends ContentProvider {
             case DECK_ID:
                 ret = DecksContract.Deck.CONTENT_ITEM_TYPE;
                 break;
-            case LOGGEDGAME:
-                ret = LoggedGamesContract.LoggedGame.CONTENT_TYPE;
+            case LOGGEDGAMEOVERVIEW:
+                ret = LoggedGameOverviewsContract.LoggedGame.CONTENT_TYPE;
                 break;
-            case LOGGEDGAME_ID:
-                ret = LoggedGamesContract.LoggedGame.CONTENT_ITEM_TYPE;
+            case LOGGEDGAMEOVERVIEW_ID:
+                ret = LoggedGameOverviewsContract.LoggedGame.CONTENT_ITEM_TYPE;
                 break;
-            case LOGGEDGAMEFLATVIEW:
+            case LOGGEDGAMEPLAYERS:
                 ret = LoggedGamesFlatViewContract.LoggedGameFlatView.CONTENT_TYPE;
                 break;
-            case LOGGEDGAMEFLATVIEW_ID:
+            case LOGGEDGAMEPLAYERS_ID:
                 ret = LoggedGamesFlatViewContract.LoggedGameFlatView.CONTENT_ITEM_TYPE;
                 break;
             default:break;
@@ -200,12 +207,16 @@ public class GameLogggerProvider extends ContentProvider {
                 queryBuilder.appendWhere(BaseColumns._ID + " = " + player_id);
                 ret = queryBuilder.query(db, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
-            case LOGGEDGAME:
-                queryBuilder.setTables(GameLoggerDatabase.Tables.LOGGED_GAMES);
+            case LOGGEDGAMEOVERVIEW:
+                queryBuilder.setTables(GameLoggerDatabase.Tables.LOGGED_GAME_OVERVIEWS);
                 ret = queryBuilder.query(db, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
             case LOGGEDGAMEFLATVIEW:
                 queryBuilder.setTables(GameLoggerDatabase.Views.LOGGED_GAMES_FLAT_VIEW);
+                ret = queryBuilder.query(db, projection, selection, selectionArgs, null, null, sortOrder);
+                break;
+            case LOGGEDGAMEPLAYERS:
+                queryBuilder.setTables(GameLoggerDatabase.Tables.LOGGED_GAME_PLAYERS);
                 ret = queryBuilder.query(db, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
             default: break;
@@ -238,8 +249,11 @@ public class GameLogggerProvider extends ContentProvider {
             case PLAYER:
                 ret = db.update(Tables.PLAYERS, contentValues, selection, selectionArgs);
                 break;
-            case LOGGEDGAME:
-                ret = db.update(Tables.LOGGED_GAMES, contentValues, selection, selectionArgs);
+            case LOGGEDGAMEOVERVIEW:
+                ret = db.update(Tables.LOGGED_GAME_OVERVIEWS, contentValues, selection, selectionArgs);
+                break;
+            case LOGGEDGAMEPLAYERS:
+                ret = db.update(Tables.LOGGED_GAME_PLAYERS, contentValues, selection, selectionArgs);
                 break;
             case LOCATION:
                 ret = db.update(Tables.LOCATIONS, contentValues, selection, selectionArgs);
@@ -284,11 +298,16 @@ public class GameLogggerProvider extends ContentProvider {
                 recordID = db.insertOrThrow(GameLoggerDatabase.Tables.DECKS, null, contentValues);
                 ret = buildDecksUri(String.valueOf(recordID));
                 break;
-            case LOGGEDGAME:
+            case LOGGEDGAMEOVERVIEW:
                 Log.d(LOG_TAG,"Match No: " + String.valueOf(MATCH));
-                recordID = db.insertOrThrow(GameLoggerDatabase.Tables.LOGGED_GAMES, null, contentValues);
-                ret = LoggedGamesContract.LoggedGame.buildLoggedGameUri(String.valueOf(recordID));
+                recordID = db.insertOrThrow(Tables.LOGGED_GAME_OVERVIEWS, null, contentValues);
+                ret = LoggedGameOverviewsContract.LoggedGame.buildLoggedGameUri(String.valueOf(recordID));
             break;
+            case LOGGEDGAMEPLAYERS:
+                Log.d(LOG_TAG,"Match No: " + String.valueOf(MATCH));
+                recordID = db.insertOrThrow(Tables.LOGGED_GAME_PLAYERS, null, contentValues);
+                ret = LoggedGameOverviewsContract.LoggedGame.buildLoggedGameUri(String.valueOf(recordID));
+                break;
             default:break;
 
         }

@@ -1,6 +1,6 @@
 package org.seeds.anrgamelogger.buisnessobjects;
 
-//@StorIOContentResolverType(uri = "content://" + LoggedGamesContract.CONTENT_AUTHORITY + "/" + LoggedGamesContract.PATH_LOGGED_GAMES)
+//@StorIOContentResolverType(uri = "content://" + LoggedGameOverviewsContract.CONTENT_AUTHORITY + "/" + LoggedGameOverviewsContract.PATH_LOGGED_GAMES)
 public class LoggedGame {
 
 

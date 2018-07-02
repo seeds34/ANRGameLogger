@@ -30,6 +30,10 @@ import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlat;
 import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlatStorIOContentResolverDeleteResolver;
 import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlatStorIOContentResolverGetResolver;
 import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlatStorIOContentResolverPutResolver;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGamePlayer;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGamePlayerStorIOContentResolverDeleteResolver;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGamePlayerStorIOContentResolverGetResolver;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGamePlayerStorIOContentResolverPutResolver;
 import org.seeds.anrgamelogger.buisnessobjects.Player;
 import org.seeds.anrgamelogger.buisnessobjects.PlayerStorIOContentResolverDeleteResolver;
 import org.seeds.anrgamelogger.buisnessobjects.PlayerStorIOContentResolverGetResolver;
@@ -37,10 +41,10 @@ import org.seeds.anrgamelogger.model.CardImage;
 import org.seeds.anrgamelogger.model.CardImageStorIOContentResolverDeleteResolver;
 import org.seeds.anrgamelogger.model.CardImageStorIOContentResolverGetResolver;
 import org.seeds.anrgamelogger.model.CardImageStorIOContentResolverPutResolver;
-import org.seeds.anrgamelogger.model.LoggedGame;
-import org.seeds.anrgamelogger.model.LoggedGameStorIOContentResolverDeleteResolver;
-import org.seeds.anrgamelogger.model.LoggedGameStorIOContentResolverGetResolver;
-import org.seeds.anrgamelogger.model.LoggedGameStorIOContentResolverPutResolver;
+import org.seeds.anrgamelogger.model.LoggedGameOverviews;
+import org.seeds.anrgamelogger.model.LoggedGameOverviewsStorIOContentResolverDeleteResolver;
+import org.seeds.anrgamelogger.model.LoggedGameOverviewsStorIOContentResolverGetResolver;
+import org.seeds.anrgamelogger.model.LoggedGameOverviewsStorIOContentResolverPutResolver;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.moshi.MoshiConverterFactory;
@@ -95,11 +99,16 @@ public class ApplicationModule {
                     .getResolver(new DeckStorIOContentResolverGetResolver())
                     .deleteResolver(new DeckStorIOContentResolverDeleteResolver())
                     .build())
-            .addTypeMapping(LoggedGame.class, ContentResolverTypeMapping.<LoggedGame>builder()
-                    .putResolver(new LoggedGameStorIOContentResolverPutResolver())
-                    .getResolver(new LoggedGameStorIOContentResolverGetResolver())
-                    .deleteResolver(new LoggedGameStorIOContentResolverDeleteResolver())
+            .addTypeMapping(LoggedGameOverviews.class, ContentResolverTypeMapping.<LoggedGameOverviews>builder()
+                    .putResolver(new LoggedGameOverviewsStorIOContentResolverPutResolver())
+                    .getResolver(new LoggedGameOverviewsStorIOContentResolverGetResolver())
+                    .deleteResolver(new LoggedGameOverviewsStorIOContentResolverDeleteResolver())
                     .build())
+        .addTypeMapping(LoggedGamePlayer.class, ContentResolverTypeMapping.<LoggedGamePlayer>builder()
+            .putResolver(new LoggedGamePlayerStorIOContentResolverPutResolver())
+            .getResolver(new LoggedGamePlayerStorIOContentResolverGetResolver())
+            .deleteResolver(new LoggedGamePlayerStorIOContentResolverDeleteResolver())
+            .build())
             .addTypeMapping(LoggedGameFlat.class, ContentResolverTypeMapping.<LoggedGameFlat>builder()
                     .putResolver(new LoggedGameFlatStorIOContentResolverPutResolver())
                     .getResolver(new LoggedGameFlatStorIOContentResolverGetResolver())

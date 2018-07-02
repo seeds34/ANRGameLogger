@@ -1,15 +1,15 @@
 package org.seeds.anrgamelogger.database.datacreater;
 
+import static android.R.attr.version;
+
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,10 +17,8 @@ import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.database.contracts.DecksContract;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.LocationsContract;
-import org.seeds.anrgamelogger.database.contracts.LoggedGamesContract;
+import org.seeds.anrgamelogger.database.contracts.LoggedGameOverviewsContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract;
-
-import static android.R.attr.version;
 
 /**
  * Created by Tomas Seymour-Turner on 29/05/2017.
@@ -55,47 +53,47 @@ public class InportedLoggedGame{
 
             //Cycle through each object
             for(int i = 0 ; i < allGameData.length() ; i++) {
-                JSONObject currentGame = jsonData.getJSONObject(allGameData.getString(i));
-
-                int gameNo = currentGame.getInt("Game No");
-                String gameDate = currentGame.getString("Game Date").substring(0,10);
-                String location = getLocationId(currentGame.getString("Location"));
-                String playerOne = getPlayerId(currentGame.getString("Player 1"));
-                String playerTwo = getPlayerId(currentGame.getString("Player 2"));
-                String playerOneDeck = getDeckId(currentGame.getString("Player 1 Archtype or Deckname"), currentGame.getString("Player 1 ID"),null);
-                String playerTwoDeck = getDeckId(currentGame.getString("Player 2 Archtype or Deckname"), currentGame.getString("Player 2 ID"),null);
-                String playerOneWinFlag = getWinner(currentGame.getString("Player 1"), currentGame.getString("Winner"));
-                String playerTwoWinFlag = getWinner(currentGame.getString("Player 2"), currentGame.getString("Winner"));
-                String winMethord = currentGame.getString("Winner Tomthord (S/K/M)");
-                int playerOneScore = currentGame.getInt("Player 1 Score");
-                int playerTwoScore = currentGame.getInt("Player 2 Score");
-
-
-                ContentValues playerOneCV = new ContentValues();
-                playerOneCV.put(LoggedGamesContract.LoggedGamesColumns.GAME_ID, gameNo);
-                playerOneCV.put(LoggedGamesContract.LoggedGamesColumns.PLAYED_DATE, gameDate);
-                playerOneCV.put(LoggedGamesContract.LoggedGamesColumns.PLAYER_ID, playerOne);
-                playerOneCV.put(LoggedGamesContract.LoggedGamesColumns.DECK_ID, playerOneDeck);
-                playerOneCV.put(LoggedGamesContract.LoggedGamesColumns.WIN_FLAG, playerOneWinFlag);
-                playerOneCV.put(LoggedGamesContract.LoggedGamesColumns.LOCATION_ID, location);
-                playerOneCV.put(LoggedGamesContract.LoggedGamesColumns.WIN_TYPE, winMethord);
-                playerOneCV.put(LoggedGamesContract.LoggedGamesColumns.SCORE, playerOneScore);
-                playerOneCV.put(LoggedGamesContract.LoggedGamesColumns.PLAYER_SIDE, "1");
-
-                ContentValues playerTwoCV = new ContentValues();
-                playerTwoCV.put(LoggedGamesContract.LoggedGamesColumns.GAME_ID, gameNo);
-                playerTwoCV.put(LoggedGamesContract.LoggedGamesColumns.PLAYED_DATE, gameDate);
-                playerTwoCV.put(LoggedGamesContract.LoggedGamesColumns.PLAYER_ID, playerTwo);
-                playerTwoCV.put(LoggedGamesContract.LoggedGamesColumns.DECK_ID, playerTwoDeck);
-                playerTwoCV.put(LoggedGamesContract.LoggedGamesColumns.WIN_FLAG, playerTwoWinFlag);
-                playerTwoCV.put(LoggedGamesContract.LoggedGamesColumns.LOCATION_ID, location);
-                playerTwoCV.put(LoggedGamesContract.LoggedGamesColumns.WIN_TYPE, winMethord);
-                playerTwoCV.put(LoggedGamesContract.LoggedGamesColumns.SCORE, playerTwoScore);
-                playerTwoCV.put(LoggedGamesContract.LoggedGamesColumns.PLAYER_SIDE, "2");
-
-                //Log.v(LOG_TAG, "Inserting Game: " + gameNo + " | Game between " + playerOne + " and " + playerTwo);
-                contentResolver.insert(LoggedGamesContract.URI_TABLE, playerOneCV);
-                contentResolver.insert(LoggedGamesContract.URI_TABLE, playerTwoCV);
+//                JSONObject currentGame = jsonData.getJSONObject(allGameData.getString(i));
+//
+//                int gameNo = currentGame.getInt("Game No");
+//                String gameDate = currentGame.getString("Game Date").substring(0,10);
+//                String location = getLocationId(currentGame.getString("Location"));
+//                String playerOne = getPlayerId(currentGame.getString("Player 1"));
+//                String playerTwo = getPlayerId(currentGame.getString("Player 2"));
+//                String playerOneDeck = getDeckId(currentGame.getString("Player 1 Archtype or Deckname"), currentGame.getString("Player 1 ID"),null);
+//                String playerTwoDeck = getDeckId(currentGame.getString("Player 2 Archtype or Deckname"), currentGame.getString("Player 2 ID"),null);
+//                String playerOneWinFlag = getWinner(currentGame.getString("Player 1"), currentGame.getString("Winner"));
+//                String playerTwoWinFlag = getWinner(currentGame.getString("Player 2"), currentGame.getString("Winner"));
+//                String winMethord = currentGame.getString("Winner Tomthord (S/K/M)");
+//                int playerOneScore = currentGame.getInt("Player 1 Score");
+//                int playerTwoScore = currentGame.getInt("Player 2 Score");
+//
+//
+//                ContentValues playerOneCV = new ContentValues();
+//                playerOneCV.put(LoggedGameOverviewsContract.LoggedGameOverviewsColumns.GAME_ID, gameNo);
+//                playerOneCV.put(LoggedGameOverviewsContract.LoggedGameOverviewsColumns.PLAYED_DATE, gameDate);
+//                playerOneCV.put(LoggedGameOverviewsContract.LoggedGameOverviewsColumns.PLAYER_ID, playerOne);
+//                playerOneCV.put(LoggedGameOverviewsContract.LoggedGameOverviewsColumns.DECK_ID, playerOneDeck);
+//                playerOneCV.put(LoggedGameOverviewsContract.LoggedGameOverviewsColumns.WIN_FLAG, playerOneWinFlag);
+//                playerOneCV.put(LoggedGameOverviewsContract.LoggedGameOverviewsColumns.LOCATION_ID, location);
+//                playerOneCV.put(LoggedGameOverviewsContract.LoggedGameOverviewsColumns.WIN_TYPE, winMethord);
+//                playerOneCV.put(LoggedGameOverviewsContract.LoggedGameOverviewsColumns.SCORE, playerOneScore);
+//                playerOneCV.put(LoggedGameOverviewsContract.LoggedGameOverviewsColumns.PLAYER_SIDE, "1");
+//
+//                ContentValues playerTwoCV = new ContentValues();
+//                playerTwoCV.put(LoggedGameOverviewsContract.LoggedGamesColumns.GAME_ID, gameNo);
+//                playerTwoCV.put(LoggedGameOverviewsContract.LoggedGamesColumns.PLAYED_DATE, gameDate);
+//                playerTwoCV.put(LoggedGameOverviewsContract.LoggedGamesColumns.PLAYER_ID, playerTwo);
+//                playerTwoCV.put(LoggedGameOverviewsContract.LoggedGamesColumns.DECK_ID, playerTwoDeck);
+//                playerTwoCV.put(LoggedGameOverviewsContract.LoggedGamesColumns.WIN_FLAG, playerTwoWinFlag);
+//                playerTwoCV.put(LoggedGameOverviewsContract.LoggedGamesColumns.LOCATION_ID, location);
+//                playerTwoCV.put(LoggedGameOverviewsContract.LoggedGamesColumns.WIN_TYPE, winMethord);
+//                playerTwoCV.put(LoggedGameOverviewsContract.LoggedGamesColumns.SCORE, playerTwoScore);
+//                playerTwoCV.put(LoggedGameOverviewsContract.LoggedGamesColumns.PLAYER_SIDE, "2");
+//
+//                //Log.v(LOG_TAG, "Inserting Game: " + gameNo + " | Game between " + playerOne + " and " + playerTwo);
+//                contentResolver.insert(LoggedGameOverviewsContract.URI_TABLE, playerOneCV);
+//                contentResolver.insert(LoggedGameOverviewsContract.URI_TABLE, playerTwoCV);
             }
 
         }catch (JSONException e){
@@ -232,7 +230,7 @@ public class InportedLoggedGame{
     public boolean isLoggedGamesTableEmpty(){
         boolean ret = true;
 
-        Cursor queryResult = contentResolver.query(LoggedGamesContract.URI_TABLE,null, null ,null,null);
+        Cursor queryResult = contentResolver.query(LoggedGameOverviewsContract.URI_TABLE,null, null ,null,null);
 
         if(queryResult != null && queryResult.getCount() > 0){
             ret = false;

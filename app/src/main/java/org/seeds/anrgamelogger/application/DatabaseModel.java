@@ -19,12 +19,12 @@ import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract.IdentitiesColumns;
 import org.seeds.anrgamelogger.database.contracts.LocationsContract;
 import org.seeds.anrgamelogger.database.contracts.LocationsContract.LocationsColumns;
-import org.seeds.anrgamelogger.database.contracts.LoggedGamesContract;
+import org.seeds.anrgamelogger.database.contracts.LoggedGameOverviewsContract;
 import org.seeds.anrgamelogger.database.contracts.LoggedGamesFlatViewContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract.PlayersColumns;
 import org.seeds.anrgamelogger.model.CardImage;
-import org.seeds.anrgamelogger.model.LoggedGame;
+import org.seeds.anrgamelogger.model.LoggedGameOverviews;
 
 /**
  * Created by Tomas Seymour-Turner on 21/02/2018.
@@ -53,7 +53,7 @@ public class DatabaseModel {
   }
 
   public boolean isLoggedgamesTableEmpty(){
-    return isTableEmpty(LoggedGamesContract.URI_TABLE);
+    return isTableEmpty(LoggedGameOverviewsContract.URI_TABLE);
   }
 
   public boolean isTableEmpty(Uri tableUri){
@@ -272,13 +272,13 @@ public class DatabaseModel {
 
   //----------  Logged Game ----------//
 
-  public LoggedGame getLoggedGame(int gameId){
+  public LoggedGameOverviews getLoggedGame(int gameId){
     return storIOContentResolver
             .get()
-            .object(LoggedGame.class)
+            .object(LoggedGameOverviews.class)
             .withQuery(Query.builder()
-                    .uri(LoggedGamesContract.URI_TABLE)
-                    .where(LoggedGamesContract.LoggedGamesColumns.GAME_ID + " = ?")
+                    .uri(LoggedGameOverviewsContract.URI_TABLE)
+                    .where(LoggedGameOverviewsContract.LoggedGameOverviewsColumns.GAME_ID + " = ?")
                     .whereArgs(gameId)
                     .build())
             .prepare()
@@ -286,22 +286,22 @@ public class DatabaseModel {
   }
 
   public int getNextGameNo(){
-    LoggedGame lg = storIOContentResolver
+    LoggedGameOverviews lg = storIOContentResolver
             .get()
-            .object(LoggedGame.class)
+            .object(LoggedGameOverviews.class)
             .withQuery(Query.builder()
-                    .uri(LoggedGamesContract.URI_TABLE)
-                    .columns("MAX(" + LoggedGamesContract.LoggedGamesColumns.GAME_ID +")")
+                    .uri(LoggedGameOverviewsContract.URI_TABLE)
+                    .columns("MAX(" + LoggedGameOverviewsContract.LoggedGameOverviewsColumns.GAME_ID +")")
                     .build())
             .prepare()
             .executeAsBlocking();
 
     return lg.getGameID();
   }
-  public PutResult insertLoggedGame(LoggedGame loggedGame){
+  public PutResult insertLoggedGame(LoggedGameOverviews loggedGameOverviews){
     return storIOContentResolver
             .put()
-            .object(loggedGame)
+            .object(loggedGameOverviews)
             .prepare()
             .executeAsBlocking();
   }
@@ -328,7 +328,7 @@ public class DatabaseModel {
 //    tableToClassMap = new HashMap();
 //    tableToClassMap.put(IdentitiesContract.URI_TABLE, Card.class);
 //    //tableToClassMap.put(LocationsContract.URI_TABLE, )
-//    tableToClassMap.put(LoggedGamesContract.URI_TABLE, Game.class);
+//    tableToClassMap.put(LoggedGameOverviewsContract.URI_TABLE, Game.class);
 //    tableToClassMap.put(PlayersContract.URI_TABLE, Player.class);
 //  }
 
