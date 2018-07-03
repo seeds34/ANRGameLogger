@@ -221,8 +221,8 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
       + "PT." + IdentitiesContract.IdentitiesColumns.NRDB_CODE  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_NRDB_CODE + ", "
       + "PT." + LoggedGamePlayersContract.LoggedGamePlayersColumns.SCORE  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_SCORE
       + " FROM " + Tables.LOGGED_GAME_OVERVIEWS + " OV "
-      + " INNER JOIN " + VIEW_SELECT_PLAYER + " PO ON PO." + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID + " = OV." + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID
-      + " INNER JOIN " + VIEW_SELECT_PLAYER + " PT ON PT." + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID + " = OV." + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID
+      + " INNER JOIN (" + VIEW_SELECT_PLAYER + ") PO ON PO." + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID + " = OV." + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID
+      + " INNER JOIN (" + VIEW_SELECT_PLAYER + ") PT ON PT." + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID + " = OV." + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID
       + " WHERE PO." + LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_SIDE + " = 1 "
       + " AND PT." + LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_SIDE + " = 2 ";
 
