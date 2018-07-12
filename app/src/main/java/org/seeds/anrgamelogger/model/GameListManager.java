@@ -64,7 +64,7 @@ public class GameListManager {
 //                    //playerOne = new Player(playerOneName,playerOneDeckName, playerOnceScore, playerOneIDImage, playerOneWinFlag, playerOneIDName);
 //                    //playerTwo = new Player(playerTwoName,playerTwoDeckName, playerTwoeScore, playerTwoIDImage, playerTwoWinFlag, playerTwoIDName);
 //
-//                    //loggedGamesList.add(new LoggedGameOverviews(playerOne, playerTwo, location, playedDate, gameID, winType));
+//                    //loggedGamesList.add(new LoggedGameOverview(playerOne, playerTwo, location, playedDate, gameID, winType));
 //
 //
 //                }while (queryResult.moveToNext());
@@ -91,7 +91,7 @@ public class GameListManager {
 
 //    private int listLengthLimit;
 //    private String resultOrder;
-//    ArrayList<LoggedGameOverviews> loggedGamesList;
+//    ArrayList<LoggedGameOverview> loggedGamesList;
 //    private ContentResolver contentResolver;
 //    private Context context;
 
@@ -105,7 +105,7 @@ public class GameListManager {
 //        SetUpTestData.setUpTestData(contextIn);
 //    }
 
-//    public ArrayList<LoggedGameOverviews>  getGameList(int listLengthLimitIn){
+//    public ArrayList<LoggedGameOverview>  getGameList(int listLengthLimitIn){
 //        return loggedGamesList;
 //    }
 //

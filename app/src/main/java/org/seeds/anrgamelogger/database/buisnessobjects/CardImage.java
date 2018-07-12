@@ -1,11 +1,13 @@
-package org.seeds.anrgamelogger.model;
+package org.seeds.anrgamelogger.database.buisnessobjects;
 
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
+
+import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 
 /**
  * Created by user on 21/01/2018.

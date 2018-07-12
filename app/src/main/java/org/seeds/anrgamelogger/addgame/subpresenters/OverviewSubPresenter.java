@@ -5,10 +5,10 @@ import android.view.View;
 
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.addgame.model.OverviewViewData;
-import org.seeds.anrgamelogger.addgame.model.PlayerViewData;
 import org.seeds.anrgamelogger.addgame.views.AddGameOverviewView;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGamePlayer;
 import org.seeds.anrgamelogger.model.IdentityList;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGameOverview;
 
 import io.reactivex.Observable;
 
@@ -41,17 +41,17 @@ public class OverviewSubPresenter extends SubPresenter{
     }
 
     @Override
-    public OverviewViewData getGameOverview(){
-        return new OverviewViewData(
+    public LoggedGameOverview getGameOverview(){
+
+        return new LoggedGameOverview(
             view.getLocation(),
             view.getPlayedDate(),
-            view.getWiningSide(),
             view.getWinType()
         );
     }
 
     @Override
-    public PlayerViewData getPlayerData() {
+    public LoggedGamePlayer getPlayerData() {
         return null;
     }
 }

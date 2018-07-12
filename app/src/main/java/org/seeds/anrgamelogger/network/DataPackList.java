@@ -1,10 +1,6 @@
-package org.seeds.anrgamelogger.application;
-
-import android.util.Log;
+package org.seeds.anrgamelogger.network;
 
 import com.squareup.moshi.Json;
-
-import org.seeds.anrgamelogger.model.SetupDatabaseDataModel;
 
 import java.util.HashMap;
 import java.util.List;

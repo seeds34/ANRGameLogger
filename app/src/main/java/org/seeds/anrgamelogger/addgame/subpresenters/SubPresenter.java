@@ -3,9 +3,10 @@ package org.seeds.anrgamelogger.addgame.subpresenters;
 import android.app.Activity;
 import android.view.View;
 import io.reactivex.Observable;
-import org.seeds.anrgamelogger.addgame.model.OverviewViewData;
-import org.seeds.anrgamelogger.addgame.model.PlayerViewData;
+
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGamePlayer;
 import org.seeds.anrgamelogger.model.IdentityList;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGameOverview;
 
 public abstract class SubPresenter {
 
@@ -31,7 +32,7 @@ public abstract class SubPresenter {
 
     public abstract void setUpIdentitySpiner(IdentityList oneSidedList);
 
-    public abstract PlayerViewData getPlayerData();
-    public abstract OverviewViewData getGameOverview();
+    public abstract LoggedGamePlayer getPlayerData();
+    public abstract LoggedGameOverview getGameOverview();
 
 }

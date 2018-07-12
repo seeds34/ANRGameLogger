@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.model;
+package org.seeds.anrgamelogger.database.buisnessobjects;
 
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
@@ -9,8 +9,8 @@ import org.seeds.anrgamelogger.database.contracts.LoggedGameOverviewsContract;
  */
 
 @StorIOContentResolverType(uri = "content://" + LoggedGameOverviewsContract.CONTENT_AUTHORITY + "/" + LoggedGameOverviewsContract.PATH_LOGGED_GAMES_OVERVIEW)
-public class LoggedGameOverviews {
-//public class LoggedGameOverviews implements Parcelable {
+public class LoggedGameOverview {
+//public class LoggedGameOverview implements Parcelable {
 
     //TODO: How am I going to do the Game ID??
     @StorIOContentResolverColumn(name = LoggedGameOverviewsContract.LoggedGameOverviewsColumns.GAME_ID, key = true)
@@ -19,18 +19,26 @@ public class LoggedGameOverviews {
     @StorIOContentResolverColumn(name = LoggedGameOverviewsContract.LoggedGameOverviewsColumns.LOCATION_ID)
     int location_id;
 
+    String location_name;
+
     @StorIOContentResolverColumn(name = LoggedGameOverviewsContract.LoggedGameOverviewsColumns.PLAYED_DATE)
     String played_date;
 
     @StorIOContentResolverColumn(name = LoggedGameOverviewsContract.LoggedGameOverviewsColumns.WIN_TYPE)
     String win_type;
 
-    public LoggedGameOverviews(){}
+    public LoggedGameOverview(){}
 
-    public LoggedGameOverviews(int gameID, int location_id,
-        String played_date, String win_type) {
+    public LoggedGameOverview(int gameID, int location_id,
+                              String played_date, String win_type) {
         this.gameID = gameID;
         this.location_id = location_id;
+        this.played_date = played_date;
+        this.win_type = win_type;
+    }
+
+    public LoggedGameOverview(String location_name, String played_date, String win_type) {
+        this.location_name = location_name;
         this.played_date = played_date;
         this.win_type = win_type;
     }
@@ -74,9 +82,9 @@ public class LoggedGameOverviews {
 //    private String playedDate;
 //    private String winnerFlag = "Y";
 
-//    public LoggedGameOverviews(){}
+//    public LoggedGameOverview(){}
 //
-//    public LoggedGameOverviews(int gameID, int player_id, int deck_id, int location_id, String played_date, String win_type, String side, String win_flag, String score) {
+//    public LoggedGameOverview(int gameID, int player_id, int deck_id, int location_id, String played_date, String win_type, String side, String win_flag, String score) {
 //        this.gameID = gameID;
 //        this.player_id = player_id;
 //        this.deck_id = deck_id;
@@ -88,12 +96,12 @@ public class LoggedGameOverviews {
 //        this.score = score;
 //    }
 //
-//    public LoggedGameOverviews(String locationName, String playedDate, String winType){
+//    public LoggedGameOverview(String locationName, String playedDate, String winType){
 //        this.locationName = locationName;
 //        this.playedDate = playedDate;
 //        this.winType = winType;
 //    }
-//    public LoggedGameOverviews(Player playerOne, Player playerTwo, String locationName, String playedDate, int gameID, String winType) {
+//    public LoggedGameOverview(Player playerOne, Player playerTwo, String locationName, String playedDate, int gameID, String winType) {
 //        this.playerOne = playerOne;
 //        this.playerTwo = playerTwo;
 //        this.locationName = locationName;
@@ -104,7 +112,7 @@ public class LoggedGameOverviews {
 //
 //
 //
-//    public LoggedGameOverviews(Cursor loggedGamesCursor){
+//    public LoggedGameOverview(Cursor loggedGamesCursor){
 //        //TODO: Load game data directly from cursor
 //    }
 //
@@ -144,7 +152,7 @@ public class LoggedGameOverviews {
 //
 //
 //    /*Genrated at: http://www.parcelabler.com/ */
-//    protected LoggedGameOverviews(Parcel in) {
+//    protected LoggedGameOverview(Parcel in) {
 //        gameID = in.readInt();
 //        playerOne = (Player) in.readValue(Player.class.getClassLoader());
 //        playerTwo = (Player) in.readValue(Player.class.getClassLoader());
@@ -171,15 +179,15 @@ public class LoggedGameOverviews {
 //    }
 //
 //    @SuppressWarnings("unused")
-//    public static final Parcelable.Creator<LoggedGameOverviews> CREATOR = new Parcelable.Creator<LoggedGameOverviews>() {
+//    public static final Parcelable.Creator<LoggedGameOverview> CREATOR = new Parcelable.Creator<LoggedGameOverview>() {
 //        @Override
-//        public LoggedGameOverviews createFromParcel(Parcel in) {
-//            return new LoggedGameOverviews(in);
+//        public LoggedGameOverview createFromParcel(Parcel in) {
+//            return new LoggedGameOverview(in);
 //        }
 //
 //        @Override
-//        public LoggedGameOverviews[] newArray(int size) {
-//            return new LoggedGameOverviews[size];
+//        public LoggedGameOverview[] newArray(int size) {
+//            return new LoggedGameOverview[size];
 //        }
 //    };
 }

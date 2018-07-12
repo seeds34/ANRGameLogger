@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.application;
+package org.seeds.anrgamelogger.network;
 
 import android.os.StrictMode;
 import io.reactivex.Observable;
@@ -9,6 +9,8 @@ import java.io.IOException;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
+import org.seeds.anrgamelogger.application.NRDBApiEndpointInterface;
 import org.seeds.anrgamelogger.model.CardList;
 import retrofit2.Retrofit;
 

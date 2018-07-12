@@ -1,6 +1,7 @@
 package org.seeds.anrgamelogger.application;
 
 import org.seeds.anrgamelogger.model.CardList;
+import org.seeds.anrgamelogger.network.DataPackList;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;

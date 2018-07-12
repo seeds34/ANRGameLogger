@@ -3,10 +3,11 @@ package org.seeds.anrgamelogger.addgame.subpresenters;
 import android.app.Activity;
 import android.view.View;
 import java.util.ArrayList;
-import org.seeds.anrgamelogger.addgame.model.OverviewViewData;
-import org.seeds.anrgamelogger.addgame.model.PlayerViewData;
+
 import org.seeds.anrgamelogger.addgame.views.AddGamePlayerView;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGamePlayer;
 import org.seeds.anrgamelogger.model.IdentityList;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGameOverview;
 
 public class PlayerSubPresenter extends SubPresenter{
 
@@ -34,19 +35,20 @@ public class PlayerSubPresenter extends SubPresenter{
     }
 
     @Override
-    public PlayerViewData getPlayerData(){
+    public LoggedGamePlayer getPlayerData(){
 
-        return  new PlayerViewData(
-                view.getIdentitiesName(),
+        return  new LoggedGamePlayer(
                 view.getPlayerName(),
                 view.getDeckName(),
+                view.getIdentitiesName(),
+                getTitle(),
                 Integer.toString(1),
-                getTitle()
+               view.getScore()
         );
     }
 
     @Override
-    public OverviewViewData getGameOverview() {
+    public LoggedGameOverview getGameOverview() {
         return null;
     }
 }

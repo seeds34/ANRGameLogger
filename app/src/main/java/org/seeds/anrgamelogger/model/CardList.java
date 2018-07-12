@@ -1,6 +1,9 @@
 package org.seeds.anrgamelogger.model;
 
 import com.squareup.moshi.Json;
+
+import org.seeds.anrgamelogger.network.Card;
+
 import java.util.List;
 
 /**

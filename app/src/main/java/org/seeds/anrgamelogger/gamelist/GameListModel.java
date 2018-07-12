@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.util.Log;
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.addgame.AddGameActivity;
-import org.seeds.anrgamelogger.application.DatabaseModel;
-import org.seeds.anrgamelogger.application.NetworkModel;
+import org.seeds.anrgamelogger.database.DatabaseModel;
+import org.seeds.anrgamelogger.network.NetworkModel;
 import org.seeds.anrgamelogger.gamedetail.GameDetailActivity;
 import org.seeds.anrgamelogger.model.GameListManager;
-import org.seeds.anrgamelogger.model.LoggedGameOverviews;
-import org.seeds.anrgamelogger.model.SetupDatabaseDataModel;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGameOverview;
+import org.seeds.anrgamelogger.application.SetupDatabaseDataModel;
 
 
 /**
@@ -55,15 +55,15 @@ public class GameListModel {
     }
 
 
-  public ArrayList<LoggedGameOverviews> getGameList(int lengthLimit) {
-//       return Observable.defer(new Function<Observable<ArrayList<LoggedGameOverviews>>>() {
+  public ArrayList<LoggedGameOverview> getGameList(int lengthLimit) {
+//       return Observable.defer(new Function<Observable<ArrayList<LoggedGameOverview>>>() {
 //         @Override
 //         public Object apply(Object o) throws Exception {
 //           return null;
 //         }
 //
 //         @Override
-//            public Observable<ArrayList<LoggedGameOverviews>> call() {
+//            public Observable<ArrayList<LoggedGameOverview>> call() {
 //                return Observable.fromCallable(()-> gameListManager.getGameList()).doOnNext(ret -> gameListManager.genarateGameList(lengthLimit, activity.getContentResolver()));
 //            }
 //        });

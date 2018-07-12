@@ -9,7 +9,7 @@ import dagger.Provides;
 import org.seeds.anrgamelogger.addgame.model.AddGameModel;
 import org.seeds.anrgamelogger.addgame.AddGamePresenter;
 import org.seeds.anrgamelogger.addgame.views.AddGameView;
-import org.seeds.anrgamelogger.application.DatabaseModel;
+import org.seeds.anrgamelogger.database.DatabaseModel;
 
 /**
  * Created by Tomas Seymour-Turner on 14/10/2017.

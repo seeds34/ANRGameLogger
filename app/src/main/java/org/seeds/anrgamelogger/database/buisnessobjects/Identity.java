@@ -1,12 +1,11 @@
-package org.seeds.anrgamelogger.buisnessobjects;
+package org.seeds.anrgamelogger.database.buisnessobjects;
 
 import android.provider.BaseColumns;
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract.IdentitiesColumns;
-import org.seeds.anrgamelogger.model.Card;
-import org.seeds.anrgamelogger.model.CardImage;
+import org.seeds.anrgamelogger.network.Card;
 
 /**
  * Created by user on 07/01/2018.

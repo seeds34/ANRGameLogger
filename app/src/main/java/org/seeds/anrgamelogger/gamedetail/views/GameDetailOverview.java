@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.io.ByteArrayInputStream;
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlat;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
 
 /**
  * Created by user on 21/11/2017.
@@ -53,7 +54,7 @@ public class GameDetailOverview extends FrameLayout {
 
         Log.v(this.getClass().getName(),"Checking savedInstanceState");
         //if(getArguments() != null){
-        //data = (LoggedGameOverviews) getArguments().get(GAME_TRNASFER);
+        //data = (LoggedGameOverview) getArguments().get(GAME_TRNASFER);
 
         location = (TextView) this.findViewById(R.id.playedLocation);
         playerOneName = (TextView) this.findViewById(R.id.playerOneName);

@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.model;
+package org.seeds.anrgamelogger.application;
 
 
 import android.util.Log;
@@ -13,8 +13,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import okhttp3.Response;
-import org.seeds.anrgamelogger.application.DatabaseModel;
-import org.seeds.anrgamelogger.application.NetworkModel;
+
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGamePlayer;
+import org.seeds.anrgamelogger.database.DatabaseModel;
+import org.seeds.anrgamelogger.model.CardList;
+import org.seeds.anrgamelogger.network.Card;
+import org.seeds.anrgamelogger.network.NetworkModel;
 import org.seeds.anrgamelogger.buisnessobjects.Identity;
 import org.seeds.anrgamelogger.buisnessobjects.Player;
 
@@ -99,7 +103,7 @@ public class SetupDatabaseDataModel {
 
     //TODO: Please Tidy, this is horrid and wrong
     public void downloadImageFromNRDB(String nrdb_pack_code, String card_code, String pos) {
-        CardImage cardImage = new CardImage(card_code);
+        LoggedGamePlayer.CardImage cardImage = new LoggedGamePlayer.CardImage(card_code);
         cardImage.setImageUrl(NRDB_IMAGE_URL + card_code + IMAGE_FILE_EXT);
 
         Log.d(LOG_TAG, "(3)URL Is: " + cardImage.getImageUrl());

@@ -2,8 +2,8 @@ package org.seeds.anrgamelogger.application.dagger;
 
 import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
 
-import org.seeds.anrgamelogger.application.DatabaseModel;
-import org.seeds.anrgamelogger.application.NetworkModel;
+import org.seeds.anrgamelogger.database.DatabaseModel;
+import org.seeds.anrgamelogger.network.NetworkModel;
 
 import dagger.Component;
 import okhttp3.OkHttpClient;

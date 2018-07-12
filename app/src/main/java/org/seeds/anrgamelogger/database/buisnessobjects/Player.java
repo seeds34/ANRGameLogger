@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.buisnessobjects;
+package org.seeds.anrgamelogger.database.buisnessobjects;
 
 import android.os.Parcel;
 import android.os.Parcelable;

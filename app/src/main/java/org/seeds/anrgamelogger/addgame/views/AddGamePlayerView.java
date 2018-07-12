@@ -127,7 +127,10 @@ public class AddGamePlayerView extends AddGameBaseView{
     return deckVer.getText().toString();
   }
 
-
+  //TODO: Fix get score
+  public String getScore(){
+    return "7";
+  }
 
   //  @Override
 //  public void setIdentitiesImageViewPager(LinkedHashMap<String, byte[]> imageListIn){

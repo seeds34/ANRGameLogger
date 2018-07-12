@@ -5,15 +5,15 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.addgame.model.AddGameModel;
-import org.seeds.anrgamelogger.addgame.model.OverviewViewData;
-import org.seeds.anrgamelogger.addgame.model.PlayerViewData;
 import org.seeds.anrgamelogger.addgame.views.AddGameView;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 import org.seeds.anrgamelogger.buisnessobjects.Deck;
 import org.seeds.anrgamelogger.buisnessobjects.Identity;
 import org.seeds.anrgamelogger.buisnessobjects.Location;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGamePlayer;
 import org.seeds.anrgamelogger.buisnessobjects.Player;
 import org.seeds.anrgamelogger.model.IdentityList;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGameOverview;
 
 /**
  * Created by user on 08/12/2017.
@@ -74,9 +74,9 @@ public class AddGamePresenter {
 
     private void addGame() {
 
-        PlayerViewData pOneData = view.getPlayerOne();
-        PlayerViewData pTwoData = view.getPlayerTwo();
-        OverviewViewData ovData = view.getGameOverview();
+        LoggedGamePlayer pOneData = view.getPlayerOne();
+        LoggedGamePlayer pTwoData = view.getPlayerTwo();
+        LoggedGameOverview ovData = view.getGameOverview();
 
         /*
         1: Sort Player 1 ID

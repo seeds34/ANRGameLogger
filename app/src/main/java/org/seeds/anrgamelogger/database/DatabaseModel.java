@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.application;
+package org.seeds.anrgamelogger.database;
 
 import android.database.Cursor;
 import android.net.Uri;
@@ -9,10 +9,13 @@ import com.pushtorefresh.storio3.contentresolver.operations.put.PutResult;
 import com.pushtorefresh.storio3.contentresolver.operations.put.PutResults;
 import com.pushtorefresh.storio3.contentresolver.queries.Query;
 import java.util.List;
+
+import org.seeds.anrgamelogger.buisnessobjects.CardImage;
 import org.seeds.anrgamelogger.buisnessobjects.Deck;
 import org.seeds.anrgamelogger.buisnessobjects.Identity;
 import org.seeds.anrgamelogger.buisnessobjects.Location;
 import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlat;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGamePlayer;
 import org.seeds.anrgamelogger.buisnessobjects.Player;
 import org.seeds.anrgamelogger.database.contracts.DecksContract;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
@@ -23,8 +26,7 @@ import org.seeds.anrgamelogger.database.contracts.LoggedGameOverviewsContract;
 import org.seeds.anrgamelogger.database.contracts.LoggedGamesFlatViewContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract.PlayersColumns;
-import org.seeds.anrgamelogger.model.CardImage;
-import org.seeds.anrgamelogger.model.LoggedGameOverviews;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGameOverview;
 
 /**
  * Created by Tomas Seymour-Turner on 21/02/2018.
@@ -272,10 +274,10 @@ public class DatabaseModel {
 
   //----------  Logged Game ----------//
 
-  public LoggedGameOverviews getLoggedGame(int gameId){
+  public LoggedGameOverview getLoggedGame(int gameId){
     return storIOContentResolver
             .get()
-            .object(LoggedGameOverviews.class)
+            .object(LoggedGameOverview.class)
             .withQuery(Query.builder()
                     .uri(LoggedGameOverviewsContract.URI_TABLE)
                     .where(LoggedGameOverviewsContract.LoggedGameOverviewsColumns.GAME_ID + " = ?")
@@ -286,9 +288,9 @@ public class DatabaseModel {
   }
 
   public int getNextGameNo(){
-    LoggedGameOverviews lg = storIOContentResolver
+    LoggedGameOverview lg = storIOContentResolver
             .get()
-            .object(LoggedGameOverviews.class)
+            .object(LoggedGameOverview.class)
             .withQuery(Query.builder()
                     .uri(LoggedGameOverviewsContract.URI_TABLE)
                     .columns("MAX(" + LoggedGameOverviewsContract.LoggedGameOverviewsColumns.GAME_ID +")")
@@ -298,10 +300,10 @@ public class DatabaseModel {
 
     return lg.getGameID();
   }
-  public PutResult insertLoggedGame(LoggedGameOverviews loggedGameOverviews){
+  public PutResult insertLoggedGame(LoggedGameOverview loggedGameOverview){
     return storIOContentResolver
             .put()
-            .object(loggedGameOverviews)
+            .object(loggedGameOverview)
             .prepare()
             .executeAsBlocking();
   }

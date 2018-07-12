@@ -1,13 +1,8 @@
 package org.seeds.anrgamelogger.database.datacreater;
 
-import android.app.Activity;
 import android.content.ContentResolver;
-import android.database.Cursor;
-import com.pushtorefresh.storio3.contentresolver.ContentResolverTypeMapping;
+
 import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
-import com.pushtorefresh.storio3.contentresolver.impl.DefaultStorIOContentResolver;
-import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
-import org.seeds.anrgamelogger.model.Card;
 
 /**
  * Created by Tomas Seymour-Turner on 20/05/2017.

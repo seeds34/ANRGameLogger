@@ -6,7 +6,7 @@ import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
 import java.util.ArrayList;
 import java.util.List;
 import org.seeds.anrgamelogger.addgame.AddGameActivity;
-import org.seeds.anrgamelogger.application.DatabaseModel;
+import org.seeds.anrgamelogger.database.DatabaseModel;
 import org.seeds.anrgamelogger.buisnessobjects.Deck;
 import org.seeds.anrgamelogger.buisnessobjects.Identity;
 import org.seeds.anrgamelogger.buisnessobjects.Location;
@@ -174,8 +174,8 @@ public class AddGameModel {
 
     /*
     1: Get MAX Logged Game GAME_ID
-    2: Create LoggedGameOverviews using PlayerOne Data
-    3: Create LoggedGameOverviews using PlayerTwo Data
+    2: Create LoggedGameOverview using PlayerOne Data
+    3: Create LoggedGameOverview using PlayerTwo Data
      */
 
 

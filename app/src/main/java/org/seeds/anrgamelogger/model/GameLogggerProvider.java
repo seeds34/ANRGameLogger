@@ -134,10 +134,10 @@ public class GameLogggerProvider extends ContentProvider {
                 ret = DecksContract.Deck.CONTENT_ITEM_TYPE;
                 break;
             case LOGGEDGAMEOVERVIEW:
-                ret = LoggedGameOverviewsContract.LoggedGame.CONTENT_TYPE;
+                ret = LoggedGameOverviewsContract.LoggedGameOverview.CONTENT_TYPE;
                 break;
             case LOGGEDGAMEOVERVIEW_ID:
-                ret = LoggedGameOverviewsContract.LoggedGame.CONTENT_ITEM_TYPE;
+                ret = LoggedGameOverviewsContract.LoggedGameOverview.CONTENT_ITEM_TYPE;
                 break;
             case LOGGEDGAMEPLAYERS:
                 ret = LoggedGamesFlatViewContract.LoggedGameFlatView.CONTENT_TYPE;
@@ -301,12 +301,12 @@ public class GameLogggerProvider extends ContentProvider {
             case LOGGEDGAMEOVERVIEW:
                 Log.d(LOG_TAG,"Match No: " + String.valueOf(MATCH));
                 recordID = db.insertOrThrow(Tables.LOGGED_GAME_OVERVIEWS, null, contentValues);
-                ret = LoggedGameOverviewsContract.LoggedGame.buildLoggedGameUri(String.valueOf(recordID));
+                ret = LoggedGameOverviewsContract.LoggedGameOverview.buildLoggedGameUri(String.valueOf(recordID));
             break;
             case LOGGEDGAMEPLAYERS:
                 Log.d(LOG_TAG,"Match No: " + String.valueOf(MATCH));
                 recordID = db.insertOrThrow(Tables.LOGGED_GAME_PLAYERS, null, contentValues);
-                ret = LoggedGameOverviewsContract.LoggedGame.buildLoggedGameUri(String.valueOf(recordID));
+                ret = LoggedGameOverviewsContract.LoggedGameOverview.buildLoggedGameUri(String.valueOf(recordID));
                 break;
             default:break;
 

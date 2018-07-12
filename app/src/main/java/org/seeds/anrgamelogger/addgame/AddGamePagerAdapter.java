@@ -6,11 +6,12 @@ import android.view.ViewGroup;
 import io.reactivex.Observable;
 import java.util.ArrayList;
 import java.util.List;
-import org.seeds.anrgamelogger.addgame.model.OverviewViewData;
-import org.seeds.anrgamelogger.addgame.model.PlayerViewData;
+
 import org.seeds.anrgamelogger.addgame.subpresenters.PlayerSubPresenter;
 import org.seeds.anrgamelogger.addgame.subpresenters.SubPresenter;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGamePlayer;
 import org.seeds.anrgamelogger.model.IdentityList;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGameOverview;
 
 /**
  * Created by Tomas Seymour-Turner on 04/01/2018.
@@ -62,15 +63,15 @@ public class AddGamePagerAdapter extends PagerAdapter {
       return presenterList.get(2).observeSave();
     }
 
-    public PlayerViewData getPlayerOne(){
+    public LoggedGamePlayer getPlayerOne(){
       return presenterList.get(0).getPlayerData();
     }
 
-    public PlayerViewData getPlayerTwo(){
+    public LoggedGamePlayer getPlayerTwo(){
       return presenterList.get(1).getPlayerData();
     }
 
-    public OverviewViewData getGameOverview(){
+    public LoggedGameOverview getGameOverview(){
       return presenterList.get(2).getGameOverview();
     }
 }

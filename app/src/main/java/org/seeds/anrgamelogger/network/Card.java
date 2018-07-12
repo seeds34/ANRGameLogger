@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.model;
+package org.seeds.anrgamelogger.network;
 import com.squareup.moshi.Json;
 
 /**

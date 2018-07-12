@@ -13,11 +13,11 @@ import io.reactivex.Observable;
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.addgame.AddGamePagerAdapter;
-import org.seeds.anrgamelogger.addgame.model.OverviewViewData;
-import org.seeds.anrgamelogger.addgame.model.PlayerViewData;
 import org.seeds.anrgamelogger.addgame.subpresenters.OverviewSubPresenter;
 import org.seeds.anrgamelogger.addgame.subpresenters.PlayerSubPresenter;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGamePlayer;
 import org.seeds.anrgamelogger.model.IdentityList;
+import org.seeds.anrgamelogger.buisnessobjects.LoggedGameOverview;
 
 /**
  * Created by user on 09/12/2017.
@@ -76,15 +76,15 @@ public class AddGameView extends FrameLayout {
         Toast.makeText(this.getContext(), messageIn, Toast.LENGTH_LONG).show();
     }
 
-    public PlayerViewData getPlayerOne(){
+    public LoggedGamePlayer getPlayerOne(){
         return addGamePagerAdapter.getPlayerOne();
     }
 
-    public PlayerViewData getPlayerTwo(){
+    public LoggedGamePlayer getPlayerTwo(){
         return addGamePagerAdapter.getPlayerTwo();
     }
 
-    public OverviewViewData getGameOverview(){
+    public LoggedGameOverview getGameOverview(){
         return addGamePagerAdapter.getGameOverview();
     }
 

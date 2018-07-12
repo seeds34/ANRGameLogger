@@ -1,10 +1,12 @@
-package org.seeds.anrgamelogger.buisnessobjects;
+package org.seeds.anrgamelogger.database.buisnessobjects.customputresolvers;
 
 import android.content.ContentValues;
 import android.support.annotation.NonNull;
 import com.pushtorefresh.storio3.contentresolver.operations.put.DefaultPutResolver;
 import com.pushtorefresh.storio3.contentresolver.queries.InsertQuery;
 import com.pushtorefresh.storio3.contentresolver.queries.UpdateQuery;
+
+import org.seeds.anrgamelogger.buisnessobjects.Deck;
 
 public class CustomDeckPutResolver extends DefaultPutResolver<Deck> {
 /**
