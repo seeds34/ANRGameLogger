@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.io.ByteArrayInputStream;
 import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlat;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
 
 /**

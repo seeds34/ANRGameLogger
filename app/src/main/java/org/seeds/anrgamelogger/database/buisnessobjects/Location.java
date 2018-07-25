@@ -14,7 +14,7 @@ public class Location {
   public String name;
 
   @StorIOContentResolverColumn(name = BaseColumns._ID)
-  int rowid;
+  public int rowid;
 
   public Location(){};
 

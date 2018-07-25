@@ -14,28 +14,28 @@ import java.io.InputStream;
 public class LoggedGamePlayer {
 
   @StorIOContentResolverColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.GAME_ID, key = true)
-  int gameID;
+  public int gameID;
 
   @StorIOContentResolverColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_ID)
-  int player_id;
+  public int player_id;
 
   String player_name;
 
   @StorIOContentResolverColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.DECK_ID)
-  int deck_id;
+  public int deck_id;
 
   String deck_name;
 
   String id_name;
 
   @StorIOContentResolverColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_SIDE, key = true)
-  String side;
+  public String side;
 
   @StorIOContentResolverColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.WIN_FLAG)
-  String win_flag;
+  public String win_flag;
 
   @StorIOContentResolverColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.SCORE)
-  String score;
+  public String score;
 
   public LoggedGamePlayer(){}
 

@@ -15,31 +15,31 @@ import org.seeds.anrgamelogger.network.Card;
 public class Identity {
 
       @StorIOContentResolverColumn(name = IdentitiesColumns.IDENTITY_NAME, key = true)
-      String name;
+      public String name;
 
       @StorIOContentResolverColumn(name = IdentitiesColumns.IDENTITY_SIDE)
-      String side_code;
+      public String side_code;
 
        @StorIOContentResolverColumn(name = IdentitiesColumns.IDENTITY_FACTION)
-       String faction_code;
+       public String faction_code;
 
        @StorIOContentResolverColumn(name = IdentitiesColumns.ROTATED_FLAG)
-       String roatated_flag = "N";
+       public String roatated_flag = "N";
 
       @StorIOContentResolverColumn(name = IdentitiesColumns.NRDB_CODE)
-      String code;
+      public String code;
 
      @StorIOContentResolverColumn(name = IdentitiesColumns.IMAGE_BIT_ARRAY)
-     byte[] imageByteArrayOutputStream = null;
+     public byte[] imageByteArrayOutputStream = null;
 
       @StorIOContentResolverColumn(name = IdentitiesColumns.NRDB_PACK_CODE)
-      String pack_code;
+      public String pack_code;
 
       @StorIOContentResolverColumn(name = IdentitiesColumns.POSTION_IN_PACK)
-      String pos;
+      public String pos;
 
     @StorIOContentResolverColumn(name = BaseColumns._ID)
-    int rowid;
+    public int rowid;
 
       public Identity(){}
 

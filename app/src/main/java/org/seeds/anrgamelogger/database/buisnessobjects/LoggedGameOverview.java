@@ -14,18 +14,18 @@ public class LoggedGameOverview {
 
     //TODO: How am I going to do the Game ID??
     @StorIOContentResolverColumn(name = LoggedGameOverviewsContract.LoggedGameOverviewsColumns.GAME_ID, key = true)
-    int gameID;
+    public int gameID;
 
     @StorIOContentResolverColumn(name = LoggedGameOverviewsContract.LoggedGameOverviewsColumns.LOCATION_ID)
-    int location_id;
+    public int location_id;
 
     String location_name;
 
     @StorIOContentResolverColumn(name = LoggedGameOverviewsContract.LoggedGameOverviewsColumns.PLAYED_DATE)
-    String played_date;
+    public String played_date;
 
     @StorIOContentResolverColumn(name = LoggedGameOverviewsContract.LoggedGameOverviewsColumns.WIN_TYPE)
-    String win_type;
+    public String win_type;
 
     public LoggedGameOverview(){}
 

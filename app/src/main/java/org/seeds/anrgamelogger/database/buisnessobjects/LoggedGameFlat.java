@@ -10,52 +10,52 @@ public class LoggedGameFlat implements android.os.Parcelable {
 
 
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID, key = true)
-    int gameID;
+    public int gameID;
 
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_NAME)
-    String pO_Name;
+    public String pO_Name;
 
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.LOCATION_NAME)
-    String locationName;
+    public String locationName;
 
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYED_DATE)
-    String playedDate;
+    public String playedDate;
 
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_DECK_NAME)
-    String pO_DeckName;
+    public String pO_DeckName;
 
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_ID_NAME)
-    String pO_Identity;
+    public String pO_Identity;
 
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_ID_IMAGE)
-    byte[] pO_IdentityImage;
+    public byte[] pO_IdentityImage;
 
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_SCORE)
-    int    pO_Score;
+    public int    pO_Score;
 
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_WIN_FLAG)
-    String pO_WinFlag;
+    public String pO_WinFlag;
 
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_NAME)
-    String pT_Name;
+    public String pT_Name;
 
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_DECK_NAME)
-    String pT_DeckName;
+    public String pT_DeckName;
 
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_ID_NAME)
-    String pT_Identity;
+    public String pT_Identity;
 
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_ID_IMAGE)
-    byte[] pT_IdentityImage;
+    public byte[] pT_IdentityImage;
 
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_SCORE)
-    int    pT_Score;
+    public int    pT_Score;
 
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_WIN_FLAG)
-    String pT_WinFlag;
+    public String pT_WinFlag;
 
     @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.WIN_TYPE)
-    String winType;
+    public String winType;
 
     private final String WINNERFLAG = "Y";
 

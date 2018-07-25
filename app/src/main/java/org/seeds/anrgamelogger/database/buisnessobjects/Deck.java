@@ -11,22 +11,22 @@ import org.seeds.anrgamelogger.database.contracts.DecksContract.DecksColumns;
 public class Deck {
 
   @StorIOContentResolverColumn(name = DecksColumns.DECK_NAME, key = true)
-  String name;
+  public String name;
 
   @StorIOContentResolverColumn(name = DecksColumns.DECK_VERSION)
-  String version;
+  public String version;
 
   @StorIOContentResolverColumn(name = DecksColumns.DECK_ARCHETYPE)
-  String archetype;
+  public String archetype;
 
   @StorIOContentResolverColumn(name = DecksColumns.NRDB_LINK)
-  String nrdbLink;
+  public String nrdbLink;
 
   @StorIOContentResolverColumn(name = BaseColumns._ID)
-  int rowid;
+  public int rowid;
 
   @StorIOContentResolverColumn(name = DecksColumns.DECK_IDENTITY)
-  int identity_rowno;
+  public int identity_rowno;
 
   public Deck(){}
 

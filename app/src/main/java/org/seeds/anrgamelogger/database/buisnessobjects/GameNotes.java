@@ -10,10 +10,10 @@ import org.seeds.anrgamelogger.database.contracts.GameNotesContract.GameNotesCol
 public class GameNotes {
 
   @StorIOContentResolverColumn(name = GameNotesColumns.GAME_ID, key = true)
-  String gameID;
+  public String gameID;
 
   @StorIOContentResolverColumn(name = GameNotesColumns.GAME_NOTE)
-  String gameNotes;
+  public String gameNotes;
 
   @StorIOContentResolverColumn(name = BaseColumns._ID)
   int rowid;

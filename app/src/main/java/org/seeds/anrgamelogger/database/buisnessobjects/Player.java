@@ -30,7 +30,7 @@ public class Player implements Serializable, ViewData {
     public String nickName;
 
     @StorIOContentResolverColumn(name = BaseColumns._ID)
-    int rowid;
+    public int rowid;
 
     private String deck;
     private int score;

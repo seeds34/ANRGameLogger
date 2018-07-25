@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.database.buisnessobjects.customputresolvers;
+package org.seeds.anrgamelogger.database.customputresolvers;
 
 import android.content.ContentValues;
 import android.support.annotation.NonNull;
