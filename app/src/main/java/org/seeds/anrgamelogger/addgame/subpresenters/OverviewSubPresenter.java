@@ -6,20 +6,22 @@ import android.view.View;
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.addgame.views.AddGameOverviewView;
-import org.seeds.anrgamelogger.buisnessobjects.LoggedGamePlayer;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGamePlayer;
 import org.seeds.anrgamelogger.model.IdentityList;
-import org.seeds.anrgamelogger.buisnessobjects.LoggedGameOverview;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameOverview;
 
 import io.reactivex.Observable;
 
 public class OverviewSubPresenter extends SubPresenter{
 
     private AddGameOverviewView view;
+    private int gameNumber;
 
-    public OverviewSubPresenter(Activity activity, AddGameOverviewView view, ArrayList<String> locationList){
+    public OverviewSubPresenter(Activity activity, AddGameOverviewView view, ArrayList<String> locationList, int gameNumber){
         super(activity, activity.getString(R.string.title_overview));
         this.view = view;
         this.view.setUpLocationAutoComplete(locationList);
+        this.gameNumber = gameNumber;
     }
 
     @Override
@@ -46,7 +48,8 @@ public class OverviewSubPresenter extends SubPresenter{
         return new LoggedGameOverview(
             view.getLocation(),
             view.getPlayedDate(),
-            view.getWinType()
+            view.getWinType(),
+                gameNumber
         );
     }
 

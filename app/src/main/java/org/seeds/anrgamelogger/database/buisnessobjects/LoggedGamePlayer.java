@@ -1,14 +1,9 @@
-package org.seeds.anrgamelogger.buisnessobjects;
+package org.seeds.anrgamelogger.database.buisnessobjects;
 
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
 
-import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.LoggedGamePlayersContract;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 @StorIOContentResolverType(uri = "content://" + LoggedGamePlayersContract.CONTENT_AUTHORITY + "/" + LoggedGamePlayersContract.PATH_LOGGED_GAMES_PLAYERS)
 public class LoggedGamePlayer {
@@ -19,14 +14,8 @@ public class LoggedGamePlayer {
   @StorIOContentResolverColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_ID)
   public int player_id;
 
-  String player_name;
-
   @StorIOContentResolverColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.DECK_ID)
   public int deck_id;
-
-  String deck_name;
-
-  String id_name;
 
   @StorIOContentResolverColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_SIDE, key = true)
   public String side;
@@ -37,25 +26,31 @@ public class LoggedGamePlayer {
   @StorIOContentResolverColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.SCORE)
   public String score;
 
+  private String player_name;
+  private String deck_name;
+  private String identity_name;
+
   public LoggedGamePlayer(){}
 
   public LoggedGamePlayer(int player_id, int deck_id, String side, String win_flag,
-      String score) {
+      String score, int gameNumber) {
     this.player_id = player_id;
     this.deck_id = deck_id;
     this.side = side;
     this.win_flag = win_flag;
     this.score = score;
+    this.gameID = gameNumber;
   }
 
-  public LoggedGamePlayer(String player_name, String deck_name, String id_name, String side, String win_flag,
-                          String score) {
-    this.player_id = player_id;
-    this.deck_id = deck_id;
-    this.id_name = id_name;
+  public LoggedGamePlayer(String player_name, String deck_name, String identity_name, String side, String win_flag,
+                          String score, int gameNumber) {
+    this.player_name = player_name;
+    this.deck_name = deck_name;
+    this.identity_name = identity_name;
     this.side = side;
     this.win_flag = win_flag;
     this.score = score;
+    this.gameID = gameNumber;
   }
 
   public int getPlayer_id() {
@@ -98,4 +93,35 @@ public class LoggedGamePlayer {
     this.score = score;
   }
 
+  public int getGameID() {
+    return gameID;
+  }
+
+  public void setGameID(int gameID) {
+    this.gameID = gameID;
+  }
+
+  public String getPlayer_name() {
+    return player_name;
+  }
+
+  public void setPlayer_name(String player_name) {
+    this.player_name = player_name;
+  }
+
+  public String getDeck_name() {
+    return deck_name;
+  }
+
+  public void setDeck_name(String deck_name) {
+    this.deck_name = deck_name;
+  }
+
+  public String getIdentity_name() {
+    return identity_name;
+  }
+
+  public void setIdentity_name(String identity_name) {
+    this.identity_name = identity_name;
+  }
 }

@@ -5,18 +5,20 @@ import android.view.View;
 import java.util.ArrayList;
 
 import org.seeds.anrgamelogger.addgame.views.AddGamePlayerView;
-import org.seeds.anrgamelogger.buisnessobjects.LoggedGamePlayer;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGamePlayer;
 import org.seeds.anrgamelogger.model.IdentityList;
-import org.seeds.anrgamelogger.buisnessobjects.LoggedGameOverview;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameOverview;
 
 public class PlayerSubPresenter extends SubPresenter{
 
     AddGamePlayerView view;
+    private int gameNumber;
 
     //ToDo: Change to title id and convert??
-    public PlayerSubPresenter(Activity activity, AddGamePlayerView view, String title, ArrayList<String> playerList, ArrayList<String> deckList){
+    public PlayerSubPresenter(Activity activity, AddGamePlayerView view, String title, ArrayList<String> playerList, ArrayList<String> deckList, int gameNumber){
         super(activity,  title);
         this.view = view;
+        this.gameNumber = gameNumber;
         this.view.setUpNameAutoComplete(playerList);
         this.view.setUpDeckNameAutoComplete(deckList);
     }
@@ -43,7 +45,8 @@ public class PlayerSubPresenter extends SubPresenter{
                 view.getIdentitiesName(),
                 getTitle(),
                 Integer.toString(1),
-               view.getScore()
+                view.getScore(),
+                gameNumber
         );
     }
 

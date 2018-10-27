@@ -17,7 +17,7 @@ import com.jakewharton.rxbinding2.view.RxView;
 import io.reactivex.Observable;
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlat;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
 
 
 public class GameListView extends FrameLayout{

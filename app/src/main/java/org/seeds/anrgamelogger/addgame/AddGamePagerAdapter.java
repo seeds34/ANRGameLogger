@@ -9,9 +9,9 @@ import java.util.List;
 
 import org.seeds.anrgamelogger.addgame.subpresenters.PlayerSubPresenter;
 import org.seeds.anrgamelogger.addgame.subpresenters.SubPresenter;
-import org.seeds.anrgamelogger.buisnessobjects.LoggedGamePlayer;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGamePlayer;
 import org.seeds.anrgamelogger.model.IdentityList;
-import org.seeds.anrgamelogger.buisnessobjects.LoggedGameOverview;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameOverview;
 
 /**
  * Created by Tomas Seymour-Turner on 04/01/2018.

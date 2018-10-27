@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.view.View;
 import io.reactivex.Observable;
 
-import org.seeds.anrgamelogger.buisnessobjects.LoggedGamePlayer;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGamePlayer;
 import org.seeds.anrgamelogger.model.IdentityList;
-import org.seeds.anrgamelogger.buisnessobjects.LoggedGameOverview;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameOverview;
 
 public abstract class SubPresenter {
 

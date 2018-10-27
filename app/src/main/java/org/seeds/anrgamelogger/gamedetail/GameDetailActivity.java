@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import javax.inject.Inject;
-import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlat;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
 import org.seeds.anrgamelogger.gamedetail.dagger.DaggerGameDetailComponent;
 import org.seeds.anrgamelogger.gamedetail.dagger.GameDetailModule;
 

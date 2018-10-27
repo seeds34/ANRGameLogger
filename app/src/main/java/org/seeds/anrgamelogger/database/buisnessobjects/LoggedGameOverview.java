@@ -30,17 +30,19 @@ public class LoggedGameOverview {
     public LoggedGameOverview(){}
 
     public LoggedGameOverview(int gameID, int location_id,
-                              String played_date, String win_type) {
+                              String played_date, String win_type, int gameNumber) {
         this.gameID = gameID;
         this.location_id = location_id;
         this.played_date = played_date;
         this.win_type = win_type;
+        this.gameID = gameNumber;
     }
 
-    public LoggedGameOverview(String location_name, String played_date, String win_type) {
+    public LoggedGameOverview(String location_name, String played_date, String win_type, int gameNumber) {
         this.location_name = location_name;
         this.played_date = played_date;
         this.win_type = win_type;
+        this.gameID = gameNumber;
     }
 
     public int getGameID() {
@@ -73,6 +75,14 @@ public class LoggedGameOverview {
 
     public void setWin_type(String win_type) {
         this.win_type = win_type;
+    }
+
+    public String getLocation_name() {
+        return location_name;
+    }
+
+    public void setLocation_name(String location_name) {
+        this.location_name = location_name;
     }
 
 //    private Player playerOne;

@@ -8,7 +8,7 @@ import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlat;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
 
 /**
  * Created by Tomas Seymour-Turner on 19/03/2017.

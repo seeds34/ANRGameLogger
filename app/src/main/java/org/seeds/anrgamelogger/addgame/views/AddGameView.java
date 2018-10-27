@@ -15,9 +15,9 @@ import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.addgame.AddGamePagerAdapter;
 import org.seeds.anrgamelogger.addgame.subpresenters.OverviewSubPresenter;
 import org.seeds.anrgamelogger.addgame.subpresenters.PlayerSubPresenter;
-import org.seeds.anrgamelogger.buisnessobjects.LoggedGamePlayer;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGamePlayer;
 import org.seeds.anrgamelogger.model.IdentityList;
-import org.seeds.anrgamelogger.buisnessobjects.LoggedGameOverview;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameOverview;
 
 /**
  * Created by user on 09/12/2017.
@@ -53,10 +53,10 @@ public class AddGameView extends FrameLayout {
         tabLayout.setupWithViewPager(addGameViewPager);
     }
 
-    public void setUpPagerViews(ArrayList<String> viewTitleList, ArrayList<String> playerList, ArrayList<String> deckList, ArrayList<String> locationList){
-        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, new AddGamePlayerView(activity), viewTitleList.get(0),playerList, deckList) );
-        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, new AddGamePlayerView(activity), viewTitleList.get(1), playerList, deckList) );
-        addGamePagerAdapter.addView(new OverviewSubPresenter(activity, new AddGameOverviewView(activity), locationList) );
+    public void setUpPagerViews(ArrayList<String> viewTitleList, ArrayList<String> playerList, ArrayList<String> deckList, ArrayList<String> locationList, int newGameNo){
+        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, new AddGamePlayerView(activity), viewTitleList.get(0),playerList, deckList, newGameNo) );
+        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, new AddGamePlayerView(activity), viewTitleList.get(1), playerList, deckList, newGameNo) );
+        addGamePagerAdapter.addView(new OverviewSubPresenter(activity, new AddGameOverviewView(activity), locationList, newGameNo) );
     }
 
     public void startPageViewer(){

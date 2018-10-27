@@ -14,13 +14,13 @@ import java.util.Arrays;
 import java.util.List;
 import okhttp3.Response;
 
-import org.seeds.anrgamelogger.buisnessobjects.LoggedGamePlayer;
+import org.seeds.anrgamelogger.database.buisnessobjects.CardImage;
 import org.seeds.anrgamelogger.database.DatabaseModel;
 import org.seeds.anrgamelogger.model.CardList;
 import org.seeds.anrgamelogger.network.Card;
 import org.seeds.anrgamelogger.network.NetworkModel;
-import org.seeds.anrgamelogger.buisnessobjects.Identity;
-import org.seeds.anrgamelogger.buisnessobjects.Player;
+import org.seeds.anrgamelogger.database.buisnessobjects.Identity;
+import org.seeds.anrgamelogger.database.buisnessobjects.Player;
 
 /**
  * Created by Tomas Seymour-Turner on 09/01/2018.
@@ -81,8 +81,8 @@ public class SetupDatabaseDataModel {
 
         Log.d(LOG_TAG,"Inserting IDs");
         for (Card i : ids) {
-            Log.d(LOG_TAG, "Type: " + i.type_code);
-            if (i.type_code.equals("identity")) {
+            Log.d(LOG_TAG, "Type: " + i.getType_code());
+            if (i.getType_code().equals("identity")) {
                 Log.d(LOG_TAG, i.toString());
                 Identity ident = new Identity(i);
                 databaseModel.insertIdentity(ident);
@@ -101,9 +101,9 @@ public class SetupDatabaseDataModel {
 
     }
 
-    //TODO: Please Tidy, this is horrid and wrong
+    //TODO: Please Tidy, this is horrid and wrong. Feel this should be simipler and not needing a CardImage Object. Should just add and UPDATE Identity
     public void downloadImageFromNRDB(String nrdb_pack_code, String card_code, String pos) {
-        LoggedGamePlayer.CardImage cardImage = new LoggedGamePlayer.CardImage(card_code);
+        CardImage cardImage = new CardImage(card_code);
         cardImage.setImageUrl(NRDB_IMAGE_URL + card_code + IMAGE_FILE_EXT);
 
         Log.d(LOG_TAG, "(3)URL Is: " + cardImage.getImageUrl());
@@ -112,8 +112,7 @@ public class SetupDatabaseDataModel {
 
         Log.d(LOG_TAG,"(4)Observable is " + ((data == null)?"Null":"Not Null"));
 
-        data
-            .subscribeOn(Schedulers.single())
+        data.subscribeOn(Schedulers.single())
             //.observeOn(AndroidSchedulers.mainThread())
             .subscribe(r -> {
                 InputStream is = r.body().byteStream();

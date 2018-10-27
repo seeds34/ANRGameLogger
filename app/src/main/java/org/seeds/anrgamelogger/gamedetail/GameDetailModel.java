@@ -1,7 +1,7 @@
 package org.seeds.anrgamelogger.gamedetail;
 
 import android.app.Activity;
-import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlat;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
 
 /**
  * Created by Tomas Seymour-Turner on 19/11/2017.

@@ -8,7 +8,7 @@ import org.seeds.anrgamelogger.database.DatabaseModel;
 import org.seeds.anrgamelogger.network.NetworkModel;
 import org.seeds.anrgamelogger.gamedetail.GameDetailActivity;
 import org.seeds.anrgamelogger.model.GameListManager;
-import org.seeds.anrgamelogger.buisnessobjects.LoggedGameOverview;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameOverview;
 import org.seeds.anrgamelogger.application.SetupDatabaseDataModel;
 
 

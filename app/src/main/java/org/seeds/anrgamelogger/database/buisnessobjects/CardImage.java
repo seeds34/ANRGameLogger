@@ -14,6 +14,7 @@ import java.io.InputStream;
  */
 
 //TODO:Clean up entire class
+    //Exsists so Images can be added to DB sepratly after IDs...
 @StorIOContentResolverType(uri = "content://" + IdentitiesContract.CONTENT_AUTHORITY + "/" + IdentitiesContract.PATH_IDENTITIES)
 public class CardImage {
 

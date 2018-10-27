@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import org.seeds.anrgamelogger.addgame.model.AddGameModel;
 import org.seeds.anrgamelogger.addgame.views.AddGameView;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
-import org.seeds.anrgamelogger.buisnessobjects.LoggedGamePlayer;
-import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameOverview;
+import org.seeds.anrgamelogger.database.buisnessobjects.*;
 import org.seeds.anrgamelogger.model.IdentityList;
 
 /**
@@ -47,7 +46,7 @@ public class AddGamePresenter {
 
         Log.d(LOG_TAG, "Player List is " + playerList.toString());
 
-        view.setUpPagerViews(viewTitleList, playerList, deckList, locationList);
+        view.setUpPagerViews(viewTitleList, playerList, deckList, locationList, model.getNextGameNo());
         IdentityList idList = new IdentityList(model.getListOfIdenties());
         view.setIDSelecters(idList);
         view.startPageViewer();
@@ -84,51 +83,24 @@ public class AddGamePresenter {
         7: Sort Location
         8: Sort Player 1 Logged Game
         9: Sort Player 2 Logged Game
+
+      ?Could Player/Deck?Identity ID be enterd by defult if player has selected from previuouse option?
+
+      Varfiy fields for non null and anything else that can be checked without DB.
+           Do all non DB validation before checking and inserting into DB
+           Skip Locateal validatuon if realted ID has a number
+      Ask model to get data or new id (insert into DB)
+
          */
 
-    if(pOneData.getPlayerNames().matches("") || pTwoData.getPlayerNames().matches("")) {
+    if(pOneData.getPlayer_name().matches("") || pTwoData.getPlayer_name().matches("")) {
         view.showMessage(
-            "Player One is: " + pOneData.getPlayerNames() + " and Player Two is: " + pTwoData
-                .getPlayerNames() + " Either Player name can be empty");
+            "Player One is: " + pOneData.getPlayer_name() + " and Player Two is: " + pTwoData
+                .getPlayer_name() + " Either Player name can be empty");
 //TODO: Add check that win type is not score but ethier players scores are less then 7
     }else {
 
-        Identity playerOneid = model.getIdentity(pOneData.getIdentityName());
-        Identity playerTwoid = model.getIdentity(pTwoData.getIdentityName());
-
-//Get Deck based on Name, ID and Version. If Name is Null user Player+ID+Version. Although Current Deck name can't be Null
-        Deck pOneDeck = model.getDeck(pOneData.getDeckName(), pOneData.getDeckVersion(), playerOneid.getRowid());
-        if (pOneDeck == null) {
-            model.insertNewDeck(new Deck(pOneData.getDeckName(), pOneData.getDeckVersion(), playerOneid.getRowid()));
-            pOneDeck = model.getDeck(pOneData.getDeckName(), pOneData.getDeckVersion(), playerOneid.getRowid());
-        }
-
-        Deck pTwoDeck = model.getDeck(pTwoData.getDeckName(), pTwoData.getDeckVersion(), playerTwoid.getRowid());
-        if (pTwoDeck == null) {
-            model.insertNewDeck(new Deck(pTwoData.getDeckName(), pTwoData.getDeckVersion(), playerTwoid.getRowid()));
-            pTwoDeck = model.getDeck(pTwoData.getDeckName(), pTwoData.getDeckVersion(), playerTwoid.getRowid());
-        }
-
-        Player playerOne = model.getPlayer(pOneData.getPlayerNames());
-        if (playerOne == null) {
-            model.insertPlayer(new Player(pOneData.getPlayerNames()));
-            playerOne = model.getPlayer(pOneData.getPlayerNames());
-        }
-
-        Player playerTwo = model.getPlayer(pTwoData.getPlayerNames());
-        if (playerTwo == null) {
-            model.insertPlayer(new Player(pTwoData.getPlayerNames()));
-            playerTwo = model.getPlayer(pTwoData.getPlayerNames());
-        }
-
-        Location loc = model.getLocation(ovData.getLocation());
-        if (loc == null && !ovData.getLocation().matches("")) {
-            model.insertNewLocation(new Location(ovData.getLocation()));
-            loc = model.getLocation(ovData.getLocation());
-        }
     }
-
-        //How to sort null values
     }
 
     public void setViewData(){

@@ -10,7 +10,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import java.io.ByteArrayInputStream;
 import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.buisnessobjects.LoggedGameFlat;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
 
 /**
  * Created by Tomas Seymour-Turner on 19/03/2017.
