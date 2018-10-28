@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import org.seeds.anrgamelogger.addgame.model.AddGameModel;
 import org.seeds.anrgamelogger.addgame.views.AddGameView;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
+import org.seeds.anrgamelogger.database.LoggedGameValidationList;
 import org.seeds.anrgamelogger.database.buisnessobjects.*;
 import org.seeds.anrgamelogger.model.IdentityList;
 
@@ -72,6 +73,7 @@ public class AddGamePresenter {
         LoggedGamePlayer pOneData = view.getPlayerOne();
         LoggedGamePlayer pTwoData = view.getPlayerTwo();
         LoggedGameOverview ovData = view.getGameOverview();
+
 
         /*
         1: Sort Player 1 ID

@@ -325,58 +325,90 @@ public class DatabaseModel {
             .executeAsBlocking();
   }
 
-  public void validateLoggedGameOverview(LoggedGameOverview lgo){
+  public void addLoggedGame(LoggedGameOverview lgo, LoggedGamePlayer playerOne, LoggedGamePlayer playerTwo ){
 
-    Map<String, Boolean> ret = new HashMap<>();
-    ret.put("Location Valid" , false);
+    Map<Enum, Boolean> validationResults = validateLogggedGame(lgo,playerOne,playerTwo);
+    
+    boolean allTrue = true;
 
-    if(getLocation(lgo.getLocation_name()) != null){
-      ret.put("Location Valid" , true);
+    for (Map.Entry<Enum, Boolean> entry : validationResults.entrySet() ) {
+        if(entry.getValue() != true){
+          allTrue = false;
+        }
     }
 
+    //TODO: Add Check to only add new entryes etc if validation has passed
+
+    if (!validationResults.get(LoggedGameValidationList.PLAYER_ONE_EXISTS)){
+      //Create new player
+      PutResult ip = insertPlayer(new Player(playerOne.getPlayer_name()));
+      if(ip.wasInserted()){
+        playerOne.setPlayer_id(getPlayer(playerOne.getPlayer_name()).getRowid());
+      }
+      }else{
+      playerOne.setPlayer_id(getPlayer(playerOne.getPlayer_name()).getRowid());
+      //set Player ID as that from get
+    }
+
+    if (!validationResults.get(LoggedGameValidationList.DECK_ONE_EXISTS)){
+      //Create new Deck
+    }else{
+      //set Deck ID as that from get
+    }
+
+
+
+
   }
+  
+  public Map<Enum, Boolean> validateLogggedGame(LoggedGameOverview lgo, LoggedGamePlayer playerOne, LoggedGamePlayer playerTwo ){
+    Map<Enum, Boolean> ret = new HashMap<>();
 
+    if(getLocation(lgo.getLocation_name()) != null){
+      ret.put(LoggedGameValidationList.LOCATION_EXISTS , true);
+    }else{
+      ret.put(LoggedGameValidationList.LOCATION_EXISTS , false);
+    }
 
-//Genric soultion ideas
+    //TODO: Need real date check
+    if(lgo.getPlayed_date() == "Today"){
+      ret.put(LoggedGameValidationList.DATE_VALID,true);
+    }else{
+      ret.put(LoggedGameValidationList.DATE_VALID, false);
+    }
 
-//  public void databaseToClassModel(){
-//
-//    tableToClassMap = new HashMap();
-//    tableToClassMap.put(IdentitiesContract.URI_TABLE, Card.class);
-//    //tableToClassMap.put(LocationsContract.URI_TABLE, )
-//    tableToClassMap.put(LoggedGameOverviewsContract.URI_TABLE, Game.class);
-//    tableToClassMap.put(PlayersContract.URI_TABLE, Player.class);
-//  }
+    //TODO: How to check win type. This is why the calidation needs to be done for the entire game
+    if(1==1){
+      ret.put(LoggedGameValidationList.WIN_TYPE_VALID, true);
+    }else{
+      ret.put(LoggedGameValidationList.WIN_TYPE_VALID, false);
+    }
 
+    if(getPlayer(playerOne.getPlayer_name()) != null){
+      ret.put(LoggedGameValidationList.PLAYER_ONE_EXISTS, true);
+    }else{
+      ret.put(LoggedGameValidationList.PLAYER_ONE_EXISTS, true);
+    }
 
+    if(getPlayer(playerTwo.getPlayer_name()) != null){
+      ret.put(LoggedGameValidationList.PLAYER_TWO_EXISTS, true);
+    }else{
+      ret.put(LoggedGameValidationList.PLAYER_TWO_EXISTS, true);
+    }
 
-//  private boolean find(Uri tableUri, String coloumnName, String valueIn){
-//
-//    boolean ret = false;
-//    String value = DatabaseUtils.sqlEscapeString(valueIn);
-//    String whereClause = coloumnName + " = " + value ;
-//    Class typeClass = tableToClassMap.get(tableUri);
-//
-//
-//      ArrayList<?> queryResult = storIOContentResolver
-//            .get()
-//            .listOfObjects(typeClass.getClass())
-//            .withQuery(Query.builder()
-//                    .uri(tableUri)
-//                    .whereArgs(coloumnName + " = ?")
-//                    .where(value)
-//                    .build())
-//            .prepare()
-//            .executeAsBlocking();
-//
-//    if(queryResult != null && queryResult.getCount() > 0){
-//      ret = true;
-//    }
-//
-//    Log.d(LOG_TAG, "Looking for: D: " + coloumnName + " I: " + valueIn + " V: " + version + " Returned: " + ret);
-//
-//    return ret;
-//  }
+    if(getDeck(playerOne.getDeck_name(),"1",getIdentity(playerOne.getIdentity_name()).getRowid()) != null){
+      ret.put(LoggedGameValidationList.DECK_ONE_EXISTS, true);
+    }else{
+      ret.put(LoggedGameValidationList.DECK_ONE_EXISTS, true);
+    }
 
+    if(getDeck(playerTwo.getDeck_name(),"1",getIdentity(playerTwo.getIdentity_name()).getRowid()) != null){
+      ret.put(LoggedGameValidationList.DECK_TWO_EXISTS, true);
+    }else{
+      ret.put(LoggedGameValidationList.DECK_TWO_EXISTS, true);
+    }
+    
+    return ret;
+  }
 
 }

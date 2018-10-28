@@ -30,6 +30,8 @@ public class LoggedGamePlayer {
   private String deck_name;
   private String identity_name;
 
+  private String deck_version;
+
   public LoggedGamePlayer(){}
 
   public LoggedGamePlayer(int player_id, int deck_id, String side, String win_flag,
