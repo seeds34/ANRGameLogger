@@ -2,6 +2,7 @@ package org.seeds.anrgamelogger.database.buisnessobjects;
 
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
+
 import org.seeds.anrgamelogger.database.contracts.LoggedGameOverviewsContract;
 
 /**
@@ -27,6 +28,10 @@ public class LoggedGameOverview {
     @StorIOContentResolverColumn(name = LoggedGameOverviewsContract.LoggedGameOverviewsColumns.WIN_TYPE)
     public String win_type;
 
+
+
+    private String winning_side;
+
     public LoggedGameOverview(){}
 
     public LoggedGameOverview(int gameID, int location_id,
@@ -38,11 +43,12 @@ public class LoggedGameOverview {
         this.gameID = gameNumber;
     }
 
-    public LoggedGameOverview(String location_name, String played_date, String win_type, int gameNumber) {
+    public LoggedGameOverview(String location_name, String played_date, String win_type, int gameNumber, String winning_side) {
         this.location_name = location_name;
         this.played_date = played_date;
         this.win_type = win_type;
         this.gameID = gameNumber;
+        this.winning_side = winning_side;
     }
 
     public int getGameID() {
@@ -83,6 +89,14 @@ public class LoggedGameOverview {
 
     public void setLocation_name(String location_name) {
         this.location_name = location_name;
+    }
+
+    public String getWinning_side() {
+        return winning_side;
+    }
+
+    public void setWinning_side(String winning_side) {
+        this.winning_side = winning_side;
     }
 
 //    private Player playerOne;

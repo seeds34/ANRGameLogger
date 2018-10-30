@@ -378,34 +378,55 @@ public class DatabaseModel {
     }
 
     //TODO: How to check win type. This is why the calidation needs to be done for the entire game
-    if(1==1){
-      ret.put(LoggedGameValidationList.WIN_TYPE_VALID, true);
-    }else{
-      ret.put(LoggedGameValidationList.WIN_TYPE_VALID, false);
+    if(lgo.getWin_type() == "S"){
+      if((lgo.getWinning_side() == playerOne.getSide() && playerOne.getScore() >= 7) ||
+                      (lgo.getWinning_side() == playerTwo.getSide() && playerTwo.getScore() >= 7)){
+        ret.put(LoggedGameValidationList.WIN_TYPE_VALID, true);
+      }else{
+        ret.put(LoggedGameValidationList.WIN_TYPE_VALID, false);
+      }
+    }else if(lgo.getWin_type() == "K"){
+      if(playerOne.getScore() < 7 && playerTwo.getScore() < 7 && lgo.getWinning_side() == "corp"){
+        ret.put(LoggedGameValidationList.WIN_TYPE_VALID, true);
+      }else{
+        ret.put(LoggedGameValidationList.WIN_TYPE_VALID, false);
+      }
+    }else if(lgo.getWin_type() == "M"){
+      if(playerOne.getScore() < 7 && playerTwo.getScore() < 7 && lgo.getWinning_side() == "runner"){
+        ret.put(LoggedGameValidationList.WIN_TYPE_VALID, true);
+      }else{
+        ret.put(LoggedGameValidationList.WIN_TYPE_VALID, false);
+      }
+    }else if(lgo.getWin_type() == "C"){
+      if(playerOne.getScore() < 7 && playerTwo.getScore() < 7){
+        ret.put(LoggedGameValidationList.WIN_TYPE_VALID, true);
+      }else{
+        ret.put(LoggedGameValidationList.WIN_TYPE_VALID, false);
+      }
     }
 
     if(getPlayer(playerOne.getPlayer_name()) != null){
       ret.put(LoggedGameValidationList.PLAYER_ONE_EXISTS, true);
     }else{
-      ret.put(LoggedGameValidationList.PLAYER_ONE_EXISTS, true);
+      ret.put(LoggedGameValidationList.PLAYER_ONE_EXISTS, false);
     }
 
     if(getPlayer(playerTwo.getPlayer_name()) != null){
       ret.put(LoggedGameValidationList.PLAYER_TWO_EXISTS, true);
     }else{
-      ret.put(LoggedGameValidationList.PLAYER_TWO_EXISTS, true);
+      ret.put(LoggedGameValidationList.PLAYER_TWO_EXISTS, false);
     }
 
     if(getDeck(playerOne.getDeck_name(),"1",getIdentity(playerOne.getIdentity_name()).getRowid()) != null){
       ret.put(LoggedGameValidationList.DECK_ONE_EXISTS, true);
     }else{
-      ret.put(LoggedGameValidationList.DECK_ONE_EXISTS, true);
+      ret.put(LoggedGameValidationList.DECK_ONE_EXISTS, false);
     }
 
     if(getDeck(playerTwo.getDeck_name(),"1",getIdentity(playerTwo.getIdentity_name()).getRowid()) != null){
       ret.put(LoggedGameValidationList.DECK_TWO_EXISTS, true);
     }else{
-      ret.put(LoggedGameValidationList.DECK_TWO_EXISTS, true);
+      ret.put(LoggedGameValidationList.DECK_TWO_EXISTS, false);
     }
     
     return ret;

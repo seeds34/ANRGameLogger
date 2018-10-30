@@ -49,7 +49,8 @@ public class OverviewSubPresenter extends SubPresenter{
             view.getLocation(),
             view.getPlayedDate(),
             view.getWinType(),
-                gameNumber
+                gameNumber,
+                "corp"
         );
     }
 

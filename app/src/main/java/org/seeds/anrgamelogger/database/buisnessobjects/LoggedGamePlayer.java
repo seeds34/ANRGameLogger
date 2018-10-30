@@ -24,7 +24,7 @@ public class LoggedGamePlayer {
   public String win_flag;
 
   @StorIOContentResolverColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.SCORE)
-  public String score;
+  public int score;
 
   private String player_name;
   private String deck_name;
@@ -35,7 +35,7 @@ public class LoggedGamePlayer {
   public LoggedGamePlayer(){}
 
   public LoggedGamePlayer(int player_id, int deck_id, String side, String win_flag,
-      String score, int gameNumber) {
+      int score, int gameNumber) {
     this.player_id = player_id;
     this.deck_id = deck_id;
     this.side = side;
@@ -45,7 +45,7 @@ public class LoggedGamePlayer {
   }
 
   public LoggedGamePlayer(String player_name, String deck_name, String identity_name, String side, String win_flag,
-                          String score, int gameNumber) {
+                          int score, int gameNumber) {
     this.player_name = player_name;
     this.deck_name = deck_name;
     this.identity_name = identity_name;
@@ -87,11 +87,11 @@ public class LoggedGamePlayer {
     this.win_flag = win_flag;
   }
 
-  public String getScore() {
+  public int getScore() {
     return score;
   }
 
-  public void setScore(String score) {
+  public void setScore(int score) {
     this.score = score;
   }
 
