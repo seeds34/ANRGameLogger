@@ -32,7 +32,7 @@ public class AddGamePlayerView extends AddGameBaseView{
   @BindView(R.id.identitiesImageViewPager)
   ViewPager identitiesImageViewPager;
 
-  @BindView(R.id.addGamepalyerName)
+  @BindView(R.id.addGamePlayerName)
   AutoCompleteTextView playerName;
 
   @BindView(R.id.addGameDeckName)
@@ -40,6 +40,9 @@ public class AddGamePlayerView extends AddGameBaseView{
 
   @BindView(R.id.addGameDeckVer)
   TextView deckVer;
+
+  @BindView(R.id.addGameScore)
+  TextView score;
 
   private AddGameIdentitesPageAdapter identityImageViewAdapter;
   private ArrayAdapter identityNameArrayAdapter;
@@ -127,9 +130,8 @@ public class AddGamePlayerView extends AddGameBaseView{
     return deckVer.getText().toString();
   }
 
-  //TODO: Fix get score
-  public String getScore(){
-    return "7";
+  public int getScore(){
+    return Integer.parseInt(score.getText().toString());
   }
 
   //  @Override

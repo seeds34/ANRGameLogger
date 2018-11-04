@@ -67,7 +67,7 @@ public class GameListView extends FrameLayout{
         gameRecyclerList.refreshDrawableState();
     }
 
-    public Observable<String> observeRecyckerView() {
+    public Observable<String> observeRecyclerView() {
         return gameListRecyclerViewAdaptor.getViewClickedObservable();
        // return RxView.clicks(gameRecyclerList);
     }

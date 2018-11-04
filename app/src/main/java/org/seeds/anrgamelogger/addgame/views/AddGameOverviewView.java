@@ -1,15 +1,25 @@
 package org.seeds.anrgamelogger.addgame.views;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.jakewharton.rxbinding2.view.RxView;
+
+import butterknife.OnClick;
 import io.reactivex.Observable;
 import java.util.ArrayList;
+import java.util.Calendar;
+
 import org.seeds.anrgamelogger.R;
 
 /**
@@ -31,12 +41,13 @@ public class AddGameOverviewView extends AddGameBaseView{
   @BindView(R.id.txt_location)
   public AutoCompleteTextView location;
 
-  @BindView(R.id.et_dateChooser)
-  public EditText playedDate;
+  @BindView(R.id.addGameDateSelector)
+  public TextView playedDate;
 
   private final int viewNo = R.layout.view_addgame_overview;
   private ArrayAdapter<String> locationListAdapter;
 
+  private DatePickerDialog.OnDateSetListener dateSetListener;
 
   public AddGameOverviewView(Activity activity){
     super(activity);
@@ -59,13 +70,26 @@ public class AddGameOverviewView extends AddGameBaseView{
     location.setAdapter(locationListAdapter);
   }
 
+  @OnClick(R.id.addGameDateSelector)
+  public void dateDiaolog(){
+    Calendar cal =Calendar.getInstance();
+    int year = cal.get(Calendar.YEAR);
+    int month = cal.get(Calendar.MONTH);
+    int day = cal.get(Calendar.DAY_OF_MONTH);
+
+    DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), R.style.AppTheme, dateSetListener,year,month,day);
+    datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    datePickerDialog.show();
+  }
+
+
 
   @Override
-    public Observable<Object> save(){
+  public Observable<Object> save(){
     return RxView.clicks(btn_save);
   }
 
-    public String getLocation(){
+  public String getLocation(){
       return location.getText().toString();
     }
 

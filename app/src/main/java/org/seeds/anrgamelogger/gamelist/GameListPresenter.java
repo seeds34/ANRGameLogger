@@ -4,7 +4,7 @@ package org.seeds.anrgamelogger.gamelist;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import org.seeds.anrgamelogger.R;
+
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 
 /**
@@ -49,7 +49,7 @@ public class GameListPresenter{
     }
 
     private Disposable onItemClick(){
-        return view.observeRecyckerView()
+        return view.observeRecyclerView()
                 .subscribe(pos ->{ model.startGameDetailActivity(pos.toString());
         });
     }
