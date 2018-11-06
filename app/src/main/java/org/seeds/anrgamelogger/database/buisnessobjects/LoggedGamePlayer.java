@@ -126,4 +126,16 @@ public class LoggedGamePlayer {
   public void setIdentity_name(String identity_name) {
     this.identity_name = identity_name;
   }
+
+  public String getDeck_version() {
+    return deck_version;
+  }
+
+  public void setDeck_version(String deck_version) {
+    this.deck_version = deck_version;
+  }
+
+
+
 }
+

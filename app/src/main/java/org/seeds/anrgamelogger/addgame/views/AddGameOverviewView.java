@@ -2,8 +2,11 @@ package org.seeds.anrgamelogger.addgame.views;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -72,17 +75,23 @@ public class AddGameOverviewView extends AddGameBaseView{
 
   @OnClick(R.id.addGameDateSelector)
   public void dateDiaolog(){
-    Calendar cal =Calendar.getInstance();
+    Calendar cal = Calendar.getInstance();
     int year = cal.get(Calendar.YEAR);
     int month = cal.get(Calendar.MONTH);
     int day = cal.get(Calendar.DAY_OF_MONTH);
 
     DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), R.style.AppTheme, dateSetListener,year,month,day);
-    datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     datePickerDialog.show();
   }
 
-
+//  public static class CustomDatePicker extends DialogFragment implements DatePickerDialog.OnDateSetListener{
+//
+//    @Override
+//    public Dialog onCreateDialog(Bundle savedInstanceState){
+//
+//
+//    }
+//  }
 
   @Override
   public Observable<Object> save(){

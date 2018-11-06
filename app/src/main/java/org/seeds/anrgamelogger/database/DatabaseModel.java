@@ -198,17 +198,6 @@ public class DatabaseModel {
         .executeAsBlocking();
   }
 
-  public List<Location> getLocations(){
-    return storIOContentResolver
-        .get()
-        .listOfObjects(Location.class)
-        .withQuery(Query.builder()
-            .uri(LocationsContract.URI_TABLE)
-            .build())
-        .prepare()
-        .executeAsBlocking();
-  }
-
   public Location getLocation(String locationName){
     return storIOContentResolver
         .get()
@@ -243,24 +232,13 @@ public class DatabaseModel {
         .executeAsBlocking();
   }
 
-  public List<Deck> getDecks(){
-    return storIOContentResolver
-            .get()
-            .listOfObjects(Deck.class)
-            .withQuery(Query.builder()
-                    .uri(DecksContract.URI_TABLE)
-                    .build())
-            .prepare()
-            .executeAsBlocking();
-  }
-
   public Deck getDeck(String deckName, String deckVersion, int identityNo){
     return storIOContentResolver
             .get()
             .object(Deck.class)
             .withQuery(Query.builder()
                     .uri(DecksContract.URI_TABLE)
-                    .where(DecksContract.DecksColumns.DECK_NAME + " = ? AND " + DecksContract.DecksColumns.DECK_IDENTITY + " = ? AND " + DecksContract.DecksColumns.DECK_IDENTITY + " = ?")
+                    .where(DecksContract.DecksColumns.DECK_NAME + " = ? AND " + DecksContract.DecksColumns.DECK_VERSION + " = ? AND " + DecksContract.DecksColumns.DECK_IDENTITY + " = ?")
                     .whereArgs(deckName, deckVersion, identityNo)
                     .build())
             .prepare()
@@ -291,17 +269,22 @@ public class DatabaseModel {
   }
 
   public int getNextGameNo(){
-    LoggedGameOverview lg = storIOContentResolver
-            .get()
-            .object(LoggedGameOverview.class)
-            .withQuery(Query.builder()
-                    .uri(LoggedGameOverviewsContract.URI_TABLE)
-                    .columns("MAX(" + LoggedGameOverviewsContract.LoggedGameOverviewsColumns.GAME_ID +")")
-                    .build())
-            .prepare()
-            .executeAsBlocking();
 
-    return lg.getGameID();
+    int ret = 1;
+    if(isTableEmpty(LoggedGameOverviewsContract.URI_TABLE) == false) {
+
+      LoggedGameOverview lg = storIOContentResolver
+              .get()
+              .object(LoggedGameOverview.class)
+              .withQuery(Query.builder()
+                      .uri(LoggedGameOverviewsContract.URI_TABLE)
+                      .columns("MAX(" + LoggedGameOverviewsContract.LoggedGameOverviewsColumns.GAME_ID + ")")
+                      .build())
+              .prepare()
+              .executeAsBlocking();
+      ret = lg.getGameID()+1;
+    }
+    return ret;
   }
   public PutResult insertLoggedGame(LoggedGameOverview loggedGameOverview){
     return storIOContentResolver
@@ -325,7 +308,7 @@ public class DatabaseModel {
             .executeAsBlocking();
   }
 
-  public void addLoggedGame(LoggedGameOverview lgo, LoggedGamePlayer playerOne, LoggedGamePlayer playerTwo ){
+  public void insertLoggedGame(LoggedGameOverview lgo, LoggedGamePlayer playerOne, LoggedGamePlayer playerTwo ){
 
     Map<Enum, Boolean> validationResults = validateLogggedGame(lgo,playerOne,playerTwo);
     
@@ -352,13 +335,16 @@ public class DatabaseModel {
 
     if (!validationResults.get(LoggedGameValidationList.DECK_ONE_EXISTS)){
       //Create new Deck
+      PutResult ip = insertDeck(new Deck(playerOne.getDeck_name(), playerOne.getDeck_version(), getIdentity(playerOne.getIdentity_name()).getRowid()));
+      if(ip.wasInserted()){
+        playerOne.setDeck_id(getDeck(playerOne.getDeck_name(),
+                playerOne.getDeck_version(), getIdentity(playerOne.getIdentity_name()).getRowid()).getRowid());
+      }
     }else{
+      playerOne.setDeck_id(getDeck(playerOne.getDeck_name(),
+              playerOne.getDeck_version(), getIdentity(playerOne.getIdentity_name()).getRowid()).getRowid());
       //set Deck ID as that from get
     }
-
-
-
-
   }
   
   public Map<Enum, Boolean> validateLogggedGame(LoggedGameOverview lgo, LoggedGamePlayer playerOne, LoggedGamePlayer playerTwo ){
@@ -417,13 +403,13 @@ public class DatabaseModel {
       ret.put(LoggedGameValidationList.PLAYER_TWO_EXISTS, false);
     }
 
-    if(getDeck(playerOne.getDeck_name(),"1",getIdentity(playerOne.getIdentity_name()).getRowid()) != null){
+    if(getDeck(playerOne.getDeck_name(),playerOne.getDeck_version(),getIdentity(playerOne.getIdentity_name()).getRowid()) != null){
       ret.put(LoggedGameValidationList.DECK_ONE_EXISTS, true);
     }else{
       ret.put(LoggedGameValidationList.DECK_ONE_EXISTS, false);
     }
 
-    if(getDeck(playerTwo.getDeck_name(),"1",getIdentity(playerTwo.getIdentity_name()).getRowid()) != null){
+    if(getDeck(playerTwo.getDeck_name(),playerTwo.getDeck_version(),getIdentity(playerTwo.getIdentity_name()).getRowid()) != null){
       ret.put(LoggedGameValidationList.DECK_TWO_EXISTS, true);
     }else{
       ret.put(LoggedGameValidationList.DECK_TWO_EXISTS, false);

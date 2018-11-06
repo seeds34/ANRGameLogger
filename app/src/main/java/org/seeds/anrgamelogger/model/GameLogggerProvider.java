@@ -75,8 +75,8 @@ public class GameLogggerProvider extends ContentProvider {
         matcher.addURI(authority, "locations/*", LOCATION_ID );
 
         authority = LoggedGameOverviewsContract.CONTENT_AUTHORITY;
-        matcher.addURI(authority, "loggedgames", LOGGEDGAMEOVERVIEW );
-        matcher.addURI(authority, "loggedgames/*", LOGGEDGAMEOVERVIEW_ID );
+        matcher.addURI(authority, "loggedgameoverviews", LOGGEDGAMEOVERVIEW );
+        matcher.addURI(authority, "loggedgameoverviews/*", LOGGEDGAMEOVERVIEW_ID );
 
         authority = LoggedGamesFlatViewContract.CONTENT_AUTHORITY;
         matcher.addURI(authority, "loggedgamesflatview", LOGGEDGAMEFLATVIEW );
