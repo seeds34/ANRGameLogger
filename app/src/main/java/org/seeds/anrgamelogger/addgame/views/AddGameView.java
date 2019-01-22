@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 import butterknife.BindView;
@@ -53,10 +54,8 @@ public class AddGameView extends FrameLayout {
         tabLayout.setupWithViewPager(addGameViewPager);
     }
 
-    public void setUpPagerViews(ArrayList<String> viewTitleList, ArrayList<String> playerList, ArrayList<String> deckList, ArrayList<String> locationList, int newGameNo){
-        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, new AddGamePlayerView(activity), viewTitleList.get(0),playerList, deckList, newGameNo) );
-        addGamePagerAdapter.addView(new PlayerSubPresenter(activity, new AddGamePlayerView(activity), viewTitleList.get(1), playerList, deckList, newGameNo) );
-        addGamePagerAdapter.addView(new OverviewSubPresenter(activity, new AddGameOverviewView(activity), locationList, newGameNo) );
+    public void setUpPagerViews(AddGameBaseView viewIn) {
+        addGamePagerAdapter.addView(viewIn);
     }
 
     public void startPageViewer(){
@@ -64,28 +63,28 @@ public class AddGameView extends FrameLayout {
     }
 
     public void setIDSelecters(IdentityList idList) {
-        addGamePagerAdapter.setUpIdSpinnerAndImageView(idList);
+        //addGamePagerAdapter.setUpIdSpinnerAndImageView(idList);
     }
 
-    public Observable<Object> save() {
-        return addGamePagerAdapter.observeSave();
-    }
+//    public Observable<Object> save() {
+//        return addGamePagerAdapter.observeSave();
+//    }
 
-    public void showMessage(String messageIn){
-        Log.d(LOG_TAG, "Game Save Preesed");
-        Toast.makeText(this.getContext(), messageIn, Toast.LENGTH_LONG).show();
-    }
-
-    public LoggedGamePlayer getPlayerOne(){
-        return addGamePagerAdapter.getPlayerOne();
-    }
-
-    public LoggedGamePlayer getPlayerTwo(){
-        return addGamePagerAdapter.getPlayerTwo();
-    }
-
-    public LoggedGameOverview getGameOverview(){
-        return addGamePagerAdapter.getGameOverview();
-    }
+//    public void showMessage(String messageIn){
+//        Log.d(LOG_TAG, "Game Save Preesed");
+//        Toast.makeText(this.getContext(), messageIn, Toast.LENGTH_LONG).show();
+//    }
+//
+//    public LoggedGamePlayer getPlayerOne(){
+//        return addGamePagerAdapter.getPlayerOne();
+//    }
+//
+//    public LoggedGamePlayer getPlayerTwo(){
+//        return addGamePagerAdapter.getPlayerTwo();
+//    }
+//
+//    public LoggedGameOverview getGameOverview(){
+//        return addGamePagerAdapter.getGameOverview();
+//    }
 
 }

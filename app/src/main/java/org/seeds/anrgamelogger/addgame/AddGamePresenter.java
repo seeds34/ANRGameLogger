@@ -5,6 +5,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.addgame.model.AddGameModel;
+import org.seeds.anrgamelogger.addgame.views.AddGamePlayerView;
 import org.seeds.anrgamelogger.addgame.views.AddGameView;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 import org.seeds.anrgamelogger.database.LoggedGameValidationList;
@@ -23,6 +24,10 @@ public class AddGamePresenter {
     private AddGameView view;
 
     private final CompositeDisposable compositeSubscription = new CompositeDisposable();
+
+    private AddGamePlayerView subViewOne;
+    private AddGamePlayerView subViewTwo;
+    private AddGamePlayerView subViewThree;
 
     public AddGamePresenter(AddGameView view, AddGameModel model){
         this.view = view;

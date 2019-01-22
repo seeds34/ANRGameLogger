@@ -1,6 +1,7 @@
 package org.seeds.anrgamelogger.addgame.views;
 
 import android.app.Activity;
+import android.view.View;
 import android.widget.FrameLayout;
 import io.reactivex.Observable;
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import org.seeds.anrgamelogger.model.IdentityList;
  */
 
 public abstract class AddGameBaseView extends FrameLayout {
+
+  private String title;
 
   public AddGameBaseView(Activity activity){
     super(activity);
@@ -25,6 +28,10 @@ public abstract class AddGameBaseView extends FrameLayout {
 
   public abstract Observable<Object> save();
 
+  public String getTitle(){
+    return title;
+  }
+  public abstract View getView();
   public void setUpNameAutoComplete(ArrayList<String> playerList) {}
   public void setUpDeckNameAutoComplete(ArrayList<String> playerList) {}
   public void setUpLocationAutoComplete(ArrayList<String> locationList) {}
