@@ -271,7 +271,7 @@ public class DatabaseModel {
   public int getNextGameNo(){
 
     int ret = 1;
-    if(isTableEmpty(LoggedGameOverviewsContract.URI_TABLE) == false) {
+    if(isLoggedgamesTableEmpty() == false) {
 
       LoggedGameOverview lg = storIOContentResolver
               .get()
@@ -364,6 +364,7 @@ public class DatabaseModel {
     }
 
     //TODO: How to check win type. This is why the calidation needs to be done for the entire game
+    //TODO: Breaks when Medtech played as check of Score nad less the n 7 will fail
     if(lgo.getWin_type() == "S"){
       if((lgo.getWinning_side() == playerOne.getSide() && playerOne.getScore() >= 7) ||
                       (lgo.getWinning_side() == playerTwo.getSide() && playerTwo.getScore() >= 7)){

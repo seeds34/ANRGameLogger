@@ -1,12 +1,18 @@
 package org.seeds.anrgamelogger.addgame.views;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.TimePickerDialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.format.DateFormat;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -50,7 +56,7 @@ public class AddGameOverviewView extends AddGameBaseView{
   private final int viewNo = R.layout.view_addgame_overview;
   private ArrayAdapter<String> locationListAdapter;
 
-  private DatePickerDialog.OnDateSetListener dateSetListener;
+  //private DatePickerDialog mDateSetListener;
 
   public AddGameOverviewView(Activity activity){
     super(activity);
@@ -73,26 +79,6 @@ public class AddGameOverviewView extends AddGameBaseView{
     location.setAdapter(locationListAdapter);
   }
 
-  @OnClick(R.id.addGameDateSelector)
-  public void dateDiaolog(){
-    Calendar cal = Calendar.getInstance();
-    int year = cal.get(Calendar.YEAR);
-    int month = cal.get(Calendar.MONTH);
-    int day = cal.get(Calendar.DAY_OF_MONTH);
-
-    DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), R.style.AppTheme, dateSetListener,year,month,day);
-    datePickerDialog.show();
-  }
-
-//  public static class CustomDatePicker extends DialogFragment implements DatePickerDialog.OnDateSetListener{
-//
-//    @Override
-//    public Dialog onCreateDialog(Bundle savedInstanceState){
-//
-//
-//    }
-//  }
-
   @Override
   public Observable<Object> save(){
     return RxView.clicks(btn_save);
@@ -113,4 +99,61 @@ public class AddGameOverviewView extends AddGameBaseView{
   public String getWiningSide() {
     return "ABC";
   }
+
+//  public static class CustomDatePicker extends DialogFragment implements DatePickerDialog.OnDateSetListener{
+//extends DialogFragment implements DatePickerDialog.OnDateSetListener
+
+//
+//    @Override
+//    public Dialog onCreateDialog(Bundle savedInstanceState) {
+//      // Use the current date as the default date in the picker
+//      final Calendar c = Calendar.getInstance();
+//      int year = c.get(Calendar.YEAR);
+//      int month = c.get(Calendar.MONTH);
+//      int day = c.get(Calendar.DAY_OF_MONTH);
+//
+//      // Create a new instance of DatePickerDialog and return it
+//      return new DatePickerDialog(getActivity(), this, year, month, day);
+//    }
+//
+//    public void onDateSet(DatePicker view, int year, int month, int day) {
+//      // Do something with the date chosen by the user
+//    }
+//  }
+
+
+  DatePickerDialog mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+    @Override
+    public void onDateSet(DatePicker v, int year, int month, int dayOfMonth) {
+      onDateSet(year, month, dayOfMonth);
+    }
+  };
+
+
+  public void onDateSet(int year, int month, int dayOfMonth){
+    month = month + 1;
+    String date = dayOfMonth + "/" + month + "/" + year;
+  }
+
+
+  @OnClick(R.id.addGameDateSelector)
+  public void onClickDate() {
+
+    Calendar calendar = Calendar.getInstance();
+    int year = calendar.get(Calendar.YEAR);
+    int month = calendar.get(Calendar.MONTH);
+    int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+    DatePickerDialog dialog = new DatePickerDialog(activity, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, year, month, day);
+    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    dialog.show();
+
+  }
+
+  public void setDateText (String date){
+    dateText.setText(date);
+  }
+
+
+
 }

@@ -183,7 +183,7 @@ public class GameLogggerProvider extends ContentProvider {
                 break;
             case IDENTITIES_ID:
                 queryBuilder.setTables(GameLoggerDatabase.Tables.IDENTITIES);
-                String identites_id = DecksContract.Deck.getDeckId(uri);
+                String identites_id = IdentitiesContract.Identitity.getIdentutynId(uri);
                 queryBuilder.appendWhere(BaseColumns._ID + " = " + identites_id);
                 ret = queryBuilder.query(db, projection, selection, selectionArgs, null, null, sortOrder);
                 break;

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.addgame.views.AddGameOverviewView;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGamePlayer;
@@ -58,4 +60,20 @@ public class OverviewSubPresenter extends SubPresenter{
     public LoggedGamePlayer getPlayerData() {
         return null;
     }
+
+    public void onDateSet(int year, int month, int dayOfMonth){
+        month = month + 1;
+        String date = dayOfMonth + "/" + month + "/" + year;
+        view.setDateText(date);
+    }
+
+//    public void onDateClicked (){
+//        Calendar calendar = Calendar.getInstance();
+//        int year = calendar.get(Calendar.YEAR);
+//        int month = calendar.get(Calendar.MONTH);
+//        int day = calendar.get(Calendar.DAY_OF_MONTH);
+//
+//        view.displayDatePickerDialog(year, month, day);
+//    }
+
 }
