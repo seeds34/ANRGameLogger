@@ -37,23 +37,16 @@ public class AddGamePresenter {
     public void onCreate() {
 
         ArrayList<String> viewTitleList = new ArrayList<>();
-
-        if (model.getSide() == ANRLoggerApplication.CORP_SIDE_IDENTIFIER){
-            viewTitleList.add(ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
-            viewTitleList.add(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
-        }else {
-            viewTitleList.add(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
-            viewTitleList.add(ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
-        }
-
         ArrayList<String> playerList = model.getPlayerList();
         ArrayList<String> deckList = model.getDeckList();
         ArrayList<String> locationList = model.getLocationList();
 
-        Log.d(LOG_TAG, "Player List is " + playerList.toString());
-
         //view.setUpPagerViews(viewTitleList, playerList, deckList, locationList, model.getNextGameNo());
         IdentityList idList = new IdentityList(model.getListOfIdenties());
+        
+        runnerPlayerView = new AddGamePlayerView(idList.getOneSidedList(ANRLoggerApplication.CORP_SIDE_IDENTIFIER), playerList, deckList, locationList, ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
+        corpPlayerView = new AddGamePlayerView(idList.getOneSidedList(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER), playerList, deckList, locationList, ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
+        overviewView = new AddGameOverviewView();
         
         if (model.getSide() == ANRLoggerApplication.CORP_SIDE_IDENTIFIER){        
           view.setUpPagerViews(corpPlayerView);
@@ -73,7 +66,6 @@ public class AddGamePresenter {
     public void setIdentityData(){
         IdentityList idList = new IdentityList(model.getListOfIdenties());
         view.setIDSelecters(idList);
-        //TODO: Setup Name Spinner
     }
 
     public Disposable observerSave(){
