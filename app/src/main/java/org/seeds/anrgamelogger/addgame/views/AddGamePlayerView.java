@@ -58,8 +58,15 @@ public class AddGamePlayerView extends AddGameBaseView{
     ButterKnife.bind(this);
   }
 
-  public void onCreate(){}
-
+  public AddGamePlayerView(IdentityList idList, ArrayList<String> playerList, ArrayList<String> deckList, rrayList<String> locationList){
+    inflate(getContext(), R.layout.view_addgame_player, this);
+    ButterKnife.setDebug(true);
+    ButterKnife.bind(this);
+    setUpNameAutoComplete(playerList);
+    setUpDeckNameAutoComplete(deckList);
+    setIdApadters(idList);
+  }
+  
   @Override
   public void setUpNameAutoComplete(ArrayList<String> playerList){
     nameListAdapter = new ArrayAdapter<>(activity, R.layout.support_simple_spinner_dropdown_item, playerList);
