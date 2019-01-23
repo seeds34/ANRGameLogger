@@ -25,9 +25,9 @@ public class AddGamePresenter {
 
     private final CompositeDisposable compositeSubscription = new CompositeDisposable();
 
-    private AddGamePlayerView subViewOne;
-    private AddGamePlayerView subViewTwo;
-    private AddGamePlayerView subViewThree;
+    private AddGamePlayerView corpPlayerView;
+    private AddGamePlayerView runnerPlayerView;
+    private AddGameOverviewView overviewView;
 
     public AddGamePresenter(AddGameView view, AddGameModel model){
         this.view = view;
@@ -52,9 +52,19 @@ public class AddGamePresenter {
 
         Log.d(LOG_TAG, "Player List is " + playerList.toString());
 
-        view.setUpPagerViews(viewTitleList, playerList, deckList, locationList, model.getNextGameNo());
+        //view.setUpPagerViews(viewTitleList, playerList, deckList, locationList, model.getNextGameNo());
         IdentityList idList = new IdentityList(model.getListOfIdenties());
-        view.setIDSelecters(idList);
+        
+        if (model.getSide() == ANRLoggerApplication.CORP_SIDE_IDENTIFIER){        
+          view.setUpPagerViews(corpPlayerView);
+          view.setUpPagerViews(runnerPlayerView);
+        }else {
+          view.setUpPagerViews(runnerPlayerView);
+          view.setUpPagerViews(corpPlayerView);
+      }
+        
+        view.setUpPagerViews(overviewView);
+        //view.setIDSelecters(idList);
         view.startPageViewer();
 
         compositeSubscription.add(observerSave());
