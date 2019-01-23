@@ -54,7 +54,7 @@ public class AddGameView extends FrameLayout {
         tabLayout.setupWithViewPager(addGameViewPager);
     }
 
-    public void setUpPagerViews(AddGameBaseView viewIn) {
+    public void setUpPagerViews(AddGameSubView viewIn) {
         addGamePagerAdapter.addView(viewIn);
     }
 

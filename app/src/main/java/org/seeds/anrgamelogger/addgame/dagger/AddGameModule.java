@@ -8,6 +8,8 @@ import dagger.Module;
 import dagger.Provides;
 import org.seeds.anrgamelogger.addgame.model.AddGameModel;
 import org.seeds.anrgamelogger.addgame.AddGamePresenter;
+import org.seeds.anrgamelogger.addgame.views.AddGameOverviewView;
+import org.seeds.anrgamelogger.addgame.views.AddGamePlayerView;
 import org.seeds.anrgamelogger.addgame.views.AddGameView;
 import org.seeds.anrgamelogger.database.DatabaseModel;
 
@@ -31,14 +33,27 @@ public class AddGameModule {
 
     @Provides
     @AddGameScope
+    public AddGameOverviewView GetAddGameOverviewView(){
+        return new AddGameOverviewView(activity);
+    }
+
+    @Provides
+    @AddGameScope
+    public AddGamePlayerView GetAddGamePlayerView(){
+        return new AddGamePlayerView(activity);
+    }
+
+    @Provides
+    @AddGameScope
     public AddGameModel GetAddGameModel(DatabaseModel databaseModel, StorIOContentResolver storIOContentResolver){
         return new AddGameModel(activity, storIOContentResolver, databaseModel);
     }
 
     @Provides
     @AddGameScope
-    public AddGamePresenter GetAddGamePresenter(AddGameView view, AddGameModel model){
-        return new AddGamePresenter(view, model);
+    public AddGamePresenter GetAddGamePresenter(AddGameView view, AddGameModel model, AddGamePlayerView runnerSubView, AddGamePlayerView corpSubView, AddGameOverviewView overviewSubView){
+        //return new AddGamePresenter(view, model);
+        return new AddGamePresenter(view, model, runnerSubView, corpSubView, overviewSubView);
     }
 
 

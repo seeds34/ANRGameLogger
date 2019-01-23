@@ -4,5 +4,4 @@ import android.view.View;
 
 public interface AddGameSubView {
     public String getTitle();
-    public View getView();
 }

@@ -18,6 +18,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -35,7 +36,7 @@ import org.seeds.anrgamelogger.R;
  * Created by Tomas Seymour-Turner on 04/01/2018.
  */
 
-public class AddGameOverviewView extends AddGameBaseView{
+public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
 
   private static final String LOG_TAG = AddGameOverviewView.class.getSimpleName();
 
@@ -56,6 +57,8 @@ public class AddGameOverviewView extends AddGameBaseView{
   private final int viewNo = R.layout.view_addgame_overview;
   private ArrayAdapter<String> locationListAdapter;
 
+  private String title;
+
   //private DatePickerDialog mDateSetListener;
 
   public AddGameOverviewView(Activity activity){
@@ -70,35 +73,35 @@ public class AddGameOverviewView extends AddGameBaseView{
     return viewNo;
   }
 
-  public void onCreate(){}
-
-  @Override
   public void setUpLocationAutoComplete(ArrayList<String> locationList){
     locationListAdapter = new ArrayAdapter<>(activity, R.layout.support_simple_spinner_dropdown_item, locationList);
     locationListAdapter.setNotifyOnChange(true);
     location.setAdapter(locationListAdapter);
   }
 
-  @Override
-  public Observable<Object> save(){
-    return RxView.clicks(btn_save);
+  public String getTitle(){
+    return title;
   }
-
-  public String getLocation(){
-      return location.getText().toString();
-    }
-
-  public String getPlayedDate(){
-    return playedDate.getText().toString();
-  }
-
-  public String getWinType() {
-    return "ABC";
-  }
-
-  public String getWiningSide() {
-    return "ABC";
-  }
+//
+//  public Observable<Object> save(){
+//    return RxView.clicks(btn_save);
+//  }
+//
+//  public String getLocation(){
+//      return location.getText().toString();
+//    }
+//
+//  public String getPlayedDate(){
+//    return playedDate.getText().toString();
+//  }
+//
+//  public String getWinType() {
+//    return "ABC";
+//  }
+//
+//  public String getWiningSide() {
+//    return "ABC";
+//  }
 
 //  public static class CustomDatePicker extends DialogFragment implements DatePickerDialog.OnDateSetListener{
 //extends DialogFragment implements DatePickerDialog.OnDateSetListener

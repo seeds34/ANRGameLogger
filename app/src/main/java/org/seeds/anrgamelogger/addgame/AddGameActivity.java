@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import javax.inject.Inject;
 import org.seeds.anrgamelogger.addgame.dagger.AddGameModule;
 import org.seeds.anrgamelogger.addgame.dagger.DaggerAddGameComponent;
+import org.seeds.anrgamelogger.addgame.views.AddGameOverviewView;
+import org.seeds.anrgamelogger.addgame.views.AddGamePlayerView;
 import org.seeds.anrgamelogger.addgame.views.AddGameView;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 
@@ -20,6 +22,15 @@ public class AddGameActivity extends AppCompatActivity {
 
     @Inject
     AddGameView view;
+
+//    @Inject
+//    AddGameOverviewView overviewSubView;
+//
+//    @Inject
+//    AddGamePlayerView runnerSubView;
+//
+//    @Inject
+//    AddGamePlayerView corpSubView;
 
     public static void start(Context contextIn, String side) {
         Intent intent = new Intent(contextIn, AddGameActivity.class);

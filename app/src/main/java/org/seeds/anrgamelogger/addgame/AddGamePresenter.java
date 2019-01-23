@@ -5,6 +5,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.addgame.model.AddGameModel;
+import org.seeds.anrgamelogger.addgame.views.AddGameOverviewView;
 import org.seeds.anrgamelogger.addgame.views.AddGamePlayerView;
 import org.seeds.anrgamelogger.addgame.views.AddGameView;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
@@ -34,6 +35,14 @@ public class AddGamePresenter {
         this.model = model;
     }
 
+    public AddGamePresenter(AddGameView view, AddGameModel model, AddGamePlayerView runnerPlayerView, AddGamePlayerView corpPlayerView, AddGameOverviewView overviewView){
+        this.view = view;
+        this.model = model;
+        this.overviewView = overviewView;
+        this.runnerPlayerView = runnerPlayerView;
+        this.corpPlayerView = corpPlayerView;
+    }
+
     public void onCreate() {
 
         ArrayList<String> viewTitleList = new ArrayList<>();
@@ -43,18 +52,28 @@ public class AddGamePresenter {
 
         //view.setUpPagerViews(viewTitleList, playerList, deckList, locationList, model.getNextGameNo());
         IdentityList idList = new IdentityList(model.getListOfIdenties());
-        
-        runnerPlayerView = new AddGamePlayerView(idList.getOneSidedList(ANRLoggerApplication.CORP_SIDE_IDENTIFIER), playerList, deckList, locationList, ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
-        corpPlayerView = new AddGamePlayerView(idList.getOneSidedList(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER), playerList, deckList, locationList, ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
-        overviewView = new AddGameOverviewView();
-        
-        if (model.getSide() == ANRLoggerApplication.CORP_SIDE_IDENTIFIER){        
-          view.setUpPagerViews(corpPlayerView);
-          view.setUpPagerViews(runnerPlayerView);
-        }else {
-          view.setUpPagerViews(runnerPlayerView);
-          view.setUpPagerViews(corpPlayerView);
-      }
+
+        runnerPlayerView.setTitle(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
+        runnerPlayerView.setIdApadters(idList.getOneSidedList(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER));
+        runnerPlayerView.setUpNameAutoComplete(playerList);
+        runnerPlayerView.setUpDeckNameAutoComplete(deckList);
+
+        corpPlayerView.setTitle(ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
+        corpPlayerView.setIdApadters(idList.getOneSidedList(ANRLoggerApplication.CORP_SIDE_IDENTIFIER));
+        corpPlayerView.setUpNameAutoComplete(playerList);
+        corpPlayerView.setUpDeckNameAutoComplete(deckList);
+
+        //       runnerPlayerView = new AddGamePlayerView(idList.getOneSidedList(ANRLoggerApplication.CORP_SIDE_IDENTIFIER), playerList, deckList, locationList, ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
+ //       corpPlayerView = new AddGamePlayerView(idList.getOneSidedList(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER), playerList, deckList, locationList, ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
+//        overviewView = new AddGameOverviewView();
+//
+//        if (model.getSide() == ANRLoggerApplication.CORP_SIDE_IDENTIFIER){
+////          view.setUpPagerViews(corpPlayerView);
+////          view.setUpPagerViews(runnerPlayerView);
+//        }else {
+////          view.setUpPagerViews(runnerPlayerView);
+////          view.setUpPagerViews(corpPlayerView);
+//      }
         
         view.setUpPagerViews(overviewView);
         //view.setIDSelecters(idList);
@@ -77,9 +96,9 @@ public class AddGamePresenter {
 
     private void addGame() {
 
-        LoggedGamePlayer pOneData = view.getPlayerOne();
-        LoggedGamePlayer pTwoData = view.getPlayerTwo();
-        LoggedGameOverview ovData = view.getGameOverview();
+//        LoggedGamePlayer pOneData = view.getPlayerOne();
+//        LoggedGamePlayer pTwoData = view.getPlayerTwo();
+//        LoggedGameOverview ovData = view.getGameOverview();
 
 
         /*

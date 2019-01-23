@@ -3,8 +3,10 @@ package org.seeds.anrgamelogger.addgame.views;
 import android.app.Activity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -17,12 +19,13 @@ import java.util.ArrayList;
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.addgame.AddGameIdentitesPageAdapter;
 import org.seeds.anrgamelogger.model.IdentityList;
+import org.seeds.anrgamelogger.model.ViewData;
 
 /**
  * Created by Tomas Seymour-Turner on 04/01/2018.
  */
 
-public class AddGamePlayerView extends AddGameBaseView{
+public class AddGamePlayerView extends FrameLayout implements AddGameSubView {
 
   private static final String LOG_TAG = AddGamePlayerView.class.getSimpleName();
 
@@ -49,6 +52,7 @@ public class AddGamePlayerView extends AddGameBaseView{
   private Activity activity;
   private ArrayAdapter<String> nameListAdapter;
   private ArrayAdapter<String> deckListAdapter;
+  private String title;
 
   public AddGamePlayerView(Activity activity){
     super(activity);
@@ -58,30 +62,26 @@ public class AddGamePlayerView extends AddGameBaseView{
     ButterKnife.bind(this);
   }
 
-  public AddGamePlayerView(IdentityList idList, ArrayList<String> playerList, ArrayList<String> deckList, rrayList<String> locationList){
-    inflate(getContext(), R.layout.view_addgame_player, this);
-    ButterKnife.setDebug(true);
-    ButterKnife.bind(this);
-    setUpNameAutoComplete(playerList);
-    setUpDeckNameAutoComplete(deckList);
-    setIdApadters(idList);
+  public void setTitle(String title){
+    this.title = title;
   }
-  
-  @Override
+
+  public String getTitle(){
+    return title;
+  }
+
   public void setUpNameAutoComplete(ArrayList<String> playerList){
     nameListAdapter = new ArrayAdapter<>(activity, R.layout.support_simple_spinner_dropdown_item, playerList);
     nameListAdapter.setNotifyOnChange(true);
     playerName.setAdapter(nameListAdapter);
   }
 
-  @Override
   public void setUpDeckNameAutoComplete(ArrayList<String> deckList) {
     deckListAdapter = new ArrayAdapter<>(activity, R.layout.support_simple_spinner_dropdown_item, deckList);
     deckListAdapter.setNotifyOnChange(true);
     deckName.setAdapter(deckListAdapter);
   }
 
-  @Override
   public void setIdApadters(IdentityList idList) {
     Log.d(LOG_TAG, "Setting up ID Apadters");
     identityImageViewAdapter = new AddGameIdentitesPageAdapter(getContext(), idList);
@@ -116,10 +116,10 @@ public class AddGamePlayerView extends AddGameBaseView{
     //identitiesSpinner.setSelection(identityNameArrayAdapter.getPosition(i));
   }
 
-  @Override
-  public Observable<Object> save() {
-    return null;
-  }
+//  @Override
+//  public Observable<Object> save() {
+//    return null;
+//  }
 
   public String getIdentitiesName() {
     return identitiesSpinner.getSelectedItem().toString();
