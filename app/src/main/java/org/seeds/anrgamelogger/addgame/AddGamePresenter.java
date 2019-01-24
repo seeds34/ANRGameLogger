@@ -52,16 +52,20 @@ public class AddGamePresenter {
 
         //view.setUpPagerViews(viewTitleList, playerList, deckList, locationList, model.getNextGameNo());
         IdentityList idList = new IdentityList(model.getListOfIdenties());
+        IdentityList runnerIdList = idList.getOneSidedList(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
+        IdentityList corpIdList = idList.getOneSidedList(ANRLoggerApplication.CORP_SIDE_IDENTIFIER)
 
         runnerPlayerView.setTitle(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
-        runnerPlayerView.setIdApadters(idList.getOneSidedList(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER));
+        runnerPlayerView.setIdApadters(runnerIdList);
         runnerPlayerView.setUpNameAutoComplete(playerList);
         runnerPlayerView.setUpDeckNameAutoComplete(deckList);
 
         corpPlayerView.setTitle(ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
-        corpPlayerView.setIdApadters(idList.getOneSidedList(ANRLoggerApplication.CORP_SIDE_IDENTIFIER));
+        corpPlayerView.setIdApadters(corpIdList);
         corpPlayerView.setUpNameAutoComplete(playerList);
         corpPlayerView.setUpDeckNameAutoComplete(deckList);
+        
+        overviewView.setUpLocationAutoComplete(locationList);
 
         //       runnerPlayerView = new AddGamePlayerView(idList.getOneSidedList(ANRLoggerApplication.CORP_SIDE_IDENTIFIER), playerList, deckList, locationList, ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
  //       corpPlayerView = new AddGamePlayerView(idList.getOneSidedList(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER), playerList, deckList, locationList, ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
@@ -82,13 +86,8 @@ public class AddGamePresenter {
         compositeSubscription.add(observerSave());
     }
 
-    public void setIdentityData(){
-        IdentityList idList = new IdentityList(model.getListOfIdenties());
-        view.setIDSelecters(idList);
-    }
-
     public Disposable observerSave(){
-        return view.save()
+        return overviewView.save()
                 .subscribe( a ->
                     addGame()
                 );
@@ -111,14 +110,11 @@ public class AddGamePresenter {
         7: Sort Location
         8: Sort Player 1 Logged Game
         9: Sort Player 2 Logged Game
-
       ?Could Player/Deck?Identity ID be enterd by defult if player has selected from previuouse option?
-
       Varfiy fields for non null and anything else that can be checked without DB.
            Do all non DB validation before checking and inserting into DB
            Skip Locateal validatuon if realted ID has a number
       Ask model to get data or new id (insert into DB)
-
          */
 
     if(pOneData.getPlayer_name().matches("") || pTwoData.getPlayer_name().matches("")) {
@@ -128,9 +124,19 @@ public class AddGamePresenter {
 //TODO: Add check that win type is not score but ethier players scores are less then 7
     }else {
 
+      }
     }
+    
+    public void onDestroy(){
+        compositeSubscription.dispose();
     }
 
+//    public void setIdentityData(){
+//        IdentityList idList = new IdentityList(model.getListOfIdenties());
+//        view.setIDSelecters(idList);
+//    }
+
+/*
     public void setViewData(){
         setIdentityData();
         //setIdentityData(R.string.title_runner);
@@ -153,10 +159,7 @@ public class AddGamePresenter {
     }
 
     public void setUpDeafults(){ }
-
-    public void onDestroy(){
-        compositeSubscription.dispose();
-    }
+*/
 
 //    public Disposable observeSaveGame(){
 //        return view.saveGame().subscribe(
