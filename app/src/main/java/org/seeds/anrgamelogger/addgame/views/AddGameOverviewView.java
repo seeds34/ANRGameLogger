@@ -82,23 +82,23 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
   public String getTitle(){
     return title;
   }
-//
-//  public Observable<Object> save(){
-//    return RxView.clicks(btn_save);
-//  }
-//
-//  public String getLocation(){
-//      return location.getText().toString();
-//    }
-//
-//  public String getPlayedDate(){
-//    return playedDate.getText().toString();
-//  }
-//
-//  public String getWinType() {
-//    return "ABC";
-//  }
-//
+
+ public Observable<Object> save(){
+   return RxView.clicks(btn_save);
+ }
+
+  public String getLocation(){
+      return location.getText().toString();
+    }
+
+  public String getPlayedDate(){
+    return playedDate.getText().toString();
+  }
+
+  public String getWinType() {
+    return "ABC";
+  }
+
 //  public String getWiningSide() {
 //    return "ABC";
 //  }
