@@ -85,7 +85,7 @@ public class AddGamePresenter {
     public Disposable dateSelected(){
         Log.d(LOG_TAG,"Date has been selected. Telling to change Date");
         return overviewView.obvsAlertDateSelected()
-                .subscribe(a -> overviewView.setDate());
+                .subscribe(a -> overviewView.setDate(a));
     }
 
     private void addGame() {

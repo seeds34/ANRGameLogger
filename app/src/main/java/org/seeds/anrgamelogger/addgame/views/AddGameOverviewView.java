@@ -30,6 +30,7 @@ import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.Single;
+import io.reactivex.subjects.PublishSubject;
 import okhttp3.Response;
 
 import java.io.IOException;
@@ -37,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import org.seeds.anrgamelogger.R;
+import org.seeds.anrgamelogger.addgame.CustomDateDialog;
 
 /**
  * Created by Tomas Seymour-Turner on 04/01/2018.
@@ -66,6 +68,7 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
   private String title;
 
   private DatePickerDialog dialog;
+  private CustomDPDLister mDateSetListener;
 
   public AddGameOverviewView(Activity activity){
     super(activity);
@@ -73,13 +76,11 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
     inflate(getContext(), viewNo, this);
     ButterKnife.setDebug(true);
     ButterKnife.bind(this);
+    mDateSetListener = new  CustomDPDLister();
   }
 
   public View getView(){
     return this;
-  }
-  public int getViewNo(){
-    return viewNo;
   }
 
   public void setUpLocationAutoComplete(ArrayList<String> locationList){
@@ -108,26 +109,27 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
 
   public  class CustomDPDLister implements DatePickerDialog.OnDateSetListener{
 
+    private PublishSubject<String> temp = PublishSubject.create();
+
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-      alertDateSelected();
+      String date = dayOfMonth + "/" + month + "/" + year;
+      Observable.just("").map(a -> date).subscribe(temp);
     }
 
-    public Observable<Object> alertDateSelected(){
-
-      Log.d(LOG_TAG, "Sending Alert to set Date");
-      return Observable.just("Hello");
+    public Observable<String> alertDateSelected(){
+      return temp;
     }
   }
 
-  CustomDPDLister mDateSetListener = new  CustomDPDLister();
 
-  public Observable<Object> obvsAlertDateSelected(){
+
+  public Observable<String> obvsAlertDateSelected(){
+    Log.d(LOG_TAG,"Received Alert to set Date. Passing to Presenter");
     return mDateSetListener.alertDateSelected();
   }
 
-  @OnClick(R.id.addGameDateSelector)
-  public void onClickDate() {
+  private void setUpDateDialog(){
 
     Calendar calendar = Calendar.getInstance();
     int year = calendar.get(Calendar.YEAR);
@@ -136,11 +138,15 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
 
     dialog = new DatePickerDialog(activity, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, year, month, day);
     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-    dialog.show();
-
   }
 
-  public void setDate(){
+  @OnClick(R.id.addGameDateSelector)
+  public void onClickDate() {
+    setUpDateDialog();
+    dialog.show();
+  }
+
+  public void setDate(String dateIn){
 
 
     Log.d(LOG_TAG, "Setting Date");
@@ -151,7 +157,7 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
 
     Log.d(LOG_TAG,"Date will be set as: " + date);
 
-    playedDate.setText(date);
+    playedDate.setText(dateIn);
   }
 
 
