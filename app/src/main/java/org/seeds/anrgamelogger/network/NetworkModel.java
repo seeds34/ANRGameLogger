@@ -49,7 +49,7 @@ public class NetworkModel {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        final OkHttpClient client = new OkHttpClient();
+        //final OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder().url(url)
                 .build();

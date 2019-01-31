@@ -70,6 +70,10 @@ public class AddGamePlayerView extends FrameLayout implements AddGameSubView {
     return title;
   }
 
+  public View getView(){
+    return this;
+  }
+
   public void setUpNameAutoComplete(ArrayList<String> playerList){
     nameListAdapter = new ArrayAdapter<>(activity, R.layout.support_simple_spinner_dropdown_item, playerList);
     nameListAdapter.setNotifyOnChange(true);
@@ -116,12 +120,7 @@ public class AddGamePlayerView extends FrameLayout implements AddGameSubView {
     //identitiesSpinner.setSelection(identityNameArrayAdapter.getPosition(i));
   }
 
-//  @Override
-//  public Observable<Object> save() {
-//    return null;
-//  }
-
-  public String getIdentitiesName() {
+  public String getIdentityName() {
     return identitiesSpinner.getSelectedItem().toString();
   }
 

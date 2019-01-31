@@ -5,8 +5,10 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.addgame.model.AddGameModel;
+import org.seeds.anrgamelogger.addgame.views.AddGameCorpView;
 import org.seeds.anrgamelogger.addgame.views.AddGameOverviewView;
 import org.seeds.anrgamelogger.addgame.views.AddGamePlayerView;
+import org.seeds.anrgamelogger.addgame.views.AddGameRunnerView;
 import org.seeds.anrgamelogger.addgame.views.AddGameView;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 import org.seeds.anrgamelogger.database.LoggedGameValidationList;
@@ -24,18 +26,13 @@ public class AddGamePresenter {
     private AddGameModel model;
     private AddGameView view;
 
-    private final CompositeDisposable compositeSubscription = new CompositeDisposable();
-
-    private AddGamePlayerView corpPlayerView;
-    private AddGamePlayerView runnerPlayerView;
+    private AddGameCorpView corpPlayerView;
+    private AddGameRunnerView runnerPlayerView;
     private AddGameOverviewView overviewView;
 
-    public AddGamePresenter(AddGameView view, AddGameModel model){
-        this.view = view;
-        this.model = model;
-    }
+    private final CompositeDisposable compositeSubscription = new CompositeDisposable();
 
-    public AddGamePresenter(AddGameView view, AddGameModel model, AddGamePlayerView runnerPlayerView, AddGamePlayerView corpPlayerView, AddGameOverviewView overviewView){
+    public AddGamePresenter(AddGameView view, AddGameModel model, AddGameRunnerView runnerPlayerView, AddGameCorpView corpPlayerView, AddGameOverviewView overviewView){
         this.view = view;
         this.model = model;
         this.overviewView = overviewView;
@@ -45,12 +42,10 @@ public class AddGamePresenter {
 
     public void onCreate() {
 
-        ArrayList<String> viewTitleList = new ArrayList<>();
         ArrayList<String> playerList = model.getPlayerList();
         ArrayList<String> deckList = model.getDeckList();
         ArrayList<String> locationList = model.getLocationList();
 
-        //view.setUpPagerViews(viewTitleList, playerList, deckList, locationList, model.getNextGameNo());
         IdentityList idList = new IdentityList(model.getListOfIdenties());
 
         runnerPlayerView.setTitle(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
@@ -63,35 +58,34 @@ public class AddGamePresenter {
         corpPlayerView.setUpNameAutoComplete(playerList);
         corpPlayerView.setUpDeckNameAutoComplete(deckList);
 
-        //       runnerPlayerView = new AddGamePlayerView(idList.getOneSidedList(ANRLoggerApplication.CORP_SIDE_IDENTIFIER), playerList, deckList, locationList, ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
- //       corpPlayerView = new AddGamePlayerView(idList.getOneSidedList(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER), playerList, deckList, locationList, ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
-//        overviewView = new AddGameOverviewView();
-//
-//        if (model.getSide() == ANRLoggerApplication.CORP_SIDE_IDENTIFIER){
-////          view.setUpPagerViews(corpPlayerView);
-////          view.setUpPagerViews(runnerPlayerView);
-//        }else {
-////          view.setUpPagerViews(runnerPlayerView);
-////          view.setUpPagerViews(corpPlayerView);
-//      }
+        overviewView.setUpLocationAutoComplete(locationList);
+        overviewView.setTitle("Overview");
+
+        if (model.getSide() == ANRLoggerApplication.CORP_SIDE_IDENTIFIER){
+          view.setUpPagerViews(corpPlayerView);
+          view.setUpPagerViews(runnerPlayerView);
+        }else {
+          view.setUpPagerViews(runnerPlayerView);
+          view.setUpPagerViews(corpPlayerView);
+      }
         
         view.setUpPagerViews(overviewView);
-        //view.setIDSelecters(idList);
         view.startPageViewer();
-
         compositeSubscription.add(observerSave());
-    }
-
-    public void setIdentityData(){
-        IdentityList idList = new IdentityList(model.getListOfIdenties());
-        view.setIDSelecters(idList);
+        compositeSubscription.add(dateSelected());
     }
 
     public Disposable observerSave(){
-        return view.save()
+        return overviewView.save()
                 .subscribe( a ->
                     addGame()
                 );
+    }
+
+    public Disposable dateSelected(){
+        Log.d(LOG_TAG,"Date has been selected. Telling to change Date");
+        return overviewView.obvsAlertDateSelected()
+                .subscribe(a -> overviewView.setDate());
     }
 
     private void addGame() {
@@ -121,47 +115,18 @@ public class AddGamePresenter {
 
          */
 
-    if(pOneData.getPlayer_name().matches("") || pTwoData.getPlayer_name().matches("")) {
-        view.showMessage(
-            "Player One is: " + pOneData.getPlayer_name() + " and Player Two is: " + pTwoData
-                .getPlayer_name() + " Either Player name can be empty");
-//TODO: Add check that win type is not score but ethier players scores are less then 7
-    }else {
-
+//    if(pOneData.getPlayer_name().matches("") || pTwoData.getPlayer_name().matches("")) {
+//        view.showMessage(
+//            "Player One is: " + pOneData.getPlayer_name() + " and Player Two is: " + pTwoData
+//                .getPlayer_name() + " Either Player name can be empty");
+////TODO: Add check that win type is not score but ethier players scores are less then 7
+//    }else {
+//
+//    }
     }
-    }
-
-    public void setViewData(){
-        setIdentityData();
-        //setIdentityData(R.string.title_runner);
-        //setIdentityData(R.string.title_corp);
-    }
-
-    public void setUpView(){
-
-        ArrayList<String> viewTitleList = new ArrayList<>();
-
-        if (model.getSide() == ANRLoggerApplication.CORP_SIDE_IDENTIFIER){
-            viewTitleList.add(ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
-            viewTitleList.add(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
-        }else {
-            viewTitleList.add(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
-            viewTitleList.add(ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
-        }
-        viewTitleList.add("Overview");
-//        view.setUpPagerViews(viewTitleList);
-    }
-
-    public void setUpDeafults(){ }
 
     public void onDestroy(){
         compositeSubscription.dispose();
     }
-
-//    public Disposable observeSaveGame(){
-//        return view.saveGame().subscribe(
-//            a -> view.showMessage("Save Game")
-//        );
-//    }
 
 }

@@ -1,19 +1,13 @@
 package org.seeds.anrgamelogger.addgame;
 
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import io.reactivex.Observable;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.seeds.anrgamelogger.addgame.subpresenters.PlayerSubPresenter;
-import org.seeds.anrgamelogger.addgame.subpresenters.SubPresenter;
-import org.seeds.anrgamelogger.addgame.views.AddGameBaseView;
 import org.seeds.anrgamelogger.addgame.views.AddGameSubView;
-import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGamePlayer;
-import org.seeds.anrgamelogger.model.IdentityList;
-import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameOverview;
 
 /**
  * Created by Tomas Seymour-Turner on 04/01/2018.
@@ -25,13 +19,14 @@ public class AddGamePagerAdapter extends PagerAdapter {
 
   private static final String LOG_TAG = AddGamePagerAdapter.class.getSimpleName();
   private final List<AddGameSubView> viewList = new ArrayList<>();
-//
-//  @Override
-//  public Object instantiateItem(ViewGroup collection, int position) {
-//    View currentView = viewList.get(position);
-//    collection.addView(currentView);
-//    return currentView;
-//  }
+
+  @Override
+  public Object instantiateItem(ViewGroup collection, int position) {
+    View currentView = viewList.get(position).getView();
+    collection.addView(currentView);
+    return currentView;
+  }
+
   @Override
   public int getCount() {
     return viewList.size();
@@ -44,6 +39,7 @@ public class AddGamePagerAdapter extends PagerAdapter {
 
   @Override
   public CharSequence getPageTitle(int position) {
+    Log.d(LOG_TAG,"Tab Title: " + viewList.get(position).getTitle());
     return viewList.get(position).getTitle();
   }
 
