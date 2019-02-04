@@ -7,13 +7,12 @@ import java.util.ArrayList;
 import org.seeds.anrgamelogger.addgame.model.AddGameModel;
 import org.seeds.anrgamelogger.addgame.views.AddGameCorpView;
 import org.seeds.anrgamelogger.addgame.views.AddGameOverviewView;
-import org.seeds.anrgamelogger.addgame.views.AddGamePlayerView;
 import org.seeds.anrgamelogger.addgame.views.AddGameRunnerView;
 import org.seeds.anrgamelogger.addgame.views.AddGameView;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
-import org.seeds.anrgamelogger.database.LoggedGameValidationList;
-import org.seeds.anrgamelogger.database.buisnessobjects.*;
 import org.seeds.anrgamelogger.model.IdentityList;
+import org.seeds.anrgamelogger.addgame.views.CustomDPDLister;
+
 
 /**
  * Created by user on 08/12/2017.
@@ -32,6 +31,8 @@ public class AddGamePresenter {
 
     private final CompositeDisposable compositeSubscription = new CompositeDisposable();
 
+    private CustomDPDLister cdl;
+
     public AddGamePresenter(AddGameView view, AddGameModel model, AddGameRunnerView runnerPlayerView, AddGameCorpView corpPlayerView, AddGameOverviewView overviewView){
         this.view = view;
         this.model = model;
@@ -41,6 +42,8 @@ public class AddGamePresenter {
     }
 
     public void onCreate() {
+
+        cdl = new CustomDPDLister();
 
         ArrayList<String> playerList = model.getPlayerList();
         ArrayList<String> deckList = model.getDeckList();
@@ -60,6 +63,7 @@ public class AddGamePresenter {
 
         overviewView.setUpLocationAutoComplete(locationList);
         overviewView.setTitle("Overview");
+        overviewView.setListner(cdl);
 
         if (model.getSide() == ANRLoggerApplication.CORP_SIDE_IDENTIFIER){
           view.setUpPagerViews(corpPlayerView);
@@ -84,8 +88,13 @@ public class AddGamePresenter {
 
     public Disposable dateSelected(){
         Log.d(LOG_TAG,"Date has been selected. Telling to change Date");
-        return overviewView.obvsAlertDateSelected()
-                .subscribe(a -> overviewView.setDate(a));
+        return cdl.alertDateSelected()
+                .subscribe(
+                        //a -> overviewView.setDate(a),
+                        a -> overviewView.setDate(a),
+                        Throwable::printStackTrace,
+                        ()->Log.d(LOG_TAG,"dateSelect Complete")
+                );
     }
 
     private void addGame() {

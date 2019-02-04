@@ -1,45 +1,24 @@
 package org.seeds.anrgamelogger.addgame.views;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.TimePickerDialog;
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.jakewharton.rxbinding2.view.RxView;
-
 import butterknife.OnClick;
 import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.Single;
-import io.reactivex.subjects.PublishSubject;
-import okhttp3.Response;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-
 import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.addgame.CustomDateDialog;
-
 /**
  * Created by Tomas Seymour-Turner on 04/01/2018.
  */
@@ -76,7 +55,7 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
     inflate(getContext(), viewNo, this);
     ButterKnife.setDebug(true);
     ButterKnife.bind(this);
-    mDateSetListener = new  CustomDPDLister();
+    //mDateSetListener = new  CustomDPDLister();
   }
 
   public View getView(){
@@ -87,6 +66,10 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
     locationListAdapter = new ArrayAdapter<>(activity, R.layout.support_simple_spinner_dropdown_item, locationList);
     locationListAdapter.setNotifyOnChange(true);
     location.setAdapter(locationListAdapter);
+  }
+
+  public void setListner(CustomDPDLister in){
+    mDateSetListener = in;
   }
 
   public String getTitle(){
@@ -106,28 +89,10 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
          2nd: Observible is sent using RxView and obsoveble tells presneter somthing needs to happen
    */
 
-
-  public  class CustomDPDLister implements DatePickerDialog.OnDateSetListener{
-
-    private PublishSubject<String> temp = PublishSubject.create();
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-      String date = dayOfMonth + "/" + month + "/" + year;
-      Observable.just("").map(a -> date).subscribe(temp);
-    }
-
-    public Observable<String> alertDateSelected(){
-      return temp;
-    }
-  }
-
-
-
-  public Observable<String> obvsAlertDateSelected(){
-    Log.d(LOG_TAG,"Received Alert to set Date. Passing to Presenter");
-    return mDateSetListener.alertDateSelected();
-  }
+//  public Observable<String> obvsAlertDateSelected(){
+//    Log.d(LOG_TAG,"Received Alert to set Date. Passing to Presenter");
+//    return mDateSetListener.alertDateSelected();
+//  }
 
   private void setUpDateDialog(){
 
@@ -142,12 +107,12 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
 
   @OnClick(R.id.addGameDateSelector)
   public void onClickDate() {
+    Log.d(LOG_TAG,"Startibng Date Dialog");
     setUpDateDialog();
     dialog.show();
   }
 
   public void setDate(String dateIn){
-
 
     Log.d(LOG_TAG, "Setting Date");
     int month = dialog.getDatePicker().getMonth()+1;
@@ -159,6 +124,4 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
 
     playedDate.setText(dateIn);
   }
-
-
 }
