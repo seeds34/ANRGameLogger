@@ -11,7 +11,6 @@ import org.seeds.anrgamelogger.addgame.views.AddGameRunnerView;
 import org.seeds.anrgamelogger.addgame.views.AddGameView;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 import org.seeds.anrgamelogger.model.IdentityList;
-import org.seeds.anrgamelogger.addgame.views.CustomDPDLister;
 
 
 /**
@@ -90,7 +89,6 @@ public class AddGamePresenter {
         Log.d(LOG_TAG,"Date has been selected. Telling to change Date");
         return cdl.alertDateSelected()
                 .subscribe(
-                        //a -> overviewView.setDate(a),
                         a -> overviewView.setDate(a),
                         Throwable::printStackTrace,
                         ()->Log.d(LOG_TAG,"dateSelect Complete")

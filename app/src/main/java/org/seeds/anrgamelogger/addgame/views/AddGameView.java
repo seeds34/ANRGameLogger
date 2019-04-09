@@ -33,7 +33,7 @@ public class AddGameView extends FrameLayout {
     public AddGameView(Activity activity){
         super(activity);
         inflate(getContext(), R.layout.view_addgame_base, this);
-        ButterKnife.setDebug(true);
+        //ButterKnife.setDebug(true);
         ButterKnife.bind(this);
         toolbar.setTitle(R.string.title_add_new_game);
 
