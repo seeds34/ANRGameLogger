@@ -4,6 +4,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 public interface AddGameSubView {
-    public String getTitle();
+    public String getSide();
     public View getView();
 }

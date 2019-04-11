@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +45,12 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
   @BindView(R.id.addGameDateSelector)
   public TextView playedDate;
 
+  @BindView(R.id.rg_winingSide)
+  public RadioGroup winningSideGroup;
+
+  @BindView(R.id.rg_winType)
+  public RadioGroup winTypeGroup;
+
   private final int viewNo = R.layout.view_addgame_overview;
   private ArrayAdapter<String> locationListAdapter;
 
@@ -74,11 +82,11 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
     location.setAdapter(locationListAdapter);
   }
 
-  public void setListner(CustomDPDLister in){
+  public void setListener(CustomDPDLister in){
     mDateSetListener = in;
   }
 
-  public String getTitle(){
+  public String getSide(){
     return title;
   }
 
@@ -86,6 +94,24 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
     this.title = title;
   }
 
+  //TODO: Shorten this.
+  public String getWiningSide(){
+    int id = winningSideGroup.getCheckedRadioButtonId();
+    RadioButton rb = findViewById(id);
+    String name =  (String)rb.getText();
+    return name;
+  }
+
+  public String getWinType(){
+    RadioButton rb = findViewById(winTypeGroup.getCheckedRadioButtonId());
+    return (String)rb.getText();
+  }
+
+  //TODO: Add setWinType & setWinningSide
+
+  public String getPlayedDate(){
+    return date;
+  }
   public Observable<Object> save(){
     return RxView.clicks(btn_save);
   }
@@ -115,5 +141,9 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
 
       Log.d(LOG_TAG,"setDate() : Setting date to: " + date);
     playedDate.setText(date);
+  }
+
+  public String getLocation(){
+    return location.getText().toString();
   }
 }

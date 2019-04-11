@@ -44,7 +44,7 @@ public class AddGameView extends FrameLayout {
     }
 
     public void setUpPagerViews(AddGameSubView viewIn) {
-        Log.d(LOG_TAG,"Adding View: " + viewIn.getTitle());
+        Log.d(LOG_TAG,"Adding View: " + viewIn.getSide());
         addGamePagerAdapter.addView(viewIn);
     }
 

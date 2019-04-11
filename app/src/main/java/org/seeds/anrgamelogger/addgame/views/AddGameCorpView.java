@@ -13,7 +13,7 @@ public class AddGameCorpView extends AddGamePlayerView{
     }
 
     @Override
-    public String getTitle(){
+    public String getSide(){
         return TITLE;
     }
 }

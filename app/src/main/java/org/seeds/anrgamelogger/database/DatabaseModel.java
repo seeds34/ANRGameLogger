@@ -350,6 +350,10 @@ public class DatabaseModel {
   public Map<Enum, Boolean> validateLogggedGame(LoggedGameOverview lgo, LoggedGamePlayer playerOne, LoggedGamePlayer playerTwo ){
     Map<Enum, Boolean> ret = new HashMap<>();
 
+    //Validate: 1-Format and style is correct
+    //          2-Meets game rules
+    //            3-Check against DB
+
     if(getLocation(lgo.getLocation_name()) != null){
       ret.put(LoggedGameValidationList.LOCATION_EXISTS , true);
     }else{

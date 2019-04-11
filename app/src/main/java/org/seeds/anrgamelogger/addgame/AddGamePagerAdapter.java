@@ -39,8 +39,8 @@ public class AddGamePagerAdapter extends PagerAdapter {
 
   @Override
   public CharSequence getPageTitle(int position) {
-    Log.d(LOG_TAG,"Tab Title: " + viewList.get(position).getTitle());
-    return viewList.get(position).getTitle();
+    Log.d(LOG_TAG,"Tab Title: " + viewList.get(position).getSide());
+    return viewList.get(position).getSide();
   }
 
   public void addView(AddGameSubView view) {

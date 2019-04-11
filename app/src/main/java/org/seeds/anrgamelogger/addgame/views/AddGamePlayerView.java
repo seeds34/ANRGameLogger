@@ -52,7 +52,7 @@ public class AddGamePlayerView extends FrameLayout implements AddGameSubView {
   private Activity activity;
   private ArrayAdapter<String> nameListAdapter;
   private ArrayAdapter<String> deckListAdapter;
-  private String title;
+  private String side;
 
   public AddGamePlayerView(Activity activity){
     super(activity);
@@ -62,12 +62,12 @@ public class AddGamePlayerView extends FrameLayout implements AddGameSubView {
     ButterKnife.bind(this);
   }
 
-  public void setTitle(String title){
-    this.title = title;
+  public void setSide(String side){
+    this.side = side;
   }
 
-  public String getTitle(){
-    return title;
+  public String getSide(){
+    return side;
   }
 
   public View getView(){

@@ -80,6 +80,23 @@ public class LoggedGameFlat implements android.os.Parcelable {
         this.winType = winType;
     }
 
+    public LoggedGameFlat(String pO_Name, String locationName, String playedDate, String pO_DeckName, String pO_Identity, int pO_Score, String pO_WinFlag, String pT_Name, String pT_DeckName, String pT_Identity, int pT_Score, String pT_WinFlag, String winType) {
+     //   this.gameID = gameID;
+        this.pO_Name = pO_Name;
+        this.locationName = locationName;
+        this.playedDate = playedDate;
+        this.pO_DeckName = pO_DeckName;
+        this.pO_Identity = pO_Identity;
+        this.pO_Score = pO_Score;
+        this.pO_WinFlag = pO_WinFlag;
+        this.pT_Name = pT_Name;
+        this.pT_DeckName = pT_DeckName;
+        this.pT_Identity = pT_Identity;
+        this.pT_Score = pT_Score;
+        this.pT_WinFlag = pT_WinFlag;
+        this.winType = winType;
+    }
+
     public String getpO_Name() {
         return pO_Name;
     }

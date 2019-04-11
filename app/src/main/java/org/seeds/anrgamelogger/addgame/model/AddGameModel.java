@@ -10,6 +10,7 @@ import org.seeds.anrgamelogger.database.DatabaseModel;
 import org.seeds.anrgamelogger.database.buisnessobjects.Deck;
 import org.seeds.anrgamelogger.database.buisnessobjects.Identity;
 import org.seeds.anrgamelogger.database.buisnessobjects.Location;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
 import org.seeds.anrgamelogger.database.buisnessobjects.Player;
 import org.seeds.anrgamelogger.database.buisnessobjects.Identity;
 
@@ -169,6 +170,10 @@ public class AddGameModel {
             ret.add(l.getName());
         }
         return ret;
+    }
+
+    public void saveLoggedGame(LoggedGameFlat lgf) {
+
     }
 
     //Fix Overview to work out winner (and which player it is) etc etc

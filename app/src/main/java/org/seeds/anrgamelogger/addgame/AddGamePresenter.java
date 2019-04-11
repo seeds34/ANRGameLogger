@@ -7,9 +7,12 @@ import java.util.ArrayList;
 import org.seeds.anrgamelogger.addgame.model.AddGameModel;
 import org.seeds.anrgamelogger.addgame.views.AddGameCorpView;
 import org.seeds.anrgamelogger.addgame.views.AddGameOverviewView;
+import org.seeds.anrgamelogger.addgame.views.AddGamePlayerView;
 import org.seeds.anrgamelogger.addgame.views.AddGameRunnerView;
 import org.seeds.anrgamelogger.addgame.views.AddGameView;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGamePlayer;
 import org.seeds.anrgamelogger.model.IdentityList;
 
 
@@ -50,19 +53,19 @@ public class AddGamePresenter {
 
         IdentityList idList = new IdentityList(model.getListOfIdenties());
 
-        runnerPlayerView.setTitle(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
+        runnerPlayerView.setSide(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
         runnerPlayerView.setIdApadters(idList.getOneSidedList(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER));
         runnerPlayerView.setUpNameAutoComplete(playerList);
         runnerPlayerView.setUpDeckNameAutoComplete(deckList);
 
-        corpPlayerView.setTitle(ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
+        corpPlayerView.setSide(ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
         corpPlayerView.setIdApadters(idList.getOneSidedList(ANRLoggerApplication.CORP_SIDE_IDENTIFIER));
         corpPlayerView.setUpNameAutoComplete(playerList);
         corpPlayerView.setUpDeckNameAutoComplete(deckList);
 
         overviewView.setUpLocationAutoComplete(locationList);
         overviewView.setTitle("Overview");
-        overviewView.setListner(cdl);
+        overviewView.setListener(cdl);
 
         if (model.getSide() == ANRLoggerApplication.CORP_SIDE_IDENTIFIER){
           view.setUpPagerViews(corpPlayerView);
@@ -97,7 +100,30 @@ public class AddGamePresenter {
 
     private void addGame() {
 
-//        LoggedGamePlayer pOneData = view.getPlayerOne();
+        //TODO: Need to think how to track who won a game better
+        String ws = overviewView.getWiningSide().toLowerCase();
+        LoggedGameFlat gm = new LoggedGameFlat(
+                runnerPlayerView.getPlayerName(),
+           overviewView.getLocation(),
+            overviewView.getPlayedDate(),
+                runnerPlayerView.getDeckName(),
+                runnerPlayerView.getIdentityName(),
+                runnerPlayerView.getScore(),
+                (ws.equals(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER))?"Y":"N",
+                corpPlayerView.getPlayerName(),
+                corpPlayerView.getDeckName(),
+                corpPlayerView.getIdentityName(),
+                corpPlayerView.getScore(),
+                (ws.equals(ANRLoggerApplication.CORP_SIDE_IDENTIFIER))?"N":"Y",
+                overviewView.getWinType()
+        );
+
+        model.saveLoggedGame(gm);
+
+
+
+
+        //LoggedGamePlayer pOneData =;
 //        LoggedGamePlayer pTwoData = view.getPlayerTwo();
 //        LoggedGameOverview ovData = view.getGameOverview();
 

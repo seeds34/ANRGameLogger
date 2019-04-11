@@ -40,6 +40,7 @@ public class ANRLoggerApplication extends Application {
                 .applicationModule(new ApplicationModule(this))
                 .build();
 
+        //getResources().getString()
 
 //        if(databaseModel.isIdentitiesTableEmpty()){
 //            Log.i(LOG_TAG,"Starting to load first time data");
