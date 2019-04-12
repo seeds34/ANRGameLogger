@@ -12,6 +12,7 @@ import org.seeds.anrgamelogger.addgame.views.AddGameRunnerView;
 import org.seeds.anrgamelogger.addgame.views.AddGameView;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameOverview;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGamePlayer;
 import org.seeds.anrgamelogger.model.IdentityList;
 
@@ -34,6 +35,7 @@ public class AddGamePresenter {
     private final CompositeDisposable compositeSubscription = new CompositeDisposable();
 
     private CustomDPDLister cdl;
+    private final int GAMENO;
 
     public AddGamePresenter(AddGameView view, AddGameModel model, AddGameRunnerView runnerPlayerView, AddGameCorpView corpPlayerView, AddGameOverviewView overviewView){
         this.view = view;
@@ -41,6 +43,7 @@ public class AddGamePresenter {
         this.overviewView = overviewView;
         this.runnerPlayerView = runnerPlayerView;
         this.corpPlayerView = corpPlayerView;
+        GAMENO = model.getNextGameNo();
     }
 
     public void onCreate() {
@@ -102,23 +105,52 @@ public class AddGamePresenter {
 
         //TODO: Need to think how to track who won a game better
         String ws = overviewView.getWiningSide().toLowerCase();
-        LoggedGameFlat gm = new LoggedGameFlat(
+//        LoggedGameFlat gm = new LoggedGameFlat(
+//                runnerPlayerView.getPlayerName(),
+//           overviewView.getLocation(),
+//            overviewView.getPlayedDate(),
+//                runnerPlayerView.getDeckName(),
+//                runnerPlayerView.getIdentityName(),
+//                runnerPlayerView.getScore(),
+//                (ws.equals(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER))?"Y":"N",
+//                corpPlayerView.getPlayerName(),
+//                corpPlayerView.getDeckName(),
+//                corpPlayerView.getIdentityName(),
+//                corpPlayerView.getScore(),
+//                (ws.equals(ANRLoggerApplication.CORP_SIDE_IDENTIFIER))?"N":"Y",
+//                overviewView.getWinType()
+//        );
+
+        LoggedGamePlayer lgpr = new LoggedGamePlayer(
                 runnerPlayerView.getPlayerName(),
-           overviewView.getLocation(),
-            overviewView.getPlayedDate(),
                 runnerPlayerView.getDeckName(),
                 runnerPlayerView.getIdentityName(),
-                runnerPlayerView.getScore(),
+                runnerPlayerView.getSide(),
                 (ws.equals(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER))?"Y":"N",
+                runnerPlayerView.getScore(),
+                GAMENO
+        );
+
+
+        LoggedGamePlayer lgpc = new LoggedGamePlayer(
                 corpPlayerView.getPlayerName(),
                 corpPlayerView.getDeckName(),
                 corpPlayerView.getIdentityName(),
+                corpPlayerView.getSide(),
+                (ws.equals(ANRLoggerApplication.CORP_SIDE_IDENTIFIER))?"Y":"N",
                 corpPlayerView.getScore(),
-                (ws.equals(ANRLoggerApplication.CORP_SIDE_IDENTIFIER))?"N":"Y",
-                overviewView.getWinType()
+                GAMENO
         );
 
-        model.saveLoggedGame(gm);
+        LoggedGameOverview lgo = new LoggedGameOverview(
+                overviewView.getLocation(),
+                overviewView.getPlayedDate(),
+                overviewView.getWinType(),
+                GAMENO,
+                overviewView.getWiningSide()
+        );
+
+        model.saveLoggedGame(lgo, lgpr, lgpc);
 
 
 

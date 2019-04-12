@@ -245,6 +245,19 @@ public class DatabaseModel {
             .executeAsBlocking();
   }
 
+//  public Deck getDeck(String deckName, String deckVersion, String identityName){
+//    return storIOContentResolver
+//            .get()
+//            .object(Deck.class)
+//            .withQuery(Query.builder()
+//                    .uri(DecksContract.URI_TABLE)
+//                    .where(DecksContract.DecksColumns.DECK_NAME + " = ? AND " + DecksContract.DecksColumns.DECK_VERSION + " = ? AND " + DecksContract.DecksColumns.DECK_IDENTITY + " = ?")
+//                    .whereArgs(deckName, deckVersion, identityName)
+//                    .build())
+//            .prepare()
+//            .executeAsBlocking();
+//  }
+
   public PutResult insertDeck(Deck deckIn){
     return storIOContentResolver
             .put()
@@ -422,5 +435,76 @@ public class DatabaseModel {
     
     return ret;
   }
+
+  ////Insert Entire Game
+
+  public void insertLoggedGameN(LoggedGameOverview lgo, LoggedGamePlayer playerOne, LoggedGamePlayer playerTwo ){
+
+    Log.d(LOG_TAG, ".insertLoggedGameN() : Starting");
+    insertLoggedGamePlayer(playerOne);
+    insertLoggedGamePlayer(playerTwo);
+
+    Location location = getLocation(lgo.getLocation_name());
+
+    if(location == null){
+      insertLocation(new Location(lgo.getLocation_name()));
+      location = getLocation(lgo.getLocation_name());
+    }
+    lgo.setLocation_id(location.getRowid());
+
+
+    Log.d(LOG_TAG, ".insertLoggedGameN() : Inserting Overview");
+    storIOContentResolver
+            .put()
+            .object(lgo)
+            .prepare()
+            .executeAsBlocking();
+  }
+
+  private void insertLoggedGamePlayer(LoggedGamePlayer lgp) {
+    Log.d(LOG_TAG, ".insertLoggedGamePlayer() : Setting up player to insert");
+    /*
+    1: Check and insert deck
+    2: C&I Location
+    3: C&I Player
+    4: C&I Notes
+     */
+
+    //Get Identity
+    int identityID = getIdentity(lgp.getIdentity_name()).getRowid();
+    Deck deck = getDeck(lgp.getDeck_name(),lgp.getDeck_version(), identityID);
+    Player player = getPlayer(lgp.getPlayer_name());
+
+    //Get Deck
+
+    if(player == null){
+      insertPlayer(new Player(lgp.getPlayer_name()));
+      player = getPlayer(lgp.getPlayer_name());
+    }
+    lgp.setPlayer_id(player.getRowid());
+
+
+
+
+    if(deck == null){
+      deck = new Deck(lgp.getDeck_name(),lgp.getDeck_version(), identityID);
+      Log.d(LOG_TAG,".insertLoggedGamePlayer() : Making a new temp deck = " + deck.toString());
+      PutResult pr = insertDeck(deck);
+      Log.d(LOG_TAG,".insertLoggedGamePlayer() : Inserting new Deck and PutResult was: " + pr.wasInserted());
+      deck = getDeck(lgp.getDeck_name(),lgp.getDeck_version(), identityID);
+    }
+    lgp.setDeck_id(deck.rowid);
+
+
+
+
+    Log.d(LOG_TAG, ".insertLoggedGamePlayer() : Inserting Player Log");
+    storIOContentResolver
+            .put()
+            .object(lgp)
+            .prepare()
+            .executeAsBlocking();
+  }
+
 
 }
