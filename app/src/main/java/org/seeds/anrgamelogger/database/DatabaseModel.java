@@ -117,9 +117,9 @@ public class DatabaseModel {
 
   //Use Card instead of Identity Object as IDs will always be inserted 'remotely' not by user
   public PutResult insertIdentity(Identity i) {
-    return storIOContentResolver.put()
+    return storIOContentResolver
+            .put()
             .object(i)
-            //.withPutResolver(new CustomIdentityPutResolver())
             .prepare()
             .executeAsBlocking();
   }
@@ -233,6 +233,9 @@ public class DatabaseModel {
   }
 
   public Deck getDeck(String deckName, String deckVersion, int identityNo){
+
+    Log.d(LOG_TAG, ".getDeck() : deckVersion = " + deckVersion);
+
     return storIOContentResolver
             .get()
             .object(Deck.class)
@@ -478,32 +481,40 @@ public class DatabaseModel {
     //Get Deck
 
     if(player == null){
-      insertPlayer(new Player(lgp.getPlayer_name()));
+      player = new Player(lgp.getPlayer_name());
+      Log.d(LOG_TAG,".insertLoggedGamePlayer() : Inserting player: " + "\n" + player.toString());
+      insertPlayer(player);
       player = getPlayer(lgp.getPlayer_name());
     }
+    Log.d(LOG_TAG,".insertLoggedGamePlayer() : Player is now: " + "\n" + player.toString());
     lgp.setPlayer_id(player.getRowid());
-
 
 
 
     if(deck == null){
       deck = new Deck(lgp.getDeck_name(),lgp.getDeck_version(), identityID);
-      Log.d(LOG_TAG,".insertLoggedGamePlayer() : Making a new temp deck = " + deck.toString());
+      Log.d(LOG_TAG,".insertLoggedGamePlayer() : Inserting deck: " + "\n" + deck.toString());
       PutResult pr = insertDeck(deck);
       Log.d(LOG_TAG,".insertLoggedGamePlayer() : Inserting new Deck and PutResult was: " + pr.wasInserted());
       deck = getDeck(lgp.getDeck_name(),lgp.getDeck_version(), identityID);
     }
+    Log.d(LOG_TAG,".insertLoggedGamePlayer() : Deck is now: " + "\n" + deck.toString());
     lgp.setDeck_id(deck.rowid);
 
 
 
 
-    Log.d(LOG_TAG, ".insertLoggedGamePlayer() : Inserting Player Log");
+    Log.d(LOG_TAG, ".insertLoggedGamePlayer() : Inserting Player Game Log: " + "\n" + lgp.toString());
+
+    //ERROR HERE??  04-12 19:47:33.411 18253-18253/org.seeds.anrgamelogger W/System.err: io.reactivex.exceptions.OnErrorNotImplementedException: Error has occurred during Put operation. object = GameID = 1
+    PutResult prr =
     storIOContentResolver
             .put()
             .object(lgp)
             .prepare()
             .executeAsBlocking();
+
+    Log.d(LOG_TAG, ".insertLoggedGamePlayer() : Effect URI for lgp put" + prr.affectedUri());
   }
 
 

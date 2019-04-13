@@ -7,11 +7,9 @@ import java.util.ArrayList;
 import org.seeds.anrgamelogger.addgame.model.AddGameModel;
 import org.seeds.anrgamelogger.addgame.views.AddGameCorpView;
 import org.seeds.anrgamelogger.addgame.views.AddGameOverviewView;
-import org.seeds.anrgamelogger.addgame.views.AddGamePlayerView;
 import org.seeds.anrgamelogger.addgame.views.AddGameRunnerView;
 import org.seeds.anrgamelogger.addgame.views.AddGameView;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
-import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameOverview;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGamePlayer;
 import org.seeds.anrgamelogger.model.IdentityList;
@@ -121,33 +119,68 @@ public class AddGamePresenter {
 //                overviewView.getWinType()
 //        );
 
+//        LoggedGamePlayer lgpr = new LoggedGamePlayer(
+//                runnerPlayerView.getPlayerName(),
+//                runnerPlayerView.getDeckName(),
+//                runnerPlayerView.getIdentityName(),
+//                runnerPlayerView.getSide(),
+//                (ws.equals(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER))?"Y":"N",
+//                runnerPlayerView.getScore(),
+//                GAMENO
+//        );
+//
+//
+//        LoggedGamePlayer lgpc = new LoggedGamePlayer(
+//                corpPlayerView.getPlayerName(),
+//                corpPlayerView.getDeckName(),
+//                corpPlayerView.getIdentityName(),
+//                corpPlayerView.getSide(),
+//                (ws.equals(ANRLoggerApplication.CORP_SIDE_IDENTIFIER))?"Y":"N",
+//                corpPlayerView.getScore(),
+//                GAMENO
+//        );
+//
+//        LoggedGameOverview lgo = new LoggedGameOverview(
+//                overviewView.getLocation(),
+//                overviewView.getPlayedDate(),
+//                overviewView.getWinType(),
+//                GAMENO,
+//                overviewView.getWiningSide()
+//        );
+
+
+
+
+
         LoggedGamePlayer lgpr = new LoggedGamePlayer(
-                runnerPlayerView.getPlayerName(),
-                runnerPlayerView.getDeckName(),
-                runnerPlayerView.getIdentityName(),
-                runnerPlayerView.getSide(),
-                (ws.equals(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER))?"Y":"N",
-                runnerPlayerView.getScore(),
-                GAMENO
+            "Runner 1",
+            "Runner Deck 1",
+            "The Masque: Cyber General",
+            ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER,
+            "N",
+            6,
+            GAMENO,
+            "1"
         );
 
 
         LoggedGamePlayer lgpc = new LoggedGamePlayer(
-                corpPlayerView.getPlayerName(),
-                corpPlayerView.getDeckName(),
-                corpPlayerView.getIdentityName(),
-                corpPlayerView.getSide(),
-                (ws.equals(ANRLoggerApplication.CORP_SIDE_IDENTIFIER))?"Y":"N",
-                corpPlayerView.getScore(),
-                GAMENO
+            "Corp 1",
+            "Corp Deck 1",
+            "The Shadow: Pulling the Strings",
+            ANRLoggerApplication.CORP_SIDE_IDENTIFIER,
+            "Y",
+            7,
+            GAMENO,
+            "1"
         );
 
         LoggedGameOverview lgo = new LoggedGameOverview(
-                overviewView.getLocation(),
-                overviewView.getPlayedDate(),
-                overviewView.getWinType(),
-                GAMENO,
-                overviewView.getWiningSide()
+            "Home",
+            "11/04/2019",
+            "Score",
+            GAMENO,
+            ANRLoggerApplication.CORP_SIDE_IDENTIFIER
         );
 
         model.saveLoggedGame(lgo, lgpr, lgpc);

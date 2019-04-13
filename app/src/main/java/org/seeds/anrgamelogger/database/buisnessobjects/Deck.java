@@ -91,4 +91,16 @@ public class Deck {
   public void setRowid(int rowid) {
     this.rowid = rowid;
   }
+
+  public String toString(){
+    return
+        "Name = " + name + "\n" +
+            "Version = " + version + "\n" +
+            "Archtype = " +  archetype + "\n" +
+            "Identity ID = " + identity_rowno + "\n" +
+            "NRDB Link = " + nrdbLink + "\n" +
+            "Rowid = " + rowid;
+  }
+
+
 }

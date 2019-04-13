@@ -17,7 +17,7 @@ public class LoggedGamePlayer {
   @StorIOContentResolverColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.DECK_ID)
   public int deck_id;
 
-  @StorIOContentResolverColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_SIDE, key = true)
+  @StorIOContentResolverColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_SIDE)
   public String side;
 
   @StorIOContentResolverColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.WIN_FLAG)
@@ -26,10 +26,11 @@ public class LoggedGamePlayer {
   @StorIOContentResolverColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.SCORE)
   public int score;
 
+
+
   private String player_name;
   private String deck_name;
   private String identity_name;
-
   private String deck_version;
 
   public LoggedGamePlayer(){}
@@ -45,14 +46,14 @@ public class LoggedGamePlayer {
   }
 
   public LoggedGamePlayer(String player_name, String deck_name, String identity_name, String side, String win_flag,
-                          int score, int gameNumber) {
+                          int score, int gameNumber, String deck_version) {
     this.player_name = player_name;
     this.deck_name = deck_name;
     this.identity_name = identity_name;
     this.side = side;
     this.win_flag = win_flag;
-    this.score = score;
     this.gameID = gameNumber;
+    this.deck_version = deck_version;
   }
 
   public int getPlayer_id() {
@@ -134,6 +135,17 @@ public class LoggedGamePlayer {
   public void setDeck_version(String deck_version) {
     this.deck_version = deck_version;
   }
+
+  public String toString(){
+    return
+        "GameID = " + gameID + "\n" +
+            "PlayerID = " + player_id + "\n" +
+            "DeckID = " +  deck_id + "\n" +
+            "Win Flag = " +  win_flag + "\n" +
+            "Score = " +  score + "\n" +
+            "PlayerSide = " +  side;
+  }
+
 
 
 

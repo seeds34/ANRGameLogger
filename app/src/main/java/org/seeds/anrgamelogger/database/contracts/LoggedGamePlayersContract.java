@@ -27,12 +27,12 @@ public class LoggedGamePlayersContract {
       PATH_LOGGED_GAMES_PLAYERS
   };
 
-  public static class Location implements LoggedGamePlayersColumns, BaseColumns {
+  public static class LoggedGamePlayers implements LoggedGamePlayersColumns, BaseColumns {
     public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendEncodedPath(PATH_LOGGED_GAMES_PLAYERS).build();
     public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd."+CONTENT_AUTHORITY+".loggedgameplayers";
     public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd."+CONTENT_AUTHORITY+".loggedgameplayers";
 
-    public static Uri buildLocationUri(String locationId){
+    public static Uri buildLoggedGamePlayersUri(String locationId){
       return CONTENT_URI.buildUpon().appendEncodedPath(locationId).build();
     }
 

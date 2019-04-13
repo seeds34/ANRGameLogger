@@ -20,6 +20,7 @@ import org.seeds.anrgamelogger.database.contracts.GameNotesContract;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.LocationsContract;
 import org.seeds.anrgamelogger.database.contracts.LoggedGameOverviewsContract;
+import org.seeds.anrgamelogger.database.contracts.LoggedGamePlayersContract;
 import org.seeds.anrgamelogger.database.contracts.LoggedGamesFlatViewContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract;
 
@@ -55,10 +56,11 @@ public class GameLogggerProvider extends ContentProvider {
     private static final int GAMENOTES = 60;
     private static final int GAMENOTES_ID = 61;
 
-    private static final int LOGGEDGAMEPLAYERS = 70;
-    private static final int LOGGEDGAMEPLAYERS_ID = 71;
+    private static final int LOGGEDGAMEPLAYERS = 100;
+    private static final int LOGGEDGAMEPLAYERS_ID = 1011;
 
     //Todo: Read what this does
+    //TODO: Change all this to a better persistence layer
     private static UriMatcher buildUriMatcher(){
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
 
@@ -90,9 +92,9 @@ public class GameLogggerProvider extends ContentProvider {
         matcher.addURI(authority, "gamenotes", GAMENOTES );
         matcher.addURI(authority, "gamenotes/*", GAMENOTES_ID );
 
-        authority = LoggedGameOverviewsContract.CONTENT_AUTHORITY;
-        matcher.addURI(authority, "loggedgames", LOGGEDGAMEPLAYERS );
-        matcher.addURI(authority, "loggedgames/*", LOGGEDGAMEPLAYERS_ID );
+        authority = LoggedGamePlayersContract.CONTENT_AUTHORITY;
+        matcher.addURI(authority, "loggedgameplayers", LOGGEDGAMEPLAYERS );
+        matcher.addURI(authority, "loggedgameplayers/*", LOGGEDGAMEPLAYERS_ID );
 
         return matcher;
 
@@ -140,9 +142,14 @@ public class GameLogggerProvider extends ContentProvider {
                 ret = LoggedGameOverviewsContract.LoggedGameOverview.CONTENT_ITEM_TYPE;
                 break;
             case LOGGEDGAMEPLAYERS:
-                ret = LoggedGamesFlatViewContract.LoggedGameFlatView.CONTENT_TYPE;
+                ret = LoggedGamePlayersContract.LoggedGamePlayers.CONTENT_TYPE;;
                 break;
             case LOGGEDGAMEPLAYERS_ID:
+                ret = LoggedGamePlayersContract.LoggedGamePlayers.CONTENT_ITEM_TYPE;;
+            case LOGGEDGAMEFLATVIEW:
+                ret = LoggedGamesFlatViewContract.LoggedGameFlatView.CONTENT_TYPE;
+                break;
+            case LOGGEDGAMEFLATVIEW_ID:
                 ret = LoggedGamesFlatViewContract.LoggedGameFlatView.CONTENT_ITEM_TYPE;
                 break;
             default:break;
@@ -161,6 +168,8 @@ public class GameLogggerProvider extends ContentProvider {
 
     @Override
     public Cursor query( Uri uri,  String[] projection,  String selection,  String[] selectionArgs,  String sortOrder) {
+
+        Log.d(LOG_TAG,".query() : URI = " + uri.toString());
 
         final SQLiteDatabase db = dbHelper.getReadableDatabase();
         final int MATCH = URIMATCHER.match(uri);
@@ -218,6 +227,7 @@ public class GameLogggerProvider extends ContentProvider {
             case LOGGEDGAMEPLAYERS:
                 queryBuilder.setTables(GameLoggerDatabase.Tables.LOGGED_GAME_PLAYERS);
                 ret = queryBuilder.query(db, projection, selection, selectionArgs, null, null, sortOrder);
+                Log.d(LOG_TAG,".query() : " + LOGGEDGAMEPLAYERS + " reterning = " + ret   );
                 break;
             default: break;
         }
@@ -236,7 +246,7 @@ public class GameLogggerProvider extends ContentProvider {
 
         int ret = 0;
 
-        Log.d(LOG_TAG,"Contencts: " + contentValues.toString());
+        Log.d(LOG_TAG,".update() : Contencts: " + contentValues.toString());
 
 
         switch (MATCH){
@@ -274,39 +284,40 @@ public class GameLogggerProvider extends ContentProvider {
 
         Uri ret = null;
 
-        Log.d(LOG_TAG,"URI = " + uri.toString() + " : " + String.valueOf(MATCH));
-        Log.d(LOG_TAG, "Values to insert: " + contentValues.toString());
+        Log.d(LOG_TAG,".insert() : URI = " + uri.toString() + " : " + String.valueOf(MATCH));
+        Log.d(LOG_TAG, ".insert() : Values to insert: " + contentValues.toString());
+
         long recordID;
         switch (MATCH){
             case LOCATION:
-                Log.d(LOG_TAG,"Match No: " + String.valueOf(MATCH));
+                Log.d(LOG_TAG,".insert() : Match No: " + String.valueOf(MATCH));
                 recordID = db.insertOrThrow(GameLoggerDatabase.Tables.LOCATIONS, null, contentValues);
                 ret = LocationsContract.Location.buildLocationUri(String.valueOf(recordID));
                 break;
             case PLAYER:
-                Log.d(LOG_TAG,"Match No: " + String.valueOf(MATCH));
+                Log.d(LOG_TAG,".insert() : Match No: " + String.valueOf(MATCH));
                 recordID = db.insertOrThrow(GameLoggerDatabase.Tables.PLAYERS, null, contentValues);
                 ret = PlayersContract.Player.buildPlayersUri(String.valueOf(recordID));
                 break;
             case IDENTITIES:
-                Log.d(LOG_TAG,"Match No: " + String.valueOf(MATCH));
+                Log.d(LOG_TAG,".insert() : Match No: " + String.valueOf(MATCH));
                 recordID = db.insertOrThrow(GameLoggerDatabase.Tables.IDENTITIES, null, contentValues);
                 ret = IdentitiesContract.Identitity.buildIdentutyUri(String.valueOf(recordID));
                 break;
             case DECK:
-                Log.d(LOG_TAG,"Match No: " + String.valueOf(MATCH));
+                Log.d(LOG_TAG,".insert() : Match No: " + String.valueOf(MATCH));
                 recordID = db.insertOrThrow(GameLoggerDatabase.Tables.DECKS, null, contentValues);
                 ret = buildDecksUri(String.valueOf(recordID));
                 break;
             case LOGGEDGAMEOVERVIEW:
-                Log.d(LOG_TAG,"Match No: " + String.valueOf(MATCH));
+                Log.d(LOG_TAG,".insert() : Match No: " + String.valueOf(MATCH));
                 recordID = db.insertOrThrow(Tables.LOGGED_GAME_OVERVIEWS, null, contentValues);
                 ret = LoggedGameOverviewsContract.LoggedGameOverview.buildLoggedGameUri(String.valueOf(recordID));
             break;
             case LOGGEDGAMEPLAYERS:
-                Log.d(LOG_TAG,"Match No: " + String.valueOf(MATCH));
+                Log.d(LOG_TAG,".insert() : Match No: " + String.valueOf(MATCH));
                 recordID = db.insertOrThrow(Tables.LOGGED_GAME_PLAYERS, null, contentValues);
-                ret = LoggedGameOverviewsContract.LoggedGameOverview.buildLoggedGameUri(String.valueOf(recordID));
+                ret = LoggedGamePlayersContract.LoggedGamePlayers.buildLoggedGamePlayersUri(String.valueOf(recordID));
                 break;
             default:break;
 

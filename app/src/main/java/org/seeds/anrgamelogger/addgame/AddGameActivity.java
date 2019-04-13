@@ -7,8 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import javax.inject.Inject;
 import org.seeds.anrgamelogger.addgame.dagger.AddGameModule;
 import org.seeds.anrgamelogger.addgame.dagger.DaggerAddGameComponent;
-import org.seeds.anrgamelogger.addgame.views.AddGameOverviewView;
-import org.seeds.anrgamelogger.addgame.views.AddGamePlayerView;
 import org.seeds.anrgamelogger.addgame.views.AddGameView;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 

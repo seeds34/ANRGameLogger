@@ -1,9 +1,6 @@
 package org.seeds.anrgamelogger.database.buisnessobjects;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.provider.BaseColumns;
-
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
 import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
 import java.io.Serializable;
@@ -35,7 +32,7 @@ public class Player implements Serializable, ViewData {
     private String deck;
     private int score;
     private String winnerFlag;
-    private static final long SERAILVERSIONUID = 1L;
+    //private static final long SERAILVERSIONUID = 1L;
     private  byte[]  imageByteArray;
     private String identityName;
     private String side;
@@ -121,39 +118,48 @@ public class Player implements Serializable, ViewData {
         this.rowid = rowid;
     }
 
-    /*Genrated at: http://www.parcelabler.com/ */
-    protected Player(Parcel in) {
-        name = in.readString();
-        deck = in.readString();
-        score = in.readInt();
-        winnerFlag = in.readString();
-        identityName = in.readString();
+    public String toString(){
+        return
+            "Name = " + name + "\n" +
+            "Nickname = " + nickName + "\n" +
+                "jnetid = " +  jnetName + "\n" +
+                "rowid + " + rowid;
     }
 
-    public int describeContents() {
-        return 0;
-    }
-
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeString(deck);
-        dest.writeInt(score);
-        dest.writeString(winnerFlag);
-        dest.writeString(identityName);
-    }
-
-    @SuppressWarnings("unused")
-    public static final Parcelable.Creator<Player> CREATOR = new Parcelable.Creator<Player>() {
-        @Override
-        public Player createFromParcel(Parcel in) {
-            return new Player(in);
-        }
-
-        @Override
-        public Player[] newArray(int size) {
-            return new Player[size];
-        }
-    };
+//
+//    /*Genrated at: http://www.parcelabler.com/ */
+//    protected Player(Parcel in) {
+//        name = in.readString();
+//        deck = in.readString();
+//        score = in.readInt();
+//        winnerFlag = in.readString();
+//        identityName = in.readString();
+//    }
+//
+//    public int describeContents() {
+//        return 0;
+//    }
+//
+//    public void writeToParcel(Parcel dest, int flags) {
+//        dest.writeString(name);
+//        dest.writeString(deck);
+//        dest.writeInt(score);
+//        dest.writeString(winnerFlag);
+//        dest.writeString(identityName);
+//    }
+//
+//    @SuppressWarnings("unused")
+//    public static final Parcelable.Creator<Player> CREATOR = new Parcelable.Creator<Player>() {
+//        @Override
+//        public Player createFromParcel(Parcel in) {
+//            return new Player(in);
+//        }
+//
+//        @Override
+//        public Player[] newArray(int size) {
+//            return new Player[size];
+//        }
+//    };
 
 
 }
