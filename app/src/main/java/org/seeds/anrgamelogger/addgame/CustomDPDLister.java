@@ -3,14 +3,9 @@ package org.seeds.anrgamelogger.addgame;
 import android.app.DatePickerDialog;
 import android.util.Log;
 import android.widget.DatePicker;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
+import java.util.Calendar;
 
 public  class CustomDPDLister implements DatePickerDialog.OnDateSetListener{
 

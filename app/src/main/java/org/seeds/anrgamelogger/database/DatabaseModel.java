@@ -8,28 +8,14 @@ import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
 import com.pushtorefresh.storio3.contentresolver.operations.put.PutResult;
 import com.pushtorefresh.storio3.contentresolver.operations.put.PutResults;
 import com.pushtorefresh.storio3.contentresolver.queries.Query;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.seeds.anrgamelogger.database.entities.Deck;
+import org.seeds.anrgamelogger.database.entities.LoggedGameOverview;
+import org.seeds.anrgamelogger.database.entities.LoggedGamePlayer;
+import org.seeds.anrgamelogger.database.entities.Player;
 
-import org.seeds.anrgamelogger.database.buisnessobjects.CardImage;
-import org.seeds.anrgamelogger.database.buisnessobjects.Deck;
-import org.seeds.anrgamelogger.database.buisnessobjects.Identity;
-import org.seeds.anrgamelogger.database.buisnessobjects.Location;
-import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
-import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGamePlayer;
-import org.seeds.anrgamelogger.database.buisnessobjects.Player;
-import org.seeds.anrgamelogger.database.contracts.DecksContract;
-import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
-import org.seeds.anrgamelogger.database.contracts.IdentitiesContract.IdentitiesColumns;
-import org.seeds.anrgamelogger.database.contracts.LocationsContract;
-import org.seeds.anrgamelogger.database.contracts.LocationsContract.LocationsColumns;
-import org.seeds.anrgamelogger.database.contracts.LoggedGameOverviewsContract;
-import org.seeds.anrgamelogger.database.contracts.LoggedGamesFlatViewContract;
-import org.seeds.anrgamelogger.database.contracts.PlayersContract;
-import org.seeds.anrgamelogger.database.contracts.PlayersContract.PlayersColumns;
-import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameOverview;
 
 /**
  * Created by Tomas Seymour-Turner on 21/02/2018.
@@ -40,10 +26,6 @@ public class DatabaseModel {
 
   private final String LOG_TAG = this.getClass().getName();
   private StorIOContentResolver storIOContentResolver;
-
-  public DatabaseModel(StorIOContentResolver storIOContentResolverIn){
-      storIOContentResolver = storIOContentResolverIn;
-  }
 
   public boolean isIdentitiesTableEmpty(){
     return isTableEmpty(IdentitiesContract.URI_TABLE);

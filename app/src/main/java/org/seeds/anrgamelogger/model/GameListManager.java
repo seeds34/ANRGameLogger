@@ -1,7 +1,7 @@
 package org.seeds.anrgamelogger.model;
 
 import java.util.ArrayList;
-import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
+import org.seeds.anrgamelogger.database.LoggedGameFlat;
 
 /**
  * Created by Tomas Seymour-Turner on 23/05/2017.

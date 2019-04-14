@@ -14,12 +14,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemSelected;
 import butterknife.OnPageChange;
-import io.reactivex.Observable;
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.addgame.AddGameIdentitesPageAdapter;
 import org.seeds.anrgamelogger.model.IdentityList;
-import org.seeds.anrgamelogger.model.ViewData;
 
 /**
  * Created by Tomas Seymour-Turner on 04/01/2018.

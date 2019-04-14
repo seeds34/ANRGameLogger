@@ -7,13 +7,11 @@ import java.util.ArrayList;
 import org.seeds.anrgamelogger.addgame.model.AddGameModel;
 import org.seeds.anrgamelogger.addgame.views.AddGameCorpView;
 import org.seeds.anrgamelogger.addgame.views.AddGameOverviewView;
-import org.seeds.anrgamelogger.addgame.views.AddGamePlayerView;
 import org.seeds.anrgamelogger.addgame.views.AddGameRunnerView;
 import org.seeds.anrgamelogger.addgame.views.AddGameView;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
-import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
-import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameOverview;
-import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGamePlayer;
+import org.seeds.anrgamelogger.database.entities.LoggedGameOverview;
+import org.seeds.anrgamelogger.database.entities.LoggedGamePlayer;
 import org.seeds.anrgamelogger.model.IdentityList;
 
 

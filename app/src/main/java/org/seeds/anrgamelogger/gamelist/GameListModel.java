@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.util.Log;
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.addgame.AddGameActivity;
+import org.seeds.anrgamelogger.application.SetupDatabaseDataModel;
 import org.seeds.anrgamelogger.database.DatabaseModel;
-import org.seeds.anrgamelogger.network.NetworkModel;
+import org.seeds.anrgamelogger.database.entities.LoggedGameOverview;
 import org.seeds.anrgamelogger.gamedetail.GameDetailActivity;
 import org.seeds.anrgamelogger.model.GameListManager;
-import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameOverview;
-import org.seeds.anrgamelogger.application.SetupDatabaseDataModel;
+import org.seeds.anrgamelogger.network.NetworkModel;
 
 
 /**

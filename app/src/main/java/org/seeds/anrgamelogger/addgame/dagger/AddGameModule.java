@@ -1,7 +1,6 @@
 package org.seeds.anrgamelogger.addgame.dagger;
 
 import android.app.Activity;
-import android.util.Log;
 
 import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
 
@@ -11,7 +10,6 @@ import org.seeds.anrgamelogger.addgame.model.AddGameModel;
 import org.seeds.anrgamelogger.addgame.AddGamePresenter;
 import org.seeds.anrgamelogger.addgame.views.AddGameCorpView;
 import org.seeds.anrgamelogger.addgame.views.AddGameOverviewView;
-import org.seeds.anrgamelogger.addgame.views.AddGamePlayerView;
 import org.seeds.anrgamelogger.addgame.views.AddGameRunnerView;
 import org.seeds.anrgamelogger.addgame.views.AddGameView;
 import org.seeds.anrgamelogger.database.DatabaseModel;

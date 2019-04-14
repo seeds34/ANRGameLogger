@@ -15,7 +15,6 @@ import java.io.ByteArrayInputStream;
 
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.model.IdentityList;
-import org.w3c.dom.Text;
 
 /**
  * Created by user on 09/12/2017.

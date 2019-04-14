@@ -1,10 +1,10 @@
-package org.seeds.anrgamelogger.room;
+package org.seeds.anrgamelogger.database.entities;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
-import org.seeds.anrgamelogger.room.GameLoggerDatabase.Tables;
+import org.seeds.anrgamelogger.database.GameLoggerDatabase.Tables;
 
 /**
  * Created by user on 07/01/2018.

@@ -1,18 +1,20 @@
-package org.seeds.anrgamelogger.room;
+package org.seeds.anrgamelogger.database.entities;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
-import org.seeds.anrgamelogger.room.GameLoggerDatabase.Tables;
+import org.seeds.anrgamelogger.database.GameLoggerDatabase.Tables;
+import org.seeds.anrgamelogger.database.entities.Location.LocationsColumns;
+import org.seeds.anrgamelogger.database.entities.LoggedGameOverview.LoggedGameOverviewsColumns;
 
 /**
  * Created by Tomas Seymour-Turner on 19/03/2017.
  */
 
-@Entity(tableName = Tables.LOGGED_GAME_OVERVIEWS)
+@Entity(tableName = Tables.LOGGED_GAME_OVERVIEWS, foreignKeys = @ForeignKey(entity = Location.class, parentColumns = LocationsColumns.ID, childColumns = LoggedGameOverviewsColumns.LOCATION_ID))
 public class LoggedGameOverview {
-
 
     public interface LoggedGameOverviewsColumns{
         String GAME_ID = "gameid";
@@ -21,7 +23,7 @@ public class LoggedGameOverview {
         String PLAYED_DATE = "playeddate";
     }
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = LoggedGameOverviewsColumns.GAME_ID)
     public int gameID;
@@ -29,20 +31,16 @@ public class LoggedGameOverview {
     @ColumnInfo(name = LoggedGameOverviewsColumns.LOCATION_ID)
     public int location_id;
 
-    String location_name;
-
     @ColumnInfo(name = LoggedGameOverviewsColumns.PLAYED_DATE)
     public String played_date;
 
     @ColumnInfo(name = LoggedGameOverviewsColumns.WIN_TYPE)
     public String win_type;
 
-
-    public LoggedGameOverview(@NonNull int gameID, int location_id, String location_name,
-        String played_date, String win_type) {
+    public LoggedGameOverview(@NonNull int gameID, int location_id, String played_date,
+        String win_type) {
         this.gameID = gameID;
         this.location_id = location_id;
-        this.location_name = location_name;
         this.played_date = played_date;
         this.win_type = win_type;
     }
@@ -64,14 +62,6 @@ public class LoggedGameOverview {
         this.location_id = location_id;
     }
 
-    public String getLocation_name() {
-        return location_name;
-    }
-
-    public void setLocation_name(String location_name) {
-        this.location_name = location_name;
-    }
-
     public String getPlayed_date() {
         return played_date;
     }
@@ -86,6 +76,16 @@ public class LoggedGameOverview {
 
     public void setWin_type(String win_type) {
         this.win_type = win_type;
+    }
+
+    @Override
+    public String toString() {
+        return "LoggedGameOverview{" +
+            "gameID=" + gameID +
+            ", location_id=" + location_id +
+            ", played_date='" + played_date + '\'' +
+            ", win_type='" + win_type + '\'' +
+            '}';
     }
 }
 

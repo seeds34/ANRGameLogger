@@ -13,14 +13,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import okhttp3.Response;
-
-import org.seeds.anrgamelogger.database.buisnessobjects.CardImage;
 import org.seeds.anrgamelogger.database.DatabaseModel;
+import org.seeds.anrgamelogger.database.entities.Identity;
+import org.seeds.anrgamelogger.database.entities.Player;
 import org.seeds.anrgamelogger.model.CardList;
 import org.seeds.anrgamelogger.network.Card;
 import org.seeds.anrgamelogger.network.NetworkModel;
-import org.seeds.anrgamelogger.database.buisnessobjects.Identity;
-import org.seeds.anrgamelogger.database.buisnessobjects.Player;
+
 
 /**
  * Created by Tomas Seymour-Turner on 09/01/2018.

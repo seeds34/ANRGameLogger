@@ -1,24 +1,28 @@
-package org.seeds.anrgamelogger.room;
+package org.seeds.anrgamelogger.database.entities;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import java.io.Serializable;
-import org.seeds.anrgamelogger.model.ViewData;
-import org.seeds.anrgamelogger.room.GameLoggerDatabase.Tables;
+import org.seeds.anrgamelogger.database.GameLoggerDatabase.Tables;
 
 
 @Entity(tableName = Tables.PLAYERS)
-public class Player implements Serializable, ViewData {
+public class Player implements Serializable {
 
     public interface PlayersColumns{
         String PLAYER_NAME= "playername";
         String JNET_ID = "jnetid";
         String PLAYER_NICK_NAME = "nickname"; //Unique Name
+        String ID = "id";
     }
 
-    @PrimaryKey
+    @NonNull
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = PlayersColumns.ID)
+    public int id;
+
     @NonNull
     @ColumnInfo(name = PlayersColumns.PLAYER_NAME)
     public String name;
@@ -29,10 +33,20 @@ public class Player implements Serializable, ViewData {
     @ColumnInfo(name = PlayersColumns.PLAYER_NICK_NAME)
     public String nickName;
 
-    public Player(@NonNull String name, String jnetName, String nickName) {
+    public Player(@NonNull int id, @NonNull String name, String jnetName, String nickName) {
+        this.id = id;
         this.name = name;
         this.jnetName = jnetName;
         this.nickName = nickName;
+    }
+
+    @NonNull
+    public int getId() {
+        return id;
+    }
+
+    public void setId(@NonNull int id) {
+        this.id = id;
     }
 
     @NonNull

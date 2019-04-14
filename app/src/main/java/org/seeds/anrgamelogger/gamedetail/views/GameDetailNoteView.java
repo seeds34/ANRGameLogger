@@ -26,7 +26,6 @@ public class GameDetailNoteView extends FrameLayout {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(this.getClass().getName(),"Inflatting");
-        //return super.onCreateView(inflater, container, savedInstanceState);
         return inflater.inflate(R.layout.view_gamedetail_notes,container,false);
     }
 }

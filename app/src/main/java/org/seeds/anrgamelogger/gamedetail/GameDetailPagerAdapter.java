@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
+import org.seeds.anrgamelogger.database.LoggedGameFlat;
 import org.seeds.anrgamelogger.gamedetail.views.GameDetailNoteView;
 import org.seeds.anrgamelogger.gamedetail.views.GameDetailOverview;
 

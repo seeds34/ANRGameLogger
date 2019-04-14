@@ -1,12 +1,17 @@
-package org.seeds.anrgamelogger.room;
+package org.seeds.anrgamelogger.database.entities;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
-import org.seeds.anrgamelogger.room.GameLoggerDatabase.Tables;
+import org.seeds.anrgamelogger.database.entities.Deck.DecksColumns;
+import org.seeds.anrgamelogger.database.GameLoggerDatabase.Tables;
+import org.seeds.anrgamelogger.database.entities.Identity.IdentitiesColumns;
 
-@Entity(tableName = Tables.DECKS)
+@Entity(tableName = Tables.DECKS, foreignKeys = @ForeignKey(entity = Identity.class, parentColumns = IdentitiesColumns.IDENTITY_NAME, childColumns = DecksColumns.DECK_IDENTITY),
+    indices = {@Index(value = {DecksColumns.DECK_NAME, DecksColumns.DECK_VERSION, DecksColumns.DECK_IDENTITY }, unique = true)})
 public class Deck {
 
   public interface DecksColumns{
@@ -15,14 +20,18 @@ public class Deck {
     String DECK_ARCHETYPE= "archetype";
     String DECK_IDENTITY = "identity";
     String NRDB_LINK= "nrdblink";
+    String ID = "id";
   }
 
-  @PrimaryKey
+  @NonNull
+  @PrimaryKey(autoGenerate = true)
+  @ColumnInfo(name = DecksColumns.ID)
+  public int id;
+
   @NonNull
   @ColumnInfo(name = DecksColumns.DECK_NAME)
   public String name;
 
-  @PrimaryKey
   @ColumnInfo(name = DecksColumns.DECK_VERSION)
   public String version;
 
@@ -32,17 +41,27 @@ public class Deck {
   @ColumnInfo(name = DecksColumns.NRDB_LINK)
   public String nrdbLink;
 
-  @PrimaryKey
+  @NonNull
   @ColumnInfo(name = DecksColumns.DECK_IDENTITY)
   public String identityName;
 
-  public Deck(@NonNull String name, String version, String archetype, String nrdbLink,
-      String identity_rowno) {
+  public Deck(@NonNull int id, @NonNull String name, String version, String archetype,
+      String nrdbLink, @NonNull String identityName) {
+    this.id = id;
     this.name = name;
     this.version = version;
     this.archetype = archetype;
     this.nrdbLink = nrdbLink;
-    this.identityName = identity_rowno;
+    this.identityName = identityName;
+  }
+
+  @NonNull
+  public int getId() {
+    return id;
+  }
+
+  public void setId(@NonNull int id) {
+    this.id = id;
   }
 
   @NonNull
@@ -78,11 +97,12 @@ public class Deck {
     this.nrdbLink = nrdbLink;
   }
 
+  @NonNull
   public String getIdentityName() {
     return identityName;
   }
 
-  public void setIdentityName(String identityName) {
+  public void setIdentityName(@NonNull String identityName) {
     this.identityName = identityName;
   }
 }

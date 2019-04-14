@@ -2,11 +2,10 @@ package org.seeds.anrgamelogger.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.seeds.anrgamelogger.database.buisnessobjects.Identity;
+import org.seeds.anrgamelogger.database.entities.Identity;
 
 public class IdentityList  {
 
-   // ArrayList<Card> cards;
     List<Identity> identities;
 
     public IdentityList(List<Identity> listIn){
@@ -39,17 +38,6 @@ public class IdentityList  {
         for (Identity c : identities) {
             ret.add(c.getName());
         }
-        return ret;
-    }
-
-    public int getRowIDByName(String name){
-        int ret = 0;
-        for (int i = 0 ; i < identities.size() ; i++) {
-            if(identities.get(i).getName().equals(name)) {
-                ret = identities.get(i).rowid;
-            }
-        }
-        //Return 0 as error option
         return ret;
     }
 

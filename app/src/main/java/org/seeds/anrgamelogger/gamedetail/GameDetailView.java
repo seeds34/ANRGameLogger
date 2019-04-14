@@ -9,7 +9,7 @@ import android.widget.FrameLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
+import org.seeds.anrgamelogger.database.LoggedGameFlat;
 
 /**
  * Created by Tomas Seymour-Turner on 19/11/2017.
