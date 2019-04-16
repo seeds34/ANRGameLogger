@@ -1,7 +1,7 @@
 package org.seeds.anrgamelogger.application.dagger;
 
 import android.app.Application;
-import android.content.ContentResolver;
+import android.arch.persistence.room.Room;
 import com.squareup.moshi.Moshi;
 import dagger.Module;
 import dagger.Provides;
@@ -9,6 +9,7 @@ import io.reactivex.schedulers.Schedulers;
 import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import org.seeds.anrgamelogger.database.DatabaseModel;
+import org.seeds.anrgamelogger.database.GameLoggerDatabase;
 import org.seeds.anrgamelogger.network.NetworkModel;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -29,8 +30,11 @@ public class ApplicationModule {
 
   @Provides
   @ApplicationScope
-  public ContentResolver getContentResolver(){
-    return application.getContentResolver();
+  public GameLoggerDatabase getDatabse(){
+
+    return Room.databaseBuilder(application.getApplicationContext().getApplicationContext(),
+        GameLoggerDatabase.class, "gameLoggerDatabase")
+        .build();
   }
 
   @Provides
@@ -63,8 +67,8 @@ public class ApplicationModule {
 
   @Provides
   @ApplicationScope
-  public DatabaseModel getDatabaseModel( ){
-    return new DatabaseModel();
+  public DatabaseModel getDatabaseModel(GameLoggerDatabase gld){
+    return new DatabaseModel(gld);
   }
 
   @Provides

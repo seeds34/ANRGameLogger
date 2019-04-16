@@ -1,12 +1,10 @@
 package org.seeds.anrgamelogger.application.dagger;
 
-import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
-
-import org.seeds.anrgamelogger.database.DatabaseModel;
-import org.seeds.anrgamelogger.network.NetworkModel;
-
 import dagger.Component;
 import okhttp3.OkHttpClient;
+import org.seeds.anrgamelogger.database.DatabaseModel;
+import org.seeds.anrgamelogger.database.GameLoggerDatabase;
+import org.seeds.anrgamelogger.network.NetworkModel;
 import retrofit2.Retrofit;
 
 /**
@@ -18,7 +16,7 @@ public interface ApplicationComponent {
 
   OkHttpClient okHttpClient();
 
-  StorIOContentResolver storIOContentResolver();
+  GameLoggerDatabase getDatabse();
 
   Retrofit retrofit();
 

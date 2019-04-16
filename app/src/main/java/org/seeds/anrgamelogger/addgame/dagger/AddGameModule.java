@@ -1,13 +1,10 @@
 package org.seeds.anrgamelogger.addgame.dagger;
 
 import android.app.Activity;
-
-import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
-
 import dagger.Module;
 import dagger.Provides;
-import org.seeds.anrgamelogger.addgame.model.AddGameModel;
 import org.seeds.anrgamelogger.addgame.AddGamePresenter;
+import org.seeds.anrgamelogger.addgame.model.AddGameModel;
 import org.seeds.anrgamelogger.addgame.views.AddGameCorpView;
 import org.seeds.anrgamelogger.addgame.views.AddGameOverviewView;
 import org.seeds.anrgamelogger.addgame.views.AddGameRunnerView;
@@ -52,8 +49,8 @@ public class AddGameModule {
 
     @Provides
     @AddGameScope
-    public AddGameModel GetAddGameModel(DatabaseModel databaseModel, StorIOContentResolver storIOContentResolver){
-        return new AddGameModel(activity, storIOContentResolver, databaseModel);
+    public AddGameModel GetAddGameModel(DatabaseModel databaseModel){
+        return new AddGameModel(activity, databaseModel);
     }
 
     @Provides
