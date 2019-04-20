@@ -1,35 +1,30 @@
 package org.seeds.anrgamelogger.database;
 
 import android.database.Cursor;
-import android.net.Uri;
 import android.util.Log;
 import com.pushtorefresh.storio3.StorIOException;
-import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
-import com.pushtorefresh.storio3.contentresolver.operations.put.PutResult;
-import com.pushtorefresh.storio3.contentresolver.operations.put.PutResults;
-import com.pushtorefresh.storio3.contentresolver.queries.Query;
-
+import com.pushtorefresh.storio3.sqlite.StorIOSQLite;
+import com.pushtorefresh.storio3.sqlite.operations.put.PutResult;
+import com.pushtorefresh.storio3.sqlite.operations.put.PutResults;
+import com.pushtorefresh.storio3.sqlite.queries.Query;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import org.seeds.anrgamelogger.database.GameLoggerDatabase.Tables;
+import org.seeds.anrgamelogger.database.GameLoggerDatabase.Views;
 import org.seeds.anrgamelogger.database.buisnessobjects.CardImage;
 import org.seeds.anrgamelogger.database.buisnessobjects.Deck;
 import org.seeds.anrgamelogger.database.buisnessobjects.Identity;
 import org.seeds.anrgamelogger.database.buisnessobjects.Location;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameOverview;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGamePlayer;
 import org.seeds.anrgamelogger.database.buisnessobjects.Player;
 import org.seeds.anrgamelogger.database.contracts.DecksContract;
-import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract.IdentitiesColumns;
-import org.seeds.anrgamelogger.database.contracts.LocationsContract;
 import org.seeds.anrgamelogger.database.contracts.LocationsContract.LocationsColumns;
 import org.seeds.anrgamelogger.database.contracts.LoggedGameOverviewsContract;
-import org.seeds.anrgamelogger.database.contracts.LoggedGamesFlatViewContract;
-import org.seeds.anrgamelogger.database.contracts.PlayersContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract.PlayersColumns;
-import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameOverview;
 
 /**
  * Created by Tomas Seymour-Turner on 21/02/2018.
@@ -39,39 +34,39 @@ import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameOverview;
 public class DatabaseModel {
 
   private final String LOG_TAG = this.getClass().getName();
-  private StorIOContentResolver storIOContentResolver;
+  private StorIOSQLite storIOSQLite;
 
-  public DatabaseModel(StorIOContentResolver storIOContentResolverIn){
-      storIOContentResolver = storIOContentResolverIn;
+  public DatabaseModel(StorIOSQLite storIOContentResolverIn){
+      storIOSQLite = storIOContentResolverIn;
   }
 
   public boolean isIdentitiesTableEmpty(){
-    return isTableEmpty(IdentitiesContract.URI_TABLE);
+    return isTableEmpty(Tables.IDENTITIES.toString());
   }
 
   public boolean isLocationTableEmpty(){
-    return isTableEmpty(LocationsContract.URI_TABLE);
+    return isTableEmpty(Tables.LOCATIONS.toString());
   }
 
   public boolean isPlayerTableEmpty(){
-    return isTableEmpty(PlayersContract.URI_TABLE);
+    return isTableEmpty(Tables.PLAYERS.toString());
   }
 
   public boolean isLoggedgamesTableEmpty(){
-    return isTableEmpty(LoggedGameOverviewsContract.URI_TABLE);
+    return isTableEmpty(Tables.LOGGED_GAME_OVERVIEWS.toString());
   }
 
-  public boolean isTableEmpty(Uri tableUri){
+  public boolean isTableEmpty(String table){
 
     boolean ret = false;
 
-    Log.d(LOG_TAG,"Starting is Table Empty Check for " + tableUri.toString());
+    Log.d(LOG_TAG,".isTableEmpty(String) : Starting is Table Empty Check for " + table);
 
-    Cursor queryResult = storIOContentResolver
+    Cursor queryResult = storIOSQLite
         .get()
         .cursor()
         .withQuery(Query.builder()
-            .uri(tableUri)
+            .table(table)
             .build())
         .prepare()
         .executeAsBlocking();
@@ -82,34 +77,34 @@ public class DatabaseModel {
       ret = true;
     }
 
-    Log.d(LOG_TAG,"Finished is Table Empty Check for " + tableUri.toString() + " Returning: " + ret);
+    Log.d(LOG_TAG,"Finished is Table Empty Check for " + table + " Returning: " + ret);
 
     return ret;
   }
 
   //----------  Identities ----------//
 
+  //TODO: Fix sorting
   public List<Identity> getAllIdentities(){
-    return storIOContentResolver
+    return storIOSQLite
         .get()
         .listOfObjects(Identity.class)
         .withQuery(Query.builder()
-            .uri(IdentitiesContract.URI_TABLE)
-                .sortOrder(IdentitiesContract.IdentitiesColumns.IDENTITY_FACTION + " asc")
+            .table(Tables.IDENTITIES.toString())
             .build())
         .prepare()
         .executeAsBlocking();
   }
 
+  //TODO: Fix sorting
   public Identity getIdentity(String identityName){
-    return storIOContentResolver
+    return storIOSQLite
         .get()
         .object(Identity.class)
         .withQuery(Query.builder()
-            .uri(IdentitiesContract.URI_TABLE)
+            .table(Tables.IDENTITIES.toString())
             .where(IdentitiesColumns.IDENTITY_NAME + " = ?")
             .whereArgs(identityName)
-            .sortOrder(IdentitiesContract.IdentitiesColumns.IDENTITY_FACTION + " asc")
             .build())
         .prepare()
         .executeAsBlocking();
@@ -117,7 +112,7 @@ public class DatabaseModel {
 
   //Use Card instead of Identity Object as IDs will always be inserted 'remotely' not by user
   public PutResult insertIdentity(Identity i) {
-    return storIOContentResolver
+    return storIOSQLite
             .put()
             .object(i)
             .prepare()
@@ -125,7 +120,8 @@ public class DatabaseModel {
   }
 
   public PutResults insertIdentities(List<Identity> i) {
-    return storIOContentResolver
+    return
+    storIOSQLite
             .put()
             .objects(i)
             .prepare()
@@ -133,7 +129,8 @@ public class DatabaseModel {
   }
 
   public PutResult insertIdentitieImage(CardImage ci){
-    return storIOContentResolver
+    return
+    storIOSQLite
             .put()
             .object(ci)
             .prepare()
@@ -141,7 +138,8 @@ public class DatabaseModel {
   }
 
   public PutResults insertIdedentiteImages(List<CardImage> ci){
-    return storIOContentResolver
+    return
+    storIOSQLite
             .put()
             .objects(ci)
             .prepare()
@@ -153,22 +151,22 @@ public class DatabaseModel {
   //----------  Players ----------//
 
   public List<Player> getAllPlayers() {
-    return storIOContentResolver
+    return storIOSQLite
         .get()
         .listOfObjects(Player.class)
         .withQuery(Query.builder()
-            .uri(PlayersContract.URI_TABLE)
+            .table(Tables.PLAYERS.toString())
             .build())
         .prepare()
         .executeAsBlocking();
   }
 
   public Player getPlayer(String playerName){
-    return storIOContentResolver
+    return storIOSQLite
         .get()
         .object(Player.class)
         .withQuery(Query.builder()
-            .uri(PlayersContract.URI_TABLE)
+            .table(Tables.PLAYERS.toString())
             .where(PlayersColumns.PLAYER_NAME + " = ?")
             .whereArgs(playerName)
             .build())
@@ -178,7 +176,7 @@ public class DatabaseModel {
 
 
   public PutResult insertPlayer(Player playerIn) throws StorIOException {
-    return storIOContentResolver
+    return storIOSQLite
             .put()
             .object(playerIn)
             .prepare()
@@ -188,22 +186,23 @@ public class DatabaseModel {
   //----------  Location ----------//
 
   public List<Location> getAllLocations() {
-    return storIOContentResolver
+    return     storIOSQLite
         .get()
         .listOfObjects(Location.class)
         .withQuery(Query.builder()
-            .uri(LocationsContract.URI_TABLE)
+            .table(Tables.LOCATIONS.toString())
             .build())
         .prepare()
         .executeAsBlocking();
   }
 
   public Location getLocation(String locationName){
-    return storIOContentResolver
+    return
+    storIOSQLite
         .get()
         .object(Location.class)
         .withQuery(Query.builder()
-            .uri(LocationsContract.URI_TABLE)
+            .table(Tables.LOCATIONS.toString())
             .where(LocationsColumns.LOCATION_NAME + " = ?")
             .whereArgs(locationName)
             .build())
@@ -212,7 +211,8 @@ public class DatabaseModel {
   }
 
   public PutResult insertLocation(Location locationIn){
-    return storIOContentResolver
+    return
+    storIOSQLite
         .put()
         .object(locationIn)
         .prepare()
@@ -222,11 +222,12 @@ public class DatabaseModel {
   //----------  Deck ----------//
 
   public List<Deck> getAllDecks() {
-    return storIOContentResolver
+    return
+    storIOSQLite
         .get()
         .listOfObjects(Deck.class)
         .withQuery(Query.builder()
-            .uri(DecksContract.URI_TABLE)
+            .table(Tables.DECKS.toString())
             .build())
         .prepare()
         .executeAsBlocking();
@@ -236,11 +237,13 @@ public class DatabaseModel {
 
     Log.d(LOG_TAG, ".getDeck() : deckVersion = " + deckVersion);
 
-    return storIOContentResolver
+    return
+
+    storIOSQLite
             .get()
             .object(Deck.class)
             .withQuery(Query.builder()
-                    .uri(DecksContract.URI_TABLE)
+                .table(Tables.DECKS.toString())
                     .where(DecksContract.DecksColumns.DECK_NAME + " = ? AND " + DecksContract.DecksColumns.DECK_VERSION + " = ? AND " + DecksContract.DecksColumns.DECK_IDENTITY + " = ?")
                     .whereArgs(deckName, deckVersion, identityNo)
                     .build())
@@ -249,7 +252,7 @@ public class DatabaseModel {
   }
 
 //  public Deck getDeck(String deckName, String deckVersion, String identityName){
-//    return storIOContentResolver
+//    return storIOSQLite
 //            .get()
 //            .object(Deck.class)
 //            .withQuery(Query.builder()
@@ -262,7 +265,8 @@ public class DatabaseModel {
 //  }
 
   public PutResult insertDeck(Deck deckIn){
-    return storIOContentResolver
+    return
+        storIOSQLite
             .put()
             .object(deckIn)
             .prepare()
@@ -272,12 +276,13 @@ public class DatabaseModel {
   //----------  Logged Game ----------//
 
   public LoggedGameOverview getLoggedGame(int gameId){
-    return storIOContentResolver
+    return
+    storIOSQLite
             .get()
             .object(LoggedGameOverview.class)
             .withQuery(Query.builder()
-                    .uri(LoggedGameOverviewsContract.URI_TABLE)
-                    .where(LoggedGameOverviewsContract.LoggedGameOverviewsColumns.GAME_ID + " = ?")
+                  .table(Tables.LOGGED_GAME_OVERVIEWS.toString())
+                  .where(LoggedGameOverviewsContract.LoggedGameOverviewsColumns.GAME_ID + " = ?")
                     .whereArgs(gameId)
                     .build())
             .prepare()
@@ -286,83 +291,52 @@ public class DatabaseModel {
 
   public int getNextGameNo(){
 
-    int ret = 1;
-    if(isLoggedgamesTableEmpty() == false) {
+    int ret = 0;
 
-      LoggedGameOverview lg = storIOContentResolver
-              .get()
-              .object(LoggedGameOverview.class)
-              .withQuery(Query.builder()
-                      .uri(LoggedGameOverviewsContract.URI_TABLE)
-                      .columns("MAX(" + LoggedGameOverviewsContract.LoggedGameOverviewsColumns.GAME_ID + ")")
-                      .build())
-              .prepare()
-              .executeAsBlocking();
-      ret = lg.getGameID()+1;
+    Cursor queryResult = storIOSQLite
+        .get()
+        .cursor()
+        .withQuery(Query.builder()
+            .table("sqlite_sequence")
+            .columns("name", "seq")
+//            .where("name")
+//            .whereArgs(Tables.LOGGED_GAME_OVERVIEWS.toString())
+            .build())
+        .prepare()
+        .executeAsBlocking();
+
+    int nameIndex =  queryResult.getColumnIndex("name");
+    int seqIndex =  queryResult.getColumnIndex("seq");
+
+    if(queryResult != null && queryResult.moveToFirst()){
+      do {
+        if(queryResult.getString(nameIndex).equals(Tables.LOGGED_GAME_OVERVIEWS)){
+            ret = Integer.parseInt(queryResult.getString(seqIndex));
+        }
+      }while(queryResult.moveToNext());
     }
+
+    ret = ret+1;
+
     return ret;
-  }
-  public PutResult insertLoggedGame(LoggedGameOverview loggedGameOverview){
-    return storIOContentResolver
-            .put()
-            .object(loggedGameOverview)
-            .prepare()
-            .executeAsBlocking();
   }
 
   //----------  Logged Game Flat ----------//
 
   public List<LoggedGameFlat> getLoggedGameFlat(int listLength){
-    return storIOContentResolver
-            .get()
-            .listOfObjects(LoggedGameFlat.class)
-            .withQuery(Query.builder()
-                    .uri(LoggedGamesFlatViewContract.URI_TABLE)
-                      //.
-                    .build())
-            .prepare()
-            .executeAsBlocking();
+
+    List ret = storIOSQLite
+        .get()
+        .listOfObjects(LoggedGameFlat.class)
+        .withQuery(Query.builder()
+            .table(Views.LOGGED_GAMES_FLAT_VIEW)
+            .build())
+        .prepare()
+        .executeAsBlocking();
+
+    return  ret;
   }
 
-  public void insertLoggedGame(LoggedGameOverview lgo, LoggedGamePlayer playerOne, LoggedGamePlayer playerTwo ){
-
-    Map<Enum, Boolean> validationResults = validateLogggedGame(lgo,playerOne,playerTwo);
-    
-    boolean allTrue = true;
-
-    for (Map.Entry<Enum, Boolean> entry : validationResults.entrySet() ) {
-        if(entry.getValue() != true){
-          allTrue = false;
-        }
-    }
-
-    //TODO: Add Check to only add new entryes etc if validation has passed
-
-    if (!validationResults.get(LoggedGameValidationList.PLAYER_ONE_EXISTS)){
-      //Create new player
-      PutResult ip = insertPlayer(new Player(playerOne.getPlayer_name()));
-      if(ip.wasInserted()){
-        playerOne.setPlayer_id(getPlayer(playerOne.getPlayer_name()).getRowid());
-      }
-      }else{
-      playerOne.setPlayer_id(getPlayer(playerOne.getPlayer_name()).getRowid());
-      //set Player ID as that from get
-    }
-
-    if (!validationResults.get(LoggedGameValidationList.DECK_ONE_EXISTS)){
-      //Create new Deck
-      PutResult ip = insertDeck(new Deck(playerOne.getDeck_name(), playerOne.getDeck_version(), getIdentity(playerOne.getIdentity_name()).getRowid()));
-      if(ip.wasInserted()){
-        playerOne.setDeck_id(getDeck(playerOne.getDeck_name(),
-                playerOne.getDeck_version(), getIdentity(playerOne.getIdentity_name()).getRowid()).getRowid());
-      }
-    }else{
-      playerOne.setDeck_id(getDeck(playerOne.getDeck_name(),
-              playerOne.getDeck_version(), getIdentity(playerOne.getIdentity_name()).getRowid()).getRowid());
-      //set Deck ID as that from get
-    }
-  }
-  
   public Map<Enum, Boolean> validateLogggedGame(LoggedGameOverview lgo, LoggedGamePlayer playerOne, LoggedGamePlayer playerTwo ){
     Map<Enum, Boolean> ret = new HashMap<>();
 
@@ -441,9 +415,9 @@ public class DatabaseModel {
 
   ////Insert Entire Game
 
-  public void insertLoggedGameN(LoggedGameOverview lgo, LoggedGamePlayer playerOne, LoggedGamePlayer playerTwo ){
+  public void insertLoggedGame(LoggedGameOverview lgo, LoggedGamePlayer playerOne, LoggedGamePlayer playerTwo ){
 
-    Log.d(LOG_TAG, ".insertLoggedGameN() : Starting");
+    Log.d(LOG_TAG, ".insertLoggedGame() : Starting");
     insertLoggedGamePlayer(playerOne);
     insertLoggedGamePlayer(playerTwo);
 
@@ -456,8 +430,8 @@ public class DatabaseModel {
     lgo.setLocation_id(location.getRowid());
 
 
-    Log.d(LOG_TAG, ".insertLoggedGameN() : Inserting Overview");
-    storIOContentResolver
+    Log.d(LOG_TAG, ".insertLoggedGame() : Inserting Overview");
+    storIOSQLite
             .put()
             .object(lgo)
             .prepare()
@@ -466,19 +440,10 @@ public class DatabaseModel {
 
   private void insertLoggedGamePlayer(LoggedGamePlayer lgp) {
     Log.d(LOG_TAG, ".insertLoggedGamePlayer() : Setting up player to insert");
-    /*
-    1: Check and insert deck
-    2: C&I Location
-    3: C&I Player
-    4: C&I Notes
-     */
 
-    //Get Identity
     int identityID = getIdentity(lgp.getIdentity_name()).getRowid();
     Deck deck = getDeck(lgp.getDeck_name(),lgp.getDeck_version(), identityID);
     Player player = getPlayer(lgp.getPlayer_name());
-
-    //Get Deck
 
     if(player == null){
       player = new Player(lgp.getPlayer_name());
@@ -488,8 +453,6 @@ public class DatabaseModel {
     }
     Log.d(LOG_TAG,".insertLoggedGamePlayer() : Player is now: " + "\n" + player.toString());
     lgp.setPlayer_id(player.getRowid());
-
-
 
     if(deck == null){
       deck = new Deck(lgp.getDeck_name(),lgp.getDeck_version(), identityID);
@@ -501,20 +464,13 @@ public class DatabaseModel {
     Log.d(LOG_TAG,".insertLoggedGamePlayer() : Deck is now: " + "\n" + deck.toString());
     lgp.setDeck_id(deck.rowid);
 
-
-
-
     Log.d(LOG_TAG, ".insertLoggedGamePlayer() : Inserting Player Game Log: " + "\n" + lgp.toString());
 
-    //ERROR HERE??  04-12 19:47:33.411 18253-18253/org.seeds.anrgamelogger W/System.err: io.reactivex.exceptions.OnErrorNotImplementedException: Error has occurred during Put operation. object = GameID = 1
-    PutResult prr =
-    storIOContentResolver
+    storIOSQLite
             .put()
             .object(lgp)
             .prepare()
             .executeAsBlocking();
-
-    Log.d(LOG_TAG, ".insertLoggedGamePlayer() : Effect URI for lgp put" + prr.affectedUri());
   }
 
 

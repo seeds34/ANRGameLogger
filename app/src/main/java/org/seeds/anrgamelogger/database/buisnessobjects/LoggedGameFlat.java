@@ -1,67 +1,68 @@
 package org.seeds.anrgamelogger.database.buisnessobjects;
 
 import android.os.Parcel;
-import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
-import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
+import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteColumn;
+import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteType;
+import org.seeds.anrgamelogger.database.GameLoggerDatabase.Views;
 import org.seeds.anrgamelogger.database.contracts.LoggedGamesFlatViewContract;
 
-@StorIOContentResolverType(uri = "content://" + LoggedGamesFlatViewContract.CONTENT_AUTHORITY + "/" + LoggedGamesFlatViewContract.PATH_LOGGED_GAMES)
+@StorIOSQLiteType(table= "temp." + Views.LOGGED_GAMES_FLAT_VIEW)
 public class LoggedGameFlat implements android.os.Parcelable {
 
 
-    @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID, key = true)
-    public int gameID;
+    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID, key = true)
+    public Integer gameID;
 
-    @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_NAME)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_NAME)
     public String pO_Name;
 
-    @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.LOCATION_NAME)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.LOCATION_NAME)
     public String locationName;
 
-    @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYED_DATE)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYED_DATE)
     public String playedDate;
 
-    @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_DECK_NAME)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_DECK_NAME)
     public String pO_DeckName;
 
-    @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_ID_NAME)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_ID_NAME)
     public String pO_Identity;
 
-    @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_ID_IMAGE)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_ID_IMAGE)
     public byte[] pO_IdentityImage;
 
-    @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_SCORE)
-    public int    pO_Score;
+    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_SCORE)
+    public Integer    pO_Score;
 
-    @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_WIN_FLAG)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_WIN_FLAG)
     public String pO_WinFlag;
 
-    @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_NAME)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_NAME)
     public String pT_Name;
 
-    @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_DECK_NAME)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_DECK_NAME)
     public String pT_DeckName;
 
-    @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_ID_NAME)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_ID_NAME)
     public String pT_Identity;
 
-    @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_ID_IMAGE)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_ID_IMAGE)
     public byte[] pT_IdentityImage;
 
-    @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_SCORE)
-    public int    pT_Score;
+    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_SCORE)
+    public Integer    pT_Score;
 
-    @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_WIN_FLAG)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_WIN_FLAG)
     public String pT_WinFlag;
 
-    @StorIOContentResolverColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.WIN_TYPE)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.WIN_TYPE)
     public String winType;
 
     private final String WINNERFLAG = "Y";
 
     public LoggedGameFlat(){}
 
-    public LoggedGameFlat(int gameID, String pO_Name, String locationName, String playedDate, String pO_DeckName, String pO_Identity, byte[] pO_IdentityImage, int pO_Score, String pO_WinFlag, String pT_Name, String pT_DeckName, String pT_Identity, byte[] pT_IdentityImage, int pT_Score, String pT_WinFlag, String winType) {
+    public LoggedGameFlat(Integer gameID, String pO_Name, String locationName, String playedDate, String pO_DeckName, String pO_Identity, byte[] pO_IdentityImage, Integer pO_Score, String pO_WinFlag, String pT_Name, String pT_DeckName, String pT_Identity, byte[] pT_IdentityImage, Integer pT_Score, String pT_WinFlag, String winType) {
         this.gameID = gameID;
         this.pO_Name = pO_Name;
         this.locationName = locationName;
@@ -80,7 +81,7 @@ public class LoggedGameFlat implements android.os.Parcelable {
         this.winType = winType;
     }
 
-    public LoggedGameFlat(String pO_Name, String locationName, String playedDate, String pO_DeckName, String pO_Identity, int pO_Score, String pO_WinFlag, String pT_Name, String pT_DeckName, String pT_Identity, int pT_Score, String pT_WinFlag, String winType) {
+    public LoggedGameFlat(String pO_Name, String locationName, String playedDate, String pO_DeckName, String pO_Identity, Integer pO_Score, String pO_WinFlag, String pT_Name, String pT_DeckName, String pT_Identity, Integer pT_Score, String pT_WinFlag, String winType) {
      //   this.gameID = gameID;
         this.pO_Name = pO_Name;
         this.locationName = locationName;
@@ -113,11 +114,11 @@ public class LoggedGameFlat implements android.os.Parcelable {
         this.pT_Name = pT_Name;
     }
 
-    public int getGameID() {
+    public Integer getGameID() {
         return gameID;
     }
 
-    public void setGameID(int gameID) {
+    public void setGameID(Integer gameID) {
         this.gameID = gameID;
     }
 
@@ -161,11 +162,11 @@ public class LoggedGameFlat implements android.os.Parcelable {
         this.pO_IdentityImage = pO_IdentityImage;
     }
 
-    public int getpO_Score() {
+    public Integer getpO_Score() {
         return pO_Score;
     }
 
-    public void setpO_Score(int pO_Score) {
+    public void setpO_Score(Integer pO_Score) {
         this.pO_Score = pO_Score;
     }
 
@@ -201,11 +202,11 @@ public class LoggedGameFlat implements android.os.Parcelable {
         this.pT_IdentityImage = pT_IdentityImage;
     }
 
-    public int getpT_Score() {
+    public Integer getpT_Score() {
         return pT_Score;
     }
 
-    public void setpT_Score(int pT_Score) {
+    public void setpT_Score(Integer pT_Score) {
         this.pT_Score = pT_Score;
     }
 

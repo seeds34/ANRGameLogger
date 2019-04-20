@@ -1,32 +1,31 @@
 package org.seeds.anrgamelogger.database.buisnessobjects;
 
 import android.provider.BaseColumns;
-
-import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
-import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
-import org.seeds.anrgamelogger.database.contracts.DecksContract;
+import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteColumn;
+import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteType;
+import org.seeds.anrgamelogger.database.GameLoggerDatabase.Tables;
 import org.seeds.anrgamelogger.database.contracts.DecksContract.DecksColumns;
 
-@StorIOContentResolverType(uri = "content://" + DecksContract.CONTENT_AUTHORITY + "/" + DecksContract.PATH_DECKS)
+@StorIOSQLiteType(table= Tables.DECKS)
 public class Deck {
 
-  @StorIOContentResolverColumn(name = DecksColumns.DECK_NAME, key = true)
+  @StorIOSQLiteColumn(name = DecksColumns.DECK_NAME)
   public String name;
 
-  @StorIOContentResolverColumn(name = DecksColumns.DECK_VERSION)
+  @StorIOSQLiteColumn(name = DecksColumns.DECK_VERSION)
   public String version;
 
-  @StorIOContentResolverColumn(name = DecksColumns.DECK_ARCHETYPE)
+  @StorIOSQLiteColumn(name = DecksColumns.DECK_ARCHETYPE)
   public String archetype;
 
-  @StorIOContentResolverColumn(name = DecksColumns.NRDB_LINK)
+  @StorIOSQLiteColumn(name = DecksColumns.NRDB_LINK)
   public String nrdbLink;
 
-  @StorIOContentResolverColumn(name = BaseColumns._ID)
-  public int rowid;
+  @StorIOSQLiteColumn(name = BaseColumns._ID, key = true)
+  public Integer rowid;
 
-  @StorIOContentResolverColumn(name = DecksColumns.DECK_IDENTITY)
-  public int identity_rowno;
+  @StorIOSQLiteColumn(name = DecksColumns.DECK_IDENTITY)
+  public Integer identity_rowno;
 
   public Deck(){}
 
@@ -39,7 +38,7 @@ public class Deck {
     this.version = version;
   }
 
-  public Deck(String name, String version, int identity_rowno) {
+  public Deck(String name, String version, Integer identity_rowno) {
     this.name = name;
     this.version = version;
     this.identity_rowno = identity_rowno;
@@ -84,12 +83,20 @@ public class Deck {
     this.nrdbLink = nrdbLink;
   }
 
-  public int getRowid() {
+  public Integer getRowid() {
     return rowid;
   }
 
-  public void setRowid(int rowid) {
+  public void setRowid(Integer rowid) {
     this.rowid = rowid;
+  }
+
+  public Integer getIdentity_rowno() {
+    return identity_rowno;
+  }
+
+  public void setIdentity_rowno(Integer identity_rowno) {
+    this.identity_rowno = identity_rowno;
   }
 
   public String toString(){

@@ -1,36 +1,36 @@
 package org.seeds.anrgamelogger.database.buisnessobjects;
 
 import android.provider.BaseColumns;
-import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
-import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
-import org.seeds.anrgamelogger.database.contracts.GameNotesContract;
+import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteColumn;
+import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteType;
+import org.seeds.anrgamelogger.database.GameLoggerDatabase.Tables;
 import org.seeds.anrgamelogger.database.contracts.GameNotesContract.GameNotesColumns;
 
-@StorIOContentResolverType(uri = "content://" + GameNotesContract.CONTENT_AUTHORITY + "/" + GameNotesContract.PATH_GAME_NOTES)
+@StorIOSQLiteType(table= Tables.GAME_NOTES)
 public class GameNotes {
 
-  @StorIOContentResolverColumn(name = GameNotesColumns.GAME_ID, key = true)
-  public String gameID;
+  @StorIOSQLiteColumn(name = GameNotesColumns.GAME_ID)
+  public Integer gameID;
 
-  @StorIOContentResolverColumn(name = GameNotesColumns.GAME_NOTE)
+  @StorIOSQLiteColumn(name = GameNotesColumns.GAME_NOTE)
   public String gameNotes;
 
-  @StorIOContentResolverColumn(name = BaseColumns._ID)
-  int rowid;
+  @StorIOSQLiteColumn(name = BaseColumns._ID, key = true)
+  Integer rowid;
 
   public GameNotes(){};
 
-  public GameNotes(String gameID, String gameNotes, int rowid) {
+  public GameNotes(Integer gameID, String gameNotes, int rowid) {
     this.gameID = gameID;
     this.gameNotes = gameNotes;
     this.rowid = rowid;
   }
 
-  public String getGameID() {
+  public Integer getGameID() {
     return gameID;
   }
 
-  public void setGameID(String gameID) {
+  public void setGameID(Integer gameID) {
     this.gameID = gameID;
   }
 
@@ -42,11 +42,11 @@ public class GameNotes {
     this.gameNotes = gameNotes;
   }
 
-  public int getRowid() {
+  public Integer getRowid() {
     return rowid;
   }
 
-  public void setRowid(int rowid) {
+  public void setRowid(Integer rowid) {
     this.rowid = rowid;
   }
 }

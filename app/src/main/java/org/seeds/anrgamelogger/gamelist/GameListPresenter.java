@@ -29,7 +29,10 @@ public class GameListPresenter{
 
         model.databaseFirstTimeSetup();
 
-        //TODO: Uncomment once fixed getGameList
+        //TODO: Uncomment once fixed
+
+        view.setData(model.getGameList(10));
+
 //        model.getGameList(25)
 //                .subscribeOn(Schedulers.io())
 //                .observeOn(AndroidSchedulers.mainThread())

@@ -47,6 +47,7 @@ public class AddGamePresenter {
     public void onCreate() {
 
         cdl = new CustomDPDLister();
+        view.setTitle(String.valueOf(GAMENO));
 
         ArrayList<String> playerList = model.getPlayerList();
         ArrayList<String> deckList = model.getDeckList();
@@ -103,55 +104,44 @@ public class AddGamePresenter {
 
         //TODO: Need to think how to track who won a game better
         String ws = overviewView.getWiningSide().toLowerCase();
-//        LoggedGameFlat gm = new LoggedGameFlat(
-//                runnerPlayerView.getPlayerName(),
-//           overviewView.getLocation(),
-//            overviewView.getPlayedDate(),
-//                runnerPlayerView.getDeckName(),
-//                runnerPlayerView.getIdentityName(),
-//                runnerPlayerView.getScore(),
-//                (ws.equals(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER))?"Y":"N",
-//                corpPlayerView.getPlayerName(),
-//                corpPlayerView.getDeckName(),
-//                corpPlayerView.getIdentityName(),
-//                corpPlayerView.getScore(),
-//                (ws.equals(ANRLoggerApplication.CORP_SIDE_IDENTIFIER))?"N":"Y",
-//                overviewView.getWinType()
-//        );
 
-//        LoggedGamePlayer lgpr = new LoggedGamePlayer(
-//                runnerPlayerView.getPlayerName(),
-//                runnerPlayerView.getDeckName(),
-//                runnerPlayerView.getIdentityName(),
-//                runnerPlayerView.getSide(),
-//                (ws.equals(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER))?"Y":"N",
-//                runnerPlayerView.getScore(),
-//                GAMENO
-//        );
-//
-//
-//        LoggedGamePlayer lgpc = new LoggedGamePlayer(
-//                corpPlayerView.getPlayerName(),
-//                corpPlayerView.getDeckName(),
-//                corpPlayerView.getIdentityName(),
-//                corpPlayerView.getSide(),
-//                (ws.equals(ANRLoggerApplication.CORP_SIDE_IDENTIFIER))?"Y":"N",
-//                corpPlayerView.getScore(),
-//                GAMENO
-//        );
-//
-//        LoggedGameOverview lgo = new LoggedGameOverview(
-//                overviewView.getLocation(),
-//                overviewView.getPlayedDate(),
-//                overviewView.getWinType(),
-//                GAMENO,
-//                overviewView.getWiningSide()
-//        );
+        LoggedGamePlayer lgpr = new LoggedGamePlayer(
+            GAMENO,
+            runnerPlayerView.getPlayerName(),
+                runnerPlayerView.getDeckName(),
+                runnerPlayerView.getIdentityName(),
+                runnerPlayerView.getSide(),
+                (ws.equals(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER))?"Y":"N",
+                runnerPlayerView.getScore(),
+            runnerPlayerView.getDeckVer()
+
+        );
+
+
+        LoggedGamePlayer lgpc = new LoggedGamePlayer(
+            GAMENO,
+            corpPlayerView.getPlayerName(),
+            corpPlayerView.getDeckName(),
+            corpPlayerView.getIdentityName(),
+            corpPlayerView.getSide(),
+            (ws.equals(ANRLoggerApplication.CORP_SIDE_IDENTIFIER))?"Y":"N",
+            corpPlayerView.getScore(),
+            corpPlayerView.getDeckVer()
+        );
+
+        LoggedGameOverview lgo = new LoggedGameOverview(
+                overviewView.getLocation(),
+                overviewView.getPlayedDate(),
+                overviewView.getWinType(),
+                GAMENO,
+                overviewView.getWiningSide()
+        );
 
 
 
 
 
+/*
         LoggedGamePlayer lgpr = new LoggedGamePlayer(
             "Runner 1",
             "Runner Deck 1",
@@ -182,11 +172,13 @@ public class AddGamePresenter {
             GAMENO,
             ANRLoggerApplication.CORP_SIDE_IDENTIFIER
         );
+*/
 
         model.saveLoggedGame(lgo, lgpr, lgpc);
 
+        view.displayGameLoggedMessagge(String.valueOf(GAMENO));
 
-
+        model.finishActivity();
 
         //LoggedGamePlayer pOneData =;
 //        LoggedGamePlayer pTwoData = view.getPlayerTwo();

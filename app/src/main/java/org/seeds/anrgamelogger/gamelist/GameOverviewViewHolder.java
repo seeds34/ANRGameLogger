@@ -36,17 +36,7 @@ public class GameOverviewViewHolder extends RecyclerView.ViewHolder {
 
     public GameOverviewViewHolder(View view) {
         super(view);
-
         ButterKnife.bind(this, view);
-
-
-//        playerOneName = (TextView) view.findViewById(R.id.playerOneName);
-//        playerTwoName = (TextView) view.findViewById(R.id.playerTwoName);
-//        playedDate = (TextView) view.findViewById(R.id.playeddate);
-//        Location = (TextView) view.findViewById(R.id.Location);
-//        playerOneIDImage = (ImageView) view.findViewById(R.id.playerIneIDImage);
-//        playerTwoIDImage = (ImageView) view.findViewById(R.id.playerTwoIDImage);
-//        gameNo = (TextView) view.findViewById(R.id.gameNumber);
     }
 
     public void setUpData(LoggedGameFlat loggedGame){
@@ -54,19 +44,27 @@ public class GameOverviewViewHolder extends RecyclerView.ViewHolder {
         playerTwoName.setText(loggedGame.getpT_Name());
         playedDate.setText(loggedGame.getPlayedDate());
         location.setText(loggedGame.getLocationName());
-        gameNo.setText(loggedGame.getGameID());
-//GAME_NO_TEXT +
-        byte[] imageByteArray = loggedGame.getpO_IdentityImage();
-        ByteArrayInputStream imageStream = new ByteArrayInputStream(imageByteArray);
-        Bitmap theImage = BitmapFactory.decodeStream(imageStream);
 
-        playerOneIDImage.setImageBitmap(theImage);
+        String gn = loggedGame.getGameID().toString();
+        gameNo.setText(gn);
+
+        byte[] imageByteArray = loggedGame.getpO_IdentityImage();
+
+        ByteArrayInputStream imageStream;
+        Bitmap theImage;
+
+        if(imageByteArray != null ) {
+            imageStream= new ByteArrayInputStream(imageByteArray);
+            theImage = BitmapFactory.decodeStream(imageStream);
+            playerOneIDImage.setImageBitmap(theImage);
+        }
 
         imageByteArray = loggedGame.getpT_IdentityImage();
-        imageStream = new ByteArrayInputStream(imageByteArray);
-        theImage = BitmapFactory.decodeStream(imageStream);
-
-        playerTwoIDImage.setImageBitmap(theImage);
+        if(imageByteArray != null ){
+            imageStream = new ByteArrayInputStream(imageByteArray);
+            theImage = BitmapFactory.decodeStream(imageStream);
+            playerTwoIDImage.setImageBitmap(theImage);
+        }
     }
 
 

@@ -1,8 +1,6 @@
 package org.seeds.anrgamelogger.addgame.model;
 
 import android.app.Activity;
-import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
-
 import java.util.ArrayList;
 import java.util.List;
 import org.seeds.anrgamelogger.addgame.AddGameActivity;
@@ -10,11 +8,9 @@ import org.seeds.anrgamelogger.database.DatabaseModel;
 import org.seeds.anrgamelogger.database.buisnessobjects.Deck;
 import org.seeds.anrgamelogger.database.buisnessobjects.Identity;
 import org.seeds.anrgamelogger.database.buisnessobjects.Location;
-import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameOverview;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGamePlayer;
 import org.seeds.anrgamelogger.database.buisnessobjects.Player;
-import org.seeds.anrgamelogger.database.buisnessobjects.Identity;
 
 
 /**
@@ -25,12 +21,10 @@ public class AddGameModel {
 
     private static final String LOG_TAG = AddGameModel.class.getSimpleName();
     private Activity activity;
-    private StorIOContentResolver storIOContentResolver;
     private DatabaseModel databaseModel;
 
-    public AddGameModel(Activity activityIn, StorIOContentResolver storIOContentResolverIn, DatabaseModel databaseModelIn){
+    public AddGameModel(Activity activityIn, DatabaseModel databaseModelIn){
         activity = activityIn;
-        storIOContentResolver = storIOContentResolverIn;
         databaseModel = databaseModelIn;
     }
 
@@ -175,7 +169,11 @@ public class AddGameModel {
     }
 
     public void saveLoggedGame(LoggedGameOverview lgo, LoggedGamePlayer lgpo, LoggedGamePlayer lgpt) {
-        databaseModel.insertLoggedGameN(lgo,lgpo, lgpt);
+        databaseModel.insertLoggedGame(lgo,lgpo, lgpt);
+    }
+
+    public void finishActivity(){
+        activity.finish();
     }
 
     //Fix Overview to work out winner (and which player it is) etc etc

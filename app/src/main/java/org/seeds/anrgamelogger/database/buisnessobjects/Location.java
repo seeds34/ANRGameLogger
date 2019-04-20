@@ -1,20 +1,19 @@
 package org.seeds.anrgamelogger.database.buisnessobjects;
 
 import android.provider.BaseColumns;
-
-import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
-import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
-import org.seeds.anrgamelogger.database.contracts.LocationsContract;
+import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteColumn;
+import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteType;
+import org.seeds.anrgamelogger.database.GameLoggerDatabase.Tables;
 import org.seeds.anrgamelogger.database.contracts.LocationsContract.LocationsColumns;
 
-@StorIOContentResolverType(uri = "content://" + LocationsContract.CONTENT_AUTHORITY + "/" + LocationsContract.PATH_LOCATIONS)
+@StorIOSQLiteType(table= Tables.LOCATIONS)
 public class Location {
 
-  @StorIOContentResolverColumn(name = LocationsColumns.LOCATION_NAME, key = true)
+  @StorIOSQLiteColumn(name = LocationsColumns.LOCATION_NAME)
   public String name;
 
-  @StorIOContentResolverColumn(name = BaseColumns._ID)
-  public int rowid;
+  @StorIOSQLiteColumn(name = BaseColumns._ID, key = true)
+  public Integer rowid;
 
   public Location(){};
 
@@ -30,11 +29,11 @@ public class Location {
     this.name = name;
   }
 
-  public int getRowid() {
+  public Integer getRowid() {
     return rowid;
   }
 
-  public void setRowid(int rowid) {
+  public void setRowid(Integer rowid) {
     this.rowid = rowid;
   }
 }

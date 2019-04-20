@@ -67,15 +67,6 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.12'
     annotationProcessor "com.google.dagger:dagger-compiler:2.12"
 
-    //RXjava1
-//    implementation 'io.reactivex:rxjava:1.2.5'
-//    implementation 'io.reactivex:rxandroid:1.2.1'
-//    implementation 'com.twistedequations.rx:rx-savestate:2.0.2'
-//    implementation 'com.jakewharton.rxbinding:rxbinding:1.0.0'
-//    implementation 'com.jakewharton.rxbinding:rxbinding-support-v4:1.0.0'
-//    implementation 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:1.0.0'
-//    implementation 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:1.0.0'
-
     //RXJava2
     implementation 'io.reactivex.rxjava2:rxjava:2.1.6'
     //implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
@@ -85,14 +76,12 @@ dependencies {
     //implementation 'com.twistedequations.rx2:rx2-savestate:2.0.0'
 
     //StorIO
-    implementation 'com.pushtorefresh.storio3:content-resolver:3.0.0'
-    implementation 'com.pushtorefresh.storio3:content-resolver-annotations:3.0.0'
-    annotationProcessor 'com.pushtorefresh.storio3:content-resolver-annotations-processor:3.0.0'
+    implementation 'com.pushtorefresh.storio3:sqlite:3.0.0'
+    implementation 'com.pushtorefresh.storio3:sqlite-annotations:3.0.0'
+    annotationProcessor 'com.pushtorefresh.storio3:sqlite-annotations-processor:3.0.0'
 
     //GSON
     implementation 'com.google.code.gson:gson:2.8.2'
-
-//implementation 'com.squareup.okhttp3:okhttp:3.9.1'
 
     //Moshi
     implementation 'com.squareup.retrofit2:converter-moshi:2.3.0'
@@ -101,5 +90,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+
+    //Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 
 }

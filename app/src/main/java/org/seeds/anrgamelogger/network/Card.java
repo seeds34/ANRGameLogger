@@ -4,34 +4,26 @@ import com.squareup.moshi.Json;
 /**
  * Created by user on 07/01/2018.
  */
-
-//@StorIOContentResolverType(uri = "content://" + IdentitiesContract.CONTENT_AUTHORITY + "/" + IdentitiesContract.PATH_IDENTITIES)
 public class Card{
 
       @Json(name = "title")
-      //@StorIOContentResolverColumn(name = IdentitiesColumns.IDENTITY_NAME, key = true)
       String name;
 
       @Json(name = "side_code")
-      //@StorIOContentResolverColumn(name = IdentitiesColumns.IDENTITY_SIDE)
       String side_code;
 
        @Json(name = "faction_code")
-      // @StorIOContentResolverColumn(name = IdentitiesColumns.IDENTITY_FACTION)
        String faction_code;
 
       @Json(name = "code")
-      //@StorIOContentResolverColumn(name = IdentitiesColumns.NRDB_CODE)
       String code;
 
       @Json(name = "type_code")
       String type_code;
 
-      //@StorIOContentResolverColumn(name = IdentitiesColumns.NRDB_PACK_CODE)
       @Json(name = "pack_code")
       String pack_code;
 
-     // @StorIOContentResolverColumn(name = IdentitiesColumns.POSTION_IN_PACK)
       @Json(name = "position")
       String pos;
 

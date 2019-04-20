@@ -2,25 +2,20 @@ package org.seeds.anrgamelogger.application;
 
 
 import android.util.Log;
-import com.pushtorefresh.storio3.StorIOException;
-import com.pushtorefresh.storio3.contentresolver.operations.put.PutResult;
+import com.pushtorefresh.storio3.sqlite.operations.put.PutResult;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import okhttp3.Response;
-
-import org.seeds.anrgamelogger.database.buisnessobjects.CardImage;
 import org.seeds.anrgamelogger.database.DatabaseModel;
+import org.seeds.anrgamelogger.database.buisnessobjects.CardImage;
+import org.seeds.anrgamelogger.database.buisnessobjects.Identity;
 import org.seeds.anrgamelogger.model.CardList;
 import org.seeds.anrgamelogger.network.Card;
 import org.seeds.anrgamelogger.network.NetworkModel;
-import org.seeds.anrgamelogger.database.buisnessobjects.Identity;
-import org.seeds.anrgamelogger.database.buisnessobjects.Player;
 
 /**
  * Created by Tomas Seymour-Turner on 09/01/2018.
@@ -60,24 +55,11 @@ public class SetupDatabaseDataModel {
         .subscribe(i -> insertIdentityData(i));
     }
 
-    //TODO: Remove at later date
-    public void setUpTestPlayers(){
-        ArrayList<String> playerList = new ArrayList<>(Arrays.asList(new String[]{"Tomas","Zoe","Greg","Dan","Colin","Scott","Simon","Bill", "Tim", "Kyle"}));
-        for(String s : playerList){
-          try {
-            databaseModel.insertPlayer(new Player(s));
-          }catch (StorIOException e){
-            Log.e(LOG_TAG, "Attempted to insert Player * " + s + "* | This failed");
-          }
-
-        }
-    }
-
     public void insertIdentityData(CardList identitiesIn) {
 
         List<Card> ids = identitiesIn.getCards();
 
-        Log.d(LOG_TAG, "ID List lenght: " + ids.size());
+        Log.d(LOG_TAG, "ID List length: " + ids.size());
 
         Log.d(LOG_TAG,"Inserting IDs");
         for (Card i : ids) {

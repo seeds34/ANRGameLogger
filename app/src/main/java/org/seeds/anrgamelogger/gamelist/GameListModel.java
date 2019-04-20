@@ -3,13 +3,14 @@ package org.seeds.anrgamelogger.gamelist;
 import android.app.Activity;
 import android.util.Log;
 import java.util.ArrayList;
+import java.util.List;
 import org.seeds.anrgamelogger.addgame.AddGameActivity;
+import org.seeds.anrgamelogger.application.SetupDatabaseDataModel;
 import org.seeds.anrgamelogger.database.DatabaseModel;
-import org.seeds.anrgamelogger.network.NetworkModel;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
 import org.seeds.anrgamelogger.gamedetail.GameDetailActivity;
 import org.seeds.anrgamelogger.model.GameListManager;
-import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameOverview;
-import org.seeds.anrgamelogger.application.SetupDatabaseDataModel;
+import org.seeds.anrgamelogger.network.NetworkModel;
 
 
 /**
@@ -55,20 +56,11 @@ public class GameListModel {
     }
 
 
-  public ArrayList<LoggedGameOverview> getGameList(int lengthLimit) {
-//       return Observable.defer(new Function<Observable<ArrayList<LoggedGameOverview>>>() {
-//         @Override
-//         public Object apply(Object o) throws Exception {
-//           return null;
-//         }
-//
-//         @Override
-//            public Observable<ArrayList<LoggedGameOverview>> call() {
-//                return Observable.fromCallable(()-> gameListManager.getGameList()).doOnNext(ret -> gameListManager.genarateGameList(lengthLimit, activity.getContentResolver()));
-//            }
-//        });
-//TODO: Rewrite Methord
-      return (ArrayList)databaseModel.getLoggedGameFlat(50);
+  public ArrayList<LoggedGameFlat> getGameList(int lengthLimit) {
+    List ret = databaseModel.getLoggedGameFlat(50);
+        Log.d(LOG_TAG,".getGameList(int) | ret is " + ret.size());
+
+      return new ArrayList(ret);
     }
 
 

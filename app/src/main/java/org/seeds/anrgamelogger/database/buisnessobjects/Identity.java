@@ -1,9 +1,9 @@
 package org.seeds.anrgamelogger.database.buisnessobjects;
 
 import android.provider.BaseColumns;
-import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
-import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
-import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
+import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteColumn;
+import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteType;
+import org.seeds.anrgamelogger.database.GameLoggerDatabase.Tables;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract.IdentitiesColumns;
 import org.seeds.anrgamelogger.network.Card;
 
@@ -11,35 +11,35 @@ import org.seeds.anrgamelogger.network.Card;
  * Created by user on 07/01/2018.
  */
 
-@StorIOContentResolverType(uri = "content://" + IdentitiesContract.CONTENT_AUTHORITY + "/" + IdentitiesContract.PATH_IDENTITIES)
+@StorIOSQLiteType(table= Tables.IDENTITIES)
 public class Identity {
 
-      @StorIOContentResolverColumn(name = IdentitiesColumns.IDENTITY_NAME, key = true)
+      @StorIOSQLiteColumn(name = IdentitiesColumns.IDENTITY_NAME)
       public String name;
 
-      @StorIOContentResolverColumn(name = IdentitiesColumns.IDENTITY_SIDE)
+      @StorIOSQLiteColumn(name = IdentitiesColumns.IDENTITY_SIDE)
       public String side_code;
 
-       @StorIOContentResolverColumn(name = IdentitiesColumns.IDENTITY_FACTION)
+       @StorIOSQLiteColumn(name = IdentitiesColumns.IDENTITY_FACTION)
        public String faction_code;
 
-       @StorIOContentResolverColumn(name = IdentitiesColumns.ROTATED_FLAG)
+       @StorIOSQLiteColumn(name = IdentitiesColumns.ROTATED_FLAG)
        public String roatated_flag = "N";
 
-      @StorIOContentResolverColumn(name = IdentitiesColumns.NRDB_CODE)
+      @StorIOSQLiteColumn(name = IdentitiesColumns.NRDB_CODE)
       public String code;
 
-     @StorIOContentResolverColumn(name = IdentitiesColumns.IMAGE_BIT_ARRAY)
+     @StorIOSQLiteColumn(name = IdentitiesColumns.IMAGE_BIT_ARRAY)
      public byte[] imageByteArrayOutputStream = null;
 
-      @StorIOContentResolverColumn(name = IdentitiesColumns.NRDB_PACK_CODE)
+      @StorIOSQLiteColumn(name = IdentitiesColumns.NRDB_PACK_CODE)
       public String pack_code;
 
-      @StorIOContentResolverColumn(name = IdentitiesColumns.POSTION_IN_PACK)
+      @StorIOSQLiteColumn(name = IdentitiesColumns.POSTION_IN_PACK)
       public String pos;
 
-    @StorIOContentResolverColumn(name = BaseColumns._ID)
-    public int rowid;
+    @StorIOSQLiteColumn(name = BaseColumns._ID, key = true)
+    public Integer rowid;
 
       public Identity(){}
 
@@ -114,11 +114,11 @@ public class Identity {
     this.pos = pos;
   }
 
-    public int getRowid() {
+    public Integer getRowid() {
         return rowid;
     }
 
-    public void setRowid(int rowid) {
+    public void setRowid(Integer rowid) {
         this.rowid = rowid;
     }
 }

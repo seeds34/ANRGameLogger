@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import org.seeds.anrgamelogger.R;
@@ -33,14 +34,18 @@ public class AddGameView extends FrameLayout {
     public AddGameView(Activity activity){
         super(activity);
         inflate(getContext(), R.layout.view_addgame_base, this);
-        //ButterKnife.setDebug(true);
         ButterKnife.bind(this);
-        toolbar.setTitle(R.string.title_add_new_game);
 
         addGamePagerAdapter =  new AddGamePagerAdapter();
         addGameViewPager.setOffscreenPageLimit(2);
 
         tabLayout.setupWithViewPager(addGameViewPager);
+    }
+
+    public void setTitle(String gameNo){
+        String title = getResources().getString(R.string.title_add_new_game);
+        title += " | No: " + gameNo;
+        toolbar.setTitle(title);
     }
 
     public void setUpPagerViews(AddGameSubView viewIn) {
@@ -50,6 +55,10 @@ public class AddGameView extends FrameLayout {
 
     public void startPageViewer(){
         addGameViewPager.setAdapter(addGamePagerAdapter);
+    }
+
+    public void displayGameLoggedMessagge(String gameNumber){
+        Toast.makeText(this.getContext(),"Game "+ gameNumber +" has been Looged",Toast.LENGTH_SHORT).show();
     }
 
 }

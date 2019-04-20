@@ -1,32 +1,36 @@
 package org.seeds.anrgamelogger.database.buisnessobjects;
 
-import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
-import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
-
+import android.provider.BaseColumns;
+import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteColumn;
+import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteType;
+import org.seeds.anrgamelogger.database.GameLoggerDatabase.Tables;
 import org.seeds.anrgamelogger.database.contracts.LoggedGamePlayersContract;
 
-@StorIOContentResolverType(uri = "content://" + LoggedGamePlayersContract.CONTENT_AUTHORITY + "/" + LoggedGamePlayersContract.PATH_LOGGED_GAMES_PLAYERS)
+@StorIOSQLiteType(table= Tables.LOGGED_GAME_PLAYERS)
 public class LoggedGamePlayer {
 
-  @StorIOContentResolverColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.GAME_ID, key = true)
-  public int gameID;
+  @StorIOSQLiteColumn(name = BaseColumns._ID, key = true)
+  public Integer rowid;
 
-  @StorIOContentResolverColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_ID)
-  public int player_id;
+  @StorIOSQLiteColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.GAME_ID)
+  public Integer gameID;
 
-  @StorIOContentResolverColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.DECK_ID)
-  public int deck_id;
+  @StorIOSQLiteColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_ID)
+  public Integer player_id;
 
-  @StorIOContentResolverColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_SIDE)
-  public String side;
+  @StorIOSQLiteColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.DECK_ID)
+  public Integer deck_id;
 
-  @StorIOContentResolverColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.WIN_FLAG)
+
+
+  @StorIOSQLiteColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.WIN_FLAG)
   public String win_flag;
 
-  @StorIOContentResolverColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.SCORE)
-  public int score;
+  @StorIOSQLiteColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.SCORE)
+  public Integer score;
 
-
+  @StorIOSQLiteColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_SIDE)
+  public String side;
 
   private String player_name;
   private String deck_name;
@@ -35,40 +39,53 @@ public class LoggedGamePlayer {
 
   public LoggedGamePlayer(){}
 
-  public LoggedGamePlayer(int player_id, int deck_id, String side, String win_flag,
-      int score, int gameNumber) {
+  public LoggedGamePlayer(Integer rowid, Integer gameID, Integer player_id, Integer deck_id,
+      String win_flag, Integer score,  String side ) {
+    this.rowid = rowid;
+    this.gameID = gameID;
+    this.player_id = player_id;
+    this.deck_id = deck_id;
+    this.win_flag = win_flag;
+    this.score = score;
+    this.side = side;
+  }
+
+  public LoggedGamePlayer(Integer gameID, Integer player_id, Integer deck_id,
+      String win_flag, Integer score,  String side ) {
     this.player_id = player_id;
     this.deck_id = deck_id;
     this.side = side;
     this.win_flag = win_flag;
     this.score = score;
-    this.gameID = gameNumber;
+    this.gameID = gameID;
+    rowid = null;
   }
 
-  public LoggedGamePlayer(String player_name, String deck_name, String identity_name, String side, String win_flag,
-                          int score, int gameNumber, String deck_version) {
+  public LoggedGamePlayer(Integer gameID, String player_name, String deck_name, String identity_name, String side, String win_flag,
+                          Integer score,  String deck_version) {
+    this.gameID = gameID;
     this.player_name = player_name;
     this.deck_name = deck_name;
     this.identity_name = identity_name;
     this.side = side;
     this.win_flag = win_flag;
-    this.gameID = gameNumber;
+    this.score = score;
     this.deck_version = deck_version;
   }
 
-  public int getPlayer_id() {
+  public Integer getPlayer_id() {
     return player_id;
   }
 
-  public void setPlayer_id(int player_id) {
+  public void setPlayer_id(Integer player_id) {
     this.player_id = player_id;
   }
 
-  public int getDeck_id() {
+  public Integer getDeck_id() {
     return deck_id;
   }
 
-  public void setDeck_id(int deck_id) {
+  public void setDeck_id(Integer deck_id) {
     this.deck_id = deck_id;
   }
 
@@ -88,19 +105,19 @@ public class LoggedGamePlayer {
     this.win_flag = win_flag;
   }
 
-  public int getScore() {
+  public Integer getScore() {
     return score;
   }
 
-  public void setScore(int score) {
+  public void setScore(Integer score) {
     this.score = score;
   }
 
-  public int getGameID() {
+  public Integer getGameID() {
     return gameID;
   }
 
-  public void setGameID(int gameID) {
+  public void setGameID(Integer gameID) {
     this.gameID = gameID;
   }
 
@@ -136,18 +153,29 @@ public class LoggedGamePlayer {
     this.deck_version = deck_version;
   }
 
-  public String toString(){
-    return
-        "GameID = " + gameID + "\n" +
-            "PlayerID = " + player_id + "\n" +
-            "DeckID = " +  deck_id + "\n" +
-            "Win Flag = " +  win_flag + "\n" +
-            "Score = " +  score + "\n" +
-            "PlayerSide = " +  side;
+  public Integer getRowid() {
+    return rowid;
   }
 
+  public void setRowid(Integer rowid) {
+    this.rowid = rowid;
+  }
 
-
-
+  @Override
+  public String toString() {
+    return "LoggedGamePlayer{" +
+        "gameID=" + gameID +
+        ", player_id=" + player_id +
+        ", deck_id=" + deck_id +
+        ", side='" + side + '\'' +
+        ", win_flag='" + win_flag + '\'' +
+        ", score=" + score +
+        ", rowid=" + rowid +
+        ", player_name='" + player_name + '\'' +
+        ", deck_name='" + deck_name + '\'' +
+        ", identity_name='" + identity_name + '\'' +
+        ", deck_version='" + deck_version + '\'' +
+        '}';
+  }
 }
 

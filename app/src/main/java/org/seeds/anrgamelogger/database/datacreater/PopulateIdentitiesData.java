@@ -2,8 +2,6 @@ package org.seeds.anrgamelogger.database.datacreater;
 
 import android.content.ContentResolver;
 
-import com.pushtorefresh.storio3.contentresolver.StorIOContentResolver;
-
 /**
  * Created by Tomas Seymour-Turner on 20/05/2017.
  */
@@ -16,8 +14,6 @@ public class PopulateIdentitiesData {
     private final String NRDB_CARD_LIST_API_URL = "https://netrunnerdb.com/api/2.0/public/cards";
     private final String NRDB_IMAGE_URL = "https://netrunnerdb.com/card_image/";
     private final String IMAGE_FILE_EXT = ".png";
-    private StorIOContentResolver storIOContentResolver;
-
 
 //    public  PopulateIdentitiesData(Context contextIn){
 //        contentResolver = contextIn.getContentResolver();

@@ -1,10 +1,10 @@
 package org.seeds.anrgamelogger.database.buisnessobjects;
 
 import android.provider.BaseColumns;
-import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
-import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
+import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteColumn;
+import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteType;
 import java.io.Serializable;
-import org.seeds.anrgamelogger.database.contracts.PlayersContract;
+import org.seeds.anrgamelogger.database.GameLoggerDatabase.Tables;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract.PlayersColumns;
 import org.seeds.anrgamelogger.model.ViewData;
 
@@ -14,20 +14,20 @@ import org.seeds.anrgamelogger.model.ViewData;
 
 
 //TODO: Need to change so its only refrance to Player DB but need to change all the LOCAL LOGGED GAME Stuff and logic
-@StorIOContentResolverType(uri = "content://" + PlayersContract.CONTENT_AUTHORITY + "/" + PlayersContract.PATH_PLAYERS)
+@StorIOSQLiteType(table= Tables.PLAYERS)
 public class Player implements Serializable, ViewData {
 
-    @StorIOContentResolverColumn(name = PlayersColumns.PLAYER_NAME, key = true)
+    @StorIOSQLiteColumn(name = PlayersColumns.PLAYER_NAME)
     public String name;
 
-    @StorIOContentResolverColumn(name = PlayersColumns.JNET_ID)
+    @StorIOSQLiteColumn(name = PlayersColumns.JNET_ID)
     public String jnetName;
 
-    @StorIOContentResolverColumn(name = PlayersColumns.PLAYER_NICK_NAME)
+    @StorIOSQLiteColumn(name = PlayersColumns.PLAYER_NICK_NAME)
     public String nickName;
 
-    @StorIOContentResolverColumn(name = BaseColumns._ID)
-    public int rowid;
+    @StorIOSQLiteColumn(name = BaseColumns._ID, key = true)
+    public Integer rowid;
 
     private String deck;
     private int score;
@@ -110,11 +110,11 @@ public class Player implements Serializable, ViewData {
         this.nickName = nickName;
     }
 
-    public int getRowid() {
+    public Integer getRowid() {
         return rowid;
     }
 
-    public void setRowid(int rowid) {
+    public void setRowid(Integer rowid) {
         this.rowid = rowid;
     }
 

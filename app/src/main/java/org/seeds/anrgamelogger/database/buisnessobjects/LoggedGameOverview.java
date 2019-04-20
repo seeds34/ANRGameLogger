@@ -1,41 +1,44 @@
 package org.seeds.anrgamelogger.database.buisnessobjects;
 
-import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
-import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
 
+import android.provider.BaseColumns;
+import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteColumn;
+import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteType;
+import org.seeds.anrgamelogger.database.GameLoggerDatabase.Tables;
 import org.seeds.anrgamelogger.database.contracts.LoggedGameOverviewsContract;
 
 /**
  * Created by Tomas Seymour-Turner on 19/03/2017.
  */
 
-@StorIOContentResolverType(uri = "content://" + LoggedGameOverviewsContract.CONTENT_AUTHORITY + "/" + LoggedGameOverviewsContract.PATH_LOGGED_GAMES_OVERVIEW)
+@StorIOSQLiteType(table= Tables.LOGGED_GAME_OVERVIEWS)
 public class LoggedGameOverview {
 //public class LoggedGameOverview implements Parcelable {
 
     //TODO: How am I going to do the Game ID??
-    @StorIOContentResolverColumn(name = LoggedGameOverviewsContract.LoggedGameOverviewsColumns.GAME_ID, key = true)
-    public int gameID;
+    @StorIOSQLiteColumn(name = LoggedGameOverviewsContract.LoggedGameOverviewsColumns.GAME_ID)
+    public Integer gameID;
 
-    @StorIOContentResolverColumn(name = LoggedGameOverviewsContract.LoggedGameOverviewsColumns.LOCATION_ID)
-    public int location_id;
+    @StorIOSQLiteColumn(name = LoggedGameOverviewsContract.LoggedGameOverviewsColumns.LOCATION_ID)
+    public Integer location_id;
 
     String location_name;
 
-    @StorIOContentResolverColumn(name = LoggedGameOverviewsContract.LoggedGameOverviewsColumns.PLAYED_DATE)
+    @StorIOSQLiteColumn(name = LoggedGameOverviewsContract.LoggedGameOverviewsColumns.PLAYED_DATE)
     public String played_date;
 
-    @StorIOContentResolverColumn(name = LoggedGameOverviewsContract.LoggedGameOverviewsColumns.WIN_TYPE)
+    @StorIOSQLiteColumn(name = LoggedGameOverviewsContract.LoggedGameOverviewsColumns.WIN_TYPE)
     public String win_type;
 
-
+    @StorIOSQLiteColumn(name = BaseColumns._ID, key = true)
+    public Integer rowid;
 
     private String winning_side;
 
     public LoggedGameOverview(){}
 
-    public LoggedGameOverview(int gameID, int location_id,
-                              String played_date, String win_type, int gameNumber) {
+    public LoggedGameOverview(Integer gameID, Integer location_id,
+                              String played_date, String win_type, Integer gameNumber) {
         this.gameID = gameID;
         this.location_id = location_id;
         this.played_date = played_date;
@@ -43,7 +46,7 @@ public class LoggedGameOverview {
         this.gameID = gameNumber;
     }
 
-    public LoggedGameOverview(String location_name, String played_date, String win_type, int gameNumber, String winning_side) {
+    public LoggedGameOverview(String location_name, String played_date, String win_type, Integer gameNumber, String winning_side) {
         this.location_name = location_name;
         this.played_date = played_date;
         this.win_type = win_type;
@@ -51,19 +54,19 @@ public class LoggedGameOverview {
         this.winning_side = winning_side;
     }
 
-    public int getGameID() {
+    public Integer getGameID() {
         return gameID;
     }
 
-    public void setGameID(int gameID) {
+    public void setGameID(Integer gameID) {
         this.gameID = gameID;
     }
 
-    public int getLocation_id() {
+    public Integer getLocation_id() {
         return location_id;
     }
 
-    public void setLocation_id(int location_id) {
+    public void setLocation_id(Integer location_id) {
         this.location_id = location_id;
     }
 
@@ -99,120 +102,12 @@ public class LoggedGameOverview {
         this.winning_side = winning_side;
     }
 
-//    private Player playerOne;
-//    private Player playerTwo;
-//    private String locationName;
-//    private String winType;
-//    private String playedDate;
-//    private String winnerFlag = "Y";
+    public Integer getRowid() {
+        return rowid;
+    }
 
-//    public LoggedGameOverview(){}
-//
-//    public LoggedGameOverview(int gameID, int player_id, int deck_id, int location_id, String played_date, String win_type, String side, String win_flag, String score) {
-//        this.gameID = gameID;
-//        this.player_id = player_id;
-//        this.deck_id = deck_id;
-//        this.location_id = location_id;
-//        this.played_date = played_date;
-//        this.win_type = win_type;
-//        this.side = side;
-//        this.win_flag = win_flag;
-//        this.score = score;
-//    }
-//
-//    public LoggedGameOverview(String locationName, String playedDate, String winType){
-//        this.locationName = locationName;
-//        this.playedDate = playedDate;
-//        this.winType = winType;
-//    }
-//    public LoggedGameOverview(Player playerOne, Player playerTwo, String locationName, String playedDate, int gameID, String winType) {
-//        this.playerOne = playerOne;
-//        this.playerTwo = playerTwo;
-//        this.locationName = locationName;
-//        this.playedDate = playedDate;
-//        this.gameID = gameID;
-//        this.winType = winType;
-//    }
-//
-//
-//
-//    public LoggedGameOverview(Cursor loggedGamesCursor){
-//        //TODO: Load game data directly from cursor
-//    }
-//
-//    public int getGameID() {
-//        return gameID;
-//    }
-//
-//    public Player getPlayerOne() {
-//        return playerOne;
-//    }
-//
-//    public Player getPlayerTwo() {
-//        return playerTwo;
-//    }
-//
-//    public String getLocationName() {
-//        return locationName;
-//    }
-//
-//    public String getWinnerName() {
-//        String ret;
-//        if(playerOne.isWinner().toUpperCase() == winnerFlag || playerOne.isWinner().toUpperCase() == winnerFlag){
-//            ret = playerOne.getName();
-//        }else{
-//            ret = playerTwo.getName();
-//        }
-//        return ret;
-//    }
-//
-//    public String getWinType() {
-//        return winType;
-//    }
-//
-//    public String getPlayedDate() {
-//        return playedDate;
-//    }
-//
-//
-//    /*Genrated at: http://www.parcelabler.com/ */
-//    protected LoggedGameOverview(Parcel in) {
-//        gameID = in.readInt();
-//        playerOne = (Player) in.readValue(Player.class.getClassLoader());
-//        playerTwo = (Player) in.readValue(Player.class.getClassLoader());
-//        locationName = in.readString();
-//        winType = in.readString();
-//        playedDate = in.readString();
-//        winnerFlag = in.readString();
-//    }
-//
-//    @Override
-//    public int describeContents() {
-//        return 0;
-//    }
-//
-//    @Override
-//    public void writeToParcel(Parcel dest, int flags) {
-//        dest.writeInt(gameID);
-//        dest.writeValue(playerOne);
-//        dest.writeValue(playerTwo);
-//        dest.writeString(locationName);
-//        dest.writeString(winType);
-//        dest.writeString(playedDate);
-//        dest.writeString(winnerFlag);
-//    }
-//
-//    @SuppressWarnings("unused")
-//    public static final Parcelable.Creator<LoggedGameOverview> CREATOR = new Parcelable.Creator<LoggedGameOverview>() {
-//        @Override
-//        public LoggedGameOverview createFromParcel(Parcel in) {
-//            return new LoggedGameOverview(in);
-//        }
-//
-//        @Override
-//        public LoggedGameOverview[] newArray(int size) {
-//            return new LoggedGameOverview[size];
-//        }
-//    };
+    public void setRowid(Integer rowid) {
+        this.rowid = rowid;
+    }
 }
 

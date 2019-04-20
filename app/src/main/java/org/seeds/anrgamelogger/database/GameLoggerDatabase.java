@@ -4,11 +4,15 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.util.Log;
+import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 import org.seeds.anrgamelogger.database.contracts.DecksContract;
 import org.seeds.anrgamelogger.database.contracts.GameNotesContract;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.LocationsContract;
+import org.seeds.anrgamelogger.database.contracts.LocationsContract.LocationsColumns;
 import org.seeds.anrgamelogger.database.contracts.LoggedGameOverviewsContract;
+import org.seeds.anrgamelogger.database.contracts.LoggedGameOverviewsContract.LoggedGameOverviewsColumns;
 import org.seeds.anrgamelogger.database.contracts.LoggedGamePlayersContract;
 import org.seeds.anrgamelogger.database.contracts.LoggedGamesFlatViewContract;
 import org.seeds.anrgamelogger.database.contracts.PlayersContract;
@@ -39,6 +43,7 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
         String LOGGED_GAMES_FLAT_VIEW = "loggedgamesflatview";
     }
 
+    //TODO: Need to sort Rotated flag for mutiple IDs
     private final String IDENTITIES_DDL = "CREATE TABLE IF NOT EXISTS " + Tables.IDENTITIES + " ( " + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + IdentitiesContract.IdentitiesColumns.IDENTITY_NAME + " TEXT NOT NULL COLLATE NOCASE ,"
             + IdentitiesContract.IdentitiesColumns.IDENTITY_FACTION + " TEXT NOT NULL COLLATE NOCASE,"
@@ -47,8 +52,9 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
             + IdentitiesContract.IdentitiesColumns.NRDB_CODE + " TEXT NOT NULL, "
             + IdentitiesContract.IdentitiesColumns.NRDB_PACK_CODE + " TEXT, "
             + IdentitiesContract.IdentitiesColumns.POSTION_IN_PACK + " TEXT, "
-            + IdentitiesContract.IdentitiesColumns.IMAGE_BIT_ARRAY + " BLOB, "
-            + "CONSTRAINT identitity_name_unique UNIQUE("+ IdentitiesContract.IdentitiesColumns.IDENTITY_NAME +"));";
+            + IdentitiesContract.IdentitiesColumns.IMAGE_BIT_ARRAY + " BLOB );";
+
+           // + "CONSTRAINT identitity_name_unique UNIQUE("+ IdentitiesContract.IdentitiesColumns.IDENTITY_NAME +"));";
 
     private final String LOCATIONS_DDL = "CREATE TABLE IF NOT EXISTS " + Tables.LOCATIONS + " ( " + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + LocationsContract.LocationsColumns.LOCATION_NAME + " TEXT NOT NULL COLLATE NOCASE, "
@@ -93,9 +99,9 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
             + "FOREIGN KEY("+LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_ID +") REFERENCES "+ Tables.PLAYERS +"("+BaseColumns._ID+")"
             + "FOREIGN KEY("+LoggedGamePlayersContract.LoggedGamePlayersColumns.DECK_ID +") REFERENCES "+ Tables.DECKS +"("+BaseColumns._ID+")"
             + "CONSTRAINT game_player_unique UNIQUE("+LoggedGamePlayersContract.LoggedGamePlayersColumns.GAME_ID + "," + LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_ID   +"));";
-  
 
-   private final String VIEW_SELECT_PLAYER = "SELECT "
+
+  private final String VIEW_SELECT_PLAYER = "SELECT "
             + "LGP." + BaseColumns._ID + "  porowid, "
             + "LGP." + LoggedGamePlayersContract.LoggedGamePlayersColumns.GAME_ID + " " + LoggedGamePlayersContract.LoggedGamePlayersColumns.GAME_ID + ", "
             + "D." + DecksContract.DecksColumns.DECK_NAME + " " + DecksContract.DecksColumns.DECK_NAME + ", "
@@ -111,9 +117,10 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
             + " INNER JOIN " + Tables.DECKS + " D ON D." + BaseColumns._ID + " = LGP." + LoggedGamePlayersContract.LoggedGamePlayersColumns.DECK_ID
             + " INNER JOIN " + Tables.IDENTITIES + " I ON I." + BaseColumns._ID + " = D." + DecksContract.DecksColumns.DECK_IDENTITY;
 
-  private final String LOGGED_GAMES_FLAT_VIEW_DDL = "CREATE VIEW IF NOT EXISTS " + Views.LOGGED_GAMES_FLAT_VIEW + " AS SELECT "
+  private final String LOGGED_GAMES_FLAT_VIEW_DDL = "CREATE TEMP VIEW IF NOT EXISTS " + Views.LOGGED_GAMES_FLAT_VIEW + " AS SELECT "
       + "OV." + LoggedGameOverviewsContract.LoggedGameOverviewsColumns.GAME_ID + " " +  LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID + ", "
-      + "OV." + LoggedGameOverviewsContract.LoggedGameOverviewsColumns.LOCATION_ID + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.LOCATION_NAME + ", "
+      //+ "L." +   LocationsColumns.LOCATION_NAME + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.LOCATION_NAME + ", "
+      + "OV." +   LoggedGameOverviewsColumns.LOCATION_ID + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.LOCATION_NAME + ", "
       + "OV." + LoggedGameOverviewsContract.LoggedGameOverviewsColumns.PLAYED_DATE  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYED_DATE + ", "
       + "PO." + DecksContract.DecksColumns.DECK_NAME + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_DECK_NAME + ", "
       + "PO." + PlayersContract.PlayersColumns.PLAYER_NAME  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_NAME + ", "
@@ -133,8 +140,9 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
       + " FROM " + Tables.LOGGED_GAME_OVERVIEWS + " OV "
       + " INNER JOIN (" + VIEW_SELECT_PLAYER + ") PO ON PO." + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID + " = OV." + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID
       + " INNER JOIN (" + VIEW_SELECT_PLAYER + ") PT ON PT." + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID + " = OV." + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID
-      + " WHERE PO." + LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_SIDE + " = 1 "
-      + " AND PT." + LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_SIDE + " = 2 ";
+      //+ " INNER JOIN (" + Tables.LOCATIONS + ") A ON A." + BaseColumns._ID + " = OV." + LoggedGameOverviewsColumns.LOCATION_ID
+      + " WHERE PO." + LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_SIDE + " = \""  + ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER + "\""
+      + " AND PT." + LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_SIDE + " = \""  + ANRLoggerApplication.CORP_SIDE_IDENTIFIER + "\"";
 
 
 
@@ -149,6 +157,9 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
   public GameLoggerDatabase(Context contextIn){
         super(contextIn,DATABASE_NAME,null,DATABASE_VERSION);
         conext = contextIn;
+
+        //Print Out SQL
+    Log.i(LOG_TAG, LOGGED_GAMES_FLAT_VIEW_DDL);
     }
 
     @Override
@@ -160,8 +171,7 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(PLAYERS_DDL);
         sqLiteDatabase.execSQL(GAME_NOTES_DDL);
         sqLiteDatabase.execSQL(LOGGED_GAMES_OVERVIEW_DDL);
-      sqLiteDatabase.execSQL(LOGGED_GAME_PLAYER_DDL);
-
+        sqLiteDatabase.execSQL(LOGGED_GAME_PLAYER_DDL);
         sqLiteDatabase.execSQL(LOGGED_GAMES_FLAT_VIEW_DDL);
 
     }

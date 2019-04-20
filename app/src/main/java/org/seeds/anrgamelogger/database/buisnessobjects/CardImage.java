@@ -1,13 +1,12 @@
 package org.seeds.anrgamelogger.database.buisnessobjects;
 
-import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverColumn;
-import com.pushtorefresh.storio3.contentresolver.annotations.StorIOContentResolverType;
-
-import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
-
+import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteColumn;
+import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteType;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import org.seeds.anrgamelogger.database.GameLoggerDatabase.Tables;
+import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 
 /**
  * Created by user on 21/01/2018.
@@ -15,13 +14,13 @@ import java.io.InputStream;
 
 //TODO:Clean up entire class
     //Exsists so Images can be added to DB sepratly after IDs...
-@StorIOContentResolverType(uri = "content://" + IdentitiesContract.CONTENT_AUTHORITY + "/" + IdentitiesContract.PATH_IDENTITIES)
+@StorIOSQLiteType(table= Tables.IDENTITIES)
 public class CardImage {
 
-    @StorIOContentResolverColumn(name = IdentitiesContract.IdentitiesColumns.NRDB_CODE, key=true)
+    @StorIOSQLiteColumn(name = IdentitiesContract.IdentitiesColumns.NRDB_CODE, key=true)
     String code;
 
-    @StorIOContentResolverColumn(name = IdentitiesContract.IdentitiesColumns.IMAGE_BIT_ARRAY)
+    @StorIOSQLiteColumn(name = IdentitiesContract.IdentitiesColumns.IMAGE_BIT_ARRAY)
     byte[] imageByteArray;
 
     String imageUrl;
