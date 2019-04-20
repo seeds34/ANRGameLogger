@@ -238,7 +238,6 @@ public class DatabaseModel {
     Log.d(LOG_TAG, ".getDeck() : deckVersion = " + deckVersion);
 
     return
-
     storIOSQLite
             .get()
             .object(Deck.class)
@@ -297,10 +296,8 @@ public class DatabaseModel {
         .get()
         .cursor()
         .withQuery(Query.builder()
-            .table("sqlite_sequence")
+            .table(Tables.SQLITE_SEQ)
             .columns("name", "seq")
-//            .where("name")
-//            .whereArgs(Tables.LOGGED_GAME_OVERVIEWS.toString())
             .build())
         .prepare()
         .executeAsBlocking();

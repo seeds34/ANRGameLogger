@@ -7,7 +7,6 @@ import android.provider.BaseColumns;
 import android.util.Log;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 import org.seeds.anrgamelogger.database.contracts.DecksContract;
-import org.seeds.anrgamelogger.database.contracts.GameNotesContract;
 import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
 import org.seeds.anrgamelogger.database.contracts.LocationsContract;
 import org.seeds.anrgamelogger.database.contracts.LocationsContract.LocationsColumns;
@@ -36,7 +35,7 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
         String GAME_NOTES ="gamenotes";
         String PLAYERS = "players";
         String LOGGED_GAME_PLAYERS ="loggedgameplayers";
-//        String WIN_TYPE = "wintype";
+        String SQLITE_SEQ = "sqlite_sequence";
     }
 
     public interface Views{
@@ -53,7 +52,6 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
             + IdentitiesContract.IdentitiesColumns.NRDB_PACK_CODE + " TEXT, "
             + IdentitiesContract.IdentitiesColumns.POSTION_IN_PACK + " TEXT, "
             + IdentitiesContract.IdentitiesColumns.IMAGE_BIT_ARRAY + " BLOB );";
-
            // + "CONSTRAINT identitity_name_unique UNIQUE("+ IdentitiesContract.IdentitiesColumns.IDENTITY_NAME +"));";
 
     private final String LOCATIONS_DDL = "CREATE TABLE IF NOT EXISTS " + Tables.LOCATIONS + " ( " + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -66,10 +64,10 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
             + PlayersContract.PlayersColumns.PLAYER_NICK_NAME + " TEXT,"
             + "CONSTRAINT player_nickname_unique UNIQUE("+ PlayersContract.PlayersColumns.PLAYER_NICK_NAME +"));";
 
-    private final String GAME_NOTES_DDL = "CREATE TABLE IF NOT EXISTS " + Tables.GAME_NOTES + " ( " + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + GameNotesContract.GameNotesColumns.GAME_NOTE + " TEXT,"
-            + GameNotesContract.GameNotesColumns.GAME_ID + " INTEGER NOT NULL);"
-            + "FOREIGN KEY("+GameNotesContract.GameNotesColumns.GAME_ID +") REFERENCES "+ Tables.LOGGED_GAME_OVERVIEWS +"("+BaseColumns._ID+"));";
+//    private final String GAME_NOTES_DDL = "CREATE TABLE IF NOT EXISTS " + Tables.GAME_NOTES + " ( " + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+//            + GameNotesContract.GameNotesColumns.GAME_NOTE + " TEXT,"
+//            + GameNotesContract.GameNotesColumns.GAME_ID + " INTEGER NOT NULL);"
+//            + "FOREIGN KEY("+GameNotesContract.GameNotesColumns.GAME_ID +") REFERENCES "+ Tables.LOGGED_GAME_OVERVIEWS +"("+BaseColumns._ID+"));";
 
     private final String DECKS_DDL = "CREATE TABLE IF NOT EXISTS " + Tables.DECKS + " ( " + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + DecksContract.DecksColumns.DECK_NAME + " TEXT NOT NULL COLLATE NOCASE,"
@@ -94,10 +92,10 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
             + LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_ID + " INTEGER NOT NULL,"
             + LoggedGamePlayersContract.LoggedGamePlayersColumns.DECK_ID + " INTEGER ," /*NOT NULL Removed so DECK_ID is no longer mandatory */
             + LoggedGamePlayersContract.LoggedGamePlayersColumns.WIN_FLAG + " TEXT NOT NULL,"
-            + LoggedGamePlayersContract.LoggedGamePlayersColumns.SCORE + " INTEGER NOT NULL,"
-            + LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_SIDE + " TEXT,"
-            + "FOREIGN KEY("+LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_ID +") REFERENCES "+ Tables.PLAYERS +"("+BaseColumns._ID+")"
-            + "FOREIGN KEY("+LoggedGamePlayersContract.LoggedGamePlayersColumns.DECK_ID +") REFERENCES "+ Tables.DECKS +"("+BaseColumns._ID+")"
+            + LoggedGamePlayersContract.LoggedGamePlayersColumns.SCORE + " INTEGER,"
+            + LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_SIDE + " TEXT NOT NULL,"
+            + "FOREIGN KEY("+LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_ID +") REFERENCES "+ Tables.PLAYERS +"("+BaseColumns._ID+"),"
+            + "FOREIGN KEY("+LoggedGamePlayersContract.LoggedGamePlayersColumns.DECK_ID +") REFERENCES "+ Tables.DECKS +"("+BaseColumns._ID+"),"
             + "CONSTRAINT game_player_unique UNIQUE("+LoggedGamePlayersContract.LoggedGamePlayersColumns.GAME_ID + "," + LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_ID   +"));";
 
 
@@ -119,8 +117,7 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
 
   private final String LOGGED_GAMES_FLAT_VIEW_DDL = "CREATE TEMP VIEW IF NOT EXISTS " + Views.LOGGED_GAMES_FLAT_VIEW + " AS SELECT "
       + "OV." + LoggedGameOverviewsContract.LoggedGameOverviewsColumns.GAME_ID + " " +  LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID + ", "
-      //+ "L." +   LocationsColumns.LOCATION_NAME + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.LOCATION_NAME + ", "
-      + "OV." +   LoggedGameOverviewsColumns.LOCATION_ID + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.LOCATION_NAME + ", "
+      + "L." +   LocationsColumns.LOCATION_NAME + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.LOCATION_NAME + ", "
       + "OV." + LoggedGameOverviewsContract.LoggedGameOverviewsColumns.PLAYED_DATE  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYED_DATE + ", "
       + "PO." + DecksContract.DecksColumns.DECK_NAME + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_DECK_NAME + ", "
       + "PO." + PlayersContract.PlayersColumns.PLAYER_NAME  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_NAME + ", "
@@ -140,19 +137,9 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
       + " FROM " + Tables.LOGGED_GAME_OVERVIEWS + " OV "
       + " INNER JOIN (" + VIEW_SELECT_PLAYER + ") PO ON PO." + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID + " = OV." + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID
       + " INNER JOIN (" + VIEW_SELECT_PLAYER + ") PT ON PT." + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID + " = OV." + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID
-      //+ " INNER JOIN (" + Tables.LOCATIONS + ") A ON A." + BaseColumns._ID + " = OV." + LoggedGameOverviewsColumns.LOCATION_ID
+      + " INNER JOIN " + Tables.LOCATIONS + " L ON L." + BaseColumns._ID + " = OV." + LoggedGameOverviewsColumns.LOCATION_ID
       + " WHERE PO." + LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_SIDE + " = \""  + ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER + "\""
       + " AND PT." + LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_SIDE + " = \""  + ANRLoggerApplication.CORP_SIDE_IDENTIFIER + "\"";
-
-
-
-
-
-
-
-
-
-
 
   public GameLoggerDatabase(Context contextIn){
         super(contextIn,DATABASE_NAME,null,DATABASE_VERSION);
@@ -164,16 +151,15 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-//        deleteDatabase(conext);
+        //deleteDatabase(conext);
         sqLiteDatabase.execSQL(IDENTITIES_DDL);
         sqLiteDatabase.execSQL(DECKS_DDL);
         sqLiteDatabase.execSQL(LOCATIONS_DDL);
         sqLiteDatabase.execSQL(PLAYERS_DDL);
-        sqLiteDatabase.execSQL(GAME_NOTES_DDL);
+       // sqLiteDatabase.execSQL(GAME_NOTES_DDL);
         sqLiteDatabase.execSQL(LOGGED_GAMES_OVERVIEW_DDL);
         sqLiteDatabase.execSQL(LOGGED_GAME_PLAYER_DDL);
         sqLiteDatabase.execSQL(LOGGED_GAMES_FLAT_VIEW_DDL);
-
     }
 
 
