@@ -53,11 +53,12 @@ public class ApplicationModule {
 
   private final Application application;
   private final String NRDB_BASE_API_URL = "https://netrunnerdb.com/api/2.0/public/";
-  ;
+
 
   public ApplicationModule(Application applicationIn) {
     this.application = applicationIn;
   }
+
 
   @Provides
   @ApplicationScope

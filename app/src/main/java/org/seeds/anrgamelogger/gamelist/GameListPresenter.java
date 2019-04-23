@@ -84,4 +84,8 @@ public class GameListPresenter{
                 model.startAddGameActivity(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
             });
     }
+
+  public void refresh() {
+      view.setData(model.getGameList(10));
+  }
 }

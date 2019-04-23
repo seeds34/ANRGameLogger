@@ -84,7 +84,7 @@
             android:layout_marginTop="44dp"
             android:text="Cancel"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scoreTextInputLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/addGameScore" />
 
         <Spinner
             android:id="@+id/identitiesSpinner"
@@ -118,32 +118,30 @@
         </android.support.design.widget.TextInputLayout>
 
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/scoreTextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="44dp"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toEndOf="@+id/deckVersionLayout"
-            app:layout_constraintTop_toBottomOf="@+id/deckNameTextInputLayout">
+        <!--<android.support.design.widget.TextInputLayout-->
+            <!--android:id="@+id/scoreTextInputLayout"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="44dp"-->
+            <!--android:layout_marginStart="44dp"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--app:layout_constraintStart_toEndOf="@+id/deckVersionLayout"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/deckNameTextInputLayout">-->
 
 
-            <AutoCompleteTextView
+            <Spinner
                 android:id="@+id/addGameScore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginLeft="44dp"
+                android:layout_marginStart="44dp"
                 android:layout_marginTop="8dp"
                 android:layout_weight="1"
-                android:hint="Scoreame"
-                android:inputType="number"
-                android:maxLines="1"
-                android:textAlignment="center"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/deckVersionLayout"
+                app:layout_constraintTop_toBottomOf="@+id/deckNameTextInputLayout" />
 
-        </android.support.design.widget.TextInputLayout>
+        <!--</android.support.design.widget.TextInputLayout>-->
 
 
     </android.support.constraint.ConstraintLayout>

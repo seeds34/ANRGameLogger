@@ -8,8 +8,8 @@ import org.seeds.anrgamelogger.R;
 
 public enum AddGameEnum {
 
-    ADDGAMEPLAYERONE(R.string.title_corp, R.layout.view_addgame_player, AddGamePlayerView.class.getClass()),
-    ADDGAMEPLAYERTWO(R.string.title_runner, R.layout.view_addgame_player, AddGamePlayerView.class.getClass()),
+    ADDGAMEPLAYERONE(R.string.corp, R.layout.view_addgame_player, AddGamePlayerView.class.getClass()),
+    ADDGAMEPLAYERTWO(R.string.runner, R.layout.view_addgame_player, AddGamePlayerView.class.getClass()),
     ADDGAMEOVERVIEW(R.string.title_overview, R.layout.view_addgame_overview, AddGameOverviewView.class.getClass());
 
     private int titleRId;

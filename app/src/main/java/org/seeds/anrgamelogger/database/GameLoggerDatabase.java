@@ -146,7 +146,7 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
         conext = contextIn;
 
         //Print Out SQL
-    Log.i(LOG_TAG, LOGGED_GAMES_FLAT_VIEW_DDL);
+        Log.i(LOG_TAG, LOGGED_GAMES_FLAT_VIEW_DDL);
     }
 
     @Override
@@ -163,7 +163,13 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
     }
 
 
-    @Override
+  @Override
+  public void onOpen(SQLiteDatabase db) {
+    super.onOpen(db);
+    db.execSQL(LOGGED_GAMES_FLAT_VIEW_DDL);
+  }
+
+  @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
 //        int version = oldVersion;
 ////        if(version == 1){

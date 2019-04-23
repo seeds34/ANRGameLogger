@@ -51,14 +51,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Corp" />
+            android:text="@string/corp" />
 
         <RadioButton
             android:id="@+id/rbtn_winnerRunner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Runner" />
+            android:text="@string/runner" />
     </RadioGroup>
 
     <RadioGroup
@@ -76,21 +76,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Score" />
+            android:text= "@string/score" />
 
         <RadioButton
             android:id="@+id/rbtn_killWin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Kill" />
+            android:text= "@string/kill" />
 
         <RadioButton
             android:id="@+id/rbtn_millWin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Mill" />
+          android:text= "@string/mill" />
     </RadioGroup>
 
     <Button

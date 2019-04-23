@@ -26,7 +26,7 @@ public class SetupDatabaseDataModel {
     private static final String LOG_TAG = SetupDatabaseDataModel.class.getSimpleName();
     private DatabaseModel databaseModel;
     private NetworkModel networkModel;
-    private final String CGDB_BASE_URL = "https://www.cardgamedb.com/forums/uploads/an/med_ADN";
+    private final String CGDB_BASE_URL = "http://www.cardgamedb.com/forums/uploads/an/med_ADN";
     private final String NRDB_IMAGE_URL = "https://netrunnerdb.com/card_image/";
     private final String IMAGE_FILE_EXT = ".png";
 

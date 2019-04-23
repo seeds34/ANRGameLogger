@@ -14,12 +14,14 @@ public class ANRLoggerApplication extends Application {
 
     private ApplicationComponent applicationComponent;
 
-    public static final String CORP_SIDE_IDENTIFIER = "corp";
-    public static final String RUNNER_SIDE_IDENTIFIER = "runner";
+    //TODO: Need better single place to hold Side strings
+    public static final String CORP_SIDE_IDENTIFIER = "corp";//getResources().getString(R.string.corp);
+    public static final String RUNNER_SIDE_IDENTIFIER = "runner";//getResources().getString(R.string.runner);
 
     public static ANRLoggerApplication get(Activity activity){
          Application a = activity.getApplication();
-        return (ANRLoggerApplication) a; //activity.getApplication();
+        return (ANRLoggerApplication) a;
+        //activity.getApplication();
     }
 
     @Override

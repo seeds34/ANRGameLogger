@@ -42,4 +42,10 @@ public class GameListActivity extends AppCompatActivity{
         super.onDestroy();
         presenter.onDestroy();
     }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    presenter.refresh();
+  }
 }

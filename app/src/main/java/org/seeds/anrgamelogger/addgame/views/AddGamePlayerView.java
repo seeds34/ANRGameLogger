@@ -9,17 +9,14 @@ import android.widget.AutoCompleteTextView;
 import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemSelected;
 import butterknife.OnPageChange;
-import io.reactivex.Observable;
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.addgame.AddGameIdentitesPageAdapter;
 import org.seeds.anrgamelogger.model.IdentityList;
-import org.seeds.anrgamelogger.model.ViewData;
 
 /**
  * Created by Tomas Seymour-Turner on 04/01/2018.
@@ -45,7 +42,7 @@ public class AddGamePlayerView extends FrameLayout implements AddGameSubView {
   TextView deckVer;
 
   @BindView(R.id.addGameScore)
-  TextView score;
+  Spinner score;
 
   private AddGameIdentitesPageAdapter identityImageViewAdapter;
   private ArrayAdapter identityNameArrayAdapter;
@@ -60,6 +57,8 @@ public class AddGamePlayerView extends FrameLayout implements AddGameSubView {
     inflate(getContext(), R.layout.view_addgame_player, this);
     ButterKnife.setDebug(true);
     ButterKnife.bind(this);
+
+    setUpScoreSpinner(15);
   }
 
   public void setSide(String side){
@@ -95,6 +94,17 @@ public class AddGamePlayerView extends FrameLayout implements AddGameSubView {
     identitiesSpinner.setAdapter(identityNameArrayAdapter);
   }
 
+  private void setUpScoreSpinner(int maxPoint){
+
+    Integer[] scoreList = new Integer[maxPoint];
+
+    for(int i = 0 ; i < scoreList.length ; i++){
+      scoreList[i] = i;
+    }
+
+    ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(activity, R.layout.support_simple_spinner_dropdown_item, scoreList);
+    score.setAdapter(adapter);
+  }
 
 
   //TODO: This entire section of getting the spinner and view pager to work togeher feels off. For a start the view pager os relying on
@@ -136,8 +146,8 @@ public class AddGamePlayerView extends FrameLayout implements AddGameSubView {
     return deckVer.getText().toString();
   }
 
-  public int getScore(){
-    return Integer.parseInt(score.getText().toString());
+  public Integer getScore(){
+    return (Integer)score.getSelectedItem();
   }
 
   //  @Override

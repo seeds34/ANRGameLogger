@@ -61,4 +61,8 @@ public class AddGameView extends FrameLayout {
         Toast.makeText(this.getContext(),"Game "+ gameNumber +" has been Looged",Toast.LENGTH_SHORT).show();
     }
 
+  public void displayMessage(String message) {
+      Toast.makeText(this.getContext(),message,Toast.LENGTH_SHORT).show();
+
+  }
 }

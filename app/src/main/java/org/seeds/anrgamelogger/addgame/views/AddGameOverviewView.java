@@ -126,6 +126,9 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
   private void setupDateDialog() {
     //NOTE: Worried this might course a mem leak or to much garbuge in heap
     dialog = new DatePickerDialog(activity, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+
+    dialog.getDatePicker().setMaxDate(Calendar.getInstance().getTimeInMillis());
+
     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
   }
 
