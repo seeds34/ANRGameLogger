@@ -7,9 +7,8 @@ import com.pushtorefresh.storio3.sqlite.StorIOSQLite;
 import com.pushtorefresh.storio3.sqlite.operations.put.PutResult;
 import com.pushtorefresh.storio3.sqlite.operations.put.PutResults;
 import com.pushtorefresh.storio3.sqlite.queries.Query;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import org.seeds.anrgamelogger.database.GameLoggerDatabase.Tables;
 import org.seeds.anrgamelogger.database.GameLoggerDatabase.Views;
 import org.seeds.anrgamelogger.database.buisnessobjects.CardImage;
@@ -20,11 +19,6 @@ import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameOverview;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGamePlayer;
 import org.seeds.anrgamelogger.database.buisnessobjects.Player;
-import org.seeds.anrgamelogger.database.contracts.DecksContract;
-import org.seeds.anrgamelogger.database.contracts.IdentitiesContract.IdentitiesColumns;
-import org.seeds.anrgamelogger.database.contracts.LocationsContract.LocationsColumns;
-import org.seeds.anrgamelogger.database.contracts.LoggedGameOverviewsContract;
-import org.seeds.anrgamelogger.database.contracts.PlayersContract.PlayersColumns;
 
 /**
  * Created by Tomas Seymour-Turner on 21/02/2018.
@@ -91,6 +85,7 @@ public class DatabaseModel {
         .listOfObjects(Identity.class)
         .withQuery(Query.builder()
             .table(Tables.IDENTITIES.toString())
+            .orderBy(Identity.IdentitiesColumns.IDENTITY_FACTION + "," + Identity.IdentitiesColumns.IDENTITY_NAME)
             .build())
         .prepare()
         .executeAsBlocking();
@@ -103,14 +98,13 @@ public class DatabaseModel {
         .object(Identity.class)
         .withQuery(Query.builder()
             .table(Tables.IDENTITIES.toString())
-            .where(IdentitiesColumns.IDENTITY_NAME + " = ?")
+            .where(Identity.IdentitiesColumns.IDENTITY_NAME + " = ?")
             .whereArgs(identityName)
             .build())
         .prepare()
         .executeAsBlocking();
   }
 
-  //Use Card instead of Identity Object as IDs will always be inserted 'remotely' not by user
   public PutResult insertIdentity(Identity i) {
     return storIOSQLite
             .put()
@@ -134,7 +128,7 @@ public class DatabaseModel {
         .object(Identity.class)
         .withQuery(Query.builder()
             .table(Tables.IDENTITIES)
-            .where(IdentitiesColumns.NRDB_CODE + " = ?")
+            .where(Identity.IdentitiesColumns.NRDB_CODE + " = ?")
             .whereArgs(ci.getCode()).build()
     ).prepare()
         .executeAsBlocking();
@@ -150,10 +144,27 @@ public class DatabaseModel {
   }
 
   public PutResults insertIdedentiteImages(List<CardImage> ci){
-    return
-    storIOSQLite
+
+    ArrayList<Identity> identities = new ArrayList<>();
+
+    for (CardImage c : ci){
+      Identity temp = storIOSQLite.get()
+          .object(Identity.class)
+          .withQuery(Query.builder()
+              .table(Tables.IDENTITIES)
+              .where(Identity.IdentitiesColumns.NRDB_CODE + " = ?")
+              .whereArgs(c.getCode()).build()
+          ).prepare()
+          .executeAsBlocking();
+
+      temp.setImageByteArray(c.getImageByteArray());
+
+      identities.add(temp);
+    }
+
+    return storIOSQLite
             .put()
-            .objects(ci)
+            .objects(identities)
             .prepare()
             .executeAsBlocking();
   }
@@ -179,7 +190,7 @@ public class DatabaseModel {
         .object(Player.class)
         .withQuery(Query.builder()
             .table(Tables.PLAYERS.toString())
-            .where(PlayersColumns.PLAYER_NAME + " = ?")
+            .where(Player.PlayersColumns.PLAYER_NAME + " = ?")
             .whereArgs(playerName)
             .build())
         .prepare()
@@ -215,7 +226,7 @@ public class DatabaseModel {
         .object(Location.class)
         .withQuery(Query.builder()
             .table(Tables.LOCATIONS.toString())
-            .where(LocationsColumns.LOCATION_NAME + " = ?")
+            .where(Location.LocationsColumns.LOCATION_NAME + " = ?")
             .whereArgs(locationName)
             .build())
         .prepare()
@@ -255,7 +266,8 @@ public class DatabaseModel {
             .object(Deck.class)
             .withQuery(Query.builder()
                 .table(Tables.DECKS.toString())
-                    .where(DecksContract.DecksColumns.DECK_NAME + " = ? AND " + DecksContract.DecksColumns.DECK_VERSION + " = ? AND " + DecksContract.DecksColumns.DECK_IDENTITY + " = ?")
+                    .where(
+                        Deck.DecksColumns.DECK_NAME + " = ? AND " + Deck.DecksColumns.DECK_VERSION + " = ? AND " + Deck.DecksColumns.DECK_IDENTITY + " = ?")
                     .whereArgs(deckName, deckVersion, identityNo)
                     .build())
             .prepare()
@@ -293,7 +305,7 @@ public class DatabaseModel {
             .object(LoggedGameOverview.class)
             .withQuery(Query.builder()
                   .table(Tables.LOGGED_GAME_OVERVIEWS.toString())
-                  .where(LoggedGameOverviewsContract.LoggedGameOverviewsColumns.GAME_ID + " = ?")
+                  .where(LoggedGameOverview.LoggedGameOverviewsColumns.GAME_ID + " = ?")
                     .whereArgs(gameId)
                     .build())
             .prepare()
@@ -344,82 +356,6 @@ public class DatabaseModel {
         .executeAsBlocking();
 
     return  ret;
-  }
-
-  public Map<Enum, Boolean> validateLogggedGame(LoggedGameOverview lgo, LoggedGamePlayer playerOne, LoggedGamePlayer playerTwo ){
-    Map<Enum, Boolean> ret = new HashMap<>();
-
-    //Validate: 1-Format and style is correct
-    //          2-Meets game rules
-    //            3-Check against DB
-
-    if(getLocation(lgo.getLocation_name()) != null){
-      ret.put(LoggedGameValidationList.LOCATION_EXISTS , true);
-    }else{
-      ret.put(LoggedGameValidationList.LOCATION_EXISTS , false);
-    }
-
-    //TODO: Need real date check
-    if(lgo.getPlayed_date() == "Today"){
-      ret.put(LoggedGameValidationList.DATE_VALID,true);
-    }else{
-      ret.put(LoggedGameValidationList.DATE_VALID, false);
-    }
-
-    //TODO: How to check win type. This is why the calidation needs to be done for the entire game
-    //TODO: Breaks when Medtech played as check of Score nad less the n 7 will fail
-    if(lgo.getWin_type() == "S"){
-      if((lgo.getWinning_side() == playerOne.getSide() && playerOne.getScore() >= 7) ||
-                      (lgo.getWinning_side() == playerTwo.getSide() && playerTwo.getScore() >= 7)){
-        ret.put(LoggedGameValidationList.WIN_TYPE_VALID, true);
-      }else{
-        ret.put(LoggedGameValidationList.WIN_TYPE_VALID, false);
-      }
-    }else if(lgo.getWin_type() == "K"){
-      if(playerOne.getScore() < 7 && playerTwo.getScore() < 7 && lgo.getWinning_side() == "corp"){
-        ret.put(LoggedGameValidationList.WIN_TYPE_VALID, true);
-      }else{
-        ret.put(LoggedGameValidationList.WIN_TYPE_VALID, false);
-      }
-    }else if(lgo.getWin_type() == "M"){
-      if(playerOne.getScore() < 7 && playerTwo.getScore() < 7 && lgo.getWinning_side() == "runner"){
-        ret.put(LoggedGameValidationList.WIN_TYPE_VALID, true);
-      }else{
-        ret.put(LoggedGameValidationList.WIN_TYPE_VALID, false);
-      }
-    }else if(lgo.getWin_type() == "C"){
-      if(playerOne.getScore() < 7 && playerTwo.getScore() < 7){
-        ret.put(LoggedGameValidationList.WIN_TYPE_VALID, true);
-      }else{
-        ret.put(LoggedGameValidationList.WIN_TYPE_VALID, false);
-      }
-    }
-
-    if(getPlayer(playerOne.getPlayer_name()) != null){
-      ret.put(LoggedGameValidationList.PLAYER_ONE_EXISTS, true);
-    }else{
-      ret.put(LoggedGameValidationList.PLAYER_ONE_EXISTS, false);
-    }
-
-    if(getPlayer(playerTwo.getPlayer_name()) != null){
-      ret.put(LoggedGameValidationList.PLAYER_TWO_EXISTS, true);
-    }else{
-      ret.put(LoggedGameValidationList.PLAYER_TWO_EXISTS, false);
-    }
-
-    if(getDeck(playerOne.getDeck_name(),playerOne.getDeck_version(),getIdentity(playerOne.getIdentity_name()).getRowid()) != null){
-      ret.put(LoggedGameValidationList.DECK_ONE_EXISTS, true);
-    }else{
-      ret.put(LoggedGameValidationList.DECK_ONE_EXISTS, false);
-    }
-
-    if(getDeck(playerTwo.getDeck_name(),playerTwo.getDeck_version(),getIdentity(playerTwo.getIdentity_name()).getRowid()) != null){
-      ret.put(LoggedGameValidationList.DECK_TWO_EXISTS, true);
-    }else{
-      ret.put(LoggedGameValidationList.DECK_TWO_EXISTS, false);
-    }
-    
-    return ret;
   }
 
   ////Insert Entire Game

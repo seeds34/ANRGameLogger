@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import java.io.ByteArrayInputStream;
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
@@ -23,6 +25,9 @@ public class GameDetailOverview extends FrameLayout {
 //    private final Activity activity;
     private LoggedGameFlat data;
 
+    //TODO: Move to Butternkife
+
+
     protected TextView playerOneName;
     protected TextView playerTwoName;
     protected TextView playedDate;
@@ -35,7 +40,12 @@ public class GameDetailOverview extends FrameLayout {
     protected TextView playerTwoDeckName;
     protected TextView winnerName;
     protected  TextView gameNo;
-    protected TextView winnerLabel;
+
+    @BindView(R.id.playerOneWinnerLable)
+    protected TextView winnerLabelPO;
+
+    @BindView(R.id.playerTwoWinnerLable)
+    protected TextView winnerLabelPT;
 
     private Activity activity;
 
@@ -44,6 +54,7 @@ public class GameDetailOverview extends FrameLayout {
         inflate(getContext(), R.layout.view_gamedetail_overview, this);
         data = gameIn;
         Log.d("OVERVIEW","Data = " + data);
+        ButterKnife.bind(this);
         onCreate();
     }
 
@@ -52,8 +63,7 @@ public class GameDetailOverview extends FrameLayout {
 //        View v = activity.getLayoutInflater().inflate(R.layout.view_gamedetail_overview,container,false);
 
         Log.v(this.getClass().getName(),"Checking savedInstanceState");
-        //if(getArguments() != null){
-        //data = (LoggedGameOverview) getArguments().get(GAME_TRNASFER);
+
 
         location = (TextView) this.findViewById(R.id.playedLocation);
         playerOneName = (TextView) this.findViewById(R.id.playerOneName);
@@ -68,27 +78,29 @@ public class GameDetailOverview extends FrameLayout {
         //   winnerName = (TextView) v.findViewById(R.id.winnerName);
         gameNo = (TextView) this.findViewById(R.id.gameNo);
 
-        location.setText("@" + data.getLocationName());
+        String loc = (data.getLocationName() != null)?"@" + data.getLocationName():"";
+        location.setText(loc);
         playedDate.setText(data.getPlayedDate());
         playerOneName.setText(data.getpO_Name());
         playerTwoName.setText(data.getpT_Name());
         playerOneScore.setText(String.valueOf(data.getpO_Score()));
         playerTwoScore.setText(String.valueOf(data.getpT_Score()));
-        playerOneDeckName.setText(data.getpO_DeckName());
-        playerTwoDeckName.setText(data.getpT_DeckName());
+
+        String deckName = (data.getpO_DeckName() != null)?data.getpO_DeckName():"";
+        playerOneDeckName.setText(deckName);
+        deckName = (data.getpT_DeckName() != null)?data.getpT_DeckName():"";
+        playerTwoDeckName.setText(deckName);
         gameNo.setText(data.getGameID());
 
         String winnerText = "Winner Name: " + data.getWinnerName();
         // winnerName.setText(winnerText);
 
         //TODO: Fix Win logic
-//        if(data.getWinnerName() == data.getPlayerOne().getName()){
-            winnerLabel = (TextView) this.findViewById(R.id.playerOneWinnerLable);
-            winnerLabel.setVisibility(View.VISIBLE);
-//        }else{
-//            winnerLabel = (TextView) this.findViewById(R.id.playerTwoWinnerLable);
-//            winnerLabel.setVisibility(View.VISIBLE);
-//        }
+        if(data.getWinnerName().equals(data.getpO_Name())){
+            winnerLabelPO.setVisibility(View.VISIBLE);
+        }else{
+            winnerLabelPT.setVisibility(View.VISIBLE);
+        }
 
         byte[] imageByteArray = data.getpO_IdentityImage();
         ByteArrayInputStream imageStream = new ByteArrayInputStream(imageByteArray);

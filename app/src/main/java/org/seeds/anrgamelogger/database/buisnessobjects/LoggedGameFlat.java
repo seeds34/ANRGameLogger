@@ -4,61 +4,78 @@ import android.os.Parcel;
 import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteColumn;
 import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteType;
 import org.seeds.anrgamelogger.database.GameLoggerDatabase.Views;
-import org.seeds.anrgamelogger.database.contracts.LoggedGamesFlatViewContract;
 
 @StorIOSQLiteType(table= "temp." + Views.LOGGED_GAMES_FLAT_VIEW)
 public class LoggedGameFlat implements android.os.Parcelable {
 
+    public interface LoggedGamesFlatViewContractColumns{
+        String GAME_ID = "gameid";
+        String LOCATION_NAME = "locationname";
+        String WIN_TYPE = "wintype";
+        String PLAYED_DATE = "playeddate";
+        String PLAYER_ONE_NAME = "playeronename";
+        String PLAYER_ONE_SCORE = "playeronescore";
+        String PLAYER_ONE_WIN_FLAG = "playeronewinflag";
+        String PLAYER_ONE_DECK_NAME = "playerOneDeckName";
+        String PLAYER_ONE_ID_NAME = "playeroneID";
+        String PLAYER_ONE_NRDB_CODE = "playeronenrdbcode";
+        String PLAYER_TWO_NAME = "playertwoname";
+        String PLAYER_TWO_SCORE = "playertwoscore";
+        String PLAYER_TWO_WIN_FLAG = "playertwowinflag";
+        String PLAYER_TWO_DECK_NAME = "playertwodeckname";
+        String PLAYER_TWO_ID_NAME = "playertwoid";
+        String PLAYER_TWO_NRDB_CODE = "playertwonrdbcode";
+        String PLAYER_ONE_ID_IMAGE = "playeroneidimage";
+        String PLAYER_TWO_ID_IMAGE = "playertwoidimage";
+    }
 
-    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID, key = true)
+    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.GAME_ID, key = true)
     public Integer gameID;
 
-    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_NAME)
+    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYER_ONE_NAME)
     public String pO_Name;
 
-    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.LOCATION_NAME)
+    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.LOCATION_NAME)
     public String locationName;
 
-    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYED_DATE)
+    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYED_DATE)
     public String playedDate;
 
-    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_DECK_NAME)
+    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYER_ONE_DECK_NAME)
     public String pO_DeckName;
 
-    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_ID_NAME)
+    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYER_ONE_ID_NAME)
     public String pO_Identity;
 
-    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_ID_IMAGE)
+    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYER_ONE_ID_IMAGE)
     public byte[] pO_IdentityImage;
 
-    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_SCORE)
+    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYER_ONE_SCORE)
     public Integer    pO_Score;
 
-    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_WIN_FLAG)
+    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYER_ONE_WIN_FLAG)
     public String pO_WinFlag;
 
-    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_NAME)
+    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYER_TWO_NAME)
     public String pT_Name;
 
-    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_DECK_NAME)
+    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYER_TWO_DECK_NAME)
     public String pT_DeckName;
 
-    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_ID_NAME)
+    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYER_TWO_ID_NAME)
     public String pT_Identity;
 
-    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_ID_IMAGE)
+    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYER_TWO_ID_IMAGE)
     public byte[] pT_IdentityImage;
 
-    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_SCORE)
+    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYER_TWO_SCORE)
     public Integer    pT_Score;
 
-    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_WIN_FLAG)
+    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYER_TWO_WIN_FLAG)
     public String pT_WinFlag;
 
-    @StorIOSQLiteColumn(name = LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.WIN_TYPE)
+    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.WIN_TYPE)
     public String winType;
-
-    private final String WINNERFLAG = "Y";
 
     public LoggedGameFlat(){}
 
@@ -69,13 +86,13 @@ public class LoggedGameFlat implements android.os.Parcelable {
         this.playedDate = playedDate;
         this.pO_DeckName = pO_DeckName;
         this.pO_Identity = pO_Identity;
-        this.pO_IdentityImage = pO_IdentityImage;
+        this.pO_IdentityImage = null;//pO_IdentityImage;
         this.pO_Score = pO_Score;
         this.pO_WinFlag = pO_WinFlag;
         this.pT_Name = pT_Name;
         this.pT_DeckName = pT_DeckName;
         this.pT_Identity = pT_Identity;
-        this.pT_IdentityImage = pT_IdentityImage;
+        this.pT_IdentityImage = null;//pT_IdentityImage;
         this.pT_Score = pT_Score;
         this.pT_WinFlag = pT_WinFlag;
         this.winType = winType;
@@ -228,7 +245,7 @@ public class LoggedGameFlat implements android.os.Parcelable {
 
     public String getWinnerName() {
         String ret;
-        if(pO_WinFlag.matches(WINNERFLAG)){
+        if(pO_WinFlag.matches("Y")){
             ret = pO_Name;
         }else{
             ret = pT_Name;
@@ -244,39 +261,40 @@ public class LoggedGameFlat implements android.os.Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.gameID);
+        dest.writeValue(this.gameID);
         dest.writeString(this.pO_Name);
         dest.writeString(this.locationName);
         dest.writeString(this.playedDate);
         dest.writeString(this.pO_DeckName);
         dest.writeString(this.pO_Identity);
         dest.writeByteArray(this.pO_IdentityImage);
-        dest.writeInt(this.pO_Score);
+        dest.writeValue(this.pO_Score);
         dest.writeString(this.pO_WinFlag);
         dest.writeString(this.pT_Name);
         dest.writeString(this.pT_DeckName);
         dest.writeString(this.pT_Identity);
         dest.writeByteArray(this.pT_IdentityImage);
-        dest.writeInt(this.pT_Score);
+        dest.writeValue(this.pT_Score);
         dest.writeString(this.pT_WinFlag);
         dest.writeString(this.winType);
+
     }
 
     protected LoggedGameFlat(Parcel in) {
-        this.gameID = in.readInt();
+        this.gameID = (Integer) in.readValue(Integer.class.getClassLoader());
         this.pO_Name = in.readString();
         this.locationName = in.readString();
         this.playedDate = in.readString();
         this.pO_DeckName = in.readString();
         this.pO_Identity = in.readString();
         this.pO_IdentityImage = in.createByteArray();
-        this.pO_Score = in.readInt();
+        this.pO_Score = (Integer) in.readValue(Integer.class.getClassLoader());
         this.pO_WinFlag = in.readString();
         this.pT_Name = in.readString();
         this.pT_DeckName = in.readString();
         this.pT_Identity = in.readString();
         this.pT_IdentityImage = in.createByteArray();
-        this.pT_Score = in.readInt();
+        this.pT_Score = (Integer) in.readValue(Integer.class.getClassLoader());
         this.pT_WinFlag = in.readString();
         this.winType = in.readString();
     }

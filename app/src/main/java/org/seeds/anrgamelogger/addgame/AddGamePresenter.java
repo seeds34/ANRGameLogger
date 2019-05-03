@@ -54,7 +54,7 @@ public class AddGamePresenter {
         ArrayList<String> deckList = model.getDeckList();
         ArrayList<String> locationList = model.getLocationList();
 
-        IdentityList idList = new IdentityList(model.getListOfIdenties());
+        IdentityList idList = new IdentityList(model.getListOfIdentities());
 
         runnerPlayerView.setSide(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
         runnerPlayerView.setIdApadters(idList.getOneSidedList(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER));

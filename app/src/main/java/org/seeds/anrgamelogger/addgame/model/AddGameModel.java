@@ -28,90 +28,15 @@ public class AddGameModel {
         databaseModel = databaseModelIn;
     }
 
-//public ArrayList<String> getListOfIdentitesNames(int side){
-//
-//    ArrayList<String> ret = new ArrayList<String>();
-//
-//    String sideName = activity.getString(side);
-//
-//    Cursor queryResult = storIOContentResolver
-//        .get()
-//        .cursor()
-//        .withQuery(Query.builder()
-//            .uri(IdentitiesContract.URI_TABLE)
-//            .where(IdentitiesContract.IdentitiesColumns.IDENTITY_SIDE + " = '" + sideName + "'")
-//                .sortOrder(IdentitiesColumns.IDENTITY_FACTION + " asc")
-//            .build())
-//        .prepare()
-//        .executeAsBlocking();
-//
-//    if (queryResult != null) {
-//        if (queryResult.moveToFirst()) {
-//            do {
-//                ret.add(queryResult.getString(queryResult.getColumnIndex(IdentitiesColumns.IDENTITY_NAME)));
-//            }while (queryResult.moveToNext());
-//            queryResult.close();
-//        }
-//    }
-//    return  ret;
-//}
-//
-//    public ArrayList<byte[]> getListOfIdentitesImages(int side) {
-//        ArrayList<byte[]> ret = new ArrayList<>();
-//
-//        String sideName = activity.getString(side);
-//
-//        Cursor queryResult = storIOContentResolver
-//                .get()
-//                .cursor()
-//                .withQuery(Query.builder()
-//                        .uri(IdentitiesContract.URI_TABLE)
-//                        .where(IdentitiesContract.IdentitiesColumns.IDENTITY_SIDE + " = '" + sideName + "'")
-//                        .sortOrder(IdentitiesColumns.IDENTITY_FACTION + " asc")
-//                        .build())
-//                .prepare()
-//                .executeAsBlocking();
-//
-//        if (queryResult != null) {
-//            if (queryResult.moveToFirst()) {
-//                do {
-//                    ret.add(queryResult.getBlob(queryResult.getColumnIndex(IdentitiesColumns.IMAGE_BIT_ARRAY)));
-//                }while (queryResult.moveToNext());
-//                queryResult.close();
-//            }
-//        }
-//        return  ret;
-//
-//    }
-
     public String getSide(){
         return activity.getIntent().getStringExtra(AddGameActivity.SIDE);
     }
 
-
-    public List<Identity> getListOfIdenties(){
+    public List<Identity> getListOfIdentities(){
 
         return databaseModel.getAllIdentities();
-//        List<Card> ret;
-//        String sideName = activity.getString(side);
-//
-//        ret = storIOContentResolver
-//            .get()
-//            .listOfObjects(Card.class)
-//            .withQuery(Query.builder()
-//                .uri(IdentitiesContract.URI_TABLE)
-//                .where(IdentitiesContract.IdentitiesColumns.IDENTITY_SIDE + " = '" + sideName + "'")
-//                .sortOrder(IdentitiesColumns.IDENTITY_FACTION + " asc")
-//                .build())
-//            .prepare()
-//            .executeAsBlocking();
-//
-//        return ret;
     }
 
-    public Identity getIdentity(String identityName){
-        return databaseModel.getIdentity(identityName);
-    }
 
     public ArrayList<String> getPlayerList() {
         List<Player> temp = databaseModel.getAllPlayers();
@@ -120,30 +45,6 @@ public class AddGameModel {
             ret.add(p.getName());
         }
        return ret;
-    }
-
-    public Player getPlayer(String playerName){
-        return databaseModel.getPlayer(playerName);
-    }
-
-    public Location getLocation(String locationName){
-        return databaseModel.getLocation(locationName);
-    }
-
-    public Deck getDeck(String deckName, String deckVersion, int identiyNo){
-        return databaseModel.getDeck(deckName, deckVersion, identiyNo);
-    }
-
-    public void insertNewLocation(Location loc){
-        databaseModel.insertLocation(loc);
-    }
-
-    public void insertNewDeck(Deck deck) {
-        databaseModel.insertDeck(deck);
-    }
-
-    public void insertPlayer(Player player) {
-        databaseModel.insertPlayer(player);
     }
 
     public int getNextGameNo() {
@@ -176,13 +77,6 @@ public class AddGameModel {
         activity.finish();
     }
 
-    //Fix Overview to work out winner (and which player it is) etc etc
-
-    /*
-    1: Get MAX Logged Game GAME_ID
-    2: Create LoggedGameOverview using PlayerOne Data
-    3: Create LoggedGameOverview using PlayerTwo Data
-     */
 
 
 }

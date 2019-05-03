@@ -4,7 +4,6 @@ import android.provider.BaseColumns;
 import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteColumn;
 import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteType;
 import org.seeds.anrgamelogger.database.GameLoggerDatabase.Tables;
-import org.seeds.anrgamelogger.database.contracts.LoggedGamePlayersContract;
 
 @StorIOSQLiteType(table= Tables.LOGGED_GAME_PLAYERS)
 public class LoggedGamePlayer {
@@ -12,24 +11,24 @@ public class LoggedGamePlayer {
   @StorIOSQLiteColumn(name = BaseColumns._ID, key = true)
   public Integer rowid;
 
-  @StorIOSQLiteColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.GAME_ID)
+  @StorIOSQLiteColumn(name = LoggedGamePlayer.LoggedGamePlayersColumns.GAME_ID)
   public Integer gameID;
 
-  @StorIOSQLiteColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_ID)
+  @StorIOSQLiteColumn(name = LoggedGamePlayer.LoggedGamePlayersColumns.PLAYER_ID)
   public Integer player_id;
 
-  @StorIOSQLiteColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.DECK_ID)
+  @StorIOSQLiteColumn(name = LoggedGamePlayer.LoggedGamePlayersColumns.DECK_ID)
   public Integer deck_id;
 
 
 
-  @StorIOSQLiteColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.WIN_FLAG)
+  @StorIOSQLiteColumn(name = LoggedGamePlayer.LoggedGamePlayersColumns.WIN_FLAG)
   public String win_flag;
 
-  @StorIOSQLiteColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.SCORE)
+  @StorIOSQLiteColumn(name = LoggedGamePlayer.LoggedGamePlayersColumns.SCORE)
   public Integer score;
 
-  @StorIOSQLiteColumn(name = LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_SIDE)
+  @StorIOSQLiteColumn(name = LoggedGamePlayer.LoggedGamePlayersColumns.PLAYER_SIDE)
   public String side;
 
   private String player_name;
@@ -176,6 +175,15 @@ public class LoggedGamePlayer {
         ", identity_name='" + identity_name + '\'' +
         ", deck_version='" + deck_version + '\'' +
         '}';
+  }
+
+  public interface LoggedGamePlayersColumns{
+    String GAME_ID = "gameid";
+    String PLAYER_ID = "playerid";
+    String DECK_ID = "deckid";
+    String WIN_FLAG = "winflag";
+    String SCORE = "score";
+    String PLAYER_SIDE = "playerside";
   }
 }
 

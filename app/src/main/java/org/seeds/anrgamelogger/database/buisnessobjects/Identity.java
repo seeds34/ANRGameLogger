@@ -4,7 +4,6 @@ import android.provider.BaseColumns;
 import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteColumn;
 import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteType;
 import org.seeds.anrgamelogger.database.GameLoggerDatabase.Tables;
-import org.seeds.anrgamelogger.database.contracts.IdentitiesContract.IdentitiesColumns;
 import org.seeds.anrgamelogger.network.Card;
 
 /**
@@ -14,28 +13,28 @@ import org.seeds.anrgamelogger.network.Card;
 @StorIOSQLiteType(table= Tables.IDENTITIES)
 public class Identity {
 
-      @StorIOSQLiteColumn(name = IdentitiesColumns.IDENTITY_NAME)
+      @StorIOSQLiteColumn(name = Identity.IdentitiesColumns.IDENTITY_NAME)
       public String name;
 
-      @StorIOSQLiteColumn(name = IdentitiesColumns.IDENTITY_SIDE)
+      @StorIOSQLiteColumn(name = Identity.IdentitiesColumns.IDENTITY_SIDE)
       public String side_code;
 
-       @StorIOSQLiteColumn(name = IdentitiesColumns.IDENTITY_FACTION)
+       @StorIOSQLiteColumn(name = Identity.IdentitiesColumns.IDENTITY_FACTION)
        public String faction_code;
 
-       @StorIOSQLiteColumn(name = IdentitiesColumns.ROTATED_FLAG)
+       @StorIOSQLiteColumn(name = Identity.IdentitiesColumns.ROTATED_FLAG)
        public String roatated_flag = "N";
 
-      @StorIOSQLiteColumn(name = IdentitiesColumns.NRDB_CODE)
+      @StorIOSQLiteColumn(name = Identity.IdentitiesColumns.NRDB_CODE)
       public String code;
 
-     @StorIOSQLiteColumn(name = IdentitiesColumns.IMAGE_BIT_ARRAY)
+     @StorIOSQLiteColumn(name = Identity.IdentitiesColumns.IMAGE_BIT_ARRAY)
      public byte[] imageByteArrayOutputStream = null;
 
-      @StorIOSQLiteColumn(name = IdentitiesColumns.NRDB_PACK_CODE)
+      @StorIOSQLiteColumn(name = Identity.IdentitiesColumns.NRDB_PACK_CODE)
       public String pack_code;
 
-      @StorIOSQLiteColumn(name = IdentitiesColumns.POSTION_IN_PACK)
+      @StorIOSQLiteColumn(name = Identity.IdentitiesColumns.POSTION_IN_PACK)
       public String pos;
 
     @StorIOSQLiteColumn(name = BaseColumns._ID, key = true)
@@ -121,4 +120,15 @@ public class Identity {
     public void setRowid(Integer rowid) {
         this.rowid = rowid;
     }
+
+  public interface IdentitiesColumns {
+      String IDENTITY_NAME = "name";
+      String IDENTITY_FACTION = "faction";
+      String IDENTITY_SIDE = "side";
+      String ROTATED_FLAG = "rotated";
+      String NRDB_CODE = "nrdbcode";
+      String IMAGE_BIT_ARRAY = "imagedata";
+      String POSTION_IN_PACK = "postioninpack";
+      String NRDB_PACK_CODE = "nrdbpackcode";
+  }
 }

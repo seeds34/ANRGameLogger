@@ -5,7 +5,6 @@ import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteColumn;
 import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteType;
 import java.io.Serializable;
 import org.seeds.anrgamelogger.database.GameLoggerDatabase.Tables;
-import org.seeds.anrgamelogger.database.contracts.PlayersContract.PlayersColumns;
 import org.seeds.anrgamelogger.model.ViewData;
 
 /**
@@ -17,13 +16,13 @@ import org.seeds.anrgamelogger.model.ViewData;
 @StorIOSQLiteType(table= Tables.PLAYERS)
 public class Player implements Serializable, ViewData {
 
-    @StorIOSQLiteColumn(name = PlayersColumns.PLAYER_NAME)
+    @StorIOSQLiteColumn(name = Player.PlayersColumns.PLAYER_NAME)
     public String name;
 
-    @StorIOSQLiteColumn(name = PlayersColumns.JNET_ID)
+    @StorIOSQLiteColumn(name = Player.PlayersColumns.JNET_ID)
     public String jnetName;
 
-    @StorIOSQLiteColumn(name = PlayersColumns.PLAYER_NICK_NAME)
+    @StorIOSQLiteColumn(name = Player.PlayersColumns.PLAYER_NICK_NAME)
     public String nickName;
 
     @StorIOSQLiteColumn(name = BaseColumns._ID, key = true)
@@ -125,6 +124,12 @@ public class Player implements Serializable, ViewData {
                 "jnetid = " +  jnetName + "\n" +
                 "rowid + " + rowid;
     }
+
+  public interface PlayersColumns{
+      String PLAYER_NAME= "playername";
+      String JNET_ID = "jnetid";
+      String PLAYER_NICK_NAME = "nickname"; //Unique Name
+  }
 
 //
 //    /*Genrated at: http://www.parcelabler.com/ */

@@ -4,7 +4,6 @@ import android.provider.BaseColumns;
 import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteColumn;
 import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteType;
 import org.seeds.anrgamelogger.database.GameLoggerDatabase.Tables;
-import org.seeds.anrgamelogger.database.contracts.DecksContract.DecksColumns;
 
 @StorIOSQLiteType(table= Tables.DECKS)
 public class Deck {
@@ -110,4 +109,11 @@ public class Deck {
   }
 
 
+  public interface DecksColumns{
+      String DECK_NAME= "name";
+      String DECK_VERSION= "version";
+      String DECK_ARCHETYPE= "archetype";
+      String DECK_IDENTITY = "identity";
+      String NRDB_LINK= "nrdblink";
+  }
 }

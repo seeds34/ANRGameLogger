@@ -271,18 +271,18 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/playerOneWinnerLable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Winner!"
-        android:textSize="7sp"
-        android:visibility="invisible"
-        app:layout_constraintLeft_toLeftOf="@+id/playerOneInfo"
-        app:layout_constraintRight_toRightOf="@+id/playerOneInfo"
-        app:layout_constraintTop_toBottomOf="@+id/playerOneInfo" />
+      android:id="@+id/playerOneWinnerLable"
+      android:layout_width="61dp"
+      android:layout_height="24dp"
+      android:layout_marginTop="8dp"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp"
+      android:text="Winner!"
+      android:textSize="7sp"
+      android:visibility="invisible"
+      app:layout_constraintLeft_toLeftOf="@+id/playerOneInfo"
+      app:layout_constraintRight_toRightOf="@+id/playerOneInfo"
+      app:layout_constraintTop_toBottomOf="@+id/playerOneInfo"/>
 
     <TextView
         android:id="@+id/playerTwoWinnerLable"

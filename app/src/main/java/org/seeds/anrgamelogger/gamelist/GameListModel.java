@@ -3,7 +3,6 @@ package org.seeds.anrgamelogger.gamelist;
 import android.app.Activity;
 import android.util.Log;
 import java.util.ArrayList;
-import java.util.List;
 import org.seeds.anrgamelogger.addgame.AddGameActivity;
 import org.seeds.anrgamelogger.application.SetupDatabaseDataModel;
 import org.seeds.anrgamelogger.database.DatabaseModel;
@@ -57,10 +56,10 @@ public class GameListModel {
 
 
   public ArrayList<LoggedGameFlat> getGameList(int lengthLimit) {
-    List ret = databaseModel.getLoggedGameFlat(50);
+    ArrayList ret = new ArrayList(databaseModel.getLoggedGameFlat(50));
         Log.d(LOG_TAG,".getGameList(int) | ret is " + ret.size());
-
-      return new ArrayList(ret);
+      gameListManager.setLoggedGamesList(ret);
+      return ret;
     }
 
 

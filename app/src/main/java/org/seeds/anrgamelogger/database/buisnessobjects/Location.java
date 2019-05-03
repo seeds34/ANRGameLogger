@@ -4,12 +4,11 @@ import android.provider.BaseColumns;
 import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteColumn;
 import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteType;
 import org.seeds.anrgamelogger.database.GameLoggerDatabase.Tables;
-import org.seeds.anrgamelogger.database.contracts.LocationsContract.LocationsColumns;
 
 @StorIOSQLiteType(table= Tables.LOCATIONS)
 public class Location {
 
-  @StorIOSQLiteColumn(name = LocationsColumns.LOCATION_NAME)
+  @StorIOSQLiteColumn(name = Location.LocationsColumns.LOCATION_NAME)
   public String name;
 
   @StorIOSQLiteColumn(name = BaseColumns._ID, key = true)
@@ -35,5 +34,9 @@ public class Location {
 
   public void setRowid(Integer rowid) {
     this.rowid = rowid;
+  }
+
+  public interface LocationsColumns{
+      String LOCATION_NAME= "locationname";
   }
 }

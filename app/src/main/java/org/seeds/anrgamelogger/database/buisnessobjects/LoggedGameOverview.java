@@ -5,7 +5,6 @@ import android.provider.BaseColumns;
 import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteColumn;
 import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteType;
 import org.seeds.anrgamelogger.database.GameLoggerDatabase.Tables;
-import org.seeds.anrgamelogger.database.contracts.LoggedGameOverviewsContract;
 
 /**
  * Created by Tomas Seymour-Turner on 19/03/2017.
@@ -16,18 +15,18 @@ public class LoggedGameOverview {
 //public class LoggedGameOverview implements Parcelable {
 
     //TODO: How am I going to do the Game ID??
-    @StorIOSQLiteColumn(name = LoggedGameOverviewsContract.LoggedGameOverviewsColumns.GAME_ID)
+    @StorIOSQLiteColumn(name = LoggedGameOverview.LoggedGameOverviewsColumns.GAME_ID)
     public Integer gameID;
 
-    @StorIOSQLiteColumn(name = LoggedGameOverviewsContract.LoggedGameOverviewsColumns.LOCATION_ID)
+    @StorIOSQLiteColumn(name = LoggedGameOverview.LoggedGameOverviewsColumns.LOCATION_ID)
     public Integer location_id;
 
     String location_name;
 
-    @StorIOSQLiteColumn(name = LoggedGameOverviewsContract.LoggedGameOverviewsColumns.PLAYED_DATE)
+    @StorIOSQLiteColumn(name = LoggedGameOverview.LoggedGameOverviewsColumns.PLAYED_DATE)
     public String played_date;
 
-    @StorIOSQLiteColumn(name = LoggedGameOverviewsContract.LoggedGameOverviewsColumns.WIN_TYPE)
+    @StorIOSQLiteColumn(name = LoggedGameOverview.LoggedGameOverviewsColumns.WIN_TYPE)
     public String win_type;
 
     @StorIOSQLiteColumn(name = BaseColumns._ID, key = true)
@@ -109,5 +108,12 @@ public class LoggedGameOverview {
     public void setRowid(Integer rowid) {
         this.rowid = rowid;
     }
+
+  public interface LoggedGameOverviewsColumns{
+      String GAME_ID = "gameid";
+      String LOCATION_ID = "locationid";
+      String WIN_TYPE = "wintype";
+      String PLAYED_DATE = "playeddate";
+  }
 }
 

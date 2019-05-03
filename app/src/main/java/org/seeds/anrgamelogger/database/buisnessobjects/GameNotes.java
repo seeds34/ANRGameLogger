@@ -4,15 +4,14 @@ import android.provider.BaseColumns;
 import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteColumn;
 import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteType;
 import org.seeds.anrgamelogger.database.GameLoggerDatabase.Tables;
-import org.seeds.anrgamelogger.database.contracts.GameNotesContract.GameNotesColumns;
 
 @StorIOSQLiteType(table= Tables.GAME_NOTES)
 public class GameNotes {
 
-  @StorIOSQLiteColumn(name = GameNotesColumns.GAME_ID)
+  @StorIOSQLiteColumn(name = GameNotes.GameNotesColumns.GAME_ID)
   public Integer gameID;
 
-  @StorIOSQLiteColumn(name = GameNotesColumns.GAME_NOTE)
+  @StorIOSQLiteColumn(name = GameNotes.GameNotesColumns.GAME_NOTE)
   public String gameNotes;
 
   @StorIOSQLiteColumn(name = BaseColumns._ID, key = true)
@@ -48,5 +47,10 @@ public class GameNotes {
 
   public void setRowid(Integer rowid) {
     this.rowid = rowid;
+  }
+
+  public interface GameNotesColumns{
+      String GAME_ID = "gameid";
+      String GAME_NOTE = "gamenote";
   }
 }

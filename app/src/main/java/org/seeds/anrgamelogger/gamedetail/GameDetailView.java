@@ -65,6 +65,7 @@ public class GameDetailView extends FrameLayout {
 
     public void setUpPages(){
         tabLayout.setupWithViewPager(gameDetailViewPager);
+        Log.i(LOG_TAG,".setUpPages : setting up GameDetailPageAdpator");
         gameDetailPagerAdapter = new GameDetailPagerAdapter(data, activity);
         gameDetailViewPager.setAdapter(gameDetailPagerAdapter);
     }
