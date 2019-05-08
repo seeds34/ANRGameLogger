@@ -6,6 +6,7 @@ import android.util.Log;
 import io.reactivex.Maybe;
 import java.util.List;
 import org.seeds.anrgamelogger.database.dao.LocationDao;
+import org.seeds.anrgamelogger.database.dao.LoggedGameOverviewDao;
 import org.seeds.anrgamelogger.database.entities.Deck;
 import org.seeds.anrgamelogger.database.entities.Identity;
 import org.seeds.anrgamelogger.database.entities.Location;
@@ -176,6 +177,8 @@ public class DatabaseModel {
   public Maybe<List<Location>> getLocation(String locationName){
 
     LocationDao ld = database.locationDao();
+
+
     return ld.findLocationyByName(locationName);
 
     }
@@ -266,15 +269,10 @@ public class DatabaseModel {
   //----------  Logged Game Flat ----------//
 
   public List<LoggedGameFlat> getLoggedGameFlat(int listLength){
-    return storIOContentResolver
-            .get()
-            .listOfObjects(LoggedGameFlat.class)
-            .withQuery(Query.builder()
-                    .uri(LoggedGamesFlatViewContract.URI_TABLE)
-                      //.
-                    .build())
-            .prepare()
-            .executeAsBlocking();
+
+    LoggedGameOverviewDao d = database.loggedGameOverviewDao();
+    d.getLoggedGame(1);
+
   }
 
 
