@@ -8,7 +8,7 @@ import org.seeds.anrgamelogger.database.GameLoggerDatabase.Views;
 @StorIOSQLiteType(table= "temp." + Views.LOGGED_GAMES_FLAT_VIEW)
 public class LoggedGameFlat implements android.os.Parcelable {
 
-    public interface LoggedGamesFlatViewContractColumns{
+    public interface LoggedGamesFlatColumns {
         String GAME_ID = "gameid";
         String LOCATION_NAME = "locationname";
         String WIN_TYPE = "wintype";
@@ -29,52 +29,52 @@ public class LoggedGameFlat implements android.os.Parcelable {
         String PLAYER_TWO_ID_IMAGE = "playertwoidimage";
     }
 
-    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.GAME_ID, key = true)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatColumns.GAME_ID, key = true)
     public Integer gameID;
 
-    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYER_ONE_NAME)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatColumns.PLAYER_ONE_NAME)
     public String pO_Name;
 
-    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.LOCATION_NAME)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatColumns.LOCATION_NAME)
     public String locationName;
 
-    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYED_DATE)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatColumns.PLAYED_DATE)
     public String playedDate;
 
-    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYER_ONE_DECK_NAME)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatColumns.PLAYER_ONE_DECK_NAME)
     public String pO_DeckName;
 
-    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYER_ONE_ID_NAME)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatColumns.PLAYER_ONE_ID_NAME)
     public String pO_Identity;
 
-    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYER_ONE_ID_IMAGE)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatColumns.PLAYER_ONE_ID_IMAGE)
     public byte[] pO_IdentityImage;
 
-    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYER_ONE_SCORE)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatColumns.PLAYER_ONE_SCORE)
     public Integer    pO_Score;
 
-    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYER_ONE_WIN_FLAG)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatColumns.PLAYER_ONE_WIN_FLAG)
     public String pO_WinFlag;
 
-    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYER_TWO_NAME)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatColumns.PLAYER_TWO_NAME)
     public String pT_Name;
 
-    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYER_TWO_DECK_NAME)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatColumns.PLAYER_TWO_DECK_NAME)
     public String pT_DeckName;
 
-    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYER_TWO_ID_NAME)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatColumns.PLAYER_TWO_ID_NAME)
     public String pT_Identity;
 
-    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYER_TWO_ID_IMAGE)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatColumns.PLAYER_TWO_ID_IMAGE)
     public byte[] pT_IdentityImage;
 
-    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYER_TWO_SCORE)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatColumns.PLAYER_TWO_SCORE)
     public Integer    pT_Score;
 
-    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.PLAYER_TWO_WIN_FLAG)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatColumns.PLAYER_TWO_WIN_FLAG)
     public String pT_WinFlag;
 
-    @StorIOSQLiteColumn(name = LoggedGameFlat.LoggedGamesFlatViewContractColumns.WIN_TYPE)
+    @StorIOSQLiteColumn(name = LoggedGamesFlatColumns.WIN_TYPE)
     public String winType;
 
     public LoggedGameFlat(){}

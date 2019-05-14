@@ -16,6 +16,7 @@ import org.seeds.anrgamelogger.database.buisnessobjects.Deck;
 import org.seeds.anrgamelogger.database.buisnessobjects.Identity;
 import org.seeds.anrgamelogger.database.buisnessobjects.Location;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat.LoggedGamesFlatColumns;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameOverview;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGamePlayer;
 import org.seeds.anrgamelogger.database.buisnessobjects.Player;
@@ -298,14 +299,14 @@ public class DatabaseModel {
 
   //----------  Logged Game ----------//
 
-  public LoggedGameOverview getLoggedGame(int gameId){
+  public LoggedGameFlat getLoggedGame(int gameId){
     return
     storIOSQLite
             .get()
-            .object(LoggedGameOverview.class)
+            .object(LoggedGameFlat.class)
             .withQuery(Query.builder()
-                  .table(Tables.LOGGED_GAME_OVERVIEWS.toString())
-                  .where(LoggedGameOverview.LoggedGameOverviewsColumns.GAME_ID + " = ?")
+                  .table(Views.LOGGED_GAMES_FLAT_VIEW.toString())
+                  .where(LoggedGamesFlatColumns.GAME_ID + " = ?")
                     .whereArgs(gameId)
                     .build())
             .prepare()
@@ -350,7 +351,9 @@ public class DatabaseModel {
         .get()
         .listOfObjects(LoggedGameFlat.class)
         .withQuery(Query.builder()
-            .table("temp." + Views.LOGGED_GAMES_FLAT_VIEW)
+            .table(Views.LOGGED_GAMES_FLAT_VIEW)
+            .orderBy("date(" +LoggedGamesFlatColumns.PLAYED_DATE + ") desc")
+            .limit(listLength)
             .build())
         .prepare()
         .executeAsBlocking();
@@ -439,27 +442,27 @@ public class DatabaseModel {
 //
 //
 //  String temp =  "SELECT "
-//          + "OV." + LoggedGameOverviewsContract.LoggedGameOverviewsColumns.GAME_ID + " " +  LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID + ", "
-//          + "L." +   LocationsColumns.LOCATION_NAME + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.LOCATION_NAME + ", "
-//          + "OV." + LoggedGameOverviewsContract.LoggedGameOverviewsColumns.PLAYED_DATE  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYED_DATE + ", "
-//          + "PO." + DecksContract.DecksColumns.DECK_NAME + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_DECK_NAME + ", "
-//          + "PO." + PlayersContract.PlayersColumns.PLAYER_NAME  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_NAME + ", "
-//          + "PO." + IdentitiesContract.IdentitiesColumns.IDENTITY_NAME  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_ID_NAME + ", "
-//          + "PO." + IdentitiesContract.IdentitiesColumns.IMAGE_BIT_ARRAY  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_ID_IMAGE + ", "
-//          + "PO." + LoggedGamePlayersContract.LoggedGamePlayersColumns.SCORE + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_SCORE + ", "
-//          + "PO." + LoggedGamePlayersContract.LoggedGamePlayersColumns.WIN_FLAG  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_WIN_FLAG + ", "
-//          + "PT." + DecksContract.DecksColumns.DECK_NAME  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_DECK_NAME + ", "
-//          + "PT." + PlayersContract.PlayersColumns.PLAYER_NAME  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_NAME + ", "
-//          + "PT." + IdentitiesContract.IdentitiesColumns.IDENTITY_NAME  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_ID_NAME + ", "
-//          + "PT." + IdentitiesContract.IdentitiesColumns.IMAGE_BIT_ARRAY  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_ID_IMAGE + ", "
-//          + "PT." + LoggedGamePlayersContract.LoggedGamePlayersColumns.WIN_FLAG  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_WIN_FLAG + ", "
-//          + "OV." + LoggedGameOverviewsContract.LoggedGameOverviewsColumns.WIN_TYPE  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.WIN_TYPE + ", "
-//          + "PO." + IdentitiesContract.IdentitiesColumns.NRDB_CODE  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_ONE_NRDB_CODE + ", "
-//          + "PT." + IdentitiesContract.IdentitiesColumns.NRDB_CODE  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_NRDB_CODE + ", "
-//          + "PT." + LoggedGamePlayersContract.LoggedGamePlayersColumns.SCORE  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.PLAYER_TWO_SCORE
+//          + "OV." + LoggedGameOverviewsContract.LoggedGameOverviewsColumns.GAME_ID + " " +  LoggedGamesFlatViewContract.LoggedGamesFlatColumns.GAME_ID + ", "
+//          + "L." +   LocationsColumns.LOCATION_NAME + " " + LoggedGamesFlatViewContract.LoggedGamesFlatColumns.LOCATION_NAME + ", "
+//          + "OV." + LoggedGameOverviewsContract.LoggedGameOverviewsColumns.PLAYED_DATE  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatColumns.PLAYED_DATE + ", "
+//          + "PO." + DecksContract.DecksColumns.DECK_NAME + " " + LoggedGamesFlatViewContract.LoggedGamesFlatColumns.PLAYER_ONE_DECK_NAME + ", "
+//          + "PO." + PlayersContract.PlayersColumns.PLAYER_NAME  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatColumns.PLAYER_ONE_NAME + ", "
+//          + "PO." + IdentitiesContract.IdentitiesColumns.IDENTITY_NAME  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatColumns.PLAYER_ONE_ID_NAME + ", "
+//          + "PO." + IdentitiesContract.IdentitiesColumns.IMAGE_BIT_ARRAY  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatColumns.PLAYER_ONE_ID_IMAGE + ", "
+//          + "PO." + LoggedGamePlayersContract.LoggedGamePlayersColumns.SCORE + " " + LoggedGamesFlatViewContract.LoggedGamesFlatColumns.PLAYER_ONE_SCORE + ", "
+//          + "PO." + LoggedGamePlayersContract.LoggedGamePlayersColumns.WIN_FLAG  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatColumns.PLAYER_ONE_WIN_FLAG + ", "
+//          + "PT." + DecksContract.DecksColumns.DECK_NAME  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatColumns.PLAYER_TWO_DECK_NAME + ", "
+//          + "PT." + PlayersContract.PlayersColumns.PLAYER_NAME  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatColumns.PLAYER_TWO_NAME + ", "
+//          + "PT." + IdentitiesContract.IdentitiesColumns.IDENTITY_NAME  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatColumns.PLAYER_TWO_ID_NAME + ", "
+//          + "PT." + IdentitiesContract.IdentitiesColumns.IMAGE_BIT_ARRAY  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatColumns.PLAYER_TWO_ID_IMAGE + ", "
+//          + "PT." + LoggedGamePlayersContract.LoggedGamePlayersColumns.WIN_FLAG  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatColumns.PLAYER_TWO_WIN_FLAG + ", "
+//          + "OV." + LoggedGameOverviewsContract.LoggedGameOverviewsColumns.WIN_TYPE  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatColumns.WIN_TYPE + ", "
+//          + "PO." + IdentitiesContract.IdentitiesColumns.NRDB_CODE  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatColumns.PLAYER_ONE_NRDB_CODE + ", "
+//          + "PT." + IdentitiesContract.IdentitiesColumns.NRDB_CODE  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatColumns.PLAYER_TWO_NRDB_CODE + ", "
+//          + "PT." + LoggedGamePlayersContract.LoggedGamePlayersColumns.SCORE  + " " + LoggedGamesFlatViewContract.LoggedGamesFlatColumns.PLAYER_TWO_SCORE
 //          + " FROM " + Tables.LOGGED_GAME_OVERVIEWS + " OV "
-//          + " INNER JOIN (" + VIEW_SELECT_PLAYER + ") PO ON PO." + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID + " = OV." + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID
-//          + " INNER JOIN (" + VIEW_SELECT_PLAYER + ") PT ON PT." + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID + " = OV." + LoggedGamesFlatViewContract.LoggedGamesFlatViewContractColumns.GAME_ID
+//          + " INNER JOIN (" + VIEW_SELECT_PLAYER + ") PO ON PO." + LoggedGamesFlatViewContract.LoggedGamesFlatColumns.GAME_ID + " = OV." + LoggedGamesFlatViewContract.LoggedGamesFlatColumns.GAME_ID
+//          + " INNER JOIN (" + VIEW_SELECT_PLAYER + ") PT ON PT." + LoggedGamesFlatViewContract.LoggedGamesFlatColumns.GAME_ID + " = OV." + LoggedGamesFlatViewContract.LoggedGamesFlatColumns.GAME_ID
 //          + " INNER JOIN " + Tables.LOCATIONS + " L ON L." + BaseColumns._ID + " = OV." + LoggedGameOverviewsColumns.LOCATION_ID
 //          + " WHERE PO." + LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_SIDE + " = \""  + ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER + "\""
 //          + " AND PT." + LoggedGamePlayersContract.LoggedGamePlayersColumns.PLAYER_SIDE + " = \""  + ANRLoggerApplication.CORP_SIDE_IDENTIFIER + "\"";

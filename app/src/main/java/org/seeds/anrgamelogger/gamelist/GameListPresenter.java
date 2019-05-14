@@ -29,18 +29,9 @@ public class GameListPresenter{
 
         model.databaseFirstTimeSetup();
 
-        //TODO: Uncomment once fixed
 
-        view.setData(model.getGameList(10));
+        view.setData(model.getGameList(20));
 
-//        model.getGameList(25)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(
-//                        list->{view.setData(list);});
-
-        //compositeSubscription.add(model.databaseFirstTimeSetup());
-        //model.getGameList(50);
         compositeSubscription.add(onItemClick());
         compositeSubscription.add(observeCorpFab());
         compositeSubscription.add(observeRunnerFab());
@@ -64,14 +55,7 @@ public class GameListPresenter{
 
     private Disposable observeCorpFab() {
         return view.observeCorpFab()
-            //.doOnNext(__ -> view.showLoading(true))
-            //.map(__ -> view.getUsernameEdit())
-            //.observeOn(Schedulers.io())
-            //.switchMap(username -> model.getUserReops(username))
-            //.observeOn(AndroidSchedulers.mainThread())
-            //.doOnNext(() -> model.startAddGameActivity())
-            //.doOnEach(__ -> view.showLoading(false))
-            //.retry()
+            .doOnEach(__ -> view.hideSubFABs())
             .subscribe(__ -> {
                 model.startAddGameActivity(ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
     });
@@ -79,13 +63,13 @@ public class GameListPresenter{
 
     private Disposable observeRunnerFab() {
         return view.observeRunnerFab()
-
+            .doOnEach(__ -> view.hideSubFABs())
             .subscribe(__ -> {
                 model.startAddGameActivity(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
             });
     }
 
   public void refresh() {
-      view.setData(model.getGameList(10));
+      view.setData(model.getGameList(20));
   }
 }

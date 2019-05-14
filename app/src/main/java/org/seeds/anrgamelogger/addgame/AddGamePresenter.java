@@ -48,7 +48,7 @@ public class AddGamePresenter {
     public void onCreate() {
 
         cdl = new CustomDPDLister();
-        view.setTitle(String.valueOf(GAMENO));
+        //view.setTitle(String.valueOf(GAMENO));
 
         ArrayList<String> playerList = model.getPlayerList();
         ArrayList<String> deckList = model.getDeckList();
@@ -85,7 +85,7 @@ public class AddGamePresenter {
     }
 
     public Disposable observerSave(){
-        return overviewView.save()
+        return view.save()
                 .subscribe( a ->
                     addGame()
                 );

@@ -78,46 +78,53 @@ public class GameListView extends FrameLayout{
     }
 
 
-  @OnClick(R.id.addGameLog)
-    public void fabClick(){
-
+    public void showSubFABs(){
       FrameLayout.LayoutParams layoutParams;
 
+
+      layoutParams = (FrameLayout.LayoutParams) corp_fab.getLayoutParams();
+      layoutParams.rightMargin += (int) (corp_fab.getWidth() * 1.7);
+      layoutParams.bottomMargin += (int) (corp_fab.getHeight() * 0.25);
+      corp_fab.setLayoutParams(layoutParams);
+      //fab.startAnimation(show_fab_1);
+      corp_fab.setVisibility(View.VISIBLE);
+      corp_fab.setClickable(true);
+
+      layoutParams = (FrameLayout.LayoutParams) runner_fab.getLayoutParams();
+      layoutParams.rightMargin += (int) (runner_fab.getWidth() * 0.25);
+      layoutParams.bottomMargin += (int) (runner_fab.getHeight() * 1.7);
+      runner_fab.setLayoutParams(layoutParams);
+      //fab.startAnimation(show_fab_1);
+      runner_fab.setVisibility(View.VISIBLE);
+      runner_fab.setClickable(true);
+    }
+
+  public void hideSubFABs(){
+    FrameLayout.LayoutParams layoutParams;
+    layoutParams = (FrameLayout.LayoutParams) corp_fab.getLayoutParams();
+    layoutParams.rightMargin -= (int) (corp_fab.getWidth() * 1.7);
+    layoutParams.bottomMargin -= (int) (corp_fab.getHeight() * 0.25);
+    corp_fab.setLayoutParams(layoutParams);
+    //fab.startAnimation(show_fab_1);
+    corp_fab.setVisibility(View.INVISIBLE);
+    corp_fab.setClickable(false);
+
+    layoutParams = (FrameLayout.LayoutParams) runner_fab.getLayoutParams();
+    layoutParams.rightMargin -= (int) (runner_fab.getWidth() * 0.25);
+    layoutParams.bottomMargin -= (int) (runner_fab.getHeight() * 1.7);
+    runner_fab.setLayoutParams(layoutParams);
+    //fab.startAnimation(show_fab_1);
+    runner_fab.setVisibility(View.INVISIBLE);
+    runner_fab.setClickable(false);
+  }
+
+  @OnClick(R.id.addGameLog)
+    public void fabClick(){
       if(corp_fab.getVisibility() == View.INVISIBLE & runner_fab.getVisibility() == View.INVISIBLE  ) {
-
-            layoutParams = (FrameLayout.LayoutParams) corp_fab.getLayoutParams();
-            layoutParams.rightMargin += (int) (corp_fab.getWidth() * 1.7);
-            layoutParams.bottomMargin += (int) (corp_fab.getHeight() * 0.25);
-            corp_fab.setLayoutParams(layoutParams);
-            //fab.startAnimation(show_fab_1);
-            corp_fab.setVisibility(View.VISIBLE);
-            corp_fab.setClickable(true);
-
-            layoutParams = (FrameLayout.LayoutParams) runner_fab.getLayoutParams();
-            layoutParams.rightMargin += (int) (runner_fab.getWidth() * 0.25);
-            layoutParams.bottomMargin += (int) (runner_fab.getHeight() * 1.7);
-            runner_fab.setLayoutParams(layoutParams);
-            //fab.startAnimation(show_fab_1);
-            runner_fab.setVisibility(View.VISIBLE);
-            runner_fab.setClickable(true);
+        showSubFABs();
         }else{
-           layoutParams = (FrameLayout.LayoutParams) corp_fab.getLayoutParams();
-            layoutParams.rightMargin -= (int) (corp_fab.getWidth() * 1.7);
-            layoutParams.bottomMargin -= (int) (corp_fab.getHeight() * 0.25);
-            corp_fab.setLayoutParams(layoutParams);
-            //fab.startAnimation(show_fab_1);
-            corp_fab.setVisibility(View.INVISIBLE);
-            corp_fab.setClickable(false);
-
-            layoutParams = (FrameLayout.LayoutParams) runner_fab.getLayoutParams();
-            layoutParams.rightMargin -= (int) (runner_fab.getWidth() * 0.25);
-            layoutParams.bottomMargin -= (int) (runner_fab.getHeight() * 1.7);
-            runner_fab.setLayoutParams(layoutParams);
-            //fab.startAnimation(show_fab_1);
-            runner_fab.setVisibility(View.INVISIBLE);
-            runner_fab.setClickable(false);
+        hideSubFABs();
         }
-
     }
 
     public Observable<Object> observeCorpFab(){

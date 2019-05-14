@@ -1,13 +1,12 @@
 package org.seeds.anrgamelogger.gamedetail.dagger;
 
 import android.app.Activity;
-
+import dagger.Module;
+import dagger.Provides;
+import org.seeds.anrgamelogger.database.DatabaseModel;
 import org.seeds.anrgamelogger.gamedetail.GameDetailModel;
 import org.seeds.anrgamelogger.gamedetail.GameDetailPresenter;
 import org.seeds.anrgamelogger.gamedetail.GameDetailView;
-
-import dagger.Module;
-import dagger.Provides;
 
 /**
  * Created by Tomas Seymour-Turner on 14/10/2017.
@@ -29,8 +28,8 @@ public class GameDetailModule {
 
     @Provides
     @GameDetailScope
-    public GameDetailModel GetDetailGameModel(){
-        return new GameDetailModel(activity);
+    public GameDetailModel GetDetailGameModel(DatabaseModel databaseModel){
+        return new GameDetailModel(activity, databaseModel);
     }
 
     @Provides

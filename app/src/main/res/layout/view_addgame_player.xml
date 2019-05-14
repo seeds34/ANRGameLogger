@@ -7,142 +7,162 @@
     android:orientation="vertical"
     tools:layout_editor_absoluteY="81dp">
 
-    <android.support.constraint.ConstraintLayout
+  <android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+      android:id="@+id/scoreSpinnerLabel"
+      android:layout_width="wrap_content"
+      android:layout_height="29dp"
+      android:layout_marginTop="11dp"
+      android:layout_marginEnd="8dp"
+      android:layout_marginRight="8dp"
+      android:text="Score"
+      android:textColor="@color/md_grey_500"
+      android:textSize="14sp"
+      app:layout_constraintEnd_toStartOf="@+id/addGameScore"
+      app:layout_constraintTop_toBottomOf="@+id/deckDetailsLayout"/>
+
+    <android.support.design.widget.TextInputLayout
+      android:id="@+id/playerNameTextInputLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      android:layout_marginLeft="8dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+
+      <AutoCompleteTextView
+        android:id="@+id/addGamePlayerName"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="start"
+        android:hint="Player Name"
+        android:maxLines="1"
+        android:textSize="14sp"/>
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/playerNameTextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-            <AutoCompleteTextView
-                android:id="@+id/addGamePlayerName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_weight="1"
-                android:hint="Player Name"
-                android:maxLines="1"
-                android:textAlignment="center"
-                android:textSize="14sp" />
-
-        </android.support.design.widget.TextInputLayout>
+    </android.support.design.widget.TextInputLayout>
 
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/identitiesImageViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="235dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/identitiesSpinner" />
+    <android.support.v4.view.ViewPager
+      android:id="@+id/identitiesImageViewPager"
+      android:layout_width="172dp"
+      android:layout_height="233dp"
+      android:layout_marginTop="8dp"
+      android:layout_marginStart="8dp"
+      android:layout_marginEnd="8dp"
+      android:layout_marginRight="8dp"
+      android:layout_gravity="center_horizontal"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/identitiesSpinner"/>
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/deckNameTextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/identitiesImageViewPager">
-
-            <AutoCompleteTextView
-                android:id="@+id/addGameDeckName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_weight="1"
-                android:hint="Deck Name"
-                android:maxLines="1"
-                android:textAlignment="center"
-                android:textSize="14sp" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <Button
-            android:id="@+id/cancelBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginEnd="52dp"
-            android:layout_marginRight="52dp"
-            android:layout_marginTop="44dp"
-            android:text="Cancel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addGameScore" />
-
-        <Spinner
-            android:id="@+id/identitiesSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="19dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:layout_weight="1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/playerNameTextInputLayout" />
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/deckVersionLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/deckNameTextInputLayout">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/addGameDeckVer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Ver"/>
-        </android.support.design.widget.TextInputLayout>
+    <Spinner
+      android:id="@+id/identitiesSpinner"
+      android:layout_width="match_parent"
+      android:layout_height="19dp"
+      android:layout_weight="1"
+      android:layout_marginTop="20dp"
+      android:layout_marginStart="8dp"
+      android:layout_marginEnd="8dp"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/playerNameTextInputLayout"/>
 
 
-        <!--<android.support.design.widget.TextInputLayout-->
-            <!--android:id="@+id/scoreTextInputLayout"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginLeft="44dp"-->
-            <!--android:layout_marginStart="44dp"-->
-            <!--android:layout_marginTop="8dp"-->
-            <!--app:layout_constraintStart_toEndOf="@+id/deckVersionLayout"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/deckNameTextInputLayout">-->
+    <!--<android.support.design.widget.TextInputLayout-->
+    <!--android:id="@+id/scoreTextInputLayout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="44dp"-->
+    <!--android:layout_marginStart="44dp"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--app:layout_constraintStart_toEndOf="@+id/deckVersionLayout"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/deckNameTextInputLayout">-->
 
 
-            <Spinner
-                android:id="@+id/addGameScore"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="44dp"
-                android:layout_marginStart="44dp"
-                android:layout_marginTop="8dp"
-                android:layout_weight="1"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@+id/deckVersionLayout"
-                app:layout_constraintTop_toBottomOf="@+id/deckNameTextInputLayout" />
+    <Spinner
+      android:id="@+id/addGameScore"
+      android:layout_width="120dp"
+      android:layout_height="34dp"
+      android:layout_weight="1"
+      android:layout_marginTop="8dp"
+      android:layout_marginEnd="8dp"
+      android:layout_marginRight="8dp"
+      android:textSize="14sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/deckDetailsLayout"/>
 
-        <!--</android.support.design.widget.TextInputLayout>-->
+    <LinearLayout
+      android:id="@+id/deckDetailsLayout"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:orientation="horizontal"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/identitiesImageViewPager"
+      >
+      <android.support.design.widget.TextInputLayout
+        android:id="@+id/deckNameTextInputLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/identitiesImageViewPager">
+
+        <AutoCompleteTextView
+          android:id="@+id/addGameDeckName"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="8dp"
+          android:layout_marginEnd="8dp"
+          android:gravity="start"
+          android:hint="Deck Name"
+          android:maxLines="1"
+          android:textSize="14sp"/>
+
+      </android.support.design.widget.TextInputLayout>
+
+      <android.support.design.widget.TextInputLayout
+        android:id="@+id/deckVersionLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="end"
+        app:layout_constraintStart_toEndOf="@+id/deckNameTextInputLayout"
+        app:layout_constraintTop_toTopOf="@+id/deckNameTextInputLayout">
+
+        <EditText
+          android:id="@+id/addGameDeckVer"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+
+          android:layout_marginStart="0dp"
+          android:layout_marginEnd="0dp"
 
 
-    </android.support.constraint.ConstraintLayout>
+          android:autoText="false"
+          android:gravity="start"
+          android:hint="Version"
+          android:textSize="14sp"/>
+      </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+    <!--</android.support.design.widget.TextInputLayout>-->
+
+
+  </android.support.constraint.ConstraintLayout>
 </LinearLayout>

@@ -39,7 +39,11 @@
       <activity
             android:name=".addgame.AddGameActivity"
             android:label="@string/title_activity_create_logged_game"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+        android:parentActivityName=".GameListActivity" >
+          <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="org.seeds.anrgamelogger.GameListActivity" />
         </activity>
     </application>
 

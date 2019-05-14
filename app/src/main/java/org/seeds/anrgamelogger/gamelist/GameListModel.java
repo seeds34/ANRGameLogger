@@ -56,7 +56,7 @@ public class GameListModel {
 
 
   public ArrayList<LoggedGameFlat> getGameList(int lengthLimit) {
-    ArrayList ret = new ArrayList(databaseModel.getLoggedGameFlat(50));
+    ArrayList ret = new ArrayList(databaseModel.getLoggedGameFlat(lengthLimit));
         Log.d(LOG_TAG,".getGameList(int) | ret is " + ret.size());
       gameListManager.setLoggedGamesList(ret);
       return ret;
@@ -64,10 +64,12 @@ public class GameListModel {
 
 
     public void startGameDetailActivity(String selectedGame){
-        GameDetailActivity.start(activity.getApplicationContext(),gameListManager.getGame(selectedGame));
+      //GameDetailActivity.start(activity.getApplicationContext(),gameListManager.getGame(selectedGame));
+      Log.d(LOG_TAG,".startGameDetailActivity(String) : Game No: " + selectedGame);
+      GameDetailActivity.start(activity.getApplicationContext(),selectedGame);
     }
 
     public void startAddGameActivity(String side){
-        AddGameActivity.start(activity.getApplicationContext(),side);
+      AddGameActivity.start(activity.getApplicationContext(),side);
     }
 }

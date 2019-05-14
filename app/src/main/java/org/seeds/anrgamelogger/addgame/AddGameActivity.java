@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import javax.inject.Inject;
+import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.addgame.dagger.AddGameModule;
 import org.seeds.anrgamelogger.addgame.dagger.DaggerAddGameComponent;
 import org.seeds.anrgamelogger.addgame.views.AddGameView;
@@ -21,6 +23,8 @@ public class AddGameActivity extends AppCompatActivity {
     @Inject
     AddGameView view;
 
+
+
     public static void start(Context contextIn, String side) {
         Intent intent = new Intent(contextIn, AddGameActivity.class);
         intent.putExtra(SIDE, side);
@@ -30,6 +34,8 @@ public class AddGameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
         DaggerAddGameComponent.builder()
                 .applicationComponent(ANRLoggerApplication.get(this).getApplicationComponent())
@@ -47,4 +53,10 @@ public class AddGameActivity extends AppCompatActivity {
         presenter.onDestroy();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+
+    }
 }

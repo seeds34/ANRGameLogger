@@ -90,7 +90,7 @@ public class GameDetailOverview extends FrameLayout {
         playerOneDeckName.setText(deckName);
         deckName = (data.getpT_DeckName() != null)?data.getpT_DeckName():"";
         playerTwoDeckName.setText(deckName);
-        gameNo.setText(data.getGameID());
+        gameNo.setText(String.valueOf(data.getGameID()));
 
         String winnerText = "Winner Name: " + data.getWinnerName();
         // winnerName.setText(winnerText);
