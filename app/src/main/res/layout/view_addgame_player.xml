@@ -16,20 +16,19 @@
       android:layout_width="wrap_content"
       android:layout_height="29dp"
       android:layout_marginTop="11dp"
-      android:layout_marginEnd="8dp"
-      android:layout_marginRight="8dp"
+      android:layout_marginStart="10dp"
       android:text="Score"
       android:textColor="@color/md_grey_500"
       android:textSize="14sp"
-      app:layout_constraintEnd_toStartOf="@+id/addGameScore"
-      app:layout_constraintTop_toBottomOf="@+id/deckDetailsLayout"/>
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/deckDetailsLayout"
+      />
 
     <android.support.design.widget.TextInputLayout
       android:id="@+id/playerNameTextInputLayout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginStart="8dp"
-      android:layout_marginLeft="8dp"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent">
 
@@ -68,14 +67,11 @@
       android:layout_width="match_parent"
       android:layout_height="19dp"
       android:layout_weight="1"
-      android:layout_marginTop="20dp"
       android:layout_marginStart="8dp"
       android:layout_marginEnd="8dp"
-      android:layout_marginLeft="8dp"
-      android:layout_marginRight="8dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/playerNameTextInputLayout"/>
+      app:layout_constraintTop_toBottomOf="@+id/scoreSpinnerLabel"/>
 
 
     <!--<android.support.design.widget.TextInputLayout-->
@@ -90,28 +86,26 @@
 
 
     <Spinner
-      android:id="@+id/addGameScore"
+      android:id="@+id/scoreSpinner"
       android:layout_width="120dp"
       android:layout_height="34dp"
       android:layout_weight="1"
-      android:layout_marginTop="8dp"
-      android:layout_marginEnd="8dp"
-      android:layout_marginRight="8dp"
       android:textSize="14sp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/deckDetailsLayout"/>
+      app:layout_constraintBaseline_toBaselineOf="@+id/scoreSpinnerLabel"
+      app:layout_constraintStart_toEndOf="@+id/scoreSpinnerLabel"/>
 
     <LinearLayout
       android:id="@+id/deckDetailsLayout"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
+      android:layout_marginTop="20dp"
+      android:baselineAligned="false"
       android:orientation="horizontal"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/identitiesImageViewPager"
-      >
+      app:layout_constraintTop_toBottomOf="@+id/playerNameTextInputLayout">
+
       <android.support.design.widget.TextInputLayout
         android:id="@+id/deckNameTextInputLayout"
         android:layout_width="wrap_content"
@@ -153,8 +147,6 @@
           android:layout_marginStart="0dp"
           android:layout_marginEnd="0dp"
 
-
-          android:autoText="false"
           android:gravity="start"
           android:hint="Version"
           android:textSize="14sp"/>

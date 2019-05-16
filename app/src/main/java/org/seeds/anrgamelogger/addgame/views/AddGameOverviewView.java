@@ -8,16 +8,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.jakewharton.rxbinding2.view.RxView;
 import butterknife.OnClick;
-import io.reactivex.Observable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import org.seeds.anrgamelogger.R;
@@ -35,9 +32,6 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
   //TODO: Add common type between ADDGame Views??
 
   private Activity activity;
-
-  @BindView(R.id.btn_save)
-  public Button btn_save;
 
   @BindView(R.id.txt_location)
   public AutoCompleteTextView location;
@@ -112,9 +106,6 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
   public String getPlayedDate(){
     return date;
   }
-  public Observable<Object> save(){
-    return RxView.clicks(btn_save);
-  }
 
   @OnClick(R.id.addGameDateSelector)
   public void onClickDate() {
@@ -125,7 +116,7 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
 
   private void setupDateDialog() {
     //NOTE: Worried this might course a mem leak or to much garbuge in heap
-    dialog = new DatePickerDialog(activity, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+    dialog = new DatePickerDialog(activity, android.R.style.Theme_Holo_Light_Dialog, mDateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
 
     dialog.getDatePicker().setMaxDate(Calendar.getInstance().getTimeInMillis());
 

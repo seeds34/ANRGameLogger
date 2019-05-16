@@ -41,7 +41,7 @@ public class AddGamePlayerView extends FrameLayout implements AddGameSubView {
   @BindView(R.id.addGameDeckVer)
   TextView deckVer;
 
-  @BindView(R.id.addGameScore)
+  @BindView(R.id.scoreSpinner)
   Spinner score;
 
   private AddGameIdentitesPageAdapter identityImageViewAdapter;

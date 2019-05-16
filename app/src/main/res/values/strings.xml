@@ -10,8 +10,8 @@
 
 
   <string name="title_activity_create_logged_game">CreateLoggedGameActivity</string>
-  <string name="corp">Corp</string>
-  <string name="runner">Runner</string>
+  <string name="corp">corp</string>
+  <string name="runner">runner</string>
   <string name="title_overview">Overview</string>
   <string name="title_add_new_game">Log Game</string>
   <string name="nrdb_base_api_url">https://netrunnerdb.com/api/2.0/public/</string>
