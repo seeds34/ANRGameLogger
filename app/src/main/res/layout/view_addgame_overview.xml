@@ -2,55 +2,67 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/linearLayout5"
+  android:id="@+id/parentLayout"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content">
+  android:layout_height="match_parent">
 
     <TextView
       android:id="@+id/playedDateLabel"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:layout_marginStart="8dp"
       android:text="Played Date"
-      />
+      app:layout_constraintStart_toStartOf="@+id/guideline4"
+      app:layout_constraintTop_toTopOf="@+id/guideline6"/>
     <TextView
       android:id="@+id/addGameDateSelector"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
       android:ems="10"
       android:inputType="date"
-      tools:layout_editor_absoluteX="32dp"
-      tools:layout_editor_absoluteY="66dp"
+      app:layout_constraintBaseline_toBaselineOf="@+id/playedDateLabel"
+      app:layout_constraintStart_toEndOf="@+id/playedDateLabel"
       tools:shadowColor="@color/md_red_600"/>
 
     <android.support.design.widget.TextInputLayout
       android:id="@+id/textInputLayout"
-      android:layout_width="371dp"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      tools:layout_editor_absoluteX="20dp"
-      tools:layout_editor_absoluteY="299dp">
+      android:layout_marginTop="8dp"
+      android:layout_marginStart="8dp"
+      app:layout_constraintStart_toStartOf="@+id/guideline4"
+      app:layout_constraintTop_toBottomOf="@+id/addGameDateSelector">
 
         <AutoCompleteTextView
           android:id="@+id/txt_location"
-          android:layout_width="wrap_content"
+          android:layout_width="326dp"
           android:layout_height="wrap_content"
           android:hint="Location"
           />
     </android.support.design.widget.TextInputLayout>
 
 
+    <TextView
+      android:id="@+id/winningSideTitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:text="Winning Side"
+      app:layout_constraintStart_toStartOf="@+id/radioGroup"
+      app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+      />
     <RadioGroup
       android:id="@+id/radioGroup"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      tools:layout_editor_absoluteX="200dp"
-      tools:layout_editor_absoluteY="102dp">
-        <TextView
-          android:id="@+id/winningSideTitle"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="88dp"
-          android:text="Winning Side:"
-          />
+      android:layout_marginTop="8dp"
+      android:orientation="horizontal"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/winningSideTitle"
+      >
         <RadioButton
           android:id="@+id/rbtn_winnerCorp"
           android:layout_width="wrap_content"
@@ -66,18 +78,33 @@
           android:text="@string/runner"
           />
     </RadioGroup>
+    <TextView
+      android:id="@+id/winTypeTitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="28dp"
+      android:gravity="center_horizontal"
+      android:text="Win Type:"
+      app:layout_constraintStart_toStartOf="@+id/radioGroup"
+      app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+      />
     <RadioGroup
       android:id="@+id/radioGroup2"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      tools:layout_editor_absoluteX="144dp"
-      tools:layout_editor_absoluteY="419dp">
-        <TextView
-          android:id="@+id/winTypeTitle"
+      android:layout_marginTop="64dp"
+      android:layout_marginEnd="23dp"
+      android:orientation="horizontal"
+      app:layout_constraintEnd_toStartOf="@+id/guideline5"
+      app:layout_constraintTop_toBottomOf="@+id/winTypeTitle"
+      >
+        <RadioButton
+          android:id="@+id/rbtn_millWin"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:gravity="center_horizontal"
-          android:text="Win Type:"
+          android:layout_marginStart="116dp"
+          android:layout_marginLeft="116dp"
+          android:text="@string/mill"
           />
         <RadioButton
           android:id="@+id/rbtn_scoreWin"
@@ -91,21 +118,25 @@
           android:layout_height="wrap_content"
           android:text="@string/kill"
           />
-        <RadioButton
-          android:id="@+id/rbtn_millWin"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="116dp"
-          android:layout_marginLeft="116dp"
-          android:text="@string/mill"
-          />
     </RadioGroup>
     <android.support.constraint.Guideline
-      android:id="@+id/guideline2"
+      android:id="@+id/guideline4"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent="0.09"/>
+    <android.support.constraint.Guideline
+      android:id="@+id/guideline5"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent="0.91"/>
+    <android.support.constraint.Guideline
+      android:id="@+id/guideline6"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
-      app:layout_constraintGuide_end="505dp"/>
+      app:layout_constraintGuide_percent="0.04"/>
 
 
 </android.support.constraint.ConstraintLayout>

@@ -15,8 +15,8 @@ public class ANRLoggerApplication extends Application {
     private ApplicationComponent applicationComponent;
 
     //TODO: Need better single place to hold Side strings
-    public static final String CORP_SIDE_IDENTIFIER = "corp";//getResources().getString(R.string.corp);
-    public static final String RUNNER_SIDE_IDENTIFIER = "runner";//getResources().getString(R.string.runner);
+    public static final String CORP_SIDE_IDENTIFIER = "Corp";//getResources().getString(R.string.corp);
+    public static final String RUNNER_SIDE_IDENTIFIER = "Runner";//getResources().getString(R.string.runner);
 
     public static ANRLoggerApplication get(Activity activity){
          Application a = activity.getApplication();
