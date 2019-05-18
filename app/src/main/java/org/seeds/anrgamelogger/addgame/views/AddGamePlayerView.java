@@ -150,6 +150,26 @@ public class AddGamePlayerView extends FrameLayout implements AddGameSubView {
     return (Integer)score.getSelectedItem();
   }
 
+  public void setDeckName(String deckNameIn){
+    deckName.setText(deckNameIn,false);
+  }
+
+  public void setPlayerName(String playerNameIn){
+    playerName.setText(playerNameIn,false);
+  }
+
+  public void setDeckVersion(String deckVersionIn){
+    deckVer.setText(deckVersionIn);
+  }
+
+  public void setIdentity(String identityName){
+    identitiesSpinner.setSelection(1); //TODO: Need to fix
+  }
+
+  public void setScore(Integer scoreIn){
+    score.setSelection(scoreIn-1);
+  }
+
   //  @Override
 //  public void setIdentitiesImageViewPager(LinkedHashMap<String, byte[]> imageListIn){
 //      identityImageViewAdapter = new AddGameIdentitesPageAdapter(getContext(), imageListIn);

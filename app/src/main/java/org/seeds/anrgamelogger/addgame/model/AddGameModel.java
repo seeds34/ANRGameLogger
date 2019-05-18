@@ -8,6 +8,7 @@ import org.seeds.anrgamelogger.database.DatabaseModel;
 import org.seeds.anrgamelogger.database.buisnessobjects.Deck;
 import org.seeds.anrgamelogger.database.buisnessobjects.Identity;
 import org.seeds.anrgamelogger.database.buisnessobjects.Location;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameOverview;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGamePlayer;
 import org.seeds.anrgamelogger.database.buisnessobjects.Player;
@@ -28,9 +29,9 @@ public class AddGameModel {
         databaseModel = databaseModelIn;
     }
 
-    public String getSide(){
-        return activity.getIntent().getStringExtra(AddGameActivity.SIDE);
-    }
+//    public String getSide(){
+//        return activity.getIntent().getStringExtra(AddGameActivity.SIDE);
+//    }
 
     public List<Identity> getListOfIdentities(){
 
@@ -73,10 +74,19 @@ public class AddGameModel {
         databaseModel.insertLoggedGame(lgo,lgpo, lgpt);
     }
 
-    public void finishActivity(){
-        activity.finish();
+    public void finishActivity(){ activity.finish();
     }
 
 
+    public boolean gameNoPassed() {
+        boolean ret = false;
+        if(activity.getIntent().getStringExtra(AddGameActivity.GAMENO) != null){
+            ret = true;
+        }
+        return ret;
+    }
 
+    public LoggedGameFlat getPassedInGame() {
+       return databaseModel.getLoggedGame(Integer.valueOf(activity.getIntent().getStringExtra(AddGameActivity.GAMENO)));
+    }
 }

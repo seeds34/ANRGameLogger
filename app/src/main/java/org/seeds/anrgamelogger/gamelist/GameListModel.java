@@ -56,7 +56,7 @@ public class GameListModel {
 
 
   public ArrayList<LoggedGameFlat> getGameList(int lengthLimit) {
-    ArrayList ret = new ArrayList(databaseModel.getLoggedGameFlat(lengthLimit));
+    ArrayList ret = new ArrayList(databaseModel.getLoggedGameFlatList(lengthLimit));
         Log.d(LOG_TAG,".getGameList(int) | ret is " + ret.size());
       gameListManager.setLoggedGamesList(ret);
       return ret;
@@ -69,7 +69,14 @@ public class GameListModel {
       GameDetailActivity.start(activity.getApplicationContext(),selectedGame);
     }
 
-    public void startAddGameActivity(String side){
-      AddGameActivity.start(activity.getApplicationContext(),side);
+    public void startAddGameActivity(String gameNo){
+      AddGameActivity.start(activity.getApplicationContext(),gameNo);
+    }
+
+    public void startAddGameActivity(){
+        AddGameActivity.start(activity.getApplicationContext(),"");
+    }
+    public String getLastUsedGameNo() {
+        return String.valueOf(databaseModel.getLastGameNoUsed());
     }
 }

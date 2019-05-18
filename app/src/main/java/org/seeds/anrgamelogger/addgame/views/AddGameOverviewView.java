@@ -17,6 +17,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
+
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.addgame.CustomDPDLister;
 
@@ -139,5 +141,13 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
 
   public String getLocation(){
     return location.getText().toString();
+  }
+
+  public void setLocation(String locationIn){
+    location.setText(locationIn, false);
+  }
+
+  public void setPlayedDate(){
+
   }
 }

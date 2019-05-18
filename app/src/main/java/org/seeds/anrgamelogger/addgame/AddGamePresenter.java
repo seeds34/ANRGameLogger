@@ -10,6 +10,7 @@ import org.seeds.anrgamelogger.addgame.views.AddGameOverviewView;
 import org.seeds.anrgamelogger.addgame.views.AddGameRunnerView;
 import org.seeds.anrgamelogger.addgame.views.AddGameView;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
+import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameOverview;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGamePlayer;
 import org.seeds.anrgamelogger.model.IdentityList;
@@ -70,18 +71,37 @@ public class AddGamePresenter {
         overviewView.setTitle("Overview");
         overviewView.setListener(cdl);
 
-        if (model.getSide() == ANRLoggerApplication.CORP_SIDE_IDENTIFIER){
-          view.setUpPagerViews(corpPlayerView);
-          view.setUpPagerViews(runnerPlayerView);
-        }else {
-          view.setUpPagerViews(runnerPlayerView);
-          view.setUpPagerViews(corpPlayerView);
-      }
-        
+//        if (model.getSide() == ANRLoggerApplication.CORP_SIDE_IDENTIFIER){
+//          view.setUpPagerViews(corpPlayerView);
+//          view.setUpPagerViews(runnerPlayerView);
+//        }else {
+//
+//      }
+
+        view.setUpPagerViews(runnerPlayerView);
+        view.setUpPagerViews(corpPlayerView);
+
         view.setUpPagerViews(overviewView);
         view.startPageViewer();
         compositeSubscription.add(observerSave());
         compositeSubscription.add(dateSelected());
+
+        if(model.gameNoPassed()){
+            setUpGame();
+        }
+    }
+
+    public void setUpGame(){
+        //TODO: Need to know diffrance between last gmae repaeat and edit (last game reapeast should not have score etc pre defined)
+        LoggedGameFlat lgf = model.getPassedInGame();
+        runnerPlayerView.setPlayerName(lgf.getpO_Name());
+        runnerPlayerView.setDeckName(lgf.getpO_DeckName());
+        runnerPlayerView.setScore(lgf.getpO_Score());
+
+        corpPlayerView.setPlayerName(lgf.getpT_Name());
+        corpPlayerView.setDeckName(lgf.getpT_DeckName());
+        corpPlayerView.setScore(lgf.getpT_Score());
+
     }
 
     public Disposable observerSave(){

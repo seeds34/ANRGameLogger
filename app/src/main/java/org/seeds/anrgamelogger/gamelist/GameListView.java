@@ -127,11 +127,11 @@ public class GameListView extends FrameLayout{
         }
     }
 
-    public Observable<Object> observeCorpFab(){
+    public Observable<Object> observeNewGameFab(){
         return RxView.clicks(corp_fab);
     }
 
-  public Observable<Object> observeRunnerFab(){
+  public Observable<Object> observeRepeatGameFab(){
     return RxView.clicks(runner_fab);
   }
 

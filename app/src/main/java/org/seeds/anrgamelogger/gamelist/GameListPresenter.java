@@ -33,8 +33,8 @@ public class GameListPresenter{
         view.setData(model.getGameList(20));
 
         compositeSubscription.add(onItemClick());
-        compositeSubscription.add(observeCorpFab());
-        compositeSubscription.add(observeRunnerFab());
+        compositeSubscription.add(addNewGame());
+        compositeSubscription.add(addRepeatedGame());
         compositeSubscription.add(observerImageLoadButtonClick());
     }
 
@@ -53,20 +53,21 @@ public class GameListPresenter{
                 .subscribe(__ -> model.loadIdentityImages());
     }
 
-    private Disposable observeCorpFab() {
-        return view.observeCorpFab()
-            .doOnEach(__ -> view.hideSubFABs())
-            .subscribe(__ -> {
-                model.startAddGameActivity(ANRLoggerApplication.CORP_SIDE_IDENTIFIER);
-    });
+
+    private Disposable addNewGame(){
+        return view.observeNewGameFab()
+                .doOnEach(__ -> view.hideSubFABs())
+                .subscribe(__ -> {
+                    model.startAddGameActivity();
+                });
     }
 
-    private Disposable observeRunnerFab() {
-        return view.observeRunnerFab()
-            .doOnEach(__ -> view.hideSubFABs())
-            .subscribe(__ -> {
-                model.startAddGameActivity(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER);
-            });
+    private Disposable addRepeatedGame(){
+        return view.observeRepeatGameFab()
+                .doOnEach(__ -> view.hideSubFABs())
+                .subscribe(__ -> {
+                    model.startAddGameActivity(model.getLastUsedGameNo());
+                });
     }
 
   public void refresh() {

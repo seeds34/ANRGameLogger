@@ -313,19 +313,19 @@ public class DatabaseModel {
             .executeAsBlocking();
   }
 
-  public int getNextGameNo(){
+  public int getLastGameNoUsed(){
 
     int ret = 0;
 
     Cursor queryResult = storIOSQLite
-        .get()
-        .cursor()
-        .withQuery(Query.builder()
-            .table(Tables.SQLITE_SEQ)
-            .columns("name", "seq")
-            .build())
-        .prepare()
-        .executeAsBlocking();
+            .get()
+            .cursor()
+            .withQuery(Query.builder()
+                    .table(Tables.SQLITE_SEQ)
+                    .columns("name", "seq")
+                    .build())
+            .prepare()
+            .executeAsBlocking();
 
     int nameIndex =  queryResult.getColumnIndex("name");
     int seqIndex =  queryResult.getColumnIndex("seq");
@@ -333,19 +333,47 @@ public class DatabaseModel {
     if(queryResult != null && queryResult.moveToFirst()){
       do {
         if(queryResult.getString(nameIndex).equals(Tables.LOGGED_GAME_OVERVIEWS)){
-            ret = Integer.parseInt(queryResult.getString(seqIndex));
+          ret = Integer.parseInt(queryResult.getString(seqIndex));
         }
       }while(queryResult.moveToNext());
     }
 
-    ret = ret+1;
-
     return ret;
+  }
+
+  public int getNextGameNo(){
+//
+//    int ret = 0;
+//
+//    Cursor queryResult = storIOSQLite
+//        .get()
+//        .cursor()
+//        .withQuery(Query.builder()
+//            .table(Tables.SQLITE_SEQ)
+//            .columns("name", "seq")
+//            .build())
+//        .prepare()
+//        .executeAsBlocking();
+//
+//    int nameIndex =  queryResult.getColumnIndex("name");
+//    int seqIndex =  queryResult.getColumnIndex("seq");
+//
+//    if(queryResult != null && queryResult.moveToFirst()){
+//      do {
+//        if(queryResult.getString(nameIndex).equals(Tables.LOGGED_GAME_OVERVIEWS)){
+//            ret = Integer.parseInt(queryResult.getString(seqIndex));
+//        }
+//      }while(queryResult.moveToNext());
+//    }
+//
+//    ret = ret+1;
+
+    return getLastGameNoUsed()+1;
   }
 
   //----------  Logged Game Flat ----------//
 
-  public List<LoggedGameFlat> getLoggedGameFlat(int listLength){
+  public List<LoggedGameFlat> getLoggedGameFlatList(int listLength){
 
     List ret = storIOSQLite
         .get()
@@ -360,6 +388,7 @@ public class DatabaseModel {
 
     return  ret;
   }
+
 
   ////Insert Entire Game
 
@@ -420,6 +449,8 @@ public class DatabaseModel {
             .prepare()
             .executeAsBlocking();
   }
+
+
 
 
 //

@@ -15,7 +15,8 @@ import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 public class AddGameActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = AddGameActivity.class.getSimpleName();
-    public static final String SIDE = "SIDE";
+//    public static final String SIDE = "SIDE";
+    public static final String GAMENO = "GAMENO";
 
     @Inject
     AddGamePresenter presenter;
@@ -25,9 +26,15 @@ public class AddGameActivity extends AppCompatActivity {
 
 
 
-    public static void start(Context contextIn, String side) {
+//    public static void start(Context contextIn, String side) {
+//        Intent intent = new Intent(contextIn, AddGameActivity.class);
+//        intent.putExtra(SIDE, side); //NOTE: Note sure if this is still needed
+//        contextIn.startActivity(intent);
+//    }
+
+    public static void start(Context contextIn, String gameNo) {
         Intent intent = new Intent(contextIn, AddGameActivity.class);
-        intent.putExtra(SIDE, side);
+        intent.putExtra(GAMENO, gameNo);
         contextIn.startActivity(intent);
     }
 
