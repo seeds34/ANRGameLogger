@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+
 import javax.inject.Inject;
+
+import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 import org.seeds.anrgamelogger.gamedetail.dagger.DaggerGameDetailComponent;
 import org.seeds.anrgamelogger.gamedetail.dagger.GameDetailModule;
@@ -52,4 +56,11 @@ public class GameDetailActivity extends AppCompatActivity {
         super.onDestroy();
         presenter.onDestroy();
        }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_game_detail_view, menu);
+        return true;
+
+    }
 }

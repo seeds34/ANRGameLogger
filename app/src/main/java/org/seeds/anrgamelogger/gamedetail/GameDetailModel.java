@@ -2,6 +2,8 @@ package org.seeds.anrgamelogger.gamedetail;
 
 import android.app.Activity;
 import android.util.Log;
+
+import org.seeds.anrgamelogger.addgame.AddGameActivity;
 import org.seeds.anrgamelogger.database.DatabaseModel;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
 
@@ -31,4 +33,7 @@ public class GameDetailModel {
         return databaseModel.getLoggedGame(gameID);
     }
 
+    public void editGame(Integer gameNo) {
+        AddGameActivity.start(activity.getApplicationContext(),String.valueOf(gameNo));
+    }
 }

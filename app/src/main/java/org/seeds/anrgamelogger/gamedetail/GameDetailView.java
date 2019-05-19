@@ -1,13 +1,21 @@
 package org.seeds.anrgamelogger.gamedetail;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
+
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
 
@@ -53,6 +61,62 @@ public class GameDetailView extends FrameLayout {
     Log.i(LOG_TAG, "gameDetailViewPager is " + gameDetailViewPager);
 
 
+        ((AppCompatActivity)activity).setSupportActionBar(toolbar);
+        ((AppCompatActivity)activity).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setOnMenuItemClickListener(
+                new Toolbar.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+
+                        int id = item.getItemId();
+
+                        //noinspection SimplifiableIfStatement
+                        if (id == R.id.edit) {
+
+                            return true;
+                        }
+
+
+                        return false;
+                    }
+
+
+                });
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                new AlertDialog.Builder(activity)
+                        .setTitle("Discard Changes?")
+                        //.setMessage("All changes will be lost if you leave.")
+
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton("DISCARD", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                activity.finish();
+                            }
+                        })
+
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton("CANCEL", null)
+                        //.setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        });
+
+
+    }
+
+    private final PublishSubject<Object> temp = PublishSubject.create();
+
+
+    public Observable<Object> editGame(){
+        temp.onNext(1);
+        return temp;
     }
 
     public void setTitle(){
