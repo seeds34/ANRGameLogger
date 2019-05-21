@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.util.Log;
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.addgame.AddGameActivity;
+import org.seeds.anrgamelogger.application.PredefinedGame;
 import org.seeds.anrgamelogger.application.SetupDatabaseDataModel;
 import org.seeds.anrgamelogger.database.DatabaseModel;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
@@ -70,12 +71,13 @@ public class GameListModel {
     }
 
     public void startAddGameActivity(String gameNo){
-      AddGameActivity.start(activity.getApplicationContext(),gameNo);
+      AddGameActivity.start(activity.getApplicationContext(),gameNo, PredefinedGame.PARTIAL);
     }
 
     public void startAddGameActivity(){
-        AddGameActivity.start(activity.getApplicationContext(),"");
+        AddGameActivity.start(activity.getApplicationContext(),"", PredefinedGame.NEW);
     }
+
     public String getLastUsedGameNo() {
         return String.valueOf(databaseModel.getLastGameNoUsed());
     }

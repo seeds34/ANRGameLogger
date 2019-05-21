@@ -2,6 +2,7 @@ package org.seeds.anrgamelogger;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 import org.seeds.anrgamelogger.gamelist.GameListPresenter;
@@ -48,4 +49,11 @@ public class GameListActivity extends AppCompatActivity{
     super.onResume();
     presenter.refresh();
   }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+       getMenuInflater().inflate(R.menu.menu_game_list, menu);
+       return true;
+    }
+
 }

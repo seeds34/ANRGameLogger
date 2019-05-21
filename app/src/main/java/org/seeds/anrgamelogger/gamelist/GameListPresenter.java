@@ -49,23 +49,20 @@ public class GameListPresenter{
     }
 
     private Disposable observerImageLoadButtonClick(){
-        return view.observeLoadImageClick()
+        return view.download_images()
                 .subscribe(__ -> model.loadIdentityImages());
     }
 
 
     private Disposable addNewGame(){
-        return view.observeNewGameFab()
-                .doOnEach(__ -> view.hideSubFABs())
-                .subscribe(__ -> {
+        return view.newLog().subscribe(__ -> {
                     model.startAddGameActivity();
                 });
     }
 
     private Disposable addRepeatedGame(){
-        return view.observeRepeatGameFab()
-                .doOnEach(__ -> view.hideSubFABs())
-                .subscribe(__ -> {
+        return view.repeatLog().
+                subscribe(__ -> {
                     model.startAddGameActivity(model.getLastUsedGameNo());
                 });
     }

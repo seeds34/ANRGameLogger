@@ -19,11 +19,11 @@
         app:layout_scrollFlags="scroll|enterAlways"
         app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    <Button
-        android:id="@+id/loadImages"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Load Images" />
+    <!--<Button-->
+        <!--android:id="@+id/loadImages"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Load Images" />-->
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

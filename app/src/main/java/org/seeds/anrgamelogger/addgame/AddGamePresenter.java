@@ -10,6 +10,7 @@ import org.seeds.anrgamelogger.addgame.views.AddGameOverviewView;
 import org.seeds.anrgamelogger.addgame.views.AddGameRunnerView;
 import org.seeds.anrgamelogger.addgame.views.AddGameView;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
+import org.seeds.anrgamelogger.application.PredefinedGame;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameOverview;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGamePlayer;
@@ -86,21 +87,53 @@ public class AddGamePresenter {
         compositeSubscription.add(observerSave());
         compositeSubscription.add(dateSelected());
 
-        if(model.gameNoPassed()){
-            setUpGame();
+        PredefinedGame passedGameValue = model.getPredefineGameValue();
+
+        if(passedGameValue == PredefinedGame.PARTIAL){
+            setUpPartailGame();
+        }else if(passedGameValue == PredefinedGame.COMPLETE){
+            setUpFullGame();
         }
+
     }
 
-    public void setUpGame(){
-        //TODO: Need to know diffrance between last gmae repaeat and edit (last game reapeast should not have score etc pre defined)
-        LoggedGameFlat lgf = model.getPassedInGame();
-        runnerPlayerView.setPlayerName(lgf.getpO_Name());
-        runnerPlayerView.setDeckName(lgf.getpO_DeckName());
-        runnerPlayerView.setScore(lgf.getpO_Score());
+    public void setUpPartailGame(){
 
-        corpPlayerView.setPlayerName(lgf.getpT_Name());
-        corpPlayerView.setDeckName(lgf.getpT_DeckName());
-        corpPlayerView.setScore(lgf.getpT_Score());
+        LoggedGameFlat lgf = model.getPassedInGame();
+        if(lgf != null){
+
+            runnerPlayerView.setPlayerName(lgf.getpO_Name());
+            runnerPlayerView.setDeckName(lgf.getpO_DeckName());
+
+            corpPlayerView.setPlayerName(lgf.getpT_Name());
+            corpPlayerView.setDeckName(lgf.getpT_DeckName());
+
+        }
+
+    }
+
+    public void setUpFullGame(){
+
+        LoggedGameFlat lgf = model.getPassedInGame();
+        if(lgf != null){
+
+            runnerPlayerView.setPlayerName(lgf.getpO_Name());
+            runnerPlayerView.setDeckName(lgf.getpO_DeckName());
+            runnerPlayerView.setScore(lgf.getpO_Score());
+            //runnerPlayerView.setDeckVersion(lgf.getpO_);
+            runnerPlayerView.setIdentity(lgf.getpO_Identity());
+
+            corpPlayerView.setPlayerName(lgf.getpT_Name());
+            corpPlayerView.setDeckName(lgf.getpT_DeckName());
+            corpPlayerView.setScore(lgf.getpT_Score());
+            corpPlayerView.setIdentity(lgf.getpT_Identity());
+
+            overviewView.setPlayedDate(lgf.getPlayedDate());
+            overviewView.setLocation(lgf.getLocationName());
+            overviewView.setWinningSide(lgf.getWinningSide());
+            overviewView.setWinType(lgf.getWinType());
+
+        }
 
     }
 

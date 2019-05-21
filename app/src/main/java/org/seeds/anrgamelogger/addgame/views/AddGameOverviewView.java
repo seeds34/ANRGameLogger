@@ -147,7 +147,32 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
     location.setText(locationIn, false);
   }
 
-  public void setPlayedDate(){
+  public void setWinningSide(String winningSide){
+     RadioButton runnerRB = findViewById(R.id.rbtn_winnerRunner);
+     RadioButton corpRB = findViewById(R.id.rbtn_winnerCorp);
+
+     if(runnerRB.getText().equals(winningSide)){
+       runnerRB.setChecked(true);
+     }else{
+        corpRB.setChecked(true);
+    }
+  }
+
+  public void setWinType(String winType){
+    RadioButton kill = findViewById(R.id.rbtn_killWin);
+    RadioButton mill = findViewById(R.id.rbtn_millWin);
+    RadioButton score = findViewById(R.id.rbtn_scoreWin);
+
+    if(kill.getText().equals(winType)){
+      kill.setChecked(true);
+    }else if(mill.getText().equals(winType)){
+      mill.setChecked(true);
+    }else{
+      score.setChecked(true);
+    }
+  }
+
+  public void setPlayedDate(String playedDate){
 
   }
 }

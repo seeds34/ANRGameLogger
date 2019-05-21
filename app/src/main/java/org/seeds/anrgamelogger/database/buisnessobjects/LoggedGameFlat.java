@@ -3,6 +3,8 @@ package org.seeds.anrgamelogger.database.buisnessobjects;
 import android.os.Parcel;
 import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteColumn;
 import com.pushtorefresh.storio3.sqlite.annotations.StorIOSQLiteType;
+
+import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 import org.seeds.anrgamelogger.database.GameLoggerDatabase.Views;
 
 @StorIOSQLiteType(table= "temp." + Views.LOGGED_GAMES_FLAT_VIEW)
@@ -241,6 +243,14 @@ public class LoggedGameFlat implements android.os.Parcelable {
 
     public void setWinType(String winType) {
         this.winType = winType;
+    }
+
+    public String getWinningSide(){
+        String ret = ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER;
+        if(pT_WinFlag.equals("Y")){
+            ret = ANRLoggerApplication.CORP_SIDE_IDENTIFIER;
+        }
+        return ret;
     }
 
     public String getWinnerName() {

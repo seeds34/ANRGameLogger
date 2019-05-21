@@ -4,6 +4,7 @@ import android.util.Log;
 
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
 
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 /**
@@ -19,6 +20,9 @@ public class GameDetailPresenter {
 
     private LoggedGameFlat lgf;
 
+    private final CompositeDisposable compositeSubscription = new CompositeDisposable();
+
+
     public GameDetailPresenter(GameDetailView view, GameDetailModel model){
         this.view = view;
         this.model = model;
@@ -32,14 +36,15 @@ public class GameDetailPresenter {
         view.setData(lgf);
         view.setUpPages();
         view.setTitle();
-       // view.setLLGData(model.getLoggedGame());
+
+        compositeSubscription.add(observerEdit());
     }
 
     public void onDestroy(){
 
     }
 
-    public Disposable observerSave(){
+    public Disposable observerEdit(){
         return view.editGame()
                 .subscribe( a ->
                         model.editGame(lgf.getGameID())

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.util.Log;
 
 import org.seeds.anrgamelogger.addgame.AddGameActivity;
+import org.seeds.anrgamelogger.application.PredefinedGame;
 import org.seeds.anrgamelogger.database.DatabaseModel;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
 
@@ -34,6 +35,6 @@ public class GameDetailModel {
     }
 
     public void editGame(Integer gameNo) {
-        AddGameActivity.start(activity.getApplicationContext(),String.valueOf(gameNo));
+        AddGameActivity.start(activity.getApplicationContext(),String.valueOf(gameNo), PredefinedGame.COMPLETE);
     }
 }

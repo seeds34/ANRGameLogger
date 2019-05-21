@@ -163,11 +163,12 @@ public class AddGamePlayerView extends FrameLayout implements AddGameSubView {
   }
 
   public void setIdentity(String identityName){
-    identitiesSpinner.setSelection(1); //TODO: Need to fix
+    Log.d(LOG_TAG, "Identity to set is: " + identityName);
+    identitiesSpinner.setSelection(identityNameArrayAdapter.getPosition(identityName));
   }
 
   public void setScore(Integer scoreIn){
-    score.setSelection(scoreIn-1);
+    score.setSelection(scoreIn);
   }
 
   //  @Override

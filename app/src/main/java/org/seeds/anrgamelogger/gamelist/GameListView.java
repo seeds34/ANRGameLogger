@@ -1,11 +1,16 @@
 package org.seeds.anrgamelogger.gamelist;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -15,6 +20,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.jakewharton.rxbinding2.view.RxView;
 import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
+
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.database.buisnessobjects.LoggedGameFlat;
@@ -40,11 +47,21 @@ public class GameListView extends FrameLayout{
     @BindView(R.id.add_runner_game_fab)
     FloatingActionButton runner_fab;
 
-    @BindView(R.id.loadImages)
-    Button loadImageButton;
+    Activity activity;
+//    @BindView(R.id.loadImages)
+//    Button loadImageButton;
+
+    private final PublishSubject<Object> temp = PublishSubject.create();
+
+    private final PublishSubject<Object> newLogPubSubject = PublishSubject.create();
+    private final PublishSubject<Object> repeatLogPubSubject = PublishSubject.create();
+
+
 
     public GameListView(Activity activity) {
         super(activity);
+
+        this.activity = activity;
 
         inflate(getContext(), R.layout.view_gamelist_base, this);
 
@@ -59,8 +76,37 @@ public class GameListView extends FrameLayout{
         gameRecyclerList.setAdapter(gameListRecyclerViewAdaptor);
 
         Log.d(LOG_TAG,"fab is " + ((fab == null)?"Null":"Not Null"));
+
+        ((AppCompatActivity)activity).setSupportActionBar(toolbar);
+        //((AppCompatActivity)activity).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setOnMenuItemClickListener(
+                new Toolbar.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+
+                        int id = item.getItemId();
+
+                        //noinspection SimplifiableIfStatement
+                        if (id == R.id.action_download_images) {
+                            download_images();
+                            return true;
+                        }
+
+
+                        return false;
+                    }
+
+
+                });
     }
 
+
+    public Observable<Object> download_images(){
+        temp.onNext(1);
+        return temp;
+    }
 
     public void setData(ArrayList<LoggedGameFlat> gameListIn) {
         gameListRecyclerViewAdaptor.loadNewData(gameListIn);
@@ -72,68 +118,92 @@ public class GameListView extends FrameLayout{
        // return RxView.clicks(gameRecyclerList);
     }
 
-    public Observable<Object> observeLoadImageClick(){
-        Log.d(LOG_TAG, "Load Image Buttin pressed");
-        return RxView.clicks(loadImageButton);
-    }
 
 
-    public void showSubFABs(){
-      FrameLayout.LayoutParams layoutParams;
-
-
-      layoutParams = (FrameLayout.LayoutParams) corp_fab.getLayoutParams();
-      layoutParams.rightMargin += (int) (corp_fab.getWidth() * 1.7);
-      layoutParams.bottomMargin += (int) (corp_fab.getHeight() * 0.25);
-      corp_fab.setLayoutParams(layoutParams);
-      //fab.startAnimation(show_fab_1);
-      corp_fab.setVisibility(View.VISIBLE);
-      corp_fab.setClickable(true);
-
-      layoutParams = (FrameLayout.LayoutParams) runner_fab.getLayoutParams();
-      layoutParams.rightMargin += (int) (runner_fab.getWidth() * 0.25);
-      layoutParams.bottomMargin += (int) (runner_fab.getHeight() * 1.7);
-      runner_fab.setLayoutParams(layoutParams);
-      //fab.startAnimation(show_fab_1);
-      runner_fab.setVisibility(View.VISIBLE);
-      runner_fab.setClickable(true);
-    }
-
-  public void hideSubFABs(){
-    FrameLayout.LayoutParams layoutParams;
-    layoutParams = (FrameLayout.LayoutParams) corp_fab.getLayoutParams();
-    layoutParams.rightMargin -= (int) (corp_fab.getWidth() * 1.7);
-    layoutParams.bottomMargin -= (int) (corp_fab.getHeight() * 0.25);
-    corp_fab.setLayoutParams(layoutParams);
-    //fab.startAnimation(show_fab_1);
-    corp_fab.setVisibility(View.INVISIBLE);
-    corp_fab.setClickable(false);
-
-    layoutParams = (FrameLayout.LayoutParams) runner_fab.getLayoutParams();
-    layoutParams.rightMargin -= (int) (runner_fab.getWidth() * 0.25);
-    layoutParams.bottomMargin -= (int) (runner_fab.getHeight() * 1.7);
-    runner_fab.setLayoutParams(layoutParams);
-    //fab.startAnimation(show_fab_1);
-    runner_fab.setVisibility(View.INVISIBLE);
-    runner_fab.setClickable(false);
-  }
+//    public void showSubFABs(){
+//      FrameLayout.LayoutParams layoutParams;
+//
+//
+//      layoutParams = (FrameLayout.LayoutParams) corp_fab.getLayoutParams();
+//      layoutParams.rightMargin += (int) (corp_fab.getWidth() * 1.7);
+//      layoutParams.bottomMargin += (int) (corp_fab.getHeight() * 0.25);
+//      corp_fab.setLayoutParams(layoutParams);
+//      //fab.startAnimation(show_fab_1);
+//      corp_fab.setVisibility(View.VISIBLE);
+//      corp_fab.setClickable(true);
+//
+//      layoutParams = (FrameLayout.LayoutParams) runner_fab.getLayoutParams();
+//      layoutParams.rightMargin += (int) (runner_fab.getWidth() * 0.25);
+//      layoutParams.bottomMargin += (int) (runner_fab.getHeight() * 1.7);
+//      runner_fab.setLayoutParams(layoutParams);
+//      //fab.startAnimation(show_fab_1);
+//      runner_fab.setVisibility(View.VISIBLE);
+//      runner_fab.setClickable(true);
+//    }
+//
+//  public void hideSubFABs(){
+//    FrameLayout.LayoutParams layoutParams;
+//    layoutParams = (FrameLayout.LayoutParams) corp_fab.getLayoutParams();
+//    layoutParams.rightMargin -= (int) (corp_fab.getWidth() * 1.7);
+//    layoutParams.bottomMargin -= (int) (corp_fab.getHeight() * 0.25);
+//    corp_fab.setLayoutParams(layoutParams);
+//    //fab.startAnimation(show_fab_1);
+//    corp_fab.setVisibility(View.INVISIBLE);
+//    corp_fab.setClickable(false);
+//
+//    layoutParams = (FrameLayout.LayoutParams) runner_fab.getLayoutParams();
+//    layoutParams.rightMargin -= (int) (runner_fab.getWidth() * 0.25);
+//    layoutParams.bottomMargin -= (int) (runner_fab.getHeight() * 1.7);
+//    runner_fab.setLayoutParams(layoutParams);
+//    //fab.startAnimation(show_fab_1);
+//    runner_fab.setVisibility(View.INVISIBLE);
+//    runner_fab.setClickable(false);
+//  }
 
   @OnClick(R.id.addGameLog)
     public void fabClick(){
-      if(corp_fab.getVisibility() == View.INVISIBLE & runner_fab.getVisibility() == View.INVISIBLE  ) {
-        showSubFABs();
-        }else{
-        hideSubFABs();
-        }
+
+      new AlertDialog.Builder(activity)
+              .setTitle("Log Game Type")
+              .setItems(R.array.logGameType, new DialogInterface.OnClickListener() {
+                  public void onClick(DialogInterface dialog, int which) {
+
+                      switch (which){
+                          case 0: newLog();
+                              break;
+                          case 1: repeatLog();
+                              break;
+                              default:
+                      }
+                  }
+              })
+              .create().show();
+
+//      if(corp_fab.getVisibility() == View.INVISIBLE & runner_fab.getVisibility() == View.INVISIBLE  ) {
+//        showSubFABs();
+//        }else{
+//        hideSubFABs();
+//        }
     }
 
-    public Observable<Object> observeNewGameFab(){
-        return RxView.clicks(corp_fab);
+
+    public Observable<Object> newLog(){
+        newLogPubSubject.onNext(1);
+        return newLogPubSubject;
     }
 
-  public Observable<Object> observeRepeatGameFab(){
-    return RxView.clicks(runner_fab);
-  }
+    public Observable<Object> repeatLog(){
+        repeatLogPubSubject.onNext(1);
+        return repeatLogPubSubject;
+    }
+
+//    public Observable<Object> observeNewGameFab(){
+//        return RxView.clicks(corp_fab);
+//    }
+//
+//  public Observable<Object> observeRepeatGameFab(){
+//    return RxView.clicks(runner_fab);
+//  }
 
 
 //    @OnClick(R.id.listofgmaesrecyclerview)

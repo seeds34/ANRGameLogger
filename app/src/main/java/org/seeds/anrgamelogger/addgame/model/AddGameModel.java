@@ -4,6 +4,7 @@ import android.app.Activity;
 import java.util.ArrayList;
 import java.util.List;
 import org.seeds.anrgamelogger.addgame.AddGameActivity;
+import org.seeds.anrgamelogger.application.PredefinedGame;
 import org.seeds.anrgamelogger.database.DatabaseModel;
 import org.seeds.anrgamelogger.database.buisnessobjects.Deck;
 import org.seeds.anrgamelogger.database.buisnessobjects.Identity;
@@ -88,5 +89,9 @@ public class AddGameModel {
 
     public LoggedGameFlat getPassedInGame() {
        return databaseModel.getLoggedGame(Integer.valueOf(activity.getIntent().getStringExtra(AddGameActivity.GAMENO)));
+    }
+
+    public PredefinedGame getPredefineGameValue(){
+        return (PredefinedGame)activity.getIntent().getSerializableExtra(AddGameActivity.TYPE);
     }
 }

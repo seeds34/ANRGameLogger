@@ -11,12 +11,14 @@ import org.seeds.anrgamelogger.addgame.dagger.AddGameModule;
 import org.seeds.anrgamelogger.addgame.dagger.DaggerAddGameComponent;
 import org.seeds.anrgamelogger.addgame.views.AddGameView;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
+import org.seeds.anrgamelogger.application.PredefinedGame;
 
 public class AddGameActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = AddGameActivity.class.getSimpleName();
 //    public static final String SIDE = "SIDE";
     public static final String GAMENO = "GAMENO";
+    public static final String TYPE = "TYPE";
 
     @Inject
     AddGamePresenter presenter;
@@ -32,9 +34,10 @@ public class AddGameActivity extends AppCompatActivity {
 //        contextIn.startActivity(intent);
 //    }
 
-    public static void start(Context contextIn, String gameNo) {
+    public static void start(Context contextIn, String gameNo, PredefinedGame predefinedGame) {
         Intent intent = new Intent(contextIn, AddGameActivity.class);
         intent.putExtra(GAMENO, gameNo);
+        intent.putExtra(TYPE,predefinedGame);
         contextIn.startActivity(intent);
     }
 

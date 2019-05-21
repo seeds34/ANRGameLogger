@@ -36,7 +36,7 @@ public class AddGameView extends FrameLayout {
     @BindView(R.id.tabs)
     public TabLayout tabLayout;
 
-  private final PublishSubject<Object> temp = PublishSubject.create();
+    private final PublishSubject<Object> savePubSubject = PublishSubject.create();
 
     private AddGamePagerAdapter addGamePagerAdapter;
 
@@ -61,21 +61,13 @@ public class AddGameView extends FrameLayout {
             new Toolbar.OnMenuItemClickListener() {
           @Override
           public boolean onMenuItemClick(MenuItem item) {
-
-
             int id = item.getItemId();
-
-            //noinspection SimplifiableIfStatement
             if (id == R.id.action_save) {
               save();
               return true;
             }
-
-
             return false;
           }
-
-
       });
 
       toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -84,23 +76,15 @@ public class AddGameView extends FrameLayout {
 
           new AlertDialog.Builder(activity)
               .setTitle("Discard Changes?")
-              //.setMessage("All changes will be lost if you leave.")
-
-              // Specifying a listener allows you to take an action before dismissing the dialog.
-              // The dialog is automatically dismissed when a dialog button is clicked.
               .setPositiveButton("DISCARD", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                   activity.finish();
                 }
               })
-
-              // A null listener allows the button to dismiss the dialog and take no further action.
               .setNegativeButton("CANCEL", null)
-              //.setIcon(android.R.drawable.ic_dialog_alert)
               .show();
         }
       });
-
 
     }
 
@@ -109,18 +93,10 @@ public class AddGameView extends FrameLayout {
 //        toolbar.setTitle(title);
 //    }
 
-
-
-
   public Observable<Object> save(){
-    temp.onNext(1);
-    return temp;
+    savePubSubject.onNext(1);
+    return savePubSubject;
   }
-
-
-
-
-
 
     public void setUpPagerViews(AddGameSubView viewIn) {
         Log.d(LOG_TAG,"Adding View: " + viewIn.getSide());
