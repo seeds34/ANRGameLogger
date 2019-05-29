@@ -110,7 +110,7 @@ public class Deck {
 
 
   public interface DecksColumns{
-      String DECK_NAME= "name";
+      String DECK_NAME= "deckname";
       String DECK_VERSION= "version";
       String DECK_ARCHETYPE= "archetype";
       String DECK_IDENTITY = "identity";

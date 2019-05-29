@@ -102,12 +102,19 @@ public class AddGamePresenter {
         LoggedGameFlat lgf = model.getPassedInGame();
         if(lgf != null){
 
+            Log.d(LOG_TAG, ".setUpFullGame() : Passing Log: " + lgf.toString());
+
+
             runnerPlayerView.setPlayerName(lgf.getpO_Name());
             runnerPlayerView.setDeckName(lgf.getpO_DeckName());
+            runnerPlayerView.setIdentity(lgf.getpO_Identity());
 
             corpPlayerView.setPlayerName(lgf.getpT_Name());
             corpPlayerView.setDeckName(lgf.getpT_DeckName());
+            corpPlayerView.setIdentity(lgf.getpT_Identity());
 
+            overviewView.setPlayedDate(lgf.getPlayedDate());
+            overviewView.setLocation(lgf.getLocationName());
         }
 
     }
@@ -117,22 +124,25 @@ public class AddGamePresenter {
         LoggedGameFlat lgf = model.getPassedInGame();
         if(lgf != null){
 
+            Log.d(LOG_TAG, ".setUpFullGame() : Passing Log: " + lgf.toString());
+
+//TODO: Still need to fix version and date
             runnerPlayerView.setPlayerName(lgf.getpO_Name());
             runnerPlayerView.setDeckName(lgf.getpO_DeckName());
             runnerPlayerView.setScore(lgf.getpO_Score());
-            //runnerPlayerView.setDeckVersion(lgf.getpO_);
+            runnerPlayerView.setDeckVersion(lgf.getpO_DeckVer());
             runnerPlayerView.setIdentity(lgf.getpO_Identity());
 
             corpPlayerView.setPlayerName(lgf.getpT_Name());
             corpPlayerView.setDeckName(lgf.getpT_DeckName());
             corpPlayerView.setScore(lgf.getpT_Score());
+            runnerPlayerView.setDeckVersion(lgf.getpO_DeckVer());
             corpPlayerView.setIdentity(lgf.getpT_Identity());
 
             overviewView.setPlayedDate(lgf.getPlayedDate());
             overviewView.setLocation(lgf.getLocationName());
             overviewView.setWinningSide(lgf.getWinningSide());
             overviewView.setWinType(lgf.getWinType());
-
         }
 
     }

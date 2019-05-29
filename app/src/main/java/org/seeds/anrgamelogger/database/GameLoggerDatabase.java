@@ -101,6 +101,7 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
             + "LGP." + BaseColumns._ID + "  porowid, "
             + "LGP." + LoggedGamePlayer.LoggedGamePlayersColumns.GAME_ID + " " + LoggedGamePlayer.LoggedGamePlayersColumns.GAME_ID + ", "
             + "D." + Deck.DecksColumns.DECK_NAME + " " + Deck.DecksColumns.DECK_NAME + ", "
+            + "D." + Deck.DecksColumns.DECK_VERSION + " " + Deck.DecksColumns.DECK_VERSION + ", "
             + "I." + Identity.IdentitiesColumns.IDENTITY_NAME + " " + Identity.IdentitiesColumns.IDENTITY_NAME + ", "
             + "I." + Identity.IdentitiesColumns.NRDB_CODE + " " + Identity.IdentitiesColumns.NRDB_CODE + ", "
             + "I." + Identity.IdentitiesColumns.IMAGE_BIT_ARRAY + " " + Identity.IdentitiesColumns.IMAGE_BIT_ARRAY + ", "
@@ -118,12 +119,14 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
       + "L." +   Location.LocationsColumns.LOCATION_NAME + " " + LoggedGamesFlatColumns.LOCATION_NAME + ", "
       + "OV." + LoggedGameOverview.LoggedGameOverviewsColumns.PLAYED_DATE  + " " + LoggedGamesFlatColumns.PLAYED_DATE + ", "
       + "PO." + Deck.DecksColumns.DECK_NAME + " " + LoggedGamesFlatColumns.PLAYER_ONE_DECK_NAME + ", "
+      + "PO." + Deck.DecksColumns.DECK_VERSION + " " + LoggedGamesFlatColumns.PLAYER_ONE_DECK_VER + ", "
       + "PO." + Player.PlayersColumns.PLAYER_NAME  + " " + LoggedGamesFlatColumns.PLAYER_ONE_NAME + ", "
       + "PO." + Identity.IdentitiesColumns.IDENTITY_NAME  + " " + LoggedGamesFlatColumns.PLAYER_ONE_ID_NAME + ", "
       + "PO." + Identity.IdentitiesColumns.IMAGE_BIT_ARRAY  + " " + LoggedGamesFlatColumns.PLAYER_ONE_ID_IMAGE + ", "
       + "PO." + LoggedGamePlayer.LoggedGamePlayersColumns.SCORE + " " + LoggedGamesFlatColumns.PLAYER_ONE_SCORE + ", "
       + "PO." + LoggedGamePlayer.LoggedGamePlayersColumns.WIN_FLAG  + " " + LoggedGamesFlatColumns.PLAYER_ONE_WIN_FLAG + ", "
       + "PT." + Deck.DecksColumns.DECK_NAME  + " " + LoggedGamesFlatColumns.PLAYER_TWO_DECK_NAME + ", "
+      + "PT." + Deck.DecksColumns.DECK_VERSION + " " + LoggedGamesFlatColumns.PLAYER_TWO_DECK_VER + ", "
       + "PT." + Player.PlayersColumns.PLAYER_NAME  + " " + LoggedGamesFlatColumns.PLAYER_TWO_NAME + ", "
       + "PT." + Identity.IdentitiesColumns.IDENTITY_NAME  + " " + LoggedGamesFlatColumns.PLAYER_TWO_ID_NAME + ", "
       + "PT." + Identity.IdentitiesColumns.IMAGE_BIT_ARRAY  + " " + LoggedGamesFlatColumns.PLAYER_TWO_ID_IMAGE + ", "
@@ -142,9 +145,6 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
   public GameLoggerDatabase(Context contextIn){
         super(contextIn,DATABASE_NAME,null,DATABASE_VERSION);
         conext = contextIn;
-
-        //Print Out SQL
-        Log.i(LOG_TAG, LOGGED_GAMES_FLAT_VIEW_DDL);
     }
 
     @Override
@@ -164,6 +164,10 @@ public class GameLoggerDatabase extends SQLiteOpenHelper {
   @Override
   public void onOpen(SQLiteDatabase db) {
     super.onOpen(db);
+
+      //Print Out SQL
+      Log.i(LOG_TAG, VIEW_SELECT_PLAYER);
+      Log.i(LOG_TAG, LOGGED_GAMES_FLAT_VIEW_DDL);
     db.execSQL(LOGGED_GAMES_FLAT_VIEW_DDL);
   }
 

@@ -126,8 +126,7 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
   }
 
   public void setDate(Calendar calIn){
-    //TODO: Need to loclize date
-
+    //TODO: Need to localize date
     cal = calIn;
       int year = cal.get(Calendar.YEAR);
       int month = cal.get(Calendar.MONTH)+1;
@@ -172,7 +171,13 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
     }
   }
 
-  public void setPlayedDate(String playedDate){
+  public void setPlayedDate(String playedDateIn){
+      String[] dateParts = playedDateIn.split("/");
+      int day = Integer.getInteger(dateParts[0]);
+      int month = Integer.getInteger(dateParts[1]);
+      int year = Integer.getInteger(dateParts[2]);
 
+      cal.set(year,month,day);
+    playedDate.setText(playedDateIn);
   }
 }
