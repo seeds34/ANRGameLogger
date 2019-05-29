@@ -1,7 +1,9 @@
 package org.seeds.anrgamelogger.addgame.views;
 
 import android.app.Activity;
-import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PagerSnapHelper;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -15,7 +17,7 @@ import butterknife.OnItemSelected;
 import butterknife.OnPageChange;
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.addgame.AddGameIdentitesPageAdapter;
+import org.seeds.anrgamelogger.addgame.IdentitesPageAdapter;
 import org.seeds.anrgamelogger.model.IdentityList;
 
 /**
@@ -29,8 +31,8 @@ public class AddGamePlayerView extends FrameLayout implements AddGameSubView {
   @BindView(R.id.identitiesSpinner)
   Spinner identitiesSpinner;
 
-  @BindView(R.id.identitiesImageViewPager)
-  ViewPager identitiesImageViewPager;
+  @BindView(R.id.identitiesImageRecyclerView)
+  RecyclerView identitiesImageRV;
 
   @BindView(R.id.addGamePlayerName)
   AutoCompleteTextView playerName;
@@ -44,8 +46,8 @@ public class AddGamePlayerView extends FrameLayout implements AddGameSubView {
   @BindView(R.id.scoreSpinner)
   Spinner score;
 
-  private AddGameIdentitesPageAdapter identityImageViewAdapter;
-  private ArrayAdapter identityNameArrayAdapter;
+  private IdentitesPageAdapter identityImageViewAdapter;
+  private ArrayAdapter<String> identityNameArrayAdapter;
   private Activity activity;
   private ArrayAdapter<String> nameListAdapter;
   private ArrayAdapter<String> deckListAdapter;
@@ -57,6 +59,7 @@ public class AddGamePlayerView extends FrameLayout implements AddGameSubView {
     inflate(getContext(), R.layout.view_addgame_player, this);
     ButterKnife.setDebug(true);
     ButterKnife.bind(this);
+
 
     setUpScoreSpinner(15);
   }
@@ -87,17 +90,22 @@ public class AddGamePlayerView extends FrameLayout implements AddGameSubView {
 
   public void setIdApadters(IdentityList idList) {
     Log.d(LOG_TAG, "Setting up ID Apadters");
-    identityImageViewAdapter = new AddGameIdentitesPageAdapter(getContext(), idList);
-    identitiesImageViewPager.setAdapter(identityImageViewAdapter);
 
-    identityNameArrayAdapter = new ArrayAdapter<String>(this.getContext(), R.layout.support_simple_spinner_dropdown_item, idList.getListOfNames());
+
+    identitiesImageRV.setLayoutManager(new LinearLayoutManager(this.getContext(),LinearLayoutManager.HORIZONTAL,false));
+    identityImageViewAdapter = new IdentitesPageAdapter(getContext(), idList);
+    identitiesImageRV.setAdapter(identityImageViewAdapter);
+
+    PagerSnapHelper snapHelper = new PagerSnapHelper();
+    snapHelper.attachToRecyclerView(identitiesImageRV);
+
+    identityNameArrayAdapter = new ArrayAdapter(this.getContext(), R.layout.support_simple_spinner_dropdown_item, idList.getListOfNames());
     identitiesSpinner.setAdapter(identityNameArrayAdapter);
   }
 
   private void setUpScoreSpinner(int maxPoint){
 
     Integer[] scoreList = new Integer[maxPoint];
-
     for(int i = 0 ; i < scoreList.length ; i++){
       scoreList[i] = i;
     }
@@ -113,22 +121,18 @@ public class AddGamePlayerView extends FrameLayout implements AddGameSubView {
   public void identityNameSelected() {
     Log.d(LOG_TAG,"ID name spinner has changed to " + identitiesSpinner.getSelectedItem().toString());
 
-    int selectedPos = identityImageViewAdapter.getNameAtPOS(identitiesSpinner.getSelectedItem().toString());
-    identitiesImageViewPager.setCurrentItem(selectedPos);
+    int selectedPos = identityImageViewAdapter.getPOSbyName(identitiesSpinner.getSelectedItem().toString());
+    identitiesImageRV.findViewHolderForAdapterPosition(selectedPos);
 
-
-    //    identitiesSpinner.getSelectedItem();
-//    identitiesImageViewPager
+    identitiesImageRV.
   }
 
-  @OnPageChange(R.id.identitiesImageViewPager)
-  public void identityIamgeSinnerSelecterd(int i){
-    Log.d(LOG_TAG,"ID image spinner has changed to " + i);
-//TODO: This feels like more luck then jundment for working
-    identitiesSpinner.setSelection(identityNameArrayAdapter.getPosition(identityImageViewAdapter.getNameAtPOS(i)));
-    //identityImageViewAdapter.get
-    //identitiesSpinner.setSelection(identityNameArrayAdapter.getPosition(i));
-  }
+//  @On
+//  public void identityIamgeSinnerSelecterd(int i) {
+//    Log.d(LOG_TAG, "ID image spinner has changed to " + i);
+////TODO: This feels like more luck then jundment for working
+//    //identitiesSpinner.setSelection(identityNameArrayAdapter.getPosition(identityImageViewAdapter.getNameAtPOS(i)));
+//  }
 
   public String getIdentityName() {
     return identitiesSpinner.getSelectedItem().toString();
@@ -173,8 +177,8 @@ public class AddGamePlayerView extends FrameLayout implements AddGameSubView {
 
   //  @Override
 //  public void setIdentitiesImageViewPager(LinkedHashMap<String, byte[]> imageListIn){
-//      identityImageViewAdapter = new AddGameIdentitesPageAdapter(getContext(), imageListIn);
-//      identitiesImageViewPager.setAdapter(identityImageViewAdapter);
+//      identityImageViewAdapter = new IdentitesPageAdapter(getContext(), imageListIn);
+//      identitiesImageRV.setAdapter(identityImageViewAdapter);
 //  }
 //
 //  @Override
