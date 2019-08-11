@@ -104,7 +104,6 @@ public class AddGamePresenter {
 
             Log.d(LOG_TAG, ".setUpFullGame() : Passing Log: " + lgf.toString());
 
-
             runnerPlayerView.setPlayerName(lgf.getpO_Name());
             runnerPlayerView.setDeckName(lgf.getpO_DeckName());
             runnerPlayerView.setIdentity(lgf.getpO_Identity());
@@ -113,7 +112,7 @@ public class AddGamePresenter {
             corpPlayerView.setDeckName(lgf.getpT_DeckName());
             corpPlayerView.setIdentity(lgf.getpT_Identity());
 
-            overviewView.setPlayedDate(lgf.getPlayedDate());
+            overviewView.setDate(lgf.getPlayedDate());
             overviewView.setLocation(lgf.getLocationName());
         }
 
@@ -139,7 +138,7 @@ public class AddGamePresenter {
             runnerPlayerView.setDeckVersion(lgf.getpO_DeckVer());
             corpPlayerView.setIdentity(lgf.getpT_Identity());
 
-            overviewView.setPlayedDate(lgf.getPlayedDate());
+            overviewView.setDate(lgf.getPlayedDate());
             overviewView.setLocation(lgf.getLocationName());
             overviewView.setWinningSide(lgf.getWinningSide());
             overviewView.setWinType(lgf.getWinType());

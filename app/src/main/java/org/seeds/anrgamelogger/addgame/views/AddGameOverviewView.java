@@ -125,19 +125,6 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
   }
 
-  public void setDate(Calendar calIn){
-    //TODO: Need to localize date
-    cal = calIn;
-      int year = cal.get(Calendar.YEAR);
-      int month = cal.get(Calendar.MONTH)+1;
-      int day = cal.get(Calendar.DAY_OF_MONTH);
-
-      date = day + "/" + month + "/" + year;
-
-      Log.d(LOG_TAG,"setDate() : Setting date to: " + date);
-    playedDate.setText(date);
-  }
-
   public String getLocation(){
     return location.getText().toString();
   }
@@ -171,13 +158,33 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
     }
   }
 
-  public void setPlayedDate(String playedDateIn){
-      String[] dateParts = playedDateIn.split("/");
-      int day = Integer.getInteger(dateParts[0]);
-      int month = Integer.getInteger(dateParts[1]);
-      int year = Integer.getInteger(dateParts[2]);
+  public void setDate(Calendar calIn){
+    //TODO: Need to localize date
+    //TODO: CalIn might be Null, need to stop the ability to pass Null or do null check
+    cal = calIn;
+    if(cal != null) {
+      int year = cal.get(Calendar.YEAR);
+      int month = cal.get(Calendar.MONTH) + 1;
+      int day = cal.get(Calendar.DAY_OF_MONTH);
+      date = day + "/" + month + "/" + year;
+      Log.d(LOG_TAG, "setDate() : Setting date to: " + date);
+    }
+    playedDate.setText(date);
+  }
 
-      cal.set(year,month,day);
-    playedDate.setText(playedDateIn);
+  public void setDate(String playedDateIn){
+      Log.d(LOG_TAG,".setDate(String) : playedDateIn is " + playedDateIn);
+      if(playedDateIn != null) {
+        String[] dateParts = playedDateIn.split("/");
+        Log.d(LOG_TAG,".setDate(): dateParts[0] = " + dateParts[0]);
+        Integer day = Integer.valueOf(dateParts[0]);
+
+        Log.d(LOG_TAG,".setDate(): day Integer set to = " + day);
+
+        Integer month = Integer.valueOf(dateParts[1]);
+        Integer year = Integer.valueOf(dateParts[2]);
+        cal.set(year, month, day);
+        playedDate.setText(playedDateIn);
+      }
   }
 }
