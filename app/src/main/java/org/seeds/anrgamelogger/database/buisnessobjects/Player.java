@@ -122,7 +122,7 @@ public class Player implements Serializable, ViewData {
             "Name = " + name + "\n" +
             "Nickname = " + nickName + "\n" +
                 "jnetid = " +  jnetName + "\n" +
-                "rowid + " + rowid;
+                "rowid = " + rowid;
     }
 
   public interface PlayersColumns{

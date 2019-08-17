@@ -36,6 +36,7 @@ public class GameListPresenter{
         compositeSubscription.add(addNewGame());
         compositeSubscription.add(addRepeatedGame());
         compositeSubscription.add(observerImageLoadButtonClick());
+        compositeSubscription.add(observePurgeDB());
     }
 
     public void onDestroy() {
@@ -65,6 +66,11 @@ public class GameListPresenter{
                 subscribe(__ -> {
                     model.startAddGameActivity(model.getLastUsedGameNo());
                 });
+    }
+
+    public Disposable observePurgeDB(){
+        return view.purgeDatabase()
+                .subscribe(__->model.purgeDatabse());
     }
 
   public void refresh() {

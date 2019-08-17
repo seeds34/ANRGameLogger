@@ -95,6 +95,7 @@ public class GameDetailOverview extends FrameLayout {
         String winnerText = "Winner Name: " + data.getWinnerName();
         // winnerName.setText(winnerText);
 
+        //TODO: breaks if trying to load but no images in db
         //TODO: Fix Win logic
         if(data.getWinnerName().equals(data.getpO_Name())){
             winnerLabelPO.setVisibility(View.VISIBLE);

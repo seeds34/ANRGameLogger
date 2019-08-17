@@ -2,7 +2,6 @@ package org.seeds.anrgamelogger.gamelist;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,14 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.jakewharton.rxbinding2.view.RxView;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
@@ -51,11 +47,11 @@ public class GameListView extends FrameLayout{
 //    @BindView(R.id.loadImages)
 //    Button loadImageButton;
 
-    private final PublishSubject<Object> temp = PublishSubject.create();
+    private final PublishSubject<Object> downloadPubSubject = PublishSubject.create();
 
     private final PublishSubject<Object> newLogPubSubject = PublishSubject.create();
     private final PublishSubject<Object> repeatLogPubSubject = PublishSubject.create();
-
+    private final PublishSubject<Object> purgeDatabasePubSubject = PublishSubject.create();
 
 
     public GameListView(Activity activity) {
@@ -84,13 +80,13 @@ public class GameListView extends FrameLayout{
                 new Toolbar.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-
-
                         int id = item.getItemId();
-
                         //noinspection SimplifiableIfStatement
                         if (id == R.id.action_download_images) {
                             download_images();
+                            return true;
+                        }else if (id == R.id.action_purge_database) {
+                            purgeDatabase();
                             return true;
                         }
 
@@ -104,8 +100,8 @@ public class GameListView extends FrameLayout{
 
 
     public Observable<Object> download_images(){
-        temp.onNext(1);
-        return temp;
+        downloadPubSubject.onNext(1);
+        return downloadPubSubject;
     }
 
     public void setData(ArrayList<LoggedGameFlat> gameListIn) {
@@ -224,7 +220,11 @@ public class GameListView extends FrameLayout{
         }else{
             showMessage("Data Loaded");
         }
+    }
 
+    public Observable<Object>purgeDatabase(){
+        purgeDatabasePubSubject.onNext(1);
+        return purgeDatabasePubSubject;
     }
 
 //

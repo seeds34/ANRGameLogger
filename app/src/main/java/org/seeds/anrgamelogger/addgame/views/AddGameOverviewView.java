@@ -172,12 +172,16 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
   }
 
   public void setPlayedDate(String playedDateIn){
+    Log.d(LOG_TAG,"Passing in date: " + playedDateIn);
       String[] dateParts = playedDateIn.split("/");
-      int day = Integer.getInteger(dateParts[0]);
-      int month = Integer.getInteger(dateParts[1]);
-      int year = Integer.getInteger(dateParts[2]);
 
-      cal.set(year,month,day);
+    Log.d(LOG_TAG,"Passing in date: " + dateParts[0] + " - " + dateParts[1] + " - " + dateParts[2]);
+
+    Integer day = Integer.valueOf(dateParts[0]);
+    Integer month = Integer.valueOf(dateParts[1]);
+    Integer year = Integer.valueOf(dateParts[2]);
+
+    cal.set(year,month,day);
     playedDate.setText(playedDateIn);
   }
 }

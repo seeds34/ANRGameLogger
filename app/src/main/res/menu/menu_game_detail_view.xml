@@ -3,8 +3,14 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="org.seeds.anrgamelogger.gamedetail.GameDetailActivity">
     <item
+        android:id="@+id/delete"
+        android:orderInCategory="300"
+        android:title="DELETE"
+        app:showAsAction="always"></item>
+
+    <item
         android:id="@+id/edit"
         android:orderInCategory="300"
         android:title="EDIT"
-        app:showAsAction="ifRoom"></item>
+        app:showAsAction="always"></item>
 </menu>

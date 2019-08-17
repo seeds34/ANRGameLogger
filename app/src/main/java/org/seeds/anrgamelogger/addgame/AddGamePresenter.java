@@ -36,7 +36,8 @@ public class AddGamePresenter {
     private final CompositeDisposable compositeSubscription = new CompositeDisposable();
 
     private CustomDPDLister cdl;
-    private final int GAMENO;
+    private  int GAMENO;
+    private final PredefinedGame passedGameValue;
 
     public AddGamePresenter(AddGameView view, AddGameModel model, AddGameRunnerView runnerPlayerView, AddGameCorpView corpPlayerView, AddGameOverviewView overviewView){
         this.view = view;
@@ -44,7 +45,8 @@ public class AddGamePresenter {
         this.overviewView = overviewView;
         this.runnerPlayerView = runnerPlayerView;
         this.corpPlayerView = corpPlayerView;
-        GAMENO = model.getNextGameNo();
+        passedGameValue = model.getPredefineGameValue();
+        //GAMENO = model.getNextGameNo();
     }
 
     public void onCreate() {
@@ -87,23 +89,32 @@ public class AddGamePresenter {
         compositeSubscription.add(observerSave());
         compositeSubscription.add(dateSelected());
 
-        PredefinedGame passedGameValue = model.getPredefineGameValue();
+        //PredefinedGame passedGameValue = model.getPredefineGameValue();
 
-        if(passedGameValue == PredefinedGame.PARTIAL){
+        if(passedGameValue == PredefinedGame.NEW){
+            setUpNewGame();
+        }
+        else if(passedGameValue == PredefinedGame.PARTIAL){
             setUpPartailGame();
-        }else if(passedGameValue == PredefinedGame.COMPLETE){
+        }else if(passedGameValue == PredefinedGame.EDIT){
             setUpFullGame();
         }
 
     }
 
-    public void setUpPartailGame(){
+    private void setUpNewGame() {
+        GAMENO = model.getNextGameNo();
+    }
+
+    private void setUpPartailGame(){
 
         LoggedGameFlat lgf = model.getPassedInGame();
         if(lgf != null){
 
             Log.d(LOG_TAG, ".setUpFullGame() : Passing Log: " + lgf.toString());
 
+            //GAMENO = lgf.getGameID();
+            GAMENO = model.getNextGameNo();
 
             runnerPlayerView.setPlayerName(lgf.getpO_Name());
             runnerPlayerView.setDeckName(lgf.getpO_DeckName());
@@ -116,15 +127,17 @@ public class AddGamePresenter {
             overviewView.setPlayedDate(lgf.getPlayedDate());
             overviewView.setLocation(lgf.getLocationName());
         }
-
     }
 
-    public void setUpFullGame(){
+    //NOTE: For Edit Game
+    private void setUpFullGame(){
 
         LoggedGameFlat lgf = model.getPassedInGame();
         if(lgf != null){
 
             Log.d(LOG_TAG, ".setUpFullGame() : Passing Log: " + lgf.toString());
+
+            GAMENO = lgf.getGameID();
 
 //TODO: Still need to fix version and date
             runnerPlayerView.setPlayerName(lgf.getpO_Name());
@@ -144,14 +157,26 @@ public class AddGamePresenter {
             overviewView.setWinningSide(lgf.getWinningSide());
             overviewView.setWinType(lgf.getWinType());
         }
-
     }
 
     public Disposable observerSave(){
-        return view.save()
-                .subscribe( a ->
-                    addGame()
-                );
+
+        //TODO: need to figure out if its an update or new. Feel its the presenters job
+        Disposable ret;
+
+        if(passedGameValue == PredefinedGame.NEW){
+            ret = view.save()
+                    .subscribe( a ->
+                            createGame()
+                    );
+        }else{
+            ret = view.save()
+                    .subscribe( a ->
+                            editGame()
+                    );
+        }
+
+        return ret;
     }
 
     public Disposable dateSelected(){
@@ -164,18 +189,18 @@ public class AddGamePresenter {
                 );
     }
 
-    private void addGame() {
+    private void createGame() {
 
-        //TODO: Need to think how to track who won a game better
+    //TODO: Need to think how to track who won a game better
         String ws = overviewView.getWiningSide().toLowerCase();
 
         LoggedGamePlayer lgpr = new LoggedGamePlayer(
             GAMENO,
             runnerPlayerView.getPlayerName(),
-                runnerPlayerView.getDeckName(),
-                runnerPlayerView.getIdentityName(),
-                runnerPlayerView.getSide(),
-                (ws.equals(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER))?"Y":"N",
+            runnerPlayerView.getDeckName(),
+            runnerPlayerView.getIdentityName(),
+            runnerPlayerView.getSide(),
+            (ws.equals(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER))?"Y":"N",
             runnerPlayerView.getScore(),
             runnerPlayerView.getDeckVer()
 
@@ -194,54 +219,17 @@ public class AddGamePresenter {
         );
 
         LoggedGameOverview lgo = new LoggedGameOverview(
-                overviewView.getLocation(),
-                overviewView.getPlayedDate(),
-                overviewView.getWinType(),
-                GAMENO,
-                overviewView.getWiningSide()
-        );
-
-
-
-
-
-/*
-        LoggedGamePlayer lgpr = new LoggedGamePlayer(
-            "Runner 1",
-            "Runner Deck 1",
-            "The Masque: Cyber General",
-            ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER,
-            "N",
-            6,
+            overviewView.getLocation(),
+            overviewView.getPlayedDate(),
+            overviewView.getWinType(),
             GAMENO,
-            "1"
+            overviewView.getWiningSide()
         );
-
-
-        LoggedGamePlayer lgpc = new LoggedGamePlayer(
-            "Corp 1",
-            "Corp Deck 1",
-            "The Shadow: Pulling the Strings",
-            ANRLoggerApplication.CORP_SIDE_IDENTIFIER,
-            "Y",
-            7,
-            GAMENO,
-            "1"
-        );
-
-        LoggedGameOverview lgo = new LoggedGameOverview(
-            "Home",
-            "11/04/2019",
-            "Score",
-            GAMENO,
-            ANRLoggerApplication.CORP_SIDE_IDENTIFIER
-        );
-*/
 
         LoggedGameValidator v =  new LoggedGameValidator();
 
         if(v.validateGame(lgo,lgpr, lgpc)) {
-            model.saveLoggedGame(lgo, lgpr, lgpc);
+            model.saveNewGame(lgo, lgpr, lgpc);
             view.displayGameLoggedMessagge(String.valueOf(GAMENO));
             model.finishActivity();
         }else {
@@ -249,6 +237,57 @@ public class AddGamePresenter {
         }
 
     }
+
+    private void editGame() {
+
+
+        //TODO: Need to think how to track who won a game better
+        String ws = overviewView.getWiningSide().toLowerCase();
+
+        LoggedGamePlayer lgpr = new LoggedGamePlayer(
+                GAMENO,
+                runnerPlayerView.getPlayerName(),
+                runnerPlayerView.getDeckName(),
+                runnerPlayerView.getIdentityName(),
+                runnerPlayerView.getSide(),
+                (ws.equals(ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER))?"Y":"N",
+                runnerPlayerView.getScore(),
+                runnerPlayerView.getDeckVer()
+
+        );
+
+
+        LoggedGamePlayer lgpc = new LoggedGamePlayer(
+                GAMENO,
+                corpPlayerView.getPlayerName(),
+                corpPlayerView.getDeckName(),
+                corpPlayerView.getIdentityName(),
+                corpPlayerView.getSide(),
+                (ws.equals(ANRLoggerApplication.CORP_SIDE_IDENTIFIER))?"Y":"N",
+                corpPlayerView.getScore(),
+                corpPlayerView.getDeckVer()
+        );
+
+        LoggedGameOverview lgo = new LoggedGameOverview(
+                overviewView.getLocation(),
+                overviewView.getPlayedDate(),
+                overviewView.getWinType(),
+                GAMENO,
+                overviewView.getWiningSide()
+        );
+
+        LoggedGameValidator v =  new LoggedGameValidator();
+
+        if(v.validateGame(lgo,lgpr, lgpc)) {
+            model.saveEdittedGame(lgo, lgpr, lgpc);
+            view.displayGameLoggedMessagge(String.valueOf(GAMENO));
+            model.finishActivity();
+        }else {
+            view.displayMessage(v.getValidationMessage());
+        }
+
+
+        }
 
     public void onDestroy(){
         compositeSubscription.dispose();

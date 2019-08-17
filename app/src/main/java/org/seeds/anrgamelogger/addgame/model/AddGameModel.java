@@ -71,7 +71,7 @@ public class AddGameModel {
         return ret;
     }
 
-    public void saveLoggedGame(LoggedGameOverview lgo, LoggedGamePlayer lgpo, LoggedGamePlayer lgpt) {
+    public void saveNewGame(LoggedGameOverview lgo, LoggedGamePlayer lgpo, LoggedGamePlayer lgpt) {
         databaseModel.insertLoggedGame(lgo,lgpo, lgpt);
     }
 
@@ -94,4 +94,10 @@ public class AddGameModel {
     public PredefinedGame getPredefineGameValue(){
         return (PredefinedGame)activity.getIntent().getSerializableExtra(AddGameActivity.TYPE);
     }
+
+    public void saveEdittedGame(LoggedGameOverview lgo, LoggedGamePlayer lgpo, LoggedGamePlayer lgpt) {
+        databaseModel.updateLoggedGame(lgo,lgpo, lgpt);
+
+    }
+
 }

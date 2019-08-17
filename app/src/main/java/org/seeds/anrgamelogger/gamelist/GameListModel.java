@@ -81,4 +81,8 @@ public class GameListModel {
     public String getLastUsedGameNo() {
         return String.valueOf(databaseModel.getLastGameNoUsed());
     }
+
+    public void purgeDatabse(){
+        databaseModel.purgeDatabase();
+    }
 }
