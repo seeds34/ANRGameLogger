@@ -25,8 +25,6 @@ public class GameDetailModel {
     }
 
     public LoggedGameFlat getLoggedGame() {
-        //return activity.getIntent().getParcelableExtra(GameDetailActivity.GAME_TRNASFER);
-
         String gameIDFromIntent = activity.getIntent().getStringExtra(GameDetailActivity.GAME_TRNASFER);
         Log.d(LOG_TAG, ".getLoggedGame() : Game Number passed is " + gameIDFromIntent);
         int gameID = Integer.valueOf(gameIDFromIntent);
@@ -35,6 +33,11 @@ public class GameDetailModel {
     }
 
     public void editGame(Integer gameNo) {
-        AddGameActivity.start(activity.getApplicationContext(),String.valueOf(gameNo), PredefinedGame.COMPLETE);
+        AddGameActivity.start(activity.getApplicationContext(),String.valueOf(gameNo), PredefinedGame.EDIT);
+    }
+
+    public void deleteGame(Integer gameNo){
+        databaseModel.deleteGame(gameNo);
+        activity.finish();
     }
 }

@@ -63,4 +63,10 @@ public class GameDetailActivity extends AppCompatActivity {
         return true;
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.refresh();
+    }
 }

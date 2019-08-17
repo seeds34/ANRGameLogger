@@ -38,10 +38,11 @@ public class GameDetailPresenter {
         view.setTitle();
 
         compositeSubscription.add(observerEdit());
+        compositeSubscription.add(observerDelete());
     }
 
     public void onDestroy(){
-
+        //compositeSubscription.delete(` `);
     }
 
     public Disposable observerEdit(){
@@ -51,4 +52,16 @@ public class GameDetailPresenter {
                 );
     }
 
+    public Disposable observerDelete(){
+        return view.deleteGame()
+                .subscribe( a ->
+                        model.deleteGame(lgf.getGameID())
+                );
+    }
+
+    public void refresh() {
+
+        lgf = model.getLoggedGame();
+        view.refreshData(lgf);
+    }
 }

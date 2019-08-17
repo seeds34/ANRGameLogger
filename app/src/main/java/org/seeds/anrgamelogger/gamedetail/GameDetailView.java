@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
@@ -39,6 +40,10 @@ public class GameDetailView extends FrameLayout {
     private LoggedGameFlat data;
     private Activity activity;
     private GameDetailPagerAdapter gameDetailPagerAdapter;
+
+    private final PublishSubject<Object> editGamePubSubject = PublishSubject.create();
+    private final PublishSubject<Object> deleteGamePubSubject = PublishSubject.create();
+
 
     //TODO: Add ButterKnife Injection
     public GameDetailView(Activity activity){
@@ -68,36 +73,25 @@ public class GameDetailView extends FrameLayout {
                 new Toolbar.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-
-
                         int id = item.getItemId();
-
                         //noinspection SimplifiableIfStatement
                         if (id == R.id.edit) {
                             editGame();
                             return true;
+                        }else if(id == R.id.delete){
+                            deleteGame();
+                            return true;
                         }
-
-
                         return false;
                     }
-
-
                 });
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 activity.finish();
-
             }});
-
-
     }
-
-    private final PublishSubject<Object> editGamePubSubject = PublishSubject.create();
-
 
     public Observable<Object> editGame(){
         editGamePubSubject.onNext(1);
@@ -119,6 +113,16 @@ public class GameDetailView extends FrameLayout {
         gameDetailViewPager.setAdapter(gameDetailPagerAdapter);
     }
 
+    public void refreshData(LoggedGameFlat lgf){
+        data = lgf;
+        gameDetailPagerAdapter = new GameDetailPagerAdapter(data, activity);
+
+        gameDetailViewPager.setAdapter(gameDetailPagerAdapter);
+    }
 
 
+    public Observable<Object> deleteGame() {
+        deleteGamePubSubject.onNext(1);
+        return deleteGamePubSubject;
+    }
 }
