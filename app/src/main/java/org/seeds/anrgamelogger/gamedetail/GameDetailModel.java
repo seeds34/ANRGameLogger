@@ -37,7 +37,7 @@ public class GameDetailModel {
     }
 
     public void deleteGame(Integer gameNo){
-        databaseModel.deleteGame(gameNo);
+        databaseModel.deleteLoggedGame(gameNo);
         activity.finish();
     }
 }

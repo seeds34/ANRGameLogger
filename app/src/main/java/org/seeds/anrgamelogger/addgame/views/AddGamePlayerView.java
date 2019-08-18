@@ -53,7 +53,7 @@ public class AddGamePlayerView extends FrameLayout implements AddGameSubView {
   private IdentityList idList;
 
 
-  public AddGamePlayerView(Activity activity){
+  public AddGamePlayerView(Activity activity) {
     super(activity);
     this.activity = activity;
     inflate(getContext(), R.layout.view_addgame_player, this);
@@ -63,26 +63,28 @@ public class AddGamePlayerView extends FrameLayout implements AddGameSubView {
     setUpScoreSpinner(15);
   }
 
-  public void setSide(String side){
+  public void setSide(String side) {
     this.side = side;
   }
 
-  public String getSide(){
+  public String getSide() {
     return side;
   }
 
-  public View getView(){
+  public View getView() {
     return this;
   }
 
-  public void setUpNameAutoComplete(ArrayList<String> playerList){
-    nameListAdapter = new ArrayAdapter<>(activity, R.layout.support_simple_spinner_dropdown_item, playerList);
+  public void setUpNameAutoComplete(ArrayList<String> playerList) {
+    nameListAdapter = new ArrayAdapter<>(activity, R.layout.support_simple_spinner_dropdown_item,
+        playerList);
     nameListAdapter.setNotifyOnChange(true);
     playerName.setAdapter(nameListAdapter);
   }
 
   public void setUpDeckNameAutoComplete(ArrayList<String> deckList) {
-    deckListAdapter = new ArrayAdapter<>(activity, R.layout.support_simple_spinner_dropdown_item, deckList);
+    deckListAdapter = new ArrayAdapter<>(activity, R.layout.support_simple_spinner_dropdown_item,
+        deckList);
     deckListAdapter.setNotifyOnChange(true);
     deckName.setAdapter(deckListAdapter);
   }
@@ -93,16 +95,18 @@ public class AddGamePlayerView extends FrameLayout implements AddGameSubView {
     identityImageViewAdapter = new AddGameIdentitesPageAdapter(getContext(), idList);
     identitiesImageViewPager.setAdapter(identityImageViewAdapter);
 
-    identityNameArrayAdapter = new ArrayAdapter<String>(this.getContext(), R.layout.support_simple_spinner_dropdown_item, idList.getListOfNames());
+    identityNameArrayAdapter = new ArrayAdapter<String>(this.getContext(),
+        R.layout.support_simple_spinner_dropdown_item, idList.getListOfNames());
     identitiesSpinner.setAdapter(identityNameArrayAdapter);
   }
 
-  private void setUpScoreSpinner(int maxPoint){
+  private void setUpScoreSpinner(int maxPoint) {
     Integer[] scoreList = new Integer[maxPoint];
-    for(int i = 0 ; i < scoreList.length ; i++){
+    for (int i = 0; i < scoreList.length; i++) {
       scoreList[i] = i;
     }
-    ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(activity, R.layout.support_simple_spinner_dropdown_item, scoreList);
+    ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(activity,
+        R.layout.support_simple_spinner_dropdown_item, scoreList);
     score.setAdapter(adapter);
   }
 
@@ -111,14 +115,15 @@ public class AddGamePlayerView extends FrameLayout implements AddGameSubView {
   // the list not the store name on the view
   @OnItemSelected(R.id.identitiesSpinner)
   public void identityNameSelected() {
-    Log.d(LOG_TAG,"ID name spinner has changed to " + identitiesSpinner.getSelectedItem().toString());
+    Log.d(LOG_TAG,
+        "ID name spinner has changed to " + identitiesSpinner.getSelectedItem().toString());
     int selectedPos = idList.getPosByName(identitiesSpinner.getSelectedItem().toString());
     identitiesImageViewPager.setCurrentItem(selectedPos);
   }
 
   @OnPageChange(R.id.identitiesImageViewPager)
-  public void identityIamgeSinnerSelecterd(int i){
-    Log.d(LOG_TAG,"ID image spinner has changed to " + i);
+  public void identityIamgeSinnerSelecterd(int i) {
+    Log.d(LOG_TAG, "ID image spinner has changed to " + i);
     identitiesSpinner.setSelection(identityNameArrayAdapter.getPosition(idList.getName(i)));
   }
 
@@ -138,23 +143,23 @@ public class AddGamePlayerView extends FrameLayout implements AddGameSubView {
     return deckVer.getText().toString();
   }
 
-  public Integer getScore(){
-    return (Integer)score.getSelectedItem();
+  public Integer getScore() {
+    return (Integer) score.getSelectedItem();
   }
 
-  public void setDeckName(String deckNameIn){
-    deckName.setText(deckNameIn,false);
+  public void setDeckName(String deckNameIn) {
+    deckName.setText(deckNameIn, false);
   }
 
-  public void setPlayerName(String playerNameIn){
-    playerName.setText(playerNameIn,false);
+  public void setPlayerName(String playerNameIn) {
+    playerName.setText(playerNameIn, false);
   }
 
-  public void setDeckVersion(String deckVersionIn){
+  public void setDeckVersion(String deckVersionIn) {
     deckVer.setText(deckVersionIn);
   }
 
-  public void setIdentity(String identityName){
+  public void setIdentity(String identityName) {
     Log.d(LOG_TAG, "Identity to set is: " + identityName);
 
     int namePos = idList.getPosByName(identityName);
@@ -164,7 +169,7 @@ public class AddGamePlayerView extends FrameLayout implements AddGameSubView {
 
   }
 
-  public void setScore(Integer scoreIn){
+  public void setScore(Integer scoreIn) {
     score.setSelection(scoreIn);
   }
 

@@ -10,12 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.io.ByteArrayInputStream;
-
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.model.IdentityList;
-import org.w3c.dom.Text;
 
 /**
  * Created by user on 09/12/2017.
@@ -81,7 +78,6 @@ public class AddGameIdentitesPageAdapter extends PagerAdapter {
     public String getNameAtPOS(int pos){
         return idList.getName(pos);
     }
-
 
     public int getNameAtPOS(String name){
         return idList.getPosByName(name);

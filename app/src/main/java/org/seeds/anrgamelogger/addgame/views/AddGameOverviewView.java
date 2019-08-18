@@ -17,8 +17,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
-
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.addgame.CustomDPDLister;
 
@@ -58,7 +56,7 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
   private DatePickerDialog dialog;
   private CustomDPDLister mDateSetListener;
 
-  public AddGameOverviewView(Activity activity){
+  public AddGameOverviewView(Activity activity) {
     super(activity);
     this.activity = activity;
     inflate(getContext(), viewNo, this);
@@ -68,120 +66,124 @@ public class AddGameOverviewView extends FrameLayout implements AddGameSubView {
     setDate(Calendar.getInstance());
   }
 
-  public View getView(){
+  public View getView() {
     return this;
   }
 
-  public void setUpLocationAutoComplete(ArrayList<String> locationList){
-    locationListAdapter = new ArrayAdapter<>(activity, R.layout.support_simple_spinner_dropdown_item, locationList);
+  public void setUpLocationAutoComplete(ArrayList<String> locationList) {
+    locationListAdapter = new ArrayAdapter<>(activity,
+        R.layout.support_simple_spinner_dropdown_item, locationList);
     locationListAdapter.setNotifyOnChange(true);
     location.setAdapter(locationListAdapter);
   }
 
-  public void setListener(CustomDPDLister in){
+  public void setListener(CustomDPDLister in) {
     mDateSetListener = in;
   }
 
-  public String getSide(){
+  public String getSide() {
     return title;
   }
 
-  public void setTitle(String title){
+  public void setTitle(String title) {
     this.title = title;
   }
 
   //TODO: Shorten this.
-  public String getWiningSide(){
+  public String getWiningSide() {
     int id = winningSideGroup.getCheckedRadioButtonId();
     RadioButton rb = findViewById(id);
-    String name =  (String)rb.getText();
+    String name = (String) rb.getText();
     return name;
   }
 
-  public String getWinType(){
+  public String getWinType() {
     RadioButton rb = findViewById(winTypeGroup.getCheckedRadioButtonId());
-    return (String)rb.getText();
+    return (String) rb.getText();
   }
 
   //TODO: Add setWinType & setWinningSide
 
-  public String getPlayedDate(){
+  public String getPlayedDate() {
     return date;
   }
 
   @OnClick(R.id.addGameDateSelector)
   public void onClickDate() {
-    Log.d(LOG_TAG,"onClickDate() : Starting Date Dialog");
+    Log.d(LOG_TAG, "onClickDate() : Starting Date Dialog");
     setupDateDialog();
     dialog.show();
   }
 
   private void setupDateDialog() {
     //NOTE: Worried this might course a mem leak or to much garbuge in heap
-    dialog = new DatePickerDialog(activity, android.R.style.Theme_Holo_Light_Dialog, mDateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+    dialog = new DatePickerDialog(activity, android.R.style.Theme_Holo_Light_Dialog,
+        mDateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
+        cal.get(Calendar.DAY_OF_MONTH));
 
     dialog.getDatePicker().setMaxDate(Calendar.getInstance().getTimeInMillis());
 
     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
   }
 
-  public void setDate(Calendar calIn){
+  public void setDate(Calendar calIn) {
     //TODO: Need to localize date
     cal = calIn;
-      int year = cal.get(Calendar.YEAR);
-      int month = cal.get(Calendar.MONTH)+1;
-      int day = cal.get(Calendar.DAY_OF_MONTH);
+    int year = cal.get(Calendar.YEAR);
+    int month = cal.get(Calendar.MONTH) + 1;
+    int day = cal.get(Calendar.DAY_OF_MONTH);
 
-      date = day + "/" + month + "/" + year;
+    date = day + "/" + month + "/" + year;
 
-      Log.d(LOG_TAG,"setDate() : Setting date to: " + date);
+    Log.d(LOG_TAG, "setDate() : Setting date to: " + date);
     playedDate.setText(date);
   }
 
-  public String getLocation(){
+  public String getLocation() {
     return location.getText().toString();
   }
 
-  public void setLocation(String locationIn){
+  public void setLocation(String locationIn) {
     location.setText(locationIn, false);
   }
 
-  public void setWinningSide(String winningSide){
-     RadioButton runnerRB = findViewById(R.id.rbtn_winnerRunner);
-     RadioButton corpRB = findViewById(R.id.rbtn_winnerCorp);
+  public void setWinningSide(String winningSide) {
+    RadioButton runnerRB = findViewById(R.id.rbtn_winnerRunner);
+    RadioButton corpRB = findViewById(R.id.rbtn_winnerCorp);
 
-     if(runnerRB.getText().equals(winningSide)){
-       runnerRB.setChecked(true);
-     }else{
-        corpRB.setChecked(true);
+    if (runnerRB.getText().equals(winningSide)) {
+      runnerRB.setChecked(true);
+    } else {
+      corpRB.setChecked(true);
     }
   }
 
-  public void setWinType(String winType){
+  public void setWinType(String winType) {
     RadioButton kill = findViewById(R.id.rbtn_killWin);
     RadioButton mill = findViewById(R.id.rbtn_millWin);
     RadioButton score = findViewById(R.id.rbtn_scoreWin);
 
-    if(kill.getText().equals(winType)){
+    if (kill.getText().equals(winType)) {
       kill.setChecked(true);
-    }else if(mill.getText().equals(winType)){
+    } else if (mill.getText().equals(winType)) {
       mill.setChecked(true);
-    }else{
+    } else {
       score.setChecked(true);
     }
   }
 
-  public void setPlayedDate(String playedDateIn){
-    Log.d(LOG_TAG,"Passing in date: " + playedDateIn);
-      String[] dateParts = playedDateIn.split("/");
+  public void setPlayedDate(String playedDateIn) {
+    Log.d(LOG_TAG, "Passing in date: " + playedDateIn);
+    String[] dateParts = playedDateIn.split("/");
 
-    Log.d(LOG_TAG,"Passing in date: " + dateParts[0] + " - " + dateParts[1] + " - " + dateParts[2]);
+    Log.d(LOG_TAG,
+        "Passing in date: " + dateParts[0] + " - " + dateParts[1] + " - " + dateParts[2]);
 
     Integer day = Integer.valueOf(dateParts[0]);
     Integer month = Integer.valueOf(dateParts[1]);
     Integer year = Integer.valueOf(dateParts[2]);
 
-    cal.set(year,month,day);
+    cal.set(year, month, day);
     playedDate.setText(playedDateIn);
   }
 }
