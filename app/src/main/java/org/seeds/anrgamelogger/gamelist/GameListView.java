@@ -86,7 +86,18 @@ public class GameListView extends FrameLayout{
                             download_images();
                             return true;
                         }else if (id == R.id.action_purge_database) {
-                            purgeDatabase();
+
+                            new AlertDialog.Builder(activity)
+                                    .setTitle("Do you wish to delete all the contents of the database?")
+                                    .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            purgeDatabase();
+                                            //TODO: Refresh List
+                                        }
+                                    })
+                                    .setNegativeButton("NO", null)
+                                    .show();
+
                             return true;
                         }
 

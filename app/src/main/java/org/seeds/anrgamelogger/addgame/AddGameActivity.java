@@ -26,14 +26,6 @@ public class AddGameActivity extends AppCompatActivity {
     @Inject
     AddGameView view;
 
-
-
-//    public static void start(Context contextIn, String side) {
-//        Intent intent = new Intent(contextIn, AddGameActivity.class);
-//        intent.putExtra(SIDE, side); //NOTE: Note sure if this is still needed
-//        contextIn.startActivity(intent);
-//    }
-
     public static void start(Context contextIn, String gameNo, PredefinedGame predefinedGame) {
         Intent intent = new Intent(contextIn, AddGameActivity.class);
         intent.putExtra(GAMENO, gameNo);
@@ -44,8 +36,6 @@ public class AddGameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
 
         DaggerAddGameComponent.builder()
                 .applicationComponent(ANRLoggerApplication.get(this).getApplicationComponent())

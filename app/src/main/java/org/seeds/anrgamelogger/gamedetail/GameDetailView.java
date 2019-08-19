@@ -79,7 +79,16 @@ public class GameDetailView extends FrameLayout {
                             editGame();
                             return true;
                         }else if(id == R.id.delete){
-                            deleteGame();
+
+                            new AlertDialog.Builder(activity)
+                                    .setTitle("Do you wish to delete this Log?")
+                                    .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            deleteGame();
+                                        }
+                                    })
+                                    .setNegativeButton("NO", null)
+                                    .show();
                             return true;
                         }
                         return false;
