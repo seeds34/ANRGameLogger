@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.gamelist;
+package org.seeds.anrgamelogger.activities.gamelist;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,9 +16,9 @@ import android.widget.Toast;
 import org.seeds.anrgamelogger.LazyDataGen;
 import org.seeds.anrgamelogger.LocalLoggedGame;
 import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.database.datacreater.InportedLoggedGame;
-import org.seeds.anrgamelogger.database.datacreater.PopulateIdentitiesData;
-import org.seeds.anrgamelogger.gamedetail.GameDetailActivity;
+import org.seeds.anrgamelogger.application.database.datacreater.InportedLoggedGame;
+import org.seeds.anrgamelogger.application.database.datacreater.PopulateIdentitiesData;
+import org.seeds.anrgamelogger.activities.gamedetail.GameDetailActivity;
 
 import java.util.ArrayList;
 

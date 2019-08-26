@@ -1,17 +1,17 @@
-package org.seeds.anrgamelogger.database;
+package org.seeds.anrgamelogger.application.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
-import org.seeds.anrgamelogger.database.contracts.DecksContract;
-import org.seeds.anrgamelogger.database.contracts.GameNotesContract;
-import org.seeds.anrgamelogger.database.contracts.IdentitiesContract;
-import org.seeds.anrgamelogger.database.contracts.LocationsContract;
-import org.seeds.anrgamelogger.database.contracts.LoggedGameOverviewsContract;
-import org.seeds.anrgamelogger.database.contracts.LoggedGamePlayersContract;
-import org.seeds.anrgamelogger.database.contracts.LoggedGamesFlatViewContract;
-import org.seeds.anrgamelogger.database.contracts.PlayersContract;
+import org.seeds.anrgamelogger.application.database.contracts.DecksContract;
+import org.seeds.anrgamelogger.application.database.contracts.GameNotesContract;
+import org.seeds.anrgamelogger.application.database.contracts.IdentitiesContract;
+import org.seeds.anrgamelogger.application.database.contracts.LocationsContract;
+import org.seeds.anrgamelogger.application.database.contracts.LoggedGameOverviewsContract;
+import org.seeds.anrgamelogger.application.database.contracts.LoggedGamePlayersContract;
+import org.seeds.anrgamelogger.application.database.contracts.LoggedGamesFlatViewContract;
+import org.seeds.anrgamelogger.application.database.contracts.PlayersContract;
 
 /**
  * Created by Tomas Seymour-Turner on 26/04/2017.

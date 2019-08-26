@@ -5,10 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
-import org.seeds.anrgamelogger.gamelist.GameListPresenter;
-import org.seeds.anrgamelogger.gamelist.GameListView;
-import org.seeds.anrgamelogger.gamelist.dagger.DaggerGameListComponent;
-import org.seeds.anrgamelogger.gamelist.dagger.GameListModule;
+import org.seeds.anrgamelogger.activities.gamelist.GameListPresenter;
+import org.seeds.anrgamelogger.activities.gamelist.GameListView;
+import org.seeds.anrgamelogger.activities.gamelist.dagger.DaggerGameListComponent;
+import org.seeds.anrgamelogger.activities.gamelist.dagger.GameListModule;
 
 import javax.inject.Inject;
 

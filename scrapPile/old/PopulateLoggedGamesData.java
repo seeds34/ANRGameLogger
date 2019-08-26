@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.database.datacreater;
+package org.seeds.anrgamelogger.application.database.datacreater;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -12,10 +12,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.seeds.anrgamelogger.R;
-import org.seeds.anrgamelogger.database.DecksContract;
-import org.seeds.anrgamelogger.database.LocationsContract;
-import org.seeds.anrgamelogger.database.LoggedGamesContract;
-import org.seeds.anrgamelogger.database.PlayersContract;
+import org.seeds.anrgamelogger.application.database.DecksContract;
+import org.seeds.anrgamelogger.application.database.LocationsContract;
+import org.seeds.anrgamelogger.application.database.LoggedGamesContract;
+import org.seeds.anrgamelogger.application.database.PlayersContract;
 
 /**
  * Created by Tomas Seymour-Turner on 22/05/2017.
