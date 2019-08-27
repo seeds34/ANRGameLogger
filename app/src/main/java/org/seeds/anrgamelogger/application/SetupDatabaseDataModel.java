@@ -10,12 +10,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import okhttp3.Response;
-import org.seeds.anrgamelogger.database.DatabaseModel;
-import org.seeds.anrgamelogger.database.buisnessobjects.CardImage;
-import org.seeds.anrgamelogger.database.buisnessobjects.Identity;
-import org.seeds.anrgamelogger.model.CardList;
-import org.seeds.anrgamelogger.network.Card;
-import org.seeds.anrgamelogger.network.NetworkModel;
+import org.seeds.anrgamelogger.application.database.DatabaseModel;
+import org.seeds.anrgamelogger.application.database.buisnessobjects.CardImage;
+import org.seeds.anrgamelogger.application.database.buisnessobjects.Identity;
+import org.seeds.anrgamelogger.application.model.CardList;
+import org.seeds.anrgamelogger.application.network.Card;
+import org.seeds.anrgamelogger.application.network.NetworkModel;
 
 /**
  * Created by Tomas Seymour-Turner on 09/01/2018.

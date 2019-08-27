@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.model;
+package org.seeds.anrgamelogger.application.model;
 
 /**
  * Created by Tomas Seymour-Turner on 15/11/2017.

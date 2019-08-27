@@ -1,8 +1,8 @@
 package org.seeds.anrgamelogger.application.dagger;
 
 import dagger.Component;
-import org.seeds.anrgamelogger.database.DatabaseModel;
-import org.seeds.anrgamelogger.network.NetworkModel;
+import org.seeds.anrgamelogger.application.database.DatabaseModel;
+import org.seeds.anrgamelogger.application.network.NetworkModel;
 
 /**
  * Created by Tomas Seymour-Turner on 16/02/2018.

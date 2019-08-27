@@ -1,4 +1,4 @@
-package org.seeds.anrgamelogger.gamelist;
+package org.seeds.anrgamelogger.activities.gamelist;
 /*
  * Copyright (C) 2014 skyfish.jy@gmail.com
  *

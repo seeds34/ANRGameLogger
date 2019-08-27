@@ -4,7 +4,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              tools:context="org.seeds.anrgamelogger.gamedetail.views.GameDetailNoteView">
+              tools:context=".activities.gamedetail.views.GameDetailNoteView">
 
     <TextView
         android:id="@+id/textView"

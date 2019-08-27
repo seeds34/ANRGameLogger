@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    tools:context="org.seeds.anrgamelogger.gamedetail.views.GameDetailOverview">
+    tools:context=".activities.gamedetail.views.GameDetailOverview">
 
     <TextView
         android:id="@+id/playedLocation"

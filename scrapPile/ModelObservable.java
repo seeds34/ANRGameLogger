@@ -1,10 +1,10 @@
-package org.seeds.anrgamelogger.gamelist;
+package org.seeds.anrgamelogger.activities.gamelist;
 
 import android.content.ContentResolver;
 import android.content.Context;
 
-import org.seeds.anrgamelogger.model.LocalLoggedGame;
-import org.seeds.anrgamelogger.model.LoggedGameList;
+import org.seeds.anrgamelogger.application.model.LocalLoggedGame;
+import org.seeds.anrgamelogger.application.model.LoggedGameList;
 
 import java.util.ArrayList;
 

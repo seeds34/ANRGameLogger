@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".gamedetail.GameDetailActivity"
+            android:name=".activities.gamedetail.GameDetailActivity"
             android:label="@string/title_activity_game_detail_view"
             android:theme="@style/AppTheme.NoActionBar">
 
@@ -37,7 +37,7 @@
         </activity>
 
       <activity
-            android:name=".addgame.AddGameActivity"
+            android:name=".activities.gamehandler.GameHandlerActivity"
             android:label="@string/title_activity_create_logged_game"
             android:theme="@style/AppTheme.NoActionBar"
         android:parentActivityName=".GameListActivity" >
