@@ -25,37 +25,37 @@ public class GameHandlerModule {
 
     @Provides
     @GameHandlerScope
-    public GameHandlerView GetAddGameView(){
+    public GameHandlerView GetGameHandlerView(){
         return new GameHandlerView(activity);
     }
 
     @Provides
     @GameHandlerScope
-    public GameHandlerHandlerOverviewView GetAddGameOverviewView(){
+    public GameHandlerHandlerOverviewView GetGameHandlerOverviewView(){
         return new GameHandlerHandlerOverviewView(activity);
     }
 
     @Provides
     @GameHandlerScope
-    public GameHandlerHandlerRunnerView GetAddGameRunnerView(){
+    public GameHandlerHandlerRunnerView GetGameHandlerRunnerView(){
         return new GameHandlerHandlerRunnerView(activity);
     }
 
     @Provides
     @GameHandlerScope
-    public GameHandlerHandlerHandlerCorpView GetAddGameCorpView(){
+    public GameHandlerHandlerHandlerCorpView GetGameHandlerCorpView(){
         return new GameHandlerHandlerHandlerCorpView(activity);
     }
 
     @Provides
     @GameHandlerScope
-    public GameHandlerModel GetAddGameModel(DatabaseModel databaseModel){
+    public GameHandlerModel GetGameHandlerModel(DatabaseModel databaseModel){
         return new GameHandlerModel(activity, databaseModel);
     }
 
     @Provides
     @GameHandlerScope
-    public GameHandlerPresenter GetAddGamePresenter(GameHandlerView view, GameHandlerModel model, GameHandlerHandlerRunnerView runnerSubView, GameHandlerHandlerHandlerCorpView corpSubView, GameHandlerHandlerOverviewView overviewSubView){
+    public GameHandlerPresenter GetGameHandlerPresenter(GameHandlerView view, GameHandlerModel model, GameHandlerHandlerRunnerView runnerSubView, GameHandlerHandlerHandlerCorpView corpSubView, GameHandlerHandlerOverviewView overviewSubView){
         //return new GameHandlerPresenter(view, model);
         return new GameHandlerPresenter(view, model, runnerSubView, corpSubView, overviewSubView);
     }

@@ -40,7 +40,7 @@ public class GameHandlerActivity extends AppCompatActivity {
 
         DaggerGameHandlerComponent.builder()
                 .applicationComponent(ANRLoggerApplication.get(this).getApplicationComponent())
-                .addGameModule(new GameHandlerModule(this))
+                .gameHandlerModule(new GameHandlerModule(this))
                 .build()
                 .inject(this);
 
