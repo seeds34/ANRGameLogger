@@ -29,7 +29,7 @@ public class GameHandlerView extends FrameLayout {
     @BindView(R.id.toolbar)
     public Toolbar toolbar;
 
-    @BindView(R.id.addGameViewPager)
+    @BindView(R.id.gameHandlerViewPager)
     public ViewPager addGameViewPager;
 
     @BindView(R.id.tabs)
@@ -41,7 +41,7 @@ public class GameHandlerView extends FrameLayout {
 
     public GameHandlerView(Activity activity){
         super(activity);
-        inflate(getContext(), R.layout.view_addgame_base, this);
+        inflate(getContext(), R.layout.view_gamehandler_base, this);
 
         ButterKnife.bind(this);
 

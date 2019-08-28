@@ -4,10 +4,10 @@ import android.app.Activity;
 
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 
-public class GameHandlerHandlerRunnerView extends GameHandlerHandlerPlayerView {
+public class GameHandlerRunnerView extends GameHandlerHandlerPlayerView {
     private final String SIDE = ANRLoggerApplication.RUNNER_SIDE_IDENTIFIER;
 
-    public GameHandlerHandlerRunnerView(Activity activity) {
+    public GameHandlerRunnerView(Activity activity) {
         super(activity);
     }
 

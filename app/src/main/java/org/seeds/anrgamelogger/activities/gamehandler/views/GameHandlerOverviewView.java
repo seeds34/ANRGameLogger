@@ -24,9 +24,9 @@ import org.seeds.anrgamelogger.activities.gamehandler.presenter.CustomDPDLister;
  * Created by Tomas Seymour-Turner on 04/01/2018.
  */
 
-public class GameHandlerHandlerOverviewView extends FrameLayout implements GameHandlerSubView {
+public class GameHandlerOverviewView extends FrameLayout implements GameHandlerSubView {
 
-  private static final String LOG_TAG = GameHandlerHandlerOverviewView.class.getSimpleName();
+  private static final String LOG_TAG = GameHandlerOverviewView.class.getSimpleName();
 
   //TODO: Change Name of SIDE as this is overciew
   //TODO: Add common type between ADDGame Views??
@@ -45,7 +45,7 @@ public class GameHandlerHandlerOverviewView extends FrameLayout implements GameH
   @BindView(R.id.rg_winType)
   public RadioGroup winTypeGroup;
 
-  private final int viewNo = R.layout.view_addgame_overview;
+  private final int viewNo = R.layout.view_gamehandler_overview;
   private ArrayAdapter<String> locationListAdapter;
 
   private String title;
@@ -56,13 +56,16 @@ public class GameHandlerHandlerOverviewView extends FrameLayout implements GameH
   private DatePickerDialog dialog;
   private CustomDPDLister mDateSetListener;
 
-  public GameHandlerHandlerOverviewView(Activity activity) {
+  public GameHandlerOverviewView(Activity activity) {
     super(activity);
     this.activity = activity;
     inflate(getContext(), viewNo, this);
     ButterKnife.setDebug(true);
     ButterKnife.bind(this);
 
+    //NOTE: Setting Defult for Radio groups has fixed issue #9. Need a better solution
+    winningSideGroup.check(R.id.rbtn_winnerRunner);
+    winTypeGroup.check(R.id.rbtn_scoreWin);
     setDate(Calendar.getInstance());
   }
 
@@ -103,6 +106,8 @@ public class GameHandlerHandlerOverviewView extends FrameLayout implements GameH
   }
 
   //TODO: Add setWinType & setWinningSide
+
+
 
   public String getPlayedDate() {
     return date;

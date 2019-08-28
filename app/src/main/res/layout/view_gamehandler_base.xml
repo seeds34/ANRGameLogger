@@ -27,8 +27,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.view.ViewPager
-      android:id="@+id/addGameViewPager"
+      <android.support.v4.view.ViewPager
+      android:id="@+id/gameHandlerViewPager"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="8dp"
@@ -40,13 +40,13 @@
       tools:layout_conversion_absoluteWidth="384dp">
 
       <include android:id="@+id/playerOneView"
-        layout="@layout/view_addgame_player" />
+        layout="@layout/view_gamehandler_player" />
 
       <include android:id="@+id/playerTwoView"
-          layout="@layout/view_addgame_player" />
+          layout="@layout/view_gamehandler_player" />
 
       <include android:id="@+id/overviewView"
-          layout="@layout/view_addgame_overview" />
+          layout="@layout/view_gamehandler_overview" />
 
     </android.support.v4.view.ViewPager>
 

@@ -5,9 +5,9 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import java.util.ArrayList;
 import org.seeds.anrgamelogger.activities.gamehandler.model.GameHandlerModel;
-import org.seeds.anrgamelogger.activities.gamehandler.views.GameHandlerHandlerHandlerCorpView;
-import org.seeds.anrgamelogger.activities.gamehandler.views.GameHandlerHandlerOverviewView;
-import org.seeds.anrgamelogger.activities.gamehandler.views.GameHandlerHandlerRunnerView;
+import org.seeds.anrgamelogger.activities.gamehandler.views.GameHandlerCorpView;
+import org.seeds.anrgamelogger.activities.gamehandler.views.GameHandlerOverviewView;
+import org.seeds.anrgamelogger.activities.gamehandler.views.GameHandlerRunnerView;
 import org.seeds.anrgamelogger.activities.gamehandler.views.GameHandlerView;
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 import org.seeds.anrgamelogger.application.PredefinedGame;
@@ -29,9 +29,9 @@ public class GameHandlerPresenter {
     private GameHandlerModel model;
     private GameHandlerView view;
 
-    private GameHandlerHandlerHandlerCorpView corpPlayerView;
-    private GameHandlerHandlerRunnerView runnerPlayerView;
-    private GameHandlerHandlerOverviewView overviewView;
+    private GameHandlerCorpView corpPlayerView;
+    private GameHandlerRunnerView runnerPlayerView;
+    private GameHandlerOverviewView overviewView;
 
     private final CompositeDisposable compositeSubscription = new CompositeDisposable();
 
@@ -39,7 +39,7 @@ public class GameHandlerPresenter {
     private int GAMENO;
     private final PredefinedGame passedGameValue;
 
-    public GameHandlerPresenter(GameHandlerView view, GameHandlerModel model, GameHandlerHandlerRunnerView runnerPlayerView, GameHandlerHandlerHandlerCorpView corpPlayerView, GameHandlerHandlerOverviewView overviewView){
+    public GameHandlerPresenter(GameHandlerView view, GameHandlerModel model, GameHandlerRunnerView runnerPlayerView, GameHandlerCorpView corpPlayerView, GameHandlerOverviewView overviewView){
         this.view = view;
         this.model = model;
         this.overviewView = overviewView;
