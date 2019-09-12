@@ -85,4 +85,13 @@ public class GameListModel {
     public void purgeDatabse(){
         databaseModel.purgeDatabase();
     }
+
+    public void exportDB() {
+        databaseModel.exportDB();
+    }
+
+
+    public void importDB() {
+        databaseModel.importDB();
+    }
 }

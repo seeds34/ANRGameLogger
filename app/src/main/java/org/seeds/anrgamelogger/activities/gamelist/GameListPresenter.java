@@ -35,6 +35,8 @@ public class GameListPresenter{
         compositeSubscription.add(addRepeatedGame());
         compositeSubscription.add(observerImageLoadButtonClick());
         compositeSubscription.add(observePurgeDB());
+        compositeSubscription.add(observeExportDB());
+        compositeSubscription.add(observeImportDB());
     }
 
     public void onDestroy() {
@@ -68,9 +70,21 @@ public class GameListPresenter{
 
     public Disposable observePurgeDB(){
         return view.purgeDatabase()
-                .subscribe(__->model.purgeDatabse());
+                .doOnNext(__->model.purgeDatabse())
+                .subscribe(__->this.refresh());
     }
 
+    public Disposable observeExportDB(){
+        return view.exportDatabase()
+                .subscribe(__->model.exportDB());
+    }
+
+
+    public Disposable observeImportDB(){
+        return view.importDatabase()
+                .doOnNext(__->model.importDB())
+                .subscribe(__->this.refresh());
+    }
   public void refresh() {
       view.setData(model.getGameList(20));
   }

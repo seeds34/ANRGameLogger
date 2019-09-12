@@ -5,13 +5,23 @@
 
     <item
         android:id="@+id/action_download_images"
-        android:orderInCategory="300"
+        android:orderInCategory="100"
         android:title="Download Images"
         app:showAsAction="never"></item>
     <item
         android:id="@+id/action_purge_database"
-        android:orderInCategory="300"
+        android:orderInCategory="500"
         android:title="Purge DB"
+        app:showAsAction="never"></item>
+    <item
+        android:id="@+id/action_export_database"
+        android:orderInCategory="200"
+        android:title="Export DB"
+        app:showAsAction="never"></item>
+    <item
+        android:id="@+id/action_import_database"
+        android:orderInCategory="300"
+        android:title="Import DB"
         app:showAsAction="never"></item>
 </menu>
 
