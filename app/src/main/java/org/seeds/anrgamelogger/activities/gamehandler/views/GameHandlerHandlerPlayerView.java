@@ -43,7 +43,7 @@ public class GameHandlerHandlerPlayerView extends FrameLayout implements GameHan
   @BindView(R.id.scoreSpinner)
   Spinner score;
 
-  private GameHandlerdentitesPageAdapter identityImageViewAdapter;
+  private GameHandlerIdentitesPageAdapter identityImageViewAdapter;
   private ArrayAdapter identityNameArrayAdapter;
   private Activity activity;
   private ArrayAdapter<String> nameListAdapter;
@@ -55,7 +55,7 @@ public class GameHandlerHandlerPlayerView extends FrameLayout implements GameHan
   public GameHandlerHandlerPlayerView(Activity activity) {
     super(activity);
     this.activity = activity;
-    inflate(getContext(), R.layout.view_addgame_player, this);
+    inflate(getContext(), R.layout.view_gamehandler_player, this);
     ButterKnife.setDebug(true);
     ButterKnife.bind(this);
 
@@ -91,7 +91,7 @@ public class GameHandlerHandlerPlayerView extends FrameLayout implements GameHan
   public void setIdApadters(IdentityList idList) {
     Log.d(LOG_TAG, "Setting up ID Apadters");
     this.idList = idList;
-    identityImageViewAdapter = new GameHandlerdentitesPageAdapter(getContext(), idList);
+    identityImageViewAdapter = new GameHandlerIdentitesPageAdapter(getContext(), idList);
     identitiesImageViewPager.setAdapter(identityImageViewAdapter);
 
     identityNameArrayAdapter = new ArrayAdapter<String>(this.getContext(),
@@ -174,7 +174,7 @@ public class GameHandlerHandlerPlayerView extends FrameLayout implements GameHan
 
   //  @Override
 //  public void setIdentitiesImageViewPager(LinkedHashMap<String, byte[]> imageListIn){
-//      identityImageViewAdapter = new GameHandlerdentitesPageAdapter(getContext(), imageListIn);
+//      identityImageViewAdapter = new GameHandlerIdentitesPageAdapter(getContext(), imageListIn);
 //      identitiesImageViewPager.setAdapter(identityImageViewAdapter);
 //  }
 //

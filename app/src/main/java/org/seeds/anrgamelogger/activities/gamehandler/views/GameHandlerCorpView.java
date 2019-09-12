@@ -4,11 +4,11 @@ import android.app.Activity;
 
 import org.seeds.anrgamelogger.application.ANRLoggerApplication;
 
-public class GameHandlerHandlerHandlerCorpView extends GameHandlerHandlerPlayerView {
+public class GameHandlerCorpView extends GameHandlerHandlerPlayerView {
 
     private final String TITLE = ANRLoggerApplication.CORP_SIDE_IDENTIFIER;
 
-    public GameHandlerHandlerHandlerCorpView(Activity activity) {
+    public GameHandlerCorpView(Activity activity) {
         super(activity);
     }
 

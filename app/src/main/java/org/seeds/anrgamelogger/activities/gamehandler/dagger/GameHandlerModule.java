@@ -5,9 +5,9 @@ import dagger.Module;
 import dagger.Provides;
 import org.seeds.anrgamelogger.activities.gamehandler.presenter.GameHandlerPresenter;
 import org.seeds.anrgamelogger.activities.gamehandler.model.GameHandlerModel;
-import org.seeds.anrgamelogger.activities.gamehandler.views.GameHandlerHandlerHandlerCorpView;
-import org.seeds.anrgamelogger.activities.gamehandler.views.GameHandlerHandlerOverviewView;
-import org.seeds.anrgamelogger.activities.gamehandler.views.GameHandlerHandlerRunnerView;
+import org.seeds.anrgamelogger.activities.gamehandler.views.GameHandlerCorpView;
+import org.seeds.anrgamelogger.activities.gamehandler.views.GameHandlerOverviewView;
+import org.seeds.anrgamelogger.activities.gamehandler.views.GameHandlerRunnerView;
 import org.seeds.anrgamelogger.activities.gamehandler.views.GameHandlerView;
 import org.seeds.anrgamelogger.application.database.DatabaseModel;
 
@@ -31,20 +31,20 @@ public class GameHandlerModule {
 
     @Provides
     @GameHandlerScope
-    public GameHandlerHandlerOverviewView GetGameHandlerOverviewView(){
-        return new GameHandlerHandlerOverviewView(activity);
+    public GameHandlerOverviewView GetGameHandlerOverviewView(){
+        return new GameHandlerOverviewView(activity);
     }
 
     @Provides
     @GameHandlerScope
-    public GameHandlerHandlerRunnerView GetGameHandlerRunnerView(){
-        return new GameHandlerHandlerRunnerView(activity);
+    public GameHandlerRunnerView GetGameHandlerRunnerView(){
+        return new GameHandlerRunnerView(activity);
     }
 
     @Provides
     @GameHandlerScope
-    public GameHandlerHandlerHandlerCorpView GetGameHandlerCorpView(){
-        return new GameHandlerHandlerHandlerCorpView(activity);
+    public GameHandlerCorpView GetGameHandlerCorpView(){
+        return new GameHandlerCorpView(activity);
     }
 
     @Provides
@@ -55,7 +55,7 @@ public class GameHandlerModule {
 
     @Provides
     @GameHandlerScope
-    public GameHandlerPresenter GetGameHandlerPresenter(GameHandlerView view, GameHandlerModel model, GameHandlerHandlerRunnerView runnerSubView, GameHandlerHandlerHandlerCorpView corpSubView, GameHandlerHandlerOverviewView overviewSubView){
+    public GameHandlerPresenter GetGameHandlerPresenter(GameHandlerView view, GameHandlerModel model, GameHandlerRunnerView runnerSubView, GameHandlerCorpView corpSubView, GameHandlerOverviewView overviewSubView){
         //return new GameHandlerPresenter(view, model);
         return new GameHandlerPresenter(view, model, runnerSubView, corpSubView, overviewSubView);
     }

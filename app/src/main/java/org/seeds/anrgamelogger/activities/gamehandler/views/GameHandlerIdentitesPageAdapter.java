@@ -18,15 +18,15 @@ import org.seeds.anrgamelogger.application.model.IdentityList;
  * Created by user on 09/12/2017.
  */
 
-public class GameHandlerdentitesPageAdapter extends PagerAdapter {
+public class GameHandlerIdentitesPageAdapter extends PagerAdapter {
 
-    private static final String LOG_TAG = GameHandlerdentitesPageAdapter.class.getSimpleName();
+    private static final String LOG_TAG = GameHandlerIdentitesPageAdapter.class.getSimpleName();
     //ArrayList<byte[]> idList;
     IdentityList idList;
     Context context;
     LayoutInflater  inflater;
 
-    public GameHandlerdentitesPageAdapter(Context contextIn, IdentityList idListIn) {
+    public GameHandlerIdentitesPageAdapter(Context contextIn, IdentityList idListIn) {
         super();
         idList = idListIn;
         context = contextIn;
@@ -36,7 +36,7 @@ public class GameHandlerdentitesPageAdapter extends PagerAdapter {
     //TODO: Deal with Null image return for DB. Inset default image
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        View imageLayout = inflater.inflate(R.layout.view_addgame_identities_image,container,false);
+        View imageLayout = inflater.inflate(R.layout.view_gamehandler_identities_image,container,false);
         ImageView identitiesIamgeView = (ImageView) imageLayout.findViewById(R.id.identitiesImageView);
         TextView identityImageRef = (TextView) imageLayout.findViewById(R.id.identitieImageReferance);
 
