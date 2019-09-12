@@ -1,0 +1,11 @@
+Set up defult Data
+
+Get all Identies (without iamges)
+Insert into DB
+
+Get list of Idents from DB (Rowid and NRDB Card No)
+For each Ident
+	GEt Input Stream
+	Turn to Byte[]
+	Add to List of CardImage (Which hold a Byte[])
+

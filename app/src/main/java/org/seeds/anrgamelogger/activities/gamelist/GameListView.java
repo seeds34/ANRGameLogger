@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -19,23 +20,24 @@ import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
 import java.util.ArrayList;
+
 import org.seeds.anrgamelogger.R;
 import org.seeds.anrgamelogger.application.database.buisnessobjects.LoggedGameFlat;
 
 
-public class GameListView extends FrameLayout{
+public class GameListView extends FrameLayout {
 
     private static final String LOG_TAG = GameListView.class.getSimpleName();
     private GameListRecyclerViewAdaptor gameListRecyclerViewAdaptor;
 
     @BindView(R.id.toolbar)
-      Toolbar toolbar;
+    Toolbar toolbar;
 
     @BindView(R.id.listofgmaesrecyclerview)
-     RecyclerView gameRecyclerList;
+    RecyclerView gameRecyclerList;
 
     @BindView(R.id.addGameLog)
-     FloatingActionButton fab;
+    FloatingActionButton fab;
 
     @BindView(R.id.add_corp_game_fab)
     FloatingActionButton corp_fab;
@@ -52,7 +54,8 @@ public class GameListView extends FrameLayout{
     private final PublishSubject<Object> newLogPubSubject = PublishSubject.create();
     private final PublishSubject<Object> repeatLogPubSubject = PublishSubject.create();
     private final PublishSubject<Object> purgeDatabasePubSubject = PublishSubject.create();
-
+    private final PublishSubject<Object> importDatabasePubSubject = PublishSubject.create();
+    private final PublishSubject<Object> exportDatabasePubSubject = PublishSubject.create();
 
     public GameListView(Activity activity) {
         super(activity);
@@ -71,9 +74,9 @@ public class GameListView extends FrameLayout{
         gameListRecyclerViewAdaptor = new GameListRecyclerViewAdaptor();
         gameRecyclerList.setAdapter(gameListRecyclerViewAdaptor);
 
-        Log.d(LOG_TAG,"fab is " + ((fab == null)?"Null":"Not Null"));
+        Log.d(LOG_TAG, "fab is " + ((fab == null) ? "Null" : "Not Null"));
 
-        ((AppCompatActivity)activity).setSupportActionBar(toolbar);
+        ((AppCompatActivity) activity).setSupportActionBar(toolbar);
         //((AppCompatActivity)activity).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         toolbar.setOnMenuItemClickListener(
@@ -85,7 +88,7 @@ public class GameListView extends FrameLayout{
                         if (id == R.id.action_download_images) {
                             download_images();
                             return true;
-                        }else if (id == R.id.action_purge_database) {
+                        } else if (id == R.id.action_purge_database) {
 
                             new AlertDialog.Builder(activity)
                                     .setTitle("Do you wish to delete all the contents of the database?")
@@ -99,6 +102,12 @@ public class GameListView extends FrameLayout{
                                     .show();
 
                             return true;
+                        } else if(id == R.id.action_export_database){
+                            exportDatabase();
+                            return true;
+                        } else if(id == R.id.action_import_database){
+                            importDatabase();
+                            return true;
                         }
 
 
@@ -109,8 +118,18 @@ public class GameListView extends FrameLayout{
                 });
     }
 
+    public Observable<Object> importDatabase() {
+        importDatabasePubSubject.onNext(1);
+        return importDatabasePubSubject;
+    }
 
-    public Observable<Object> download_images(){
+    public Observable<Object> exportDatabase() {
+        exportDatabasePubSubject.onNext(1);
+        return exportDatabasePubSubject;
+    }
+
+
+    public Observable<Object> download_images() {
         downloadPubSubject.onNext(1);
         return downloadPubSubject;
     }
@@ -122,9 +141,8 @@ public class GameListView extends FrameLayout{
 
     public Observable<String> observeRecyclerView() {
         return gameListRecyclerViewAdaptor.getViewClickedObservable();
-       // return RxView.clicks(gameRecyclerList);
+        // return RxView.clicks(gameRecyclerList);
     }
-
 
 
 //    public void showSubFABs(){
@@ -167,24 +185,26 @@ public class GameListView extends FrameLayout{
 //    runner_fab.setClickable(false);
 //  }
 
-  @OnClick(R.id.addGameLog)
-    public void fabClick(){
+    @OnClick(R.id.addGameLog)
+    public void fabClick() {
 
-      new AlertDialog.Builder(activity)
-              .setTitle("Log Game Type")
-              .setItems(R.array.logGameType, new DialogInterface.OnClickListener() {
-                  public void onClick(DialogInterface dialog, int which) {
+        new AlertDialog.Builder(activity)
+                .setTitle("Log Game Type")
+                .setItems(R.array.logGameType, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
 
-                      switch (which){
-                          case 0: newLog();
-                              break;
-                          case 1: repeatLog();
-                              break;
-                              default:
-                      }
-                  }
-              })
-              .create().show();
+                        switch (which) {
+                            case 0:
+                                newLog();
+                                break;
+                            case 1:
+                                repeatLog();
+                                break;
+                            default:
+                        }
+                    }
+                })
+                .create().show();
 
 //      if(corp_fab.getVisibility() == View.INVISIBLE & runner_fab.getVisibility() == View.INVISIBLE  ) {
 //        showSubFABs();
@@ -194,12 +214,12 @@ public class GameListView extends FrameLayout{
     }
 
 
-    public Observable<Object> newLog(){
+    public Observable<Object> newLog() {
         newLogPubSubject.onNext(1);
         return newLogPubSubject;
     }
 
-    public Observable<Object> repeatLog(){
+    public Observable<Object> repeatLog() {
         repeatLogPubSubject.onNext(1);
         return repeatLogPubSubject;
     }
@@ -221,19 +241,19 @@ public class GameListView extends FrameLayout{
 //        }
 //    }
 
-    public void showMessage(String messageIn){
+    public void showMessage(String messageIn) {
         Toast.makeText(this.getContext(), messageIn, Toast.LENGTH_LONG).show();
     }
 
-    public void showLoading(boolean loading){
-        if(loading){
+    public void showLoading(boolean loading) {
+        if (loading) {
             showMessage("Loading Data");
-        }else{
+        } else {
             showMessage("Data Loaded");
         }
     }
 
-    public Observable<Object>purgeDatabase(){
+    public Observable<Object> purgeDatabase() {
         purgeDatabasePubSubject.onNext(1);
         return purgeDatabasePubSubject;
     }
@@ -246,8 +266,8 @@ public class GameListView extends FrameLayout{
 //        return RxRecyclerView.childAttachStateChangeEvents(gameRecyclerList);
 //    }
 
-        //testData = new ArrayList<>();
-        //setUpData.execute();
+    //testData = new ArrayList<>();
+    //setUpData.execute();
 
 //        gameList = (RecyclerView) findViewById(R.id.listofgmaesview);
 //        gameList.setLayoutManager(new LinearLayoutManager(this));
@@ -324,7 +344,6 @@ public class GameListView extends FrameLayout{
 //
 //        return super.onOptionsItemSelected(item);
 //    }
-
 
 
 }
