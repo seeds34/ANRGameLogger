@@ -10,6 +10,7 @@ import com.pushtorefresh.storio3.sqlite.operations.put.PutResults;
 import com.pushtorefresh.storio3.sqlite.queries.DeleteQuery;
 import com.pushtorefresh.storio3.sqlite.queries.Query;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,11 +35,17 @@ public class DatabaseModel {
 
   private final String LOG_TAG = this.getClass().getName();
   private StorIOSQLite storIOSQLite;
+  private GameLoggerDatabase db;
 
   public DatabaseModel(StorIOSQLite storIOContentResolverIn) {
     storIOSQLite = storIOContentResolverIn;
   }
 
+
+  public DatabaseModel(StorIOSQLite storIOContentResolverIn, GameLoggerDatabase dbIn) {
+    storIOSQLite = storIOContentResolverIn;
+    db = dbIn;
+  }
   //----------  Identities ----------//
 
   //TODO: Fix sorting
@@ -567,5 +574,21 @@ public class DatabaseModel {
             .build())
         .prepare()
         .executeAsBlocking();
+  }
+
+    public void exportDB() {
+      try {
+        db.exportDaatabase();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+
+  public void importDB() {
+    try {
+      db.importDatabase();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 }

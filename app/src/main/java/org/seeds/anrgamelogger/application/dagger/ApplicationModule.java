@@ -53,10 +53,14 @@ public class ApplicationModule {
 
   private final Application application;
   private final String NRDB_BASE_API_URL = "https://netrunnerdb.com/api/2.0/public/";
+  GameLoggerDatabase db ;
+
 
 
   public ApplicationModule(Application applicationIn) {
     this.application = applicationIn;
+   db = new GameLoggerDatabase(application.getApplicationContext());
+
   }
 
 
@@ -64,7 +68,7 @@ public class ApplicationModule {
   @ApplicationScope
   public StorIOSQLite getStorIOSQLite() {
 
-    GameLoggerDatabase db = new GameLoggerDatabase(application.getApplicationContext());
+   // GameLoggerDatabase db = new GameLoggerDatabase(application.getApplicationContext());
 
     return DefaultStorIOSQLite.builder()
         .sqliteOpenHelper(db)
@@ -143,8 +147,8 @@ public class ApplicationModule {
 
   @Provides
   @ApplicationScope
-  public DatabaseModel getDatabaseModel(StorIOSQLite storeIOSQL) {
-    return new DatabaseModel(storeIOSQL);
+  public DatabaseModel getDatabaseModel(StorIOSQLite storeIOSQL ) {
+    return new DatabaseModel(storeIOSQL, db);
   }
 
   @Provides
